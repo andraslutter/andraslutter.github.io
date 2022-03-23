@@ -1,0 +1,396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>A. f&uuml;ggel&eacute;k:&nbsp;programoz&aacute;si t&eacute;telek</FONT></U></P>
+
+<P>A programoz&aacute;si t&eacute;telek olyan &aacute;ltal&aacute;nos algoritmusok,
+melyekkel programoz&aacute;s sor&aacute;n gyakran tal&aacute;lkozunk, &eacute;rdemes
+teh&aacute;t j&oacute;l megtanulni &otilde;ket. A k&ouml;vetkez&otilde;
+algoritmusok &aacute;ltal&aacute;ban t&ouml;mb&ouml;kkel foglalkoznak,
+legyen teh&aacute;t T egy N elem&ucirc; t&ouml;mb (1..N). Az algoritmusokat
+&aacute;ltal&aacute;nos form&aacute;ban adjuk meg, de Pascal programm&aacute;
+k&oacute;dol&aacute;suk sehol nem okoz neh&eacute;zs&eacute;get. Alaposan
+n&eacute;zd &aacute;t &otilde;ket, &eacute;s pontosan &eacute;rtsd meg
+a m&ucirc;k&ouml;d&eacute;s&uuml;ket!</P>
+
+<P><U>1. &Ouml;sszegz&eacute;s</U></P>
+
+<P>Az algoritmus feladata egy t&ouml;mb elemeinek &ouml;sszegz&eacute;se.
+K&ouml;nnyen &aacute;t&iacute;rhat&oacute; pl. szorzatra s:=1 kezd&otilde;&eacute;rt&eacute;kkel,
+&eacute;s a + jel * jelre cser&eacute;l&eacute;s&eacute;vel.</P>
+
+<P><TT>s:=0<BR>
+Ciklus i:=1..N<BR>
+&nbsp;&nbsp;&nbsp;s:=s+T[i]<BR>
+Ciklus v&eacute;ge<BR>
+Ki: s</TT></P>
+
+<P><U>2. Megsz&aacute;mol&aacute;s</U></P>
+
+<P>Az algoritmus megsz&aacute;molja, hogy a t&ouml;mbben h&aacute;ny, adott
+tulajdons&aacute;g&uacute; elem van. Legyen most a tulajdons&aacute;g az,
+hogy a sz&aacute;m negat&iacute;v-e (term&eacute;szetesen ez ak&aacute;rmilyen
+m&aacute;s felt&eacute;tellel helyettes&iacute;thet&otilde;).</P>
+
+<P><TT>s:=0<BR>
+Ciklus i:=1..N<BR>
+&nbsp;&nbsp;&nbsp;Ha T[i]&lt;0 akkor s:=s+1<BR>
+Ciklus v&eacute;ge<BR>
+Ki: s</TT></P>
+
+<P><U>3. Eld&ouml;nt&eacute;s</U></P>
+
+<P>Az algoritmus eld&ouml;nti, hogy van-e a t&ouml;mbben adott tulajdons&aacute;g&uacute;
+elem. Amint tal&aacute;l egyet, a ciklus le&aacute;ll, hiszen f&ouml;l&ouml;sleges
+lenne tov&aacute;bb futnia. Ha a ciklus az&eacute;rt &aacute;llt le, mert
+t&uacute;ll&eacute;pt&uuml;nk a t&ouml;mb utols&oacute;, vizsg&aacute;lt
+elem&eacute;n is, akkor nem volt benne keresett elem. A k&eacute;rd&eacute;s
+legyen az, hogy van-e 50 az elemek k&ouml;z&ouml;tt.</P>
+
+<P><TT>i:=1<BR>
+Ciklus am&iacute;g i&lt;=N &eacute;s T[i]&lt;&gt;50<BR>
+&nbsp;&nbsp;&nbsp;i:=i+1<BR>
+Ciklus v&eacute;ge<BR>
+Ha i&lt;=N akkor ki: &quot;volt 50&quot;</TT></P>
+
+<P>Figyelj&uuml;k meg, hogy az i&lt;=N felt&eacute;tel megel&otilde;zi
+T[i] vizsg&aacute;lat&aacute;t. Mi t&ouml;rt&eacute;nik ugyanis, ha i el&eacute;rte
+az N+1-et? Az el&ouml;ltesztel&otilde;s ciklus felt&eacute;tele m&eacute;g
+utolj&aacute;ra ki&eacute;rt&eacute;kel&eacute;sre ker&uuml;l. Ekkor azonban
+a T t&ouml;mb N+1-ik elem&eacute;re hivatkozunk, ami programhiba, ha T
+csak N-elem&ucirc;. A Pascal k&eacute;pes &uacute;gy ki&eacute;rt&eacute;kelni
+a logikai kifejez&eacute;seket, hogy <TT>AND</TT>-del &ouml;sszekapcsolt
+k&eacute;t kifejez&eacute;s eset&eacute;n ha az els&otilde; hamis, a m&aacute;sodikat
+m&aacute;r figyelmen k&iacute;v&uuml;l hagyja (hamis <TT>AND</TT> ak&aacute;rmi
+= mindenk&eacute;ppen hamis). Ez gyors&iacute;tja a logikai kifejez&eacute;sek
+ki&eacute;rt&eacute;kel&eacute;s&eacute;t, &eacute;s eset&uuml;nkben megel&otilde;zi,
+hogy a m&aacute;sodik, hib&aacute;t okoz&oacute; r&eacute;szfelt&eacute;telre
+sor ker&uuml;lj&ouml;n. (Ugyan&iacute;gy m&ucirc;k&ouml;dik az igaz <TT>OR</TT>
+ak&aacute;rmi t&iacute;pus&uacute; felt&eacute;telek ki&eacute;rt&eacute;kel&eacute;se).
+Ez a ki&eacute;rt&eacute;kel&eacute;si m&oacute;d megfelel&otilde; ford&iacute;t&aacute;si
+direkt&iacute;v&aacute;val kikapcsolhat&oacute;, ekkor mindenk&eacute;ppen
+ki&eacute;rt&eacute;kel&eacute;sre ker&uuml;l az &ouml;sszes r&eacute;szfelt&eacute;tel.
+Olyan programnyelvn&eacute;l, amely mindenk&eacute;ppen ki&eacute;rt&eacute;keli
+az &ouml;sszes r&eacute;szfelt&eacute;telt, az algoritmus j&oacute; m&ucirc;k&ouml;d&eacute;s&eacute;hez
+T t&ouml;mb&ouml;t N+1-elem&ucirc;nek kell deklar&aacute;lni.</P>
+
+<P>Itt felhaszn&aacute;ljuk az alkalmat, hogy egy hasznos programoz&aacute;stechnikai
+tr&uuml;kkre h&iacute;vjuk fel a figyelmet. Az <TT>i&lt;=N</TT> felt&eacute;telt
+a ciklus minden l&eacute;p&eacute;sben ellen&otilde;rzi, &eacute;s ez valamelyest
+lass&iacute;tja a program fut&aacute;s&aacute;t. Ha biztosak lenn&eacute;nk
+benne, hogy szerepel az 50 az elemek k&ouml;z&ouml;tt, nem lenne sz&uuml;ks&eacute;g
+erre a felt&eacute;telre. A gyors&iacute;tott algoritmus ez&eacute;rt bele
+teszi az 50-et a t&ouml;mbbe utols&oacute; ut&aacute;ni seg&eacute;delemk&eacute;nt
+(&uacute;gynevezett fikt&iacute;v elem): ha el&otilde;bb nincs is 50, a
+ciklus biztosan le&aacute;ll az N+1-ik elemn&eacute;l.</P>
+
+<P><TT>T[N+1]:=50<BR>
+i:=1<BR>
+Ciklus am&iacute;g T[i]&lt;&gt;50<BR>
+&nbsp;&nbsp;&nbsp;i:=i+1<BR>
+Ciklus v&eacute;ge<BR>
+Ha i&lt;=N akkor ki: &quot;a t&ouml;mbben van 50&quot;</TT></P>
+
+<P><U>4. Kiv&aacute;laszt&aacute;s</U></P>
+
+<P>Az algoritmus megadja, hogy a t&ouml;mbben egy bizonyos elem hol (h&aacute;nyadik
+helyen) van. Az algoritmus csak akkor m&ucirc;k&ouml;dik, ha biztosan van
+ilyen elem! Legyen a keresett elem az 50.</P>
+
+<P><TT>i:=1<BR>
+Ciklus am&iacute;g T[i]&lt;&gt;50<BR>
+&nbsp;&nbsp;&nbsp;i:=i+1<BR>
+Ciklus v&eacute;ge<BR>
+Ki: i</TT></P>
+
+<P><U>5. Keres&eacute;s</U></P>
+
+<P>Az el&otilde;z&otilde;n&eacute;l biztons&aacute;gosabb algoritmus: megadja,
+hogy van-e olyan elem, &eacute;s ha igen, h&aacute;nyadik. (Majdnem megegyezik
+az eld&ouml;nt&eacute;ssel.) Ha i&gt;N, akkor nem l&eacute;tezik a keresett
+elem.</P>
+
+<P>a) line&aacute;ris avagy soros keres&eacute;s (figyelem! Gyors&iacute;that&oacute;
+a 3. pontban le&iacute;rtak szerint!)</P>
+
+<P><TT>i:=1<BR>
+Ciklus am&iacute;g i&lt;=N &eacute;s T[i]&lt;&gt;50<BR>
+&nbsp;&nbsp;&nbsp;i:=i+1<BR>
+Ciklus v&eacute;ge<BR>
+Ha i&lt;=N akkor ki: &quot;a t&ouml;mbben van 50, az&quot;, i ,&quot;.
+helyen&quot;</TT></P>
+
+<P>Nagy t&ouml;mbben ez a keres&eacute;s lass&uacute; (legrosszabb esetben
+az eg&eacute;sz t&ouml;mb&ouml;t v&eacute;gig kell vizsg&aacute;lni). Gondoljunk
+a sz&oacute;t&aacute;roz&aacute;sra: ahhoz, hogy megtal&aacute;ljunk egy
+sz&oacute;t, nem kell a sz&oacute;t&aacute;rat szavank&eacute;nt v&eacute;gign&eacute;zni.
+Ez az&eacute;rt lehets&eacute;ges, mert a sz&oacute;t&aacute;r ABC-ben
+rendezett. A leggyorsabb m&oacute;d: nyissuk ki a sz&oacute;t&aacute;rat
+k&ouml;z&eacute;pen. Az els&otilde; sz&oacute;ra r&aacute;n&eacute;zve
+meg&aacute;l lap&iacute;that&oacute;, hogy a keresett sz&oacute; a sz&oacute;t&aacute;r
+els&otilde;, vagy m&aacute;sodik fel&eacute;ben tal&aacute;lhat&oacute;.
+&Iacute;gy m&aacute;ris megfelezt&uuml;k a sz&aacute;m&iacute;t&aacute;sba
+vehet&otilde; szavak list&aacute;j&aacute;t. A f&eacute;l sz&oacute;t&aacute;ron
+megism&eacute;telj&uuml;k az el&otilde;z&otilde; m&ucirc;veletet, eg&eacute;szen
+addig, m&iacute;g meg nem tal&aacute;ljuk a keresett sz&oacute;t. A k&ouml;vetkez&otilde;
+algoritmus nagyon gyors: pl. egy 1024-elem&ucirc; t&ouml;mbben 11 l&eacute;p&eacute;sben
+biztosan megtal&aacute;lja a keresett elemet. T t&ouml;mb n&ouml;vekv&otilde;en
+rendezett, &eacute;s keress&uuml;k megint az 50-et. Az algoritmus egy&aacute;ltal&aacute;n
+nem nyilv&aacute;nval&oacute;, &eacute;rdemes konkr&eacute;t esetre elj&aacute;tszani
+a m&ucirc;k&ouml;d&eacute;s&eacute;t.</P>
+
+<P>b) bin&aacute;ris vagy felez&eacute;ses keres&eacute;s (<TT>e</TT> a
+vizsg&aacute;land&oacute; r&eacute;sz els&otilde;, <TT>u</TT> az utols&oacute;,
+<TT>k</TT> a k&ouml;z&eacute;ps&otilde; elem&eacute;nek hely&eacute;t jel&ouml;li)</P>
+
+<P><TT>e:=1<BR>
+u:=N<BR>
+k:=int((e+u)/2) </TT><FONT SIZE=-1>{ (e+u)/2 eg&eacute;szr&eacute;sze }<BR>
+</FONT><TT>Ciklus am&iacute;g T[k]&lt;&gt;50 &eacute;s e&lt;=u<BR>
+&nbsp;&nbsp;&nbsp;Ha T[k]&lt;50 &nbsp;&nbsp;akkor e:=k+1<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k&uuml;l&ouml;nben
+u:=k-1<BR>
+&nbsp;&nbsp;&nbsp;k:=int((e+u)/2)<BR>
+Ciklus v&eacute;ge<BR>
+Ha T[k]=50 akkor ki: &quot;a t&ouml;mbben van 50, a &quot;,k ,&quot;. helyen&quot;</TT></P>
+
+<P><U>6. Kiv&aacute;logat&aacute;s</U></P>
+
+<P>Ez az algoritmus egy t&ouml;mb bizonyos tulajdons&aacute;g&uacute; elemeit
+teszi egy m&aacute;sik t&ouml;mbbe. db v&aacute;ltoz&oacute; sz&aacute;molja,
+hogy a m&aacute;sik t&ouml;mbbe h&aacute;ny elem ker&uuml;lt, &eacute;s
+v&aacute;logassuk ki a negat&iacute;v sz&aacute;mokat. Az eredm&eacute;ny
+B t&ouml;mbben lesz (deklar&aacute;ci&oacute;n&aacute;l B t&ouml;mb&ouml;t
+N elem&ucirc;re kell v&aacute;lasztani, hacsak nem tudjuk el&otilde;re,
+h&aacute;ny negat&iacute;v sz&aacute;m van T-ben).</P>
+
+<P><TT>db:=0<BR>
+Ciklus i:=1..N<BR>
+&nbsp;&nbsp;&nbsp;Ha T[i]&lt;0 akkor db:=db+1<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B[db]:=T[i]<BR>
+Ciklus v&eacute;ge</TT></P>
+
+<P><U>7. Sz&eacute;tv&aacute;logat&aacute;s</U></P>
+
+<P>A feladat hasonl&oacute; az el&otilde;z&otilde;h&ouml;z, de a felt&eacute;telnek
+nem megfelel&otilde; elemeket is egy &uacute;jabb t&ouml;mbbe kell elhelyezni
+(teh&aacute;t k&eacute;tfel&eacute; v&aacute;logatjuk az eredeti t&ouml;mb&ouml;t).</P>
+
+<P>a) sz&eacute;tv&aacute;logat&aacute;s k&eacute;t t&ouml;mbbe</P>
+
+<P><TT>dbb:=0<BR>
+dbc:=0<BR>
+Ciklus i:=1..N<BR>
+&nbsp;&nbsp;&nbsp;Ha T[i]&lt;0 &nbsp;&nbsp;akkor dbb:=dbb+1, B[dbb]:=T[i]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k&uuml;l&ouml;nben
+dbc:=dbc+1, C[dbc]:=T[i]<BR>
+Ciklus v&eacute;ge</TT></P>
+
+<P>Mem&oacute;riafoglal&aacute;s szempontj&aacute;b&oacute;l a k&eacute;t
+t&ouml;mb&ouml;t haszn&aacute;l&oacute; a) algoritmus nem hat&eacute;kony:
+mindk&eacute;t t&ouml;mb&ouml;t N elem&ucirc;re kell deklar&aacute;lni,
+de a k&eacute;t t&ouml;mbben &ouml;sszesen csak N elem van. Haszn&aacute;lhatunk
+egy t&ouml;mb&ouml;t is, akkor annak els&otilde; fel&eacute;be tessz&uuml;k
+a negat&iacute;v sz&aacute;moghat, a m&aacute;sodik fel&eacute;be (h&aacute;tulr&oacute;l
+kezdve a felt&ouml;lt&eacute;st) a t&ouml;bbit.</P>
+
+<P>b) sz&eacute;tv&aacute;logat&aacute;s egy t&ouml;mbbe</P>
+
+<P><TT>db:=0<BR>
+veg:=N+1<BR>
+Ciklus i:=1..N<BR>
+&nbsp;&nbsp;&nbsp;Ha T[i]&lt;0 &nbsp;&nbsp;akkor db:=db+1, B[db]:=T[i]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k&uuml;l&ouml;nben
+veg:=veg-1, C[veg]:=T[i]<BR>
+Ciklus v&eacute;ge</TT></P>
+
+<P><U>8. Metszet</U></P>
+
+<P>A feladat most k&eacute;t t&ouml;mb (A[1..N] &eacute;s B [1..M]) azonos
+elemeinek kiv&aacute;logat&aacute;sa C t&ouml;mbbe. A feladat csak &uacute;gy
+&eacute;rtelmezhet&otilde; pontosan, ha az egyes t&ouml;mb&ouml;kben egy
+elem nem szerepel k&eacute;tszer. Mivel a metszet halmazm&ucirc;velet,
+ez a felt&eacute;tel el&eacute;g mag&aacute;t&oacute;l &eacute;rtet&otilde;d&otilde;.
+Az algoritmus l&eacute;nyege: menj&uuml;nk v&eacute;gik A t&ouml;mb elemein,
+&eacute;s v&aacute;logassuk ki azokat (kiv&aacute;logat&aacute;s), melyek
+szerepelnek B-ben (eld&ouml;nt&eacute;s). &Iacute;gy a feladat a kor&aacute;bbi
+t&eacute;telekre visszavezethet&otilde;. C maxim&aacute;lis elemsz&aacute;ma
+N &eacute;s M k&ouml;z&uuml;l a kisebbik.</P>
+
+<P><TT>db:=0<BR>
+Ciklus i:=1..N<BR>
+&nbsp;&nbsp;&nbsp;j:=1<BR>
+&nbsp;&nbsp;&nbsp;Ciklus am&iacute;g j&lt;=M &eacute;s B[j]&lt;&gt;A[i]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j:=j+1<BR>
+&nbsp;&nbsp;&nbsp;Ciklus v&eacute;ge<BR>
+&nbsp;&nbsp;&nbsp;Ha j&lt;=M akkor db:=db+1, C[db]:=A[i]<BR>
+Ciklus v&eacute;ge</TT></P>
+
+<P><U>9. &Uacute;ni&oacute;</U></P>
+
+<P>A feladat A &eacute;s B t&ouml;mb &ouml;sszes elem&eacute;t C t&ouml;mbbe
+tenni de (mivel C halmazt jelk&eacute;pez) minden elem csak egyszer szerepelhet
+benne. A legk&eacute;zenfekv&otilde;bb megold&aacute;s: tegy&uuml;k be
+C-be A &ouml;sszes elem&eacute;t, majd B-b&otilde;l azokat, melyek nem
+szerepelnek A-ban. C elemsz&aacute;ma legfeljebb N+M.</P>
+
+<P>a) kiv&aacute;logat&aacute;s &eacute;s eld&ouml;nt&eacute;s</P>
+
+<P><TT>Ciklus i:=1..N<BR>
+&nbsp;&nbsp;&nbsp;C[i]:=A[i]<BR>
+Ciklus v&eacute;ge<BR>
+db:=N<BR>
+Ciklus j:=1..M<BR>
+&nbsp;&nbsp;&nbsp;i:=1<BR>
+&nbsp;&nbsp;&nbsp;Ciklus am&iacute;g i&lt;=N &eacute;s B[j]&lt;&gt;A[i]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i:=i+1<BR>
+&nbsp;&nbsp;&nbsp;Ciklus v&eacute;ge<BR>
+&nbsp;&nbsp;&nbsp;Ha i&gt;N akkor db:=db+1, C[db]:=B[j]<BR>
+Ciklus v&eacute;ge</TT></P>
+
+<P>Az algoritmus sokkal hat&eacute;konyabb, ha A &eacute;s B t&ouml;mb
+rendezett. Ekkor az eld&ouml;nt&eacute;s csak addig fut, am&iacute;g a
+k&eacute;rd&eacute;ses elemn&eacute;l nagyobbat nem tal&aacute;l a m&aacute;sik
+t&ouml;mbben. V&eacute;gs&otilde; soron az algoritmus mindig a kisebb elemet
+tartalmaz&oacute; t&ouml;mbben l&eacute;p a k&ouml;vetkez&otilde; elemre,
+&iacute;gy megtal&aacute;lja az egyez&otilde; elemeket (&eacute;s &iacute;gy
+azok csak egyszer ker&uuml;lnek C t&ouml;mbbe), m&aacute;sr&eacute;szt
+C t&ouml;mb is rendezett lesz.</P>
+
+<P>b) &ouml;sszefuttat&aacute;s (&uacute;ni&oacute; rendezett t&ouml;mb&ouml;kkel)</P>
+
+<P><TT>i:=1, j:=1, db:=0<BR>
+Ciklus am&iacute;g i&lt;=N &eacute;s j&lt;=M<BR>
+&nbsp;&nbsp;&nbsp;El&aacute;gaz&aacute;s:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ha A[i]&lt;B[j] akkor db:=db+1, C[db]:=A[i]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i:=i+1<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ha A[i]=B[j] akkor db:=db+1, C[db]:=A[i]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i:=i+1,
+j:=j+1<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ha A[i]&gt;B[j] akkor db=db+1, C[db]:=B[j]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j:=j+1<BR>
+&nbsp;&nbsp;&nbsp;El&aacute;gaz&aacute;s v&eacute;ge<BR>
+Ciklus v&eacute;ge<BR>
+<BR>
+Ciklus k:=i..N<BR>
+&nbsp;&nbsp;&nbsp;db:=db+1, C[db]:=A[k]<BR>
+Ciklus v&eacute;ge<BR>
+Ciklus k:=j..M<BR>
+&nbsp;&nbsp;&nbsp;db:=db+1, C[db]:=B[k]<BR>
+Ciklus v&eacute;ge</TT></P>
+
+<P>Az utols&oacute; k&eacute;t ciklusra az&eacute;rt volt sz&uuml;ks&eacute;g,
+mert miut&aacute;n i vagy j kifutottak a megfelel&otilde; t&ouml;mbb&otilde;l,
+a m&aacute;sik t&ouml;mbben m&eacute;g maradnak feldolgozatlan elemek,
+melyket &aacute;t kell m&aacute;solni C t&ouml;mbbe. Az algoritmusban tal&aacute;lkozunk
+a t&ouml;bbsz&ouml;r&ouml;s el&aacute;gaz&aacute;ssal, melynek mindig csak
+egy &aacute;ga hajt&oacute;dik v&eacute;gre. Ez kiv&aacute;lthat&oacute;
+egym&aacute;sba skatuly&aacute;zott <BR>
+<TT>Ha ... akkor ...<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k&uuml;l&ouml;nben Ha ... akkor
+...<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k&uuml;l&ouml;nben
+...<BR>
+</TT>felt&eacute;telekkel, de az algoritmus jobban olvashat&oacute; &eacute;s
+&eacute;rthet&otilde; a t&ouml;bbsz&ouml;r&ouml;s el&aacute;gaz&aacute;s
+haszn&aacute;lat&aacute;val.</P>
+
+<P><U>10. Maximumkiv&aacute;laszt&aacute;s</U></P>
+
+<P>A feladat megadni T t&ouml;mb maxim&aacute;lis elem&eacute;t. Megadhatjuk
+mag&aacute;t az elemet (ebb&otilde;l nem der&uuml;l ki, hogy az elem h&aacute;nyadik),
+&eacute;s megadhatjuk az elem poz&iacute;ci&oacute;j&aacute;t a t&ouml;mbben
+(ebb&otilde;l viszont kider&uuml;l, melyik az az elem). A m&aacute;sodik
+esetben ugyanannyi munk&aacute;val t&ouml;bb inform&aacute;ci&oacute;hoz
+jutunk.</P>
+
+<P><TT>m:=1<BR>
+Ciklus i:=2..N<BR>
+&nbsp;&nbsp;&nbsp;Ha T[i]&gt;T[m] akkor m:=i<BR>
+Ciklus v&eacute;ge<BR>
+Ki: m, T[m]</TT></P>
+
+<P>&Eacute;rdemes megfigyelni az algoritmus elv&eacute;t. <TT>m</TT> a
+pillanatnyilag tal&aacute;lt legnagyobb elem hely&eacute;t mutatja. Ahogy
+haladunk a t&ouml;mbben, <TT>m</TT> vagy marad, vagy beleker&uuml;l az
+eddigiekn&eacute;l m&eacute;g nagyobb elem poz&iacute;ci&oacute;ja. <TT>m</TT>
+teh&aacute;t a t&ouml;mb addig vizsg&aacute;lt szelet&eacute;ben mindig
+a legnagyobb elemre mutat.</P>
+
+<P><U>11. Rendez&eacute;s</U></P>
+
+<P>Mint l&aacute;that&oacute;, a rendezett t&ouml;mb&ouml;kkel meggyors&iacute;that&oacute;
+a programok m&ucirc;k&ouml;d&eacute;se (els&otilde;sorban a keres&eacute;s).</P>
+
+<P>a) maximumkiv&aacute;laszt&aacute;sos rendez&eacute;s</P>
+
+<P>Az elv: kiv&aacute;lasztjuk a t&ouml;mb legnagyobb elem&eacute;t, &eacute;s
+berakjuk a t&ouml;mb v&eacute;g&eacute;re (vagyis kicser&eacute;lj&uuml;k
+az utols&oacute; elemmel). Ezt az elj&aacute;r&aacute;st ism&eacute;telj&uuml;k
+a marad&eacute;k t&ouml;mbre (az utols&oacute; elem most m&aacute;r a hely&eacute;n
+van, ahhoz nem kell ny&uacute;lni). i v&aacute;ltoz&oacute; adja meg, hogy
+h&aacute;nyadik elem fog a hely&eacute;re ker&uuml;lni. A Csere(i,m) elj&aacute;r&aacute;s
+kicser&eacute;li a t&ouml;mb i. &eacute;s m. elem&eacute;t. (Eml&eacute;keztet&otilde;:
+x:=T[i], T[i]:=T[m], T[m]:=x.)</P>
+
+<P><TT>Ciklus i:=N..2<BR>
+&nbsp;&nbsp;&nbsp;m:=1<BR>
+&nbsp;&nbsp;&nbsp;Ciklus j:=2..i<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ha T[j]&gt;T[m] akkor m:=j<BR>
+&nbsp;&nbsp;&nbsp;Ciklus v&eacute;ge<BR>
+&nbsp;&nbsp;&nbsp;Csere(i,m)<BR>
+Ciklus v&eacute;ge</TT></P>
+
+<P>b) bubor&eacute;kos rendez&eacute;s</P>
+
+<P>Az algoritmus elve: v&eacute;gigmegy a t&ouml;mb&ouml;n, &eacute;s ha
+szomsz&eacute;dos elemekn&eacute;l rossz a sorrend, megcser&eacute;li &otilde;ket.
+Ez a csere, mint egy bubor&eacute;k, v&eacute;gighalad a t&ouml;mb&ouml;n,
+&eacute;s a legnagyobb elemet biztosan a t&ouml;mb v&eacute;g&eacute;re
+teszi. i v&aacute;ltoz&oacute; ism&eacute;t azt jelzi, h&aacute;nyadik
+elem ker&uuml;l a hely&eacute;re. Az algoritmus az el&otilde;z&otilde;n&eacute;l
+t&ouml;bb cser&eacute;t haszn&aacute;l, de csak a szomsz&eacute;dos elemeket
+cser&eacute;li (ez hasznos lehet bizonyos gyakorlati megval&oacute;s&iacute;t&aacute;sokn&aacute;l).</P>
+
+<P><TT>Ciklus i:=N..2<BR>
+&nbsp;&nbsp;&nbsp;Ciklus j:=1..i-1<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ha T[J]&gt;T[J+1] akkor Csere(j,j+1)<BR>
+&nbsp;&nbsp;&nbsp;Ciklus v&eacute;ge<BR>
+Ciklus v&eacute;ge</TT></P>
+
+<P>c) beilleszt&eacute;ses rendez&eacute;s</P>
+
+<P>Az algoritmus bonyolultabb az el&otilde;z&otilde;ekn&eacute;l, viszont
+gyorsabban m&ucirc;k&ouml;dik, mivel cser&eacute;k helyett f&eacute;lcser&eacute;ket
+alkalmaz. Az elv: induljunk ki egy 1-elem&ucirc; t&ouml;mbb&otilde;l, ez
+nyilv&aacute;n rendezett. Vegy&uuml;nk hozz&aacute; egy &uacute;j elemet,
+&eacute;s illessz&uuml;k be a rendezett t&ouml;mbbe, m&eacute;gpedig &uacute;gy,
+hogy addig l&eacute;ptess&uuml;k eggyel el&otilde;re a t&ouml;mb elemeit,
+m&iacute;g meg nem tal&aacute;ljuk az &uacute;j elem hely&eacute;t. &Iacute;gy
+minden l&eacute;p&eacute;sben rendezett t&ouml;mb&ouml;t kapunk. i v&aacute;ltoz&oacute;
+mutatja az &uacute;jonnan beillesztend&otilde; elem hely&eacute;t (az &uacute;j
+elemet m-ben t&aacute;roljuk).</P>
+
+<P><TT>Ciklus i:=2..N<BR>
+&nbsp;&nbsp;&nbsp;m:=T[i]<BR>
+&nbsp;&nbsp;&nbsp;j:=i-1<BR>
+&nbsp;&nbsp;&nbsp;Ciklus am&iacute;g m&lt;T[j] &eacute;s j&gt;0<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T[j+1]:=T[j]<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j:=j-1<BR>
+&nbsp;&nbsp;&nbsp;Ciklus v&eacute;ge<BR>
+&nbsp;&nbsp;&nbsp;T[j+1]:=m<BR>
+Ciklus v&eacute;ge</TT></P>
+
+<CENTER><P><A HREF="fb.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f3.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

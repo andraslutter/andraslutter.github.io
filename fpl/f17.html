@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - objektumok</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			17. fejezet: Objektumok
+		</h1>
+    <p>Ebben a fejezetben megismerkedünk az objektumok és osztályok fogalmával. Ugyan írhatsz programot úgy, hogy csak a Lazarus beépített objektumait használod, a továbblépéshez mindenképpen szükséges saját objektumok létrehozása.</p>
+
+    <h2>Kitérő: TYPE és CONST</h2>
+    <p>Általunk létrehozott típusokat a deklarációs részben elláthatunk névvel. Így</p>
+    <pre>
+VAR a:array[1..100] of integer;
+    b:array [1..100] of integer;</pre>
+    <p>helyett</p>
+    <pre>
+TYPE nagytomb=array[1..100] of integer;
+VAR a,b:nagytomb;</pre>
+    <p>is használható. Ha a fontosabb típusoknak nevet adunk, a programkódunk olvashatóbb lesz, összetettebb típusok (osztályok) használatakor pedig a type nélkülözhetetlen.</p>
+    <p>A <strong>konstansokat</strong> olyan változókként használhatjuk, melyeknek értékét nem lehet módosítani, és már fordítási időben értéket kapnak. Gondoljunk egy programra, amely szabadesést számol: a programban sok helyen felbukkan a 9.81 érték. Ha a deklarációs részbe beírjuk:</p>
+    <pre>
+CONST g=9.81;
+...
+x:=g/2*sqr(t);</pre>
+    <p>a programban mindenhol g szerepelhet a 9.81 helyett. Így a kód érthetőbb lesz, mert nem puszta számokat látunk, hanem neveket, amelyek a szám funkcióját is mutatják. Könnyebb dolgunk lesz akkor is, ha a programot a Föld helyett a Holdra kell alkalmazni: egyetlen helyen, a konstansdeklarációnál kell átírni. A fordító egyébként a kód elkészítésekor g-t mindenhol 9.81-gyel fogja helyettesíteni.</p>
+    <p>Az előző példában a tömb mérete 100, de mi van, ha ez változik? Át kell írnunk a 100-akat, nem csak a deklarációban, hanem a program tömbön végigmenő ciklusainál. Ráadásul nem használhatjuk a szerkesztő Csere funkcióját, mert máshol is szerepelhet 100 a programban, aminek a tömbmérethez nincs köze. Így viszont:
+      <pre>
+CONST <strong>meret</strong>=100;
+VAR t:array[1..meret] of integer;
+...
+for i:=1 to <strong>meret</strong> do writeln(t[i]);</pre>
+    <p>elég csak egy helyen módosítani.</p>
+    <p>A Pascal unitjai nem csak eljárásokat, hanem típusok és konstansdeklarációkat is tartalmaznak. Ilyen  pl. a színbeállításoknál használt <code>clRed</code> konstans.</p>
+
+    <h2>Az eredeti statikus objektumtípus, amit már ritkán használunk</h2>
+    <p>Bár az objektumok központi szerepet játszanak napjaink programozástechnikájában, eredeti formájukban ritkán használják őket. A következő példaprogram konzolalkalmazás!<br />
+    Létrehozunk egy <code>szakasz</code> objektumtípust, és ennek alapján több szakasz típusú objektumot. Egy szakasznak van kezdőpontja (x1,y1) koordinátákkal, és végpontja (x2,y2). Ezek az objektumban tárolt változók, más néven <strong>tulajdonságok</strong> vagy <strong>mezők</strong>. Az objektum tartalmaz továbbá egy <code>hossz</code> függvényt, amely kiszámítja a szakasz hosszát (Pitagorasz tétele alapján), és egy <code>beallit</code> eljárást, amely beállítja a koordinátákat. Az objektum függvényeinek és eljárásainak neve <strong>metódus</strong>.</p>
+    <pre>
+TYPE Szakasz=object
+  x1,y1,x2,y2:real;
+  procedure beallit(p,q,r,s:real);
+  function hossz:real;
+End;
+
+procedure Szakasz.beallit(p,q,r,s:real);
+begin
+  x1:=p; y1:=q;
+  x2:=r; y2:=s;
+end;
+
+function Szakasz.hossz:real;
+begin
+  hossz:=sqrt(sqr(x1-x2)+sqr(y1-y2));
+end;
+
+VAR a,b:Szakasz;
+
+BEGIN
+  a.beallit(10,10,20,30);
+  b:=a;
+  b.x2:=50;
+  writeln(a.hossz);
+  writeln(b.hossz);
+  readln;
+END.</pre>
+    <p>Először létrehoztuk az objektum típusát (<code>Szakasz</code>), melynek segítségével több <code>Szakasz</code> típusú objektumot deklarálhatunk (<code>a</code> és <code>b</code>). Az objektumok is változók. A típusdeklarációban megadtuk a tulajdonságok nevét és típusát, valamint a metódusok fejlécét. A metódusokat a típusdeklaráció után fejtettük ki.<br />
+    A <code>beallit</code> metódus nélkül is tudnánk értéket adni a koordinátáknak (ahogy a <code>b</code> objektumnál történik), de így kényelmesebb.<br />
+    A mezők <code>a</code> és <code>b</code> objektumban is létrejönnek, a metódusokból azonban csak egy példány létezik, és mindkét szakasz azokat használja.</p>
+
+    <h2>Leszármazás és öröklődés</h2>
+    <p>Hozzuk létre a <code>teglalap</code> objektumtípust is! Ha az oldalak párhuzamosak a koordinátatengelyekkel, a téglalap ugyanazokkal a koordinátákkal adható meg, mint a szakasz (szemközti csúcsok). Ezért a meglévő kódból felhasználjuk, amit lehet.<br />
+    A teglalap típus a szakasz típusból származik, ugyanakkor ki is bővül egy új függvénnyel (terulet).</p>
+    <pre>
+TYPE
+
+Szakasz=object
+  x1,y1,x2,y2:real;
+  procedure beallit(p,q,r,s:real);
+  function hossz:real;
+End;
+
+Teglalap=object(szakasz)
+  function terulet:real;
+End;</pre>
+    <p>A téglalap örökli a szülő objektum minden tulajdonságát és metódusát, ugyanakkor újakkal bővíthető. (Sőt, az örökölt tulajdonságok és metódusok módosíthatóak a gyerek objektumban. Ehhez újra meg kell őket adni.) Nézzük az új metódust:</p>
+    <pre>
+function Teglalap.terulet:real;
+begin
+  terulet:=abs(x1-x2)*abs(y1-y2);
+end;</pre> 
+ 
+  <h2>Osztályok és mutatók</h2>
+  <p>Változókat (így objektumokat is) eddig <strong>statikus</strong>an hoztunk létre, ami azt jelenti, hogy ezek a változók már fordítási időben előkerülnek, és a program indulásakor fix memóriaterület lesz lefoglalva számukra. Ez nem praktikus akkor, ha előre nem látható mennyiségű adattal lesz dolga a programnak (ilyen esetben eddig a lehető legnagyobb méretű tömböt kellett deklarálni). Lehetőség van változók <strong>dinamikus</strong> létrehozására futási időben, az ezek által használt memóriaterület mérete a program futása közben rugalmasan változik.<br />
+  A dinamikus memóriakezelés kulcsa a <strong>pointer</strong>, azaz <strong>mutató</strong>, amely egy memóriacímet tartalmazó változó. Az általa mutatott memóriaterületen tetszőleges típusú adat elhelyezkedhet. A pointert deklaráljuk, de az általa mutatott adatnak már futási időben foglalunk helyet.<br />
+  Az <strong>osztály</strong> (<strong>class</strong>) objektumra mutató pointer típus. Nézzük az első programot objektum helyett osztállyal:
+  <pre>
+TYPE Szakasz=<strong>class</strong> 
+  x1,y1,x2,y2:real;
+  procedure beallit(p,q,r,s:real);
+  function hossz:real;
+END;
+
+procedure Szakasz.beallit(p,q,r,s:real);
+begin
+  x1:=p; y1:=q;
+  x2:=r; y2:=s;
+end;
+
+function Szakasz.hossz:real;
+begin
+  hossz:=sqrt(sqr(x1-x2)+sqr(y1-y2));
+end;
+
+VAR a,b:Szakasz;
+
+BEGIN
+  <strong>a:=Szakasz.Create;</strong>
+  a.beallit(10,10,20,30);
+  b:=a;
+  b.x2:=50;
+  writeln(a.hossz);
+  writeln(b.hossz);
+  readln;
+END.</pre>
+    <p>Mi a különbség? Először is, a <code>Szakasz</code> most nem objektumtípus, hanem objektumra mutató pointer típus, vagyis osztály (<code>object</code> helyett <code>class</code>).  Ezért <code>a</code> és <code>b</code> sem objektum, hanem szakasz objektumra mutató pointer. Ebből következik, hogy a program indulásakor nem léteznek objektumok, csak két pointerünk van.<br />
+    A szakasz objektumunkat létre kell hozni, a memóriában le kell foglalni helyet a koordináták tárolására. Az objektumot a <code>Szakasz</code> osztály <strong>konstruktor</strong>a hozza létre (minden osztálynak alapból van konstruktora), ennek neve <code>Create</code>. Figyeld meg, hogy a <code>Create</code> nem objektum metódusaként kerül meghívásra (akkor a.Create lenne), hanem az osztályhoz tartozik. Ez így logikus, hiszen a konstruktor meghívásakor maga az objektum még nem létezik.<br />
+    A <code>Create</code> egyrészt létrehozza az objektum egy <strong>példány</strong>át (<strong>instance</strong>), másrészt, mint függvény, eredményként visszaadja az objektum memóriacímét. Ezt a címet tároljuk el <code>a</code>-ban. (Ha nem tárolnánk el, nem tudnánk hivatkozni az objektumra.)<br />
+    A továbbiakban a fordító gondoskodik arról, hogy ha <code>class</code> típusú változóval találkozik, akkor a műveleteket a megfelelő objektummal (az osztály egy példányával) végezze el. A <code>b.x2:=50</code> utasítás ugyanazt csinálja, akár objektum, akár osztály a b. Ugyanakkor nem szabad elfelejtenünk, hogy míg a <code>b.x2</code> egy objektum adott tulajdonságára vonatkozik (ebben nincs különbség az objektumos és osztályos programváltozat között), az osztály típusú változók mégis csak mutatók!<br />
+    A második példaprogramban egyetlen objektum jön létre, mert egyszer hívtuk meg a konstruktort. A <code>b:=a</code> értékadás a <code>b</code> mutatónak értékül adja az <code>a</code>-ban tárolt memóriacímet. Így két mutatónk van, és mind a kettő ugyanarra az objektumpéldányra mutat. Ezért <code>a.hossz</code> és <code>b.hossz</code> ugyanazt az eredményt adja.<br />
+    Az objektumnak <strong>destruktor</strong>a is van, mely felszabadítja a lefoglalt memóriaterületet. Ennek neve <code>Destroy</code>. Pl. <code>a.Destroy</code>. Ennek használatát jobban meg kell gondolnunk a konstruktorénál, mert egy objektumra gyakran hivatkoznak más objektumok, pl. egy form törlése előtt a benne lévő gomb objektumokat is törölni kell. Jó gyakorlat a <code>Destroy</code> helyett a <code>FreeAndNil</code> metódus, amely egyúttal a mutató értkét <code>nil</code>-re állítja (ez egy speciális mutató-érték, amely jelzi, hogy a mutatónk nem mutat érvényes objektumra).
+
+    <h2>Hol szerepel mindez a programban?</h2>
+    <p>A fentiek fényében nézzünk át ismét egy grafikus alkalmazást. Legyen csak egy formunk, amelyen egy gomb van, és beállítottuk a gomb OnClick eseménykezelőjét.</p>
+    <pre>
+TYPE
+
+  { TForm1 }
+
+  TForm1 = class(TForm)
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+  end;</pre>
+    <p>Ezt a kódot a Lazarus állította elő. Figyeljük meg, hogy minden osztály neve T-vel kezdődik, az azonosítóknak hosszú nevük van, és felváltva tartalmaznak kis- és nagybetűket (camel case). Ezek a szabályok a programkód olvashatóságát és érthetőségét javítják.<br />
+    A Lazarus minden osztálya a <code>TObject</code> osztály leszármazottja. Itt létrejön egy új <code>TForm1</code> osztály, mely kibővíti a szülő <code>TForm</code> osztályt egy mezővel (<code>Button1</code>) és egy metódussal (<code>Button1Click</code>). A <code>Button1Click</code>-nek van egy paramétere: a <code>Sender</code> paraméter az eseményt kiváltó objektum - mivel ez most csak a <code>Button1</code> lehet, ebben az esetben nincs jelentősége. Fontos lesz majd, ha ugyanazt az eseménykezelőt több objektum is meghívhatja. Figyeljük meg, hogy a <code>Sender</code> típusa nem <code>TButton</code>, hanem általános <code>TObject</code>, ez később fontos lesz.<br />
+    Az eseménykezelők mind a TForm1 metódusai.</p>
+<pre>
+VAR
+  Form1: TForm1;</pre>
+    <p>Itt létrejön a <code>Form1</code> class típusú változó, a <code>TForm1</code> típus alapján, amely tehát az objektumra mutató pointer, mellyel majd az objektumunkra (a program főablakára) hivatkozunk. Azonban joggal hiányolhatjuk a <code>Form1:=TForm1.Create</code> utasítást, az objektumot létrehozó konstruktort, amely sehol nem szerepel a kódban. Akkor hogyan keletkezik a form? A megoldás a .lpr fájlban szerepel, az <code>Application.CreateForm(TForm1,Form1)</code> utasítás hívja meg a konstruktort, de még sok mást is csinál, létrehozza a formon lévő többi objektumot is (hiszen a <code>Button1</code> konstruktorát is meg kell hívni).</p>
+    <p>A következő fejezetben mindezeket egy konkrét példán mutatom be.</p>
+    <p>
+      <a href="f16.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="f18.html">Következő</a>
+    </p>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - összetett példa</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+
+ <h1>20. Összetett példa dinamikus memóriakezeléssel</h1>
+
+  <h2>Feladat</h2>
+  <p>Készítsünk programot, amely a formra kattintva pacákat hoz létre, a pacákra kattintva pedig eltünteti azokat!  A pacák mozogjanak is a formon!</p>
+
+  <h2>Terv</h2>
+  <p>A pacákat a form timer eseménye fogja mozgatni, ezért szükséges lesz egy ciklussal végigmenni a pacákon, tehát tárolnunk kell a pacák mutatóit. Erre a célra listát használunk.<br />
+  A formon való kattintást nem az <code>OnClick</code>, hanem az <code>OnMouseDown</code> eseménnyel oldjuk meg, mert utóbbi az egérkoordinátákat is megkapja.<br />
+  A formszerkesztővel egyedül a <code>Timer1</code> objektumot hozzuk létre, a pacák mind futási időben készülnek.</p>
+
+  <h2>A forráskód</h2>
+<pre>
+unit Unit1;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls;
+
+type
+
+  { TForm1 }
+
+  TForm1 = class(TForm)
+    Timer1: TTimer;
+    procedure FormCreate(Sender: TObject);
+    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Pacakatt(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+  private
+    var lista:TList;
+  public
+    { public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.lfm}
+
+{ TForm1 }
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  lista:=TList.Create;
+end;
+
+procedure TForm1.Pacakatt(Sender: TObject);
+begin
+  lista.Remove(Sender);
+  Application.ReleaseComponent(TShape(Sender));
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+var i:integer;
+    paca:TShape;
+    dx,dy:integer;
+begin
+ for i:=0 to lista.Count-1 do begin
+   paca:=TShape(lista.Items[i]);
+   dx:=random(3)-1;
+   dy:=random(3)-1;
+   paca.Left:=paca.Left+dx;
+   paca.Top:=paca.Top+dy;
+   if paca.Left&lt;0 then paca.Left:=0;
+   if paca.Left&gt;Width-paca.Width then paca.Left:=Width-paca.Width;
+   if paca.Top&lt;0 then paca.Top:=0;
+   if paca.Top&gt;Height-paca.Height then paca.Top:=Height-paca.Height;
+ end;
+end;
+
+procedure TForm1.FormMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var paca:TShape;
+begin
+ paca:=TShape.Create(Form1);
+ paca.Shape:=stCircle;
+ paca.height:=32;
+ paca.Width:=32;
+ paca.Brush.Color:=128+random(128)+256*(128+random(128))+65536*(128+random(128));
+ paca.Brush.Style:=bsSolid;
+ paca.Parent:=Form1;
+ paca.Top:=y-paca.height div 2;
+ paca.Left:=x-paca.width div 2;
+ paca.OnClick:=@Pacakatt;
+ lista.Add(paca);
+end;
+
+end.</pre>
+
+  <h2>A forráskód magyarázata: előkészületek</h2>
+  <p>Ha a formszerkesztőt használjuk <code>TShape</code> létrehozására, a Lazarus a szükséges unitot beilleszti a kódba (<code>Uses ExtCtrls</code>). Most ezt nekünk kell megtenni. Jó módszer, ha a formszerkesztővel létrehozunk egy <code>TShape</code>-et, majd rögtön töröljük: ebből kiderül, mi a szükséges unit.<br />
+  Hasonlóképpen, a pacára kattintás eseménykezelőjének fejlécét is kipuskázhatjuk a Lazarusból, ha a szerkesztővel hozunk létre eseménykezelőt. Az egyes pacák eseménykezelője is legyen a Lazarus filozófiája szerint a <code>TForm1</code> osztály eljárása; ezt most nekünk kell beírni a <code>TForm1</code> osztály típusdeklarációjába.</p>
+<pre>
+procedure Pacakatt(Sender: TObject);</pre>
+  <p>A szerkesztővel hozzuk létre a form <code>OnCreate</code> és <code>OnMouseDown</code> eseménykezelőjét!</p>
+
+  <h2>A globális lista</h2>
+  <p>Egyetlen globális változónk a lista, amely a paca objektumok mutatóit tárolja. Mivel az összes paca a formon belül van, ezt az objektumot is a <code>TForm1</code> osztályban deklaráljuk, ráadásul a <code>private</code> szekcióban, mert csak a form eseménykezelői fogják használni.<br />
+  A listát létre kell hoznunk a program indulásakor:</p>
+<pre>
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  <strong>lista:=TList.Create;</strong>
+end;</pre>
+
+
+  <h2>Pacák létrehozása</h2>
+  <p>Paca a formra kattintáskor keletkezik. A <code>Form1MouseDown</code> megkapja az egérmutató <code>X</code> és <code>Y</code> koordinátáit, ráadásul a form bal felső sarkához képest. Az eseménykezelő segédváltozója a <code>paca</code>, amely az éppen létrehozott <code>TShape</code> objektumra mutat.</p>
+<pre>
+procedure TForm1.FormMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var paca:TShape;</pre>
+  <p>A most létrehozott objektum minden lényeges tulajdonságát itt kell beállítani. Először létrehozzuk az objektumot:</p>
+<pre>
+paca:=TShape.Create(Form1);</pre>
+  <p>majd beállítjuk a tulajdonságait. A <code>Parent</code> felelős azért, hogy a paca a <code>Form1</code>-en belül jelenjen meg. A színek beállítása véletlenszerű. A helyzetnél ügyelünk arra, hogy a <code>Left</code> és <code>Top</code> a bal felső sarok koordinátáit adja meg, mi viszont az egérrel a kör közepét jelöljük ki:</p>
+<pre>
+ paca.Shape:=stCircle;
+ paca.height:=32;
+ paca.Width:=32;
+ paca.Brush.Color:=128+random(128)+256*(128+random(128))+65536*(128+random(128));
+ paca.Brush.Style:=bsSolid;
+ paca.Parent:=Form1;
+ paca.Top:=y-paca.height div 2;
+ paca.Left:=x-paca.width div 2;</pre>
+  <p>végül beállítjuk az eseménykezelőt, és a létrehozott objektum mutatóját eltároljuk a listában:</p>
+<pre>
+ paca.OnClick:=@Pacakatt;
+ lista.Add(paca);</pre>
+
+  <h2>Objektum törlése</h2>
+  <p>A <code>Pacakatt</code> eljárásban <code>Sender</code> paraméter a kattintott paca mutatója. Mi történne, ha a pacát <code>TShape(Sender).Destroy</code> metódusával törölnénk?<br />
+  A programunk futási hibával leállna (érvénytelen memóriaterületre hivatkozás). Ha ugyanis a pacára kattintunk, lefut az <code>OnClick</code> eseményen kívül az alapértelmezett <code>OnMouseDown</code> és <code>OnMouseUp</code> esemény is, utóbbi az <code>OnClick</code> után. Ha viszont az <code>OnClick</code> már törölte az objektumot, az <code>OnMouseUp</code> érvénytelen hivatkozást tartalmaz (a <code>Sender</code> paramétere olyan memóriaterületre mutat, ami már nincs lefoglalva).<br />
+  Megtehetjük, hogy az utolsónak lefutó <code>OnMouseUp</code> eseményt használjuk. Ez azért lenne rossz gyakorlat, mert nem fogjuk tudni minden egyes objektumnál követni, melyik a legutolsó eseménykezelője.<br />
+  Ezért használjuk az <code>Application.ReleaseComponent</code> eljárást, amely az objektumot törlésre jelöli, de csak az eseménykezelők lefutása után törli. Ha egy objektumot a saját eseménykezelőjében törlünk, ez a javasolt módszer.</p>
+  <p>Törlés előtt még az objektum mutatóját ki kell venni a listából:</p>
+<pre>
+procedure TForm1.Pacakatt(Sender: TObject);
+begin
+  lista.Remove(Sender);
+  Application.ReleaseComponent(TShape(Sender));
+end;</pre>
+  <p>Figyeljük meg a típuskényszerítés használatát: a lista csak egyszerű mutatókat tartalmaz, a fordító nem tudja, milyen típusú objektumra mutat!</p>
+
+  <h2>Mozgatás</h2>
+  <p>A <code>Timer1</code> egy ciklussal végigmegy a listán (ne feledjük, hogy 0-tól indexelt!), és az egyes pacákat elmozdítja a 8 irány egyikébe (vagy helyben hagyja). Gondoskodnunk kell arról is, hogy a pacák ne lépjenek ki a formból.</p>
+<pre>
+procedure TForm1.Timer1Timer(Sender: TObject);
+var i:integer;
+    paca:TShape;
+    dx,dy:integer;
+begin
+ for i:=0 to lista.Count-1 do begin
+   paca:=TShape(lista.Items[i]);
+   dx:=random(3)-1;
+   dy:=random(3)-1;
+   paca.Left:=paca.Left+dx;
+   paca.Top:=paca.Top+dy;
+   if paca.Left&lt;0 then paca.Left:=0;
+   if paca.Left&gt;Width-paca.Width then paca.Left:=Width-paca.Width;
+   if paca.Top&lt;0 then paca.Top:=0;
+   if paca.Top&gt;Height-paca.Height then paca.Top:=Height-paca.Height;
+ end;
+end;</pre>
+  <p>A teljes program itt letölthető:<br />
+  <a href="f20src/pacak.lpi">pacak.lpi</a><br />
+  <a href="f20src/pacak.lpr">pacak.lpr</a><br />
+  <a href="f20src/unit1.lfm">unit1.lfm</a><br />
+  <a href="f20src/unit1.pas">unit1.pas</a></p>
+  <p>
+    <a href="f19.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="index.html">Tartalom</a>
+  </p>
+
+  </div>
+</body>
+</html>

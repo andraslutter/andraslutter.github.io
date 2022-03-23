@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - ciklusok</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			6. fejezet: Ciklusok
+		</h1>
+    <p>A program többször végrehajtódó részét <strong>ciklus</strong>nak nevezzük. A ciklusfeltétel adja meg, mikor kell a ciklusmagot ismét végrehajtani.</p>
+    <h2>Elöltesztelős ciklus</h2>
+    <p>A következő program megkeresi a legkisebb 15-nél nagyobb, 7-tel osztható páros számot. Az oszthatóságot a mod művelet segítségével ellenőrizzük.</p>
+<pre>
+Var a:integer;
+BEGIN
+   a:=16;
+   while (a mod 7&gt;0) or (a mod 2&gt;0) do a:=a+1;
+   writeln(a);
+   readln;
+END.
+</pre>
+    <p>A ciklus felépítése: <code>while</code> <i>feltétel</i> <code>do</code> <i>utasítás</i>;<br />
+    Azért <strong>elöltesztelős</strong>, mert először vizsgálja a feltételt és utána hajtja végre a ciklusmagot, ha a feltétel igaz. Lehet, hogy egyszer sem fut le (ha a feltétel már kezdetben hamis).<br />
+    A fenti program úgy működik, hogy addig növeli a értékét, amíg nem felel meg a feladat feltételének (vagyis amíg nem osztható 7-tel vagy nem osztható 2-vel). Ezért ha leáll, akkor azért áll le, mert a osztható 7-tel és osztható 2-vel is.<br />
+    A <code>do</code> után csak egy utasítás állhat, ezért több utasításból álló ciklusmagot <code>begin</code> és <code>end</code> közé kell írni.
+    </p>
+    <h2>Hátultesztelős ciklus</h2>
+    <p>A <strong>hátultesztelős</strong> ciklus először hajtja végre a ciklusmagot és utána vizsgálja a feltételt – ezért a ciklusmag legalább egyszer lefut.</p>
+<pre>
+Var a:integer;
+BEGIN
+   repeat
+     write('Adj meg egy egész számot, 0-ra kilép: '); readln(a);
+     if a mod 11=0 then writeln('osztható 11-gyel.')
+     else writeln('nem osztható 11-gyel.');
+   until a=0;
+END.
+</pre>
+    <p>Ennél a ciklusnál <code>repeat</code> és <code>until</code> közé több utasítást is be lehet írni, az <code>until</code> után pedig a leállás feltételét kell megadni. <br />
+    Most nem tettünk a program végére <code>readln</code>-t, mert a felhasználó 0 beírásával már jelezte, hogy ki akar lépni.
+    </p>
+    <h2>Számlálós ciklus</h2>
+    <p>Gyakori feladat, hogy egy változóval egyesével számolunk:</p>
+<pre>
+Var i:integer;
+BEGIN
+  i:=1;
+  while i&lt;=10 do begin
+    writeln(i:2,' négyzete=',sqr(i):3);
+    i:=i+1;
+  end;
+  readln;
+END.
+</pre>
+    <p>Itt a :2 azt jelzi a kiírásnál, hogy az egész számot hány karakter szélességben kell jobbra igazítva kiírni (balról szóközökkel kiegészítve); így a megfelelő helyiértékek egymás alá kerülnek. Így jobban néz ki.</p>
+    <p>A <strong>számlálós</strong> (vagy for-) ciklus pont ezt csinálja:</p>
+<pre>
+Var i:integer;
+BEGIN
+  for i:=1 to 10 do writeln(i:2,' négyzete=',sqr(i):3);
+  readln;
+END.
+</pre>
+    <p>A ciklus így néz ki: <code>for</code> <i>változó</i>:=<i>kezdőérték</i> <code>to</code> <i>végérték</i> <code>do</code> <i>utasítás</i>;<br />
+    ahol a változót egyesével növeli a kezdőértéktől a végértékig, és minden lépésben végrehajtja az utasítást.<br />
+    Mivel a ciklus elöltesztelős, ha a kezdőérték nagyobb a végértéknél, egyszer sem fut le. Ilyenkor viszont <code>to</code> helyett <code>downto</code>-t használva visszafelé számol.</p>
+    <p>Mivel ennek a ciklusnak a beírása nagyon rövid, gyakran a nem egyesével számláló feladatokat is így csináljuk meg.  A következő program páratlan számokat ír ki:</p>
+<pre>
+Var i:integer;
+BEGIN
+  for i:=1 to 10 do writeln(2*i-1);
+  readln;
+END.
+</pre>
+    <p>Használhatjuk akkor is, ha egyszerűen csak valahányszor meg akarunk csinálni valamit.</p>
+<pre>
+Var fokozat,i:integer;
+BEGIN
+  write('Mennyire szépen kérjem? '); readln(fokozat);
+  for i:=1 to fokozat do write('nagyon ');
+  writeln('szépen kérem!');
+  readln;
+END.  
+</pre>
+    <h2>Példa ciklusra és elágazásra</h2>
+    <p>Ez egy számkitalálós játék, ahol a gondolt számot a gép a <code>random</code> függvénnyel állítja elő. Pl. <code>random(4)</code> eredménye egy 0 és 3 közötti véletlenszerűen választott egész szám. Természetesen a gép igazi véletlen eseményt nem tud létrehozni (nem dobhat kockával), és ezeket a számokat meghatározott algoritmus alapján állítja elő. Ha a programban kiadjuk a <code>randomize</code> parancsot, minden futtatáskor más véletlen sorozatot kapunk.</p>
+<pre>
+VAR g,t,c:integer;
+
+BEGIN
+  randomize;
+  g:=random(100)+1;
+  c:=0;
+  repeat
+    write('Gondoltam egy számot 1 és 100 között. Találgass: ');
+    readln(t);
+    if g&lt;t then writeln('Kisebbre gondoltam!');
+    if g&gt;t then writeln('Nagyobbra gondoltam!');
+    c:=c+1;
+  until g=t;
+  writeln('Eltaláltad ',c,' lépésben!');
+  writeln('Nyomj entert'); readln;
+END.
+</pre>
+    <h2>Egymásba ágyazott ciklusok</h2>
+    <p>Ciklusban ciklus is lehet. Ha a külső ciklus n-szer fut le, a belső pedig m-szer, akkor a belső ciklus ciklusmagja összesen n·m alkalommal fog lefutni. A következő példa belső ciklusa 15 db. '*' karaktert ír ki egy sorba, amit a külső ciklus 10-szer ismétel. Az eredmény egy 150 *-ból álló téglalap.</p>
+<pre>
+Var i,j:integer;
+BEGIN
+ for i:=1 to 10 do begin
+   for j:=1 to 15 do write('*');
+   writeln;
+ end;
+ writeln('Nyomj entert'); readln;
+END.
+</pre>
+<p>
+  <a href="f5.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="f7.html">Következő</a>
+</p>
+
+    <h2>Feladatok</h2>
+    <p>10.  Írj programot, amely kiírja a 0, 5, 10, ..., 100 számokat (ötösével) elöltesztelős ciklussal</p>
+    <p><a href="fm.html#mo10">megoldás</a></p>
+    <p>11. Írj programot, amely kiírja a 0, 5, 10, ..., 100 számokat (ötösével) hátultesztelős ciklussal!</p>
+    <p><a href="fm.html#mo11">megoldás</a></p>
+    <p>12. Írj programot, amely a következő idétlen játékot játssza a felhasználóval mindaddig, amíg az a "nem" szót beírja. A felhasználó által beírt dolgokat vastagítva jelzem.<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Írj be egy számot!<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<b>6</b><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;7! Nyertem! Még egy játék?<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<b>igen</b><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Írj be egy számot!<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<b>2000</b><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;2001! Nyertem! Még egy játék?<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<b>nem</b><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Kösz a játékot!</p>
+    <p><a href="fm.html#mo12">megoldás</a></p>
+    <p>13. Írj programot, amely kiszámítja az 1 és 100 közötti egész számok összegét!</p>
+    <p><a href="fm.html#mo13">megoldás</a></p>
+    <p>14. Írj programot, amely megadja az 1 és 1000 közötti, 7-tel osztható számok összegét!</p>
+    <p><a href="fm.html#mo14">megoldás</a></p>
+    <p>15. Írj programot, amely kiszámítja 1,13-nak a 113-adik hatványát (szorzásokkal)!</p>
+    <p><a href="fm.html#mo15">megoldás</a></p>
+    <p>16. Írasd ki (FOR-ciklussal) 1 és 1000 között a 7-tel osztható, páratlan számokat! (Tipp: egyesével számolunk, de csak a feltételnek megfelelő számokat írjuk ki.)</p>
+    <p><a href="fm.html#mo16">megoldás</a></p>
+    <p>17. Írasd ki az 5-ös szorzótáblát: 1*5=5, 2*5=10, ..., 10*5=50!</p>
+    <p><a href="fm.html#mo17">megoldás</a></p>
+    <p>18. Írasd ki a teljes 10-es szorzótáblát 1*1-től 10*10-ig! (Tipp: egymásba ágyazott ciklusok.)</p>
+    <p><a href="fm.html#mo18">megoldás</a></p>
+  </div>
+</body>
+</html>

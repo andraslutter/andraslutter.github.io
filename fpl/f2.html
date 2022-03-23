@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - kezdjük a munkát!</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			2. fejezet: Kezdjük a munkát!
+		</h1>
+    <h2>Letöltés és telepítés</h2>
+    <p>
+      Először is le kell töltened a Lazarus rendszert, melyet megtalálsz a <a href="http://lazarus.freepascal.org">lazarus.freepascal.org oldalon.</a> (Download, majd valószínűleg a 32-bites Windows verzióra lesz szükséged.) Ezután telepítsd, ehhez lehet, hogy rendszergazdai jogokra van szükséged a számítógépen. Ne változtass a beállításokon. Mivel a Lazarust folyamatosan fejlesztik, egyre újabb verziók jelennek meg, de a korábbi programokat az újabb verzió is le tudja fordítani.
+    </p>
+    <h2>Letöltés és telepítés</h2>
+    <p>
+      Először is le kell töltened a Lazarus rendszert, melyet megtalálsz a lazarus.freepascal.org oldalon. (Download, majd valószínűleg a 32-bites Windows verzióra lesz szükséged.) Ezután telepítsd, ehhez lehet, hogy rendszergazdai jogokra van szükséged a számítógépen. Ne változtass a beállításokon. Mivel a Lazarust folyamatosan fejlesztik, egyre újabb verziók jelennek meg, de a korábbi programokat az újabb verzió is le tudja fordítani.
+    </p>
+    <h2>Beállítások</h2>
+    <p>
+      A magyar billentyűzet miatt néhány beállítást most meg kell tenned. Be kell állítani, hogy a @, [ és { billentyűket ne billentyűparancsnak vegye, mert mindegyik karakterre szükség lesz a programozásnál. Indítsd el a Lazarust. Ekkor egy üres projektet fog létrehozni, de ezzel még nem foglalkozunk. Válaszd ki az <i>Eszközök->Beállítások</i> menüt, azon belül a <i>Szerkesztő->Gyorsbillentyűk</i> beállítást, a jobb oldali listából nyisd ki a <i>Nézet menü parancsai kategóriát</i>, kattints a [Ctrl+Alt+F]-re, és a <i>Törlés</i> gombbal töröld, majd a [Ctrl+Alt+B]-t és a [Ctrl+Alt+V]-t is. <i>OK</i>.
+    </p>
+    <div class="kep"><img src="k1.png" alt="beállítások" /></div>
+    <h2>Projektek</h2>
+    <p>
+      A forráskód több fájlból állhat, ezek együttesen alkotják a <strong>projektet</strong>. Ezért általában nem a <i>Fájl</i>, hanem a <i>Projekt</i> menüt használjuk. A fájlok mentésénél célszerű mellőzni az ékezeteket és a szóközt. Egy projektnek mindig külön mappát hozz létre.
+    </p>
+    <p>
+      Most készítsünk egy projektet! Válaszd a <i>Projekt->Új projekt</i> menüt. Többféle projekt létezik: az <i>Alkalmazás</i> grafikus felületű programot készít, mellyel később foglalkozunk. Válaszd az <i>Egyszerű program</i>ot. Ne mentsd a korábbi (üres) projektet.<br />
+      Láthatod, hogy a Lazarus elkészítette a program vázát. Ezt mentsd el a <i>Projekt->Projekt mentése</i> menüben. Hozz neki létre egy külön mappát, és adj neki nevet, amelyben nem szerepelhet szóköz, sem ékezet. Láthatod, hogy a fájlnevet a Lazarus beleírta a programkódba.<br />
+      A mappában több fájl is szerepel: az .lpr fájl a forráskód, az .lpi és .lps pedig a projekt beállításait tartalmazza. Később az .lpi fájlon kell duplát kattintanod, ha a Lazarust el akarod indítani a projekt betöltésével. Ha te indítod el a Lazarust, a <i>Projekt->Projekt megnyitása</i> menüben nyithatod meg az .lpi fájlt.<br />
+    A program fordításakor keletkezik az .exe fájl, mely a forrásfájloktól függetlenül futtatható.
+    </p>
+    <h2>Az első projekt</h2>
+    <p>
+      Zárd be az Objektum felügyelő segédablakot, most nem lesz rá szükség. Az Üzenetek ablak a fordító üzeneteit tartalmazza majd.<br />
+      Írj valamit az üres projektbe:
+    </p>
+<pre>
+program elso; //vagy amilyen nevet adtál a projektednek
+
+begin
+  writeln('Szia!');
+end.
+</pre>
+    <p>
+      A // jelek után megjegyzéseket lehet írni, melyeket a fordító figyelmen kívül hagy a sor végéig.<br />
+      A főablak eszköztárán nyomd meg a zöld nyilat. Ez lefordítja, és le is futtatja a programot. Fordítás előtt mindig ment, az első mentés után tehát nem kell mindig mentened a programodat.<br />
+      A futó programod egy rövid villanás után bezárul, és a kiírt adatok eltűnnek. Ezért módosítjuk   úgy, hogy az Enter lenyomásáig ne érjen véget.
+    </p>
+<pre>
+begin
+  writeln('Szia!');
+  readln;
+end. 
+</pre>      
+    <p>
+      A program a Windowsban létrehoz egy szöveges ablakot (konzolt), abba kiírja a szöveget. Ezután vár az Enter lenyomásáig, majd véget érvén bezárja a konzol ablakot. Láthatod, hogy amíg a program nem fejeződik be, a zöld futtatás helyett piros stop gomb van a főablakban.
+    </p>
+    <p>
+      Írj be hibás programot, mondjuk a <code>writeln</code> helyett <code>witeln</code>-t. Futtasd le! A fordító most nem fordítja le  a programot. Ehelyett "Identifier not found" hibajelzést ad.  Ennek jelentése: ismeretlen azonosító. A fordító számára minden <strong>azonosító</strong>, aminek jelentése van. Az azonosítók betűvel kezdődnek, majd ékezetmentes betűt, számot, aláhúzásjelet tartalmazhatnak. Az azonosítók értelmezésekor a fordító nem különbözteti meg a kis- és nagybetűket (írhattunk volna <code>WriteLN</code>-t is).
+    </p>
+    <h2>Miért nem működnek az ékezetes karakterek?</h2>
+    <p>
+      Módosítsd a fenti programot, pl. így:
+    </p>
+<pre>
+writeln('szőlőlekvár');
+</pre>
+    <p>  
+      és meglepődve láthatod a konzolablakban lévő kusza karakterhalmazt. Ennek oka a Lazarus és a konzolablak eltérő <strong>karakterkódolása</strong>. A Lazarus forrásszerkesztője a karaktereket <strong>utf-8</strong> kódolás szerint tárolja, míg a konzolablak (legalábbis a magyar Windows XP-n) a 852-es kódlapot használja. A megoldás az, hogy a forrásszerkesztőt átállítjuk: ékezetes karakter bevitelekor a forráskódba a karakter 852-es kódlap szerinti kódját helyezze el (és így is jelenítse meg a kódot). Kattints a jobb gombbal a forráskód ablakába, és a <i>Fájl beállítások->Kódolás</i> menüből válaszd ki a CP852-es kódlapot. Igen, alakítsa át a fájlt.<br />
+      Ezt a lépést csak akkor kell megtenned, ha a forrásszerkesztőben bevitt karaktereket konzolablakba szeretnéd kiírni.
+    </p>
+    <p>
+      <a href="f1.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="f3.html">Következő</a>
+    </p>
+
+  </div>
+</body>
+</html>

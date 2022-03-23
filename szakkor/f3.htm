@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>3. fejezet</TITLE>
+   <META NAME="Author" CONTENT="L. A.">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>III. A rekurzi&oacute;</FONT></U></P>
+
+<P><I><FONT SIZE=+1>Els&otilde; nekifut&aacute;s: a rekurzi&oacute; fogalma</FONT></I></P>
+
+<P>Rekurz&iacute;v az az elj&aacute;r&aacute;s vagy f&uuml;ggv&eacute;ny,
+amely k&ouml;zvetve vagy k&ouml;zvetlen&uuml;l &ouml;nmag&aacute;ra hivatkozik.
+Rekurz&iacute;v m&oacute;don megadott f&uuml;ggv&eacute;nnyel a matematik&aacute;ban
+is tal&aacute;lkozhatunk. P&eacute;lda a faktori&aacute;lis f&uuml;ggv&eacute;nye:</P>
+
+<P>n! (olvasd: n faktori&aacute;lis):=2&middot;3&middot;...&middot;(n-1)&middot;n,
+valamint 0!:=1</P>
+
+<P>Ez a defin&iacute;ci&oacute; rekurz&iacute;v form&aacute;ra is &aacute;t&iacute;rhat&oacute;:
+<IMG SRC="abra31.gif" ALT="n! rekurzív definíció" HEIGHT=44 WIDTH=161 ALIGN=ABSCENTER></P>
+
+<P>&Iacute;gy teh&aacute;t az 5!-t visszavezetj&uuml;k 5&middot;4!-ra,
+vagyis 4!-ra, azt 3!-ra stb..., m&iacute;g v&eacute;g&uuml;l el&eacute;rkez&uuml;nk
+0!-hoz, amit m&aacute;r nem vezet&uuml;nk vissza. A legt&ouml;bb rekurz&iacute;v
+utas&iacute;t&aacute;s tartalmaz egy le&aacute;ll&aacute;si felt&eacute;telt,
+ez akad&aacute;lyozza meg a v&eacute;gtelen rekurzi&oacute;t. A fenti f&uuml;ggv&eacute;ny
+megval&oacute;s&iacute;t&aacute;sa Pascalban:</P>
+
+<P><TT>Function Fakt(n:integer):integer;<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;if n=0 then Fakt:=1<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else Fakt:=n*Fakt(n-1);</TT><FONT SIZE=-1>
+{a rekurz&iacute;v h&iacute;v&aacute;s}<BR>
+</FONT><TT>&nbsp;End;</TT></P>
+
+<P>L&aacute;that&oacute;, hogy a matematikai defin&iacute;ci&oacute; szinte
+egy az egyben &aacute;t&iacute;rhat&oacute; volt Pascalra. Ennek az az
+oka, hogy a Pascal elj&aacute;r&aacute;skezel&eacute;se fel van k&eacute;sz&uuml;lve
+a rekurzi&oacute;ra: elj&aacute;r&aacute;sh&iacute;v&aacute;skor a Pascal
+elmenti a verembe a glob&aacute;lis, h&iacute;vott elj&aacute;r&aacute;sban
+is szerepl&otilde; v&aacute;ltoz&oacute;kat, majd az elj&aacute;r&aacute;s
+lefut&aacute;sa ut&aacute;n az elj&aacute;r&aacute;s lok&aacute;lis v&aacute;ltoz&oacute;i
+megsz&ucirc;nnek, &eacute;s a veremb&otilde;l el&otilde;ker&uuml;lnek a
+glob&aacute;lis v&aacute;ltoz&oacute;k. Ha v&eacute;gigk&ouml;vetj&uuml;k
+a f&uuml;ggv&eacute;ny m&ucirc;k&ouml;d&eacute;s&eacute;t, kider&uuml;l,
+hogy voltak&eacute;ppen az n&middot;(n- 1)&middot;...&middot;2&middot;1&middot;1
+szorz&aacute;st v&eacute;gzi el, amit ak&aacute;r ciklussal is megoldhattunk
+volna. A ciklus el&otilde;nye a rekurz&iacute;v megold&aacute;shoz k&eacute;pest,
+hogy a veremig&eacute;nye (&eacute;s olykor az id&otilde;ig&eacute;nye
+is) kisebb. A rekurz&iacute;v megold&aacute;sok viszont sokszor &eacute;rthet&otilde;bbek
+&eacute;s &aacute;ttekinthet&otilde;bbek.</P>
+
+<P><U>1. feladat</U>: vezesd vissza a hatv&aacute;nyoz&aacute;st szorz&aacute;sra
+a k&ouml;vetkez&otilde; defin&iacute;ci&oacute; seg&iacute;ts&eacute;g&eacute;vel
+(&iacute;rd meg a f&uuml;ggv&eacute;nyt Pascalban):</P>
+
+<P>Vagyis a<SUP>n</SUP>=a&middot;a<SUP>n-1</SUP>, &eacute;s a<SUP>0</SUP>=1,
+m&aacute;sk&eacute;ppen: <IMG SRC="abra32.gif" ALT="hatványozás rekurzív definíció" HEIGHT=43 WIDTH=209 ALIGN=ABSCENTER></P>
+
+<P><U>2. feladat</U>: vezesd vissza a szorz&aacute;st &ouml;sszead&aacute;sra!
+a&middot;n=a+a&middot;(n-1), &eacute;s a&middot;0=0.</P>
+
+<P><U>3. feladat</U>: vezesd vissza az &ouml;sszead&aacute;st eggyel val&oacute;
+megn&ouml;vel&eacute;sre! Az Osszeg f&uuml;ggv&eacute;nyben ne haszn&aacute;ld
+a + jelet, csak a Succ f&uuml;ggv&eacute;nyt (eggyel val&oacute; megn&ouml;vel&eacute;s)!</P>
+
+<P><A HREF="mat2.htm">*** Matematikai kieg&eacute;sz&iacute;t&eacute;s&nbsp;(rekurz&iacute;v
+f&uuml;ggv&eacute;nyek)</A></P>
+
+<P><U>4. feladat</U>: a Fibonacci-sorozat rekurz&iacute;v defin&iacute;ci&oacute;ja:
+a<SUB>1</SUB>=1, a<SUB>2</SUB>=1, a<SUB>n</SUB>=a<SUB>n-1</SUB>+a<SUB>n-2</SUB>
+(n&gt;2). &Iacute;rd meg a Fib(n) f&uuml;ggv&eacute;nyt rekurz&iacute;v
+&eacute;s nem rekurz&iacute;v (ciklusos) m&oacute;don is!</P>
+
+<P>Vannak olyan feladatok, melyek mindenk&eacute;ppen rekurz&iacute;v megold&aacute;s
+ut&aacute;n ki&aacute;ltanak, ciklussal val&oacute; megold&aacute;suk nagyon
+neh&eacute;zkes. Ilyen a „Hanoi tornyai&quot; n&eacute;ven ismert fejt&ouml;r&otilde;
+is. Adott h&aacute;rom r&uacute;d, az els&otilde;n n sz&aacute;m&uacute;
+k&uuml;l&ouml;nb&ouml;z&otilde; m&eacute;ret&ucirc; korong, cs&ouml;kken&otilde;
+sorrendben. A feladat &aacute;tpakolni a korongokat a harmadik r&uacute;dra
+&uacute;gy, hogy egyszerre csak egy korongot mozd&iacute;thatunk, &eacute;s
+nagyobb korongra rakhatunk csak kisebbet.</P>
+
+<P><U>5. feladat</U>: oldd meg a fenti fejt&ouml;r&otilde;t 2,3,4 korongra!</P>
+
+<P>&Eacute;szrevehet&otilde;, hogy pl. a h&aacute;romkorongos feladathoz
+el&otilde;sz&ouml;r a fels&otilde; k&eacute;t korongot kell &aacute;tpakolni
+valahogy a k&ouml;z&eacute;ps&otilde; r&uacute;dra, majd az als&oacute;t
+a harmadikra, v&eacute;g&uuml;l megint a fels&otilde; kett&otilde;t, a
+k&ouml;z&eacute;ps&otilde;r&otilde;l a harmadikra. &Iacute;gy visszavezett&uuml;k
+a feladatot egy k&eacute;tkorongos feladatra &eacute;s egy egykorongos
+feladatra. Ebb&otilde;l m&aacute;r l&aacute;tszik a rekurz&iacute;v megold&aacute;s
+lehet&otilde;s&eacute;ge. Az elj&aacute;r&aacute;s Pascalban:</P>
+
+<P><TT>Procedure Hanoi(n,a,b,c:integer);<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;if n&gt;0 then begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hanoi(n-1,a,c,b);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Writeln(n,'. korongot ',a,'. r&uacute;dr&oacute;l
+',c,'. r&uacute;dra!');<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hanoi(n-1,b,a,c);<BR>
+&nbsp;&nbsp;end;<BR>
+&nbsp;End;</TT></P>
+
+<P><TT>n</TT> jel&ouml;li a korongok sz&aacute;m&aacute;t, <TT>a</TT> azt
+a rudat, ahonnan ennyi korongot &aacute;t kell rakni, <TT>c</TT> a c&eacute;l-rudat,
+<TT>b</TT> pedig a k&ouml;z&eacute;ps&otilde;t. <TT>n</TT> korongb&oacute;l
+a legals&oacute;t a program term&eacute;szetesen nem rakja &aacute;t, csak
+ki&iacute;rja, melyik r&uacute;dr&oacute;l melyik r&uacute;dra kell &aacute;ttenni.
+<TT>a</TT>, <TT>b</TT>, <TT>c</TT> v&aacute;ltoz&oacute;k tartalmazhatj&aacute;k
+a rudak sorsz&aacute;m&aacute;t. Az elj&aacute;r&aacute;s a f&otilde;programb&oacute;l
+ind&iacute;that&oacute; pl. Hanoi(5,1,2,3) m&oacute;don az 5-korongos feladat
+megold&aacute;s&aacute;hoz.</P>
+
+<P><U>6. feladat</U>: bizony&iacute;tsd be, hogy n rudas feladat 2<SUP>n</SUP>-1
+l&eacute;p&eacute;sben oldhat&oacute; meg!</P>
+
+<P>Rekurz&iacute;v elj&aacute;r&aacute;sokn&aacute;l l&aacute;that&oacute;,
+hogy a ford&iacute;t&oacute;, mire el&eacute;rkezik a rekurz&iacute;v h&iacute;v&aacute;shoz,
+m&aacute;r felismeri az elj&aacute;r&aacute;s azonos&iacute;t&oacute;j&aacute;t.
+Ez k&ouml;zvetett rekurzi&oacute;n&aacute;l Pascalban &iacute;gy nem m&ucirc;k&ouml;dik:</P>
+
+<P><TT>Procedure Egyik;<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;Masik;<BR>
+&nbsp;End;</TT></P>
+
+<P><TT>Procedure Masik;<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;Egyik;<BR>
+&nbsp;End;</TT></P>
+
+<P>Itt a ford&iacute;t&oacute; az <TT>Egyik</TT> elj&aacute;r&aacute;s
+ford&iacute;t&aacute;sa k&ouml;zben nem ismeri fel a <TT>Masik</TT> azonos&iacute;t&oacute;t,
+mivel akkor m&eacute;g nincs deklar&aacute;lva. Ekkor haszn&aacute;lhat&oacute;
+a Pascal <TT>forward</TT> direkt&iacute;v&aacute;ja, a k&ouml;vetkez&otilde;k&eacute;ppen:
+az <TT>Egyik</TT> elj&aacute;r&aacute;s deklar&aacute;l&aacute;sa el&otilde;tt
+meg kell adnunk a <TT>Masik</TT> elj&aacute;r&aacute;s fejl&eacute;c&eacute;t</P>
+
+<P><TT>Procedure Masik; forward;</TT></P>
+
+<P>m&oacute;don. Ekkor az <TT>Egyik</TT> elj&aacute;r&aacute;s ford&iacute;t&aacute;sakor
+a ford&iacute;t&oacute; m&aacute;r fel fogja ismerni a <TT>Masik</TT> azonos&iacute;t&oacute;t,
+noha a <TT>Masik</TT> elj&aacute;r&aacute;s ford&iacute;t&aacute;sa csak
+k&eacute;s&otilde;bb t&ouml;rt&eacute;nik. <TT>Forward</TT> haszn&aacute;lata
+eset&eacute;n az elj&aacute;r&aacute;s fejl&eacute;c&eacute;t els&otilde;
+alkalommal teljes r&eacute;szletess&eacute;ggel (param&eacute;terlist&aacute;val
+egy&uuml;tt) kell megadni.</P>
+
+<P><I><FONT SIZE=+1>M&aacute;sodik nekifut&aacute;s: rekurz&iacute;v adatszerkezet-feldolgoz&aacute;s,
+list&aacute;k</FONT></I></P>
+
+<P>A rekurz&iacute;v f&uuml;ggv&eacute;nyek egy jellegzetes fajt&aacute;j&aacute;t,
+a listakezel&otilde; f&uuml;ggv&eacute;nyeket a LOGO nyelv seg&iacute;ts&eacute;g&eacute;vel
+ismerj&uuml;k meg. Most nem a nyelv rajzol&oacute;, hanem f&uuml;ggv&eacute;nyszer&ucirc;
+r&eacute;sz&eacute;vel foglalkozunk, mely a LISP mesters&eacute;ges intelligencia-nyelv
+listakezel&eacute;s&eacute;t vette &aacute;t.</P>
+
+<P>Egy f&uuml;ggv&eacute;nyszer&ucirc; nyelvben minden elj&aacute;r&aacute;s
+f&uuml;ggv&eacute;ny. V&aacute;ltoz&oacute;k nincsenek, csak f&uuml;ggv&eacute;nyparam&eacute;terek.
+A ciklusok szerep&eacute;t a rekurzi&oacute; veszi &aacute;t. P&eacute;lda
+LOGO f&uuml;ggv&eacute;ny deklar&aacute;l&aacute;s&aacute;ra:</P>
+
+<P><TT>TO Fakt :N<BR>
+&nbsp;&nbsp;&nbsp;IF :N = 0 [OP 1][OP Fakt :N - 1]<BR>
+END</TT></P>
+
+<P>Egy sorban ak&aacute;rh&aacute;ny utas&iacute;t&aacute;s &aacute;llhat.
+Kett&otilde;sponttal jel&ouml;lj&uuml;k a param&eacute;tereket. Az <TT>OP</TT>
+a visszaadott &eacute;rt&eacute;ket jelenti. Az <TT>IF</TT> ut&aacute;n
+k&eacute;t lista k&ouml;vetkezik (sz&ouml;gletes z&aacute;r&oacute;jelben),
+az egyik az akkor-, a m&aacute;sik a k&uuml;l&ouml;nben-&aacute;g. Ezt
+hasonl&iacute;tsd &ouml;ssze az azonos feladat&uacute; Pascal f&uuml;ggv&eacute;nnyel!</P>
+
+<P>A <U>lista</U> felsorol&aacute;s-jelleg&ucirc; adatszerkezet. A LOGO-ban
+a list&aacute;t sz&ouml;gletes z&aacute;r&oacute;jel hat&aacute;rolja.
+Pl.: az <TT>[1 [f f] 2 3 xxx]</TT> egy 5-elem&ucirc; lista (m&aacute;sodik
+eleme maga is lista). Mivel a LOGO t&iacute;pus n&eacute;lk&uuml;li nyelv,
+egy list&aacute;ban elhelyezhet&uuml;nk vegyesen sz&aacute;mokat &eacute;s
+sz&ouml;vegeket. (M&aacute;sik fajta list&aacute;ja a LOGO-nak a karakterekb&otilde;l
+&aacute;ll&oacute; lista, a fenti lista 5. eleme az <TT>&quot;xxx</TT>
+karakterlista, ennek els&otilde; eleme pedig az <TT>&quot;x</TT> karakter.)
+A list&aacute;ban &aacute;ltal&aacute;ban &eacute;rtelmezett m&ucirc;velet
+az <I>eleje </I>&eacute;s <I>marad&eacute;k </I>f&uuml;ggv&eacute;ny. El&otilde;bbi
+megadja a lista els&otilde; elem&eacute;t, ut&oacute;bbi az els&otilde;
+elem&eacute;t&otilde;l megfosztott marad&eacute;k list&aacute;t. LOGO-ul:</P>
+
+<P><TT>FIRST :L</TT> &eacute;s <TT>BUTFIRST :L</TT> (r&ouml;viden <TT>BF</TT>)<BR>
+(Tov&aacute;bb&aacute; felhaszn&aacute;ljuk: <TT>EMPTY? :L</TT> - &uuml;res-e
+a lista -, <TT>PRINT kif.</TT> - ki&iacute;r&aacute;s.)</P>
+
+<P>&Iacute;gy <TT>FIRST [1 2 3]</TT> &eacute;rt&eacute;ke <TT>1</TT>, m&iacute;g
+<TT>BUTFIRST [1 2 3]</TT> &eacute;rt&eacute;ke <TT>[2 3]</TT> marad&eacute;k
+lista lesz.</P>
+
+<P>P&eacute;lda: adjuk meg lista utols&oacute; elem&eacute;t. Rekurz&iacute;v
+szeml&eacute;lettel: egyelem&ucirc; lista utols&oacute; eleme egyben az
+els&otilde; is, hosszabb lista utols&oacute; eleme pedig megegyezik a marad&eacute;k
+lista utols&oacute; elem&eacute;vel. Mivel a marad&eacute;k r&ouml;videbb,
+&iacute;gy visszavezett&uuml;k a feladatot egyszer&ucirc;bbre. (A felt&eacute;tel
+&uacute;gy &aacute;llap&iacute;tja meg, hogy egyelem&ucirc;-e a lista,
+hogy megn&eacute;zi, a marad&eacute;k &uuml;res-e).</P>
+
+<P><TT>Utolso :L<BR>
+&nbsp;&nbsp;&nbsp;IF EMPTY? BUTFIRST :L [OP FIRST :L][OP Utolso BUTFIRST
+:L]</TT></P>
+
+<P><U>1. feladat</U>: Mit csin&aacute;l a k&ouml;vetkez&otilde; f&uuml;ggv&eacute;ny,
+&eacute;s hogyan m&ucirc;k&ouml;dik:</P>
+
+<P><TT>Valami :L<BR>
+&nbsp;&nbsp;&nbsp;IF NOT EMPTY? :L [PRINT FIRST :L Valami BF :L]</TT></P>
+
+<P>A fenti f&uuml;ggv&eacute;nynek nincs visszaadott &eacute;rt&eacute;ke,
+viszont van mell&eacute;khat&aacute;sa (ki&iacute;r valamit).</P>
+
+<P>P&eacute;lda: lista elemeinek megsz&aacute;mol&aacute;sa (a marad&eacute;k
+lista elemsz&aacute;m&aacute;n&aacute;l eggyel t&ouml;bb):</P>
+
+<P><TT>Elemszam :L<BR>
+&nbsp;&nbsp;&nbsp;IF EMPTY? :L [OP 0] [OP (Elemszam BF :L) + 1]</TT></P>
+
+<P><U>2. feladat</U>: &iacute;rd meg az Eleme :L :N f&uuml;ggv&eacute;nyt,
+amely megadja az :L lista :N. elem&eacute;t! Seg&iacute;ts&eacute;g: az
+els&otilde; eleme (ha :N=1) egyszer&ucirc; FIRST, egy&eacute;bk&eacute;nt
+viszont a marad&eacute;k list&aacute;nak kell venni az :N-1. elem&eacute;t.</P>
+
+<P>Lista &ouml;ssze&aacute;ll&iacute;t&aacute;s&aacute;hoz haszn&aacute;lhat&oacute;
+az <TT>FPUT :E :L</TT> f&uuml;ggv&eacute;ny, melynek eredm&eacute;nye az
+<TT>:L</TT> lista, elej&eacute;re t&eacute;ve az <TT>:E</TT> elemet. Ennek
+seg&iacute;ts&eacute;g&eacute;vel lista v&eacute;g&eacute;re &iacute;gy
+tehet&uuml;nk elemet (vagyis lev&aacute;lasztjuk a lista els&otilde; elem&eacute;t,
+a marad&eacute;knak a v&eacute;g&eacute;re tessz&uuml;k az elemet, majd
+visszaragasztjuk az els&otilde; elemet):</P>
+
+<P><TT>Vegere :E :L<BR>
+&nbsp;&nbsp;&nbsp;IF EMPTY? :L [OP FPUT :E :L]~<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[OP
+FPUT (FIRST :L) (Vegere :E BF :L)]</TT></P>
+
+<P>(A <TT>~</TT> azt jel&ouml;li, hogy az utas&iacute;t&aacute;st egy sorba
+kell &iacute;rni, csak a lapra nem f&eacute;rt ki.)</P>
+
+<P><U>3. feladat</U>: &iacute;rd meg a <TT>Kivesz :E :L</TT> f&uuml;ggv&eacute;nyt
+(eredm&eacute;nye az <TT>:L</TT> lista, kiv&eacute;ve az <TT>:E</TT> elemet).
+K&eacute;t lehet&otilde;s&eacute;g van: vagy az <TT>:E</TT> els&otilde;
+el&otilde;fordul&aacute;s&aacute;t veszed csak ki, vagy minden, <TT>:E</TT>-vel
+egyez&otilde; elemet. &Iacute;rd meg mindk&eacute;t v&aacute;ltozatot!
+(Tipp: ha az els&otilde; elem az <TT>:E</TT>, a marad&eacute;k list&aacute;t
+kell venni...)</P>
+
+<P><U>4. feladat</U>: &iacute;rd meg a <TT>Kidob :L :N</TT> f&uuml;ggv&eacute;nyt
+(eredm&eacute;nye az <TT>:L</TT> lista, kiv&eacute;ve az <TT>:N</TT>. helyen
+&aacute;ll&oacute; elem&eacute;t).</P>
+
+<P><U>5. feladat</U>: &iacute;rd meg a <TT>Fordit :L</TT> f&uuml;ggv&eacute;nyt
+(megford&iacute;tja a list&aacute;t)! A kor&aacute;bban deklar&aacute;lt
+f&uuml;ggv&eacute;nyeket felhaszn&aacute;lhatod benne.</P>
+
+<P>A rekurz&iacute;v programok sebess&eacute;g&eacute;ben (&eacute;s veremig&eacute;ny&eacute;ben)
+drasztikus roml&aacute;st okoz, ha sz&uuml;ks&eacute;gtelen&uuml;l sok
+f&uuml;ggv&eacute;nyh&iacute;v&aacute;st haszn&aacute;lunk. N&eacute;zz&uuml;k
+meg a Maxi f&uuml;ggv&eacute;nyt, mely egy lista legnagyobb elem&eacute;t
+v&aacute;lasztja ki a k&ouml;vetkez&otilde; elgondol&aacute;s szerint:</P>
+
+<UL>
+<P>- Egyelem&ucirc; lista maximuma az els&otilde; eleme <BR>
+- Egy&eacute;bk&eacute;nt lista maximuma az els&otilde; eleme &eacute;s
+a marad&eacute;k lista legnagyobb eleme k&ouml;z&uuml;l a nagyobbik</P>
+</UL>
+
+<P>Ez k&oacute;dolva:</P>
+
+<P><TT>Maxi :L<BR>
+&nbsp;&nbsp;&nbsp;IF EMPTY? BF :L [OP FIRST :L]~<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[IF
+Maxi BF :L &gt; FIRST :L [OP Maxi BF :L]~<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[OP
+FIRST :L] ]</TT></P>
+
+<P>A f&uuml;ggv&eacute;ny egy l&eacute;p&eacute;sben k&eacute;tszer is
+megh&iacute;vhatja mag&aacute;t (egyszer a felt&eacute;tel, egyszer a v&eacute;geredm&eacute;ny
+kisz&aacute;m&iacute;t&aacute;s&aacute;n&aacute;l, <TT>Maxi BF :L</TT>-lel),
+ezzel a l&eacute;p&eacute;sek sz&aacute;ma n helyett ak&aacute;r 2<SUP>n</SUP>
+is lehet, ahol n a lista hossza (minden l&eacute;p&eacute;s megk&eacute;tszerezi
+az elj&aacute;r&aacute;sh&iacute;v&aacute;sok sz&aacute;m&aacute;t). Az
+egyik megold&aacute;s egy v&aacute;ltoz&oacute; haszn&aacute;lata lenne,
+amelyben elt&aacute;roljuk a kisz&aacute;m&iacute;tott &eacute;rt&eacute;ket,
+&eacute;s m&aacute;sodszor m&aacute;r az elt&aacute;rolt &eacute;rt&eacute;ket
+haszn&aacute;ljuk fel rekurz&iacute;v h&iacute;v&aacute;s helyett. A LOGO
+nyelvben lehet v&aacute;ltoz&oacute;kat is l&eacute;trehozni. Egy f&uuml;ggv&eacute;nyszer&ucirc;
+nyelvben azonban nincsen erre felt&eacute;tlen&uuml;l lehet&otilde;s&eacute;g.
+Ekkor haszn&aacute;lhatunk egy m&aacute;sik elj&aacute;r&aacute;st, melynek
+param&eacute;terk&eacute;nt adjuk &aacute;t a kisz&aacute;m&iacute;tott
+&eacute;rt&eacute;ket.</P>
+
+<P><TT>Maxi :L<BR>
+&nbsp;&nbsp;&nbsp;IF EMPTY? BF :L [OP FIRST :L]~<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[OP
+Nagyobb FIRST :L Maxi BF :L]</TT></P>
+
+<P><TT>Nagyobb :A :B<BR>
+&nbsp;&nbsp;&nbsp;IF A&gt;B [OP A][OP B]</TT></P>
+
+<P>&Iacute;gy m&eacute;g &aacute;ttekinthet&otilde;bb&eacute; is v&aacute;lt
+a f&uuml;ggv&eacute;ny.</P>
+
+<P><U>6. feladat</U>: &iacute;rd meg a maximumkiv&aacute;laszt&aacute;s&aacute;sos
+rendez&eacute;s rekurz&iacute;v v&aacute;ltozat&aacute;t (<TT>RENDEZ :L</TT>)!
+Seg&iacute;ts&eacute;g: egyelem&ucirc; lista rendezett. Egy&eacute;bk&eacute;nt
+vedd ki a legnagyobb elemet, a marad&eacute;k list&aacute;t rendezd, majd
+ragaszd az elej&eacute;re a kivett elemet.</P>
+
+<P><U>7. feladat</U>: m&eacute;g tov&aacute;bbi feladatok listakezel&eacute;sre:<BR>
+&nbsp;&nbsp;&nbsp;lista v&eacute;g&eacute;re adott elemet ragaszt<BR>
+&nbsp;&nbsp;&nbsp;megadja a lista valah&aacute;nyadik elem&eacute;t<BR>
+&nbsp;&nbsp;&nbsp;k&eacute;t list&aacute;t &ouml;sszeilleszt</P>
+
+<P>A rekurzi&oacute; fontos &eacute;s hasznos programoz&oacute;i fog&aacute;s.
+Sok esetben p&aacute;r sorban meg lehet oldani vele egy&eacute;bk&eacute;nt
+hossz&uacute; programot ig&eacute;nyl&otilde; feladatokat. Tov&aacute;bbi
+alkalmaz&aacute;s&aacute;t ld. pl. a rekurz&iacute;v adatszerkezetek (<A HREF="../pascal2/fb.htm">2.
+Pascal f&uuml;zetke B f&uuml;ggel&eacute;ke</A>), a PROLOG nyelv, a Quicksort
+rendez&eacute;s bemutat&aacute;s&aacute;n&aacute;l.</P>
+
+<CENTER><P><A HREF="f4.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f2.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

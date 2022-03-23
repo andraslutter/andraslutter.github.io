@@ -1,0 +1,447 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>9. fejezet</TITLE>
+   <META NAME="Author" CONTENT="L. A.">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>IX. Programoz&aacute;s Prologban</FONT></U></P>
+
+<P><I><FONT SIZE=+1>Els&otilde; nekifut&aacute;s: a Prolog elemei</FONT></I></P>
+
+<P>A Prolog mesters&eacute;ges intelligencia feladatok megold&aacute;s&aacute;ra
+alkotott nyelv. A mesters&eacute;ges intelligencia programok bizonyos t&iacute;pus&uacute;
+probl&eacute;m&aacute;kat oldanak meg, melyek els&otilde; pillant&aacute;sra
+emberi intu&iacute;ci&oacute;t ig&eacute;nyelnek, b&aacute;r n&eacute;melyik&uuml;knek
+m&aacute;r l&eacute;tezik pontosan algoritmiz&aacute;lhat&oacute; megold&aacute;sa
+is. Sok mesters&eacute;ges intelligencia probl&eacute;m&aacute;nak azonban
+ma m&eacute;g nem ismert a pontos megold&aacute;sa, &eacute;s a programokban
+nagy szerepet j&aacute;tszanak az emberi tapasztalatokb&oacute;l lesz&ucirc;rt,
+nem bizony&iacute;tott (<I>heurisztikus</I>) szab&aacute;lyok.</P>
+
+<P>A Prolog nyelvre jellemz&otilde;, hogy a programoz&oacute;nak nem megold&aacute;si
+algoritmust kell adnia, hanem a feladat megold&aacute;s&aacute;hoz sz&uuml;ks&eacute;ges
+t&eacute;nyeket &eacute;s szab&aacute;lyokat kell bet&aacute;pl&aacute;lnia,
+melyek seg&iacute;ts&eacute;g&eacute;vel a Prolog &ouml;n&aacute;ll&oacute;an
+jut el a v&eacute;gk&ouml;vetkeztet&eacute;sig.</P>
+
+<P>A Prolog nyelvnek sok v&aacute;ltozata l&eacute;tezik, ebben a jegyzetben
+a Turbo Prolog szintaktik&aacute;j&aacute;t fogom haszn&aacute;lni. A t&eacute;nyek
+&eacute;s szab&aacute;lyok le&iacute;r&aacute;s&aacute;ban term&eacute;szetesen
+minden Prolog megegyezik.</P>
+
+<P>A Prolog a matematikai logik&aacute;ra &eacute;p&uuml;l. A t&eacute;nyek
+&eacute;s szab&aacute;lyok megad&aacute;sa ut&aacute;n a rendszernek feltehet&otilde;
+egy eld&ouml;ntend&otilde; k&eacute;rd&eacute;s. A k&eacute;rd&eacute;s
+&aacute;ll&iacute;t&aacute;s form&aacute;j&aacute;ban fogalmazand&oacute;
+meg, &eacute;s a Prolog megadja, hogy az &aacute;ll&iacute;t&aacute;s igaz-e
+vagy hamis, illetve, hogy milyen esetekre igaz. Ha a bet&aacute;pl&aacute;lt
+t&eacute;nyek &eacute;s szab&aacute;lyok ismeret&eacute;ben ez nem d&ouml;nthet&otilde;
+el, a Prolog az &aacute;ll&iacute;t&aacute;st hamisnak veszi (ez egy&aacute;ltal&aacute;n
+nem nyilv&aacute;nval&oacute;! Pl. „A Sz&iacute;riusz kis z&ouml;ld emberk&eacute;i
+szeretik a tejbegr&iacute;zt.&quot; igaz-e vagy hamis?).</P>
+
+<P>A Prologban a sz&ouml;vegeket nem sz&uuml;ks&eacute;ges id&eacute;z&otilde;jelbe
+tenni, de akkor nem kezd&otilde;dhetnek nagybet&ucirc;vel &eacute;s nem
+tartalmazhatnak sz&oacute;k&ouml;zt. A nagybet&ucirc;s sz&ouml;vegek a
+Prolog param&eacute;tereit jelzik.</P>
+
+<P>A Turbo Prolog program szerkezete:</P>
+
+<P><TT>DOMAINS </TT><FONT SIZE=-1>{t&iacute;pusdeklar&aacute;ci&oacute;k}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;n&eacute;v=t&iacute;pus<BR>
+&nbsp;&nbsp;&nbsp;...<BR>
+PREDICATES </TT><FONT SIZE=-1>{a szab&aacute;lyok param&eacute;terei t&iacute;pus&aacute;nak
+megad&aacute;sa}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;szab&aacute;ly(param&eacute;tert&iacute;pusok)<BR>
+&nbsp;&nbsp;&nbsp;...<BR>
+CLAUSES </TT><FONT SIZE=-1>{a szab&aacute;lyok, v&eacute;g&uuml;k&ouml;n
+ponttal}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;szab&aacute;ly.<BR>
+&nbsp;&nbsp;&nbsp;...<BR>
+[GOAL] </TT><FONT SIZE=-1>{nem interakt&iacute;v m&oacute;d eset&eacute;n
+az eld&ouml;ntend&otilde; &aacute;ll&iacute;t&aacute;s}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;...</TT></P>
+
+<P>N&eacute;zz&uuml;nk egy Prolog programot:</P>
+
+<P><TT>DOMAINS<BR>
+&nbsp;&nbsp;&nbsp;s=symbol<BR>
+PREDICATES<BR>
+&nbsp;&nbsp;&nbsp;hal(s)<BR>
+&nbsp;&nbsp;&nbsp;vanneki(s,s)<BR>
+CLAUSES<BR>
+&nbsp;&nbsp;&nbsp;hal(ponty).<BR>
+&nbsp;&nbsp;&nbsp;hal(csuka).<BR>
+&nbsp;&nbsp;&nbsp;vanneki(ponty,pikkely).</TT></P>
+
+<P>A <TT>symbol </TT>t&iacute;pus tetsz&otilde;leges kisbet&ucirc;vel kezd&otilde;d&otilde;,
+sz&oacute;k&ouml;zmentes sz&ouml;veget jelent. Egy&eacute;b t&iacute;pusok:
+<TT>integer</TT>, <TT>real</TT>, <TT>char</TT>, <TT>string</TT>. Ha a <TT>GOAL
+</TT>szekci&oacute; hi&aacute;nyzik, a Prolog interakt&iacute;v m&oacute;dban
+v&aacute;r a k&eacute;rd&eacute;s be&iacute;r&aacute;s&aacute;ra. A program
+l&eacute;nyegi r&eacute;sze a <TT>CLAUSES </TT>azonos&iacute;t&oacute;
+ut&aacute;n k&ouml;vetkezik, a tov&aacute;bbiakban ezzel foglalkozuk.</P>
+
+<P>A szab&aacute;ly neve ut&aacute;n z&aacute;r&oacute;jelben adtuk meg
+a szab&aacute;ly param&eacute;tereit. Minden sor azt adja meg, hogy egy
+szab&aacute;ly milyen esetben teljes&uuml;l, vagyis pl. a <TT>hal(valami)</TT>
+&aacute;ll&iacute;t&aacute;s mikor igaz. Ezen szab&aacute;lyok alapj&aacute;n
+feltehetj&uuml;k a k&eacute;rd&eacute;st (?-lel jel&ouml;l&ouml;m a k&eacute;rd&eacute;s
+promptj&aacute;t, ez Turbo Prologban <TT>Goal:</TT>):</P>
+
+<UL>
+<P><TT>? hal(eg&eacute;r)<BR>
+? hal(ponty)<BR>
+? hal(X)</TT></P>
+</UL>
+
+<P>Az els&otilde; k&eacute;rd&eacute;sre a v&aacute;lasz No, a m&aacute;sodikra
+Yes, a harmadikra X=ponty, X=csuka. A v&aacute;lasz a k&ouml;vetkez&otilde;k&eacute;ppen
+sz&uuml;letett: a Prolog az els&otilde; esetben megvizsg&aacute;lt minden
+hal(...) szab&aacute;lyt. Sehol nem tal&aacute;lt egyez&eacute;st, &iacute;gy
+a v&aacute;lasz hamis. A m&aacute;sodik esetben tal&aacute;lt egyez&eacute;st,a
+v&aacute;lasz igaz. A harmadik esetben a k&eacute;rd&eacute;s <I>szabad
+param&eacute;ter</I>t tartalmazott (olyan param&eacute;ter, amely m&eacute;g
+nem kapott &eacute;rt&eacute;ket). A hal(...) szab&aacute;lyok vizsg&aacute;lat&aacute;n&aacute;l
+a Prolog meghat&aacute;rozta, hogy X mely &eacute;rt&eacute;keire teljes&uuml;lhet
+az &aacute;ll&iacute;t&aacute;s. Ez a Prolog m&ucirc;k&ouml;d&eacute;s&eacute;nek
+egyik kulcsa, a <I>mintailleszt&eacute;s</I>. Ennek sor&aacute;n a szabad
+param&eacute;terek &eacute;rt&eacute;ket kapnak.</P>
+
+<P><U>1. feladat</U>: mi lesz a v&aacute;lasz a k&ouml;vetkez&otilde; k&eacute;rd&eacute;sekre:<BR>
+<TT>Vanneki(ponty,A), Vanneki(A,pikkely), Vanneki(A,sz&aacute;rny), Vanneki(X,Y)?</TT></P>
+
+<P>A _ (al&aacute;h&uacute;z&aacute;s) olyan &eacute;rt&eacute;k, amely
+mindenre illeszthet&otilde; („ak&aacute;rmi&quot;). A hal(_) &eacute;rt&eacute;ke
+Yes.</P>
+
+<P>A t&eacute;nyeken k&iacute;v&uuml;l megadhatunk &ouml;sszetettebb szab&aacute;lyokat.
+Pl. az utols&oacute; szab&aacute;ly helyett:</P>
+
+<P><TT>vanneki(X,pikkely) :- hal(X).</TT></P>
+
+<P><TT>:-</TT> helyett haszn&aacute;lhat&oacute; <TT>if </TT>is. Ez a szab&aacute;ly
+azt mondja ki, hogy valaminek akkor van pikkelye, ha arra a valamire teljes&uuml;l,
+hogy hal. Vanneki szab&aacute;ly ki&eacute;rt&eacute;kel&eacute;s&eacute;hez
+a Prolog megvizsg&aacute;lja a hal szab&aacute;lyokat, &eacute;s mintailleszt&eacute;s
+seg&iacute;ts&eacute;g&eacute;vel egyez&eacute;st keres. </P>
+
+<P>Vanneki(csiga,pikkely) ki&eacute;rt&eacute;kel&eacute;sekor vanneki(X,pikkely)
+szab&aacute;lyn&aacute;l illeszt&eacute;si lehet&otilde;s&eacute;get vesz
+&eacute;szre, elv&eacute;gzi X=csiga illeszt&eacute;st, majd megvizsg&aacute;lja
+hal(X) felt&eacute;telt. X most m&aacute;r nem szabad param&eacute;ter,
+teh&aacute;t a Prolog a hal(csiga) &aacute;ll&iacute;t&aacute;st &eacute;rt&eacute;keli
+ki. Nem tal&aacute;l egyez&eacute;st, &iacute;gy a v&aacute;lasz No.</P>
+
+<P><TT>Vanneki(A,pikkely)</TT> ki&eacute;rt&eacute;kel&eacute;sekor vanneki(X,pikkely)
+ism&eacute;t egyez&eacute;st mutat, X=A illeszt&eacute;ssel. &Iacute;gy
+X tov&aacute;bbra is szabad param&eacute;ter marad (mivel A szabad param&eacute;ter),
+&eacute;s hal(A) vizsg&aacute;lata k&ouml;vetkezik. K&eacute;t megold&aacute;st
+kapunk A-ra.</P>
+
+<P>= oper&aacute;tor k&eacute;tf&eacute;lek&eacute;ppen m&ucirc;k&ouml;dik.
+<I>&eacute;rt&eacute;k </I>= <I>&eacute;rt&eacute;k </I>esetben megvizsg&aacute;lja
+a k&eacute;t &eacute;rt&eacute;k egyez&eacute;s&eacute;t, &eacute;s igaz
+vagy hamis eredm&eacute;nyt ad. <I>szabad param&eacute;ter</I> = <I>&eacute;rt&eacute;k
+</I>esetben mintailleszt&otilde;k&eacute;nt m&ucirc;k&ouml;dik, &eacute;s
+az &eacute;rt&eacute;ket &eacute;rt&eacute;k&uuml;l adja a szabad param&eacute;ternek,
+mely ett&otilde;l fogva nem lesz szabad, &eacute;rt&eacute;kk&eacute;nt
+m&ucirc;k&ouml;dik. <I>szabad param&eacute;ter</I> = <I>szabad param&eacute;ter</I>
+esetben a baloldali param&eacute;ternek &eacute;rt&eacute;k&uuml;l adja
+a jobboldalit, m&eacute;gpedig &uacute;gy, hogy a tov&aacute;bbiakban a
+baloldali helyett a jobboldalit haszn&aacute;lja (<I>n&eacute;v szerinti
+param&eacute;ter&aacute;tad&aacute;s</I>), ld. X=A illeszt&eacute;st el&otilde;bb.
+Az = oper&aacute;tor m&ucirc;k&ouml;d&eacute;se nem szimmetrikus, &eacute;s
+nem haszn&aacute;lhat&oacute; &eacute;rt&eacute;k = param&eacute;ter form&aacute;ban,
+ugyanis mindig a baloldalnak adja &eacute;rt&eacute;k&uuml;l a jobboldalt.</P>
+
+<P>Eg&eacute;sz&iacute;ts&uuml;k ki a szab&aacute;lyokat <TT>hal(angolna).</TT>
+sorral. Mivel az angoln&aacute;nak nincs pikkelye, a Vanneki szab&aacute;ly
+m&oacute;dosul. Valaminek van pikkelye, ha hal, &eacute;s nem angolna.
+Ebben seg&iacute;t a <TT>not(&eacute;rt&eacute;k)</TT> szab&aacute;ly,
+mely a benne l&eacute;v&otilde; &aacute;ll&iacute;t&aacute;s igazs&aacute;g-&eacute;rt&eacute;k&eacute;t
+ford&iacute;tja meg:</P>
+
+<P><TT>vanneki(X,pikkely):- hal(X), not(X=angolna).</TT></P>
+
+<P>A not-on bel&uuml;l m&aacute;r nem m&ucirc;k&ouml;dik a mintailleszt&eacute;s,
+csak helyben ki&eacute;rt&eacute;kelhet&otilde; &aacute;ll&iacute;t&aacute;sokat
+tartalmazhat, vagyis nem tartalmazhat szabad param&eacute;tereket. Ez&eacute;rt
+a k&eacute;t felt&eacute;tel sorrendje nem cser&eacute;lhet&otilde; fel,
+mire a ki&eacute;rt&eacute;kel&eacute;s a not-ra ker&uuml;l, X m&aacute;r
+&eacute;rt&eacute;ket kapott.</P>
+
+<P>A <TT>,</TT> (vessz&otilde;) helyett <TT>and</TT> is haszn&aacute;lhat&oacute;,
+logikai &eacute;s kapcsolatot jelent. Egy szab&aacute;lyon bel&uuml;l t&ouml;bb,
+vessz&otilde;vel elv&aacute;lasztott r&eacute;sz-&aacute;ll&iacute;t&aacute;s
+lehet. A Prolog a k&ouml;vetkez&otilde;k&eacute;ppen dolgozza fel az ilyen
+szab&aacute;lyokat: balr&oacute;l jobbra haladva mindegyik &aacute;ll&iacute;t&aacute;sra
+keres megold&aacute;st. P&eacute;ld&aacute;nkban tegy&uuml;k fel a <TT>Vanneki(X,
+pikkely)</TT> k&eacute;rd&eacute;st. hal(X)-re tal&aacute;lt X=ponty megold&aacute;st.
+Ezut&aacute;n a k&ouml;vetkez&otilde; &aacute;ll&iacute;t&aacute;sra l&eacute;p:
+not(X=angolna). Mivel a ponty=angolna t&eacute;nyleg hamis, ez az &aacute;ll&iacute;t&aacute;s
+is teljes&uuml;l. A szab&aacute;lynak v&eacute;ge, X=ponty ki&iacute;rhat&oacute;.
+Ezut&aacute;n a Prolog visszal&eacute;p, &eacute;s keresi a k&ouml;vetkez&otilde;
+j&oacute; megold&aacute;st. X=csuka is megfelel. V&eacute;g&uuml;l X=angolna
+helyettes&iacute;t&eacute;ssel l&eacute;p tov&aacute;bb, not(angolna=angolna)
+most nem teljes&uuml;l. Ez&eacute;rt a Prolog visszal&eacute;p eggyel,
+&eacute;s &uacute;jabb megold&aacute;st keres hal(X)-re. Nincs t&ouml;bb,
+&iacute;gy le&aacute;ll.</P>
+
+<P>L&aacute;that&oacute;, hogy az &ouml;sszes j&oacute; megold&aacute;s
+meghat&aacute;roz&aacute;s&aacute;hoz a Prolog a backtrack algoritmus&aacute;t
+haszn&aacute;lta: ha egy l&eacute;p&eacute;s j&oacute;, jobbra l&eacute;p
+a k&ouml;vetkez&otilde; felt&eacute;telhez, ha nem, visszal&eacute;p eggyel,
+&eacute;s keresi a k&ouml;vetkez&otilde; j&oacute; megold&aacute;st (ld.
+<A HREF="f5.htm">V. fejezet</A>).</P>
+
+<P>Az egym&aacute;s ut&aacute;n k&ouml;vetkez&otilde;, azonos nev&ucirc;
+szab&aacute;lyok egym&aacute;ssal vagy kapcsolatban &aacute;llnak. Ha egy
+szab&aacute;ly ki&eacute;rt&eacute;kel&eacute;s&eacute;t a Prolog backtrack
+keres&eacute;ssel befejezte, a k&ouml;vetkez&otilde; szab&aacute;lyra l&eacute;p
+(hogyan teljes&uuml;lhet m&eacute;g az &aacute;ll&iacute;t&aacute;s).</P>
+
+<P><U>2. feladat</U>: Milyen megold&aacute;sokat &iacute;r ki a Prolog,
+&eacute;s milyen sorrendben?<BR>
+<TT>? hal(X), hal(Y), not(X=Y)</TT></P>
+
+<P><U>3. feladat</U>: mi&eacute;rt hib&aacute;s az abszol&uacute;t&eacute;rt&eacute;k
+k&ouml;vetkez&otilde; megval&oacute;s&iacute;t&aacute;sa, &eacute;s hogyan
+kellene helyesen le&iacute;rni?<BR>
+<TT>&nbsp;&nbsp;&nbsp;abs(X,Y):- X&gt;=0, Y=X.<BR>
+&nbsp;&nbsp;&nbsp;abs(X,Y):- Y=-X.</TT></P>
+
+<P>Ha nem akarjuk, hogy a Prolog visszal&eacute;pjen, hogy a t&ouml;bbi
+lehet&otilde;s&eacute;get megvizsg&aacute;lja, haszn&aacute;lhatjuk a !
+jelet, mely visszal&eacute;p&eacute;s eset&eacute;n le&aacute;ll&iacute;tja
+a ki&eacute;rt&eacute;kel&eacute;st. A fenti program lehets&eacute;ges
+kijav&iacute;t&aacute;sa:<BR>
+<TT>&nbsp;&nbsp;&nbsp;abs(X,Y):- X&gt;=0, !, Y=X.<BR>
+&nbsp;&nbsp;&nbsp;abs(X,Y):- Y=-X.<BR>
+</TT>&Iacute;gy ha X&gt;=0, de Y=X nem teljes&uuml;l, nem l&eacute;p vissza,
+hogy a k&ouml;vetkez&otilde; sorban rossz megold&aacute;st tal&aacute;ljon.</P>
+
+<P>A rekurzi&oacute; term&eacute;szetes velej&aacute;r&oacute;ja a Prolog
+programoz&aacute;s&aacute;nak, hiszen ciklus egy&aacute;ltal&aacute;n nincs
+benne. (ld. a III. fejezetet!) N&eacute;zz&uuml;k meg a faktori&aacute;lis
+megval&oacute;s&iacute;t&aacute;s&aacute;t:</P>
+
+<UL>
+<P><TT>fakt(0,1).<BR>
+fakt(A,B):- Z=A-1, fakt(Z,E), B=E*A, !.</TT></P>
+</UL>
+
+<P>A Prolog csak logikai (igaz/hamis v&eacute;geredm&eacute;ny&ucirc;)
+f&uuml;ggv&eacute;nyeket ismer. A faktori&aacute;lis-f&uuml;ggv&eacute;nyt
+&uacute;gy kell megfogalmaznunk, hogy „mikor teljes&uuml;l, hogy A faktori&aacute;lisa
+B?&quot; Ha a Prolog m&aacute;r tal&aacute;lt egy megold&aacute;st, meg
+kell akad&aacute;lyoznunk, hogy <TT>Z=A-1</TT> helyettes&iacute;t&eacute;st
+&uacute;jb&oacute;l v&eacute;grehajtva a v&eacute;gtelen visszal&eacute;p&eacute;s
+hib&aacute;t okozzon, ez a szerepe !-nek. Tov&aacute;bb&aacute;, a k&eacute;t
+szab&aacute;ly sorrendje sem mindegy: ha a m&aacute;sodik szab&aacute;lyt
+tett&uuml;k volna el&otilde;re, az, mivel minden esetben illeszthet&otilde;,
+szint&eacute;n v&eacute;gtelen rekurzi&oacute;t okozott volna.</P>
+
+<P><U>4. feladat</U>: k&eacute;sz&iacute;tsd el Prologban a hatv&aacute;nyoz&aacute;s
+f&uuml;ggv&eacute;ny&eacute;t (term&eacute;szetesen csak eg&eacute;sz kitev&otilde;kre,
+az alap lehet real)!</P>
+
+<P>Egy lesz&aacute;rmaz&aacute;si sort &iacute;rnak le a k&ouml;vetkez&otilde;
+t&iacute;pus&uacute; t&eacute;nyek. A gyereket mindig az ap&aacute;n&aacute;l
+jelezz&uuml;k (felt&eacute;telezz&uuml;k, hogy minden gyerek boldog h&aacute;zass&aacute;gban
+j&ouml;tt vil&aacute;gra):<BR>
+<TT>&nbsp;&nbsp;&nbsp;gyereke(apa,gyerek)<BR>
+&nbsp;&nbsp;&nbsp;felesege(apa,anya)</TT></P>
+
+<P>A k&ouml;zvetlen lesz&aacute;rmazott defin&iacute;ci&oacute;ja:<BR>
+<TT>&nbsp;&nbsp;&nbsp;leszarm(F,GY):- gyereke(F,GY).<BR>
+&nbsp;&nbsp;&nbsp;leszarm(F,GY):- felesege(A,F), gyereke(A,GY).</TT></P>
+
+<P><U>5. feladat</U>: &iacute;rd meg az <TT>Utod(F,U)</TT> f&uuml;ggv&eacute;nyt
+(F-nek U k&ouml;zvetlen vagy nem k&ouml;zvetlen lesz&aacute;rmazottja).
+T&ouml;ltsd f&ouml;l t&eacute;nyekkel az adatb&aacute;zist, &eacute;s teszteld!</P>
+
+<P><U>6. feladat</U>: &iacute;rd meg &eacute;s teszteld a k&ouml;vetkez&otilde;
+f&uuml;ggv&eacute;nyeket!<BR>
+<TT>&nbsp;&nbsp;&nbsp;Anyja(F,GY) </TT><FONT SIZE=-1>(F anyja GY-nek)<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;Anya(F) </TT><FONT SIZE=-1>(F valakinek (_)
+az anyja)<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;Rokon(X,Y) </TT><FONT SIZE=-1>(X-nek &eacute;s
+Y-nak van k&ouml;z&ouml;s &otilde;se)<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;Testver(X,Y) </TT><FONT SIZE=-1>(X &eacute;s
+Y sz&uuml;lei k&ouml;z&ouml;sek)<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;Unoka(F,GY) </TT><FONT SIZE=-1>(F-nek GY unok&aacute;ja)<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;Utod2(F,GY,N) </TT><FONT SIZE=-1>(F-nek GY
+N-edik gener&aacute;ci&oacute;s ut&oacute;dja)</FONT><TT> </TT></P>
+
+<P><I><FONT SIZE=+1>M&aacute;sodik nekifut&aacute;s: m&ucirc;veletek list&aacute;kkal</FONT></I></P>
+
+<P>A Prolog jellemz&otilde; adatszerkezete a lista. A <TT>DOMAINS </TT>szekci&oacute;ban
+a lista t&iacute;pusa alapt&iacute;pus*-gal jel&ouml;lt (pl. symbol*).
+Lista k&eacute;tf&eacute;lek&eacute;ppen adhat&oacute; meg: <I>[elem, elem,...]</I>,
+vagy <TT>[elem,&nbsp;elem...&nbsp;|&nbsp;marad&eacute;klista]</TT> (ld.
+a <A HREF="f3.htm">III. fejezet</A> LOGO-beli list&aacute;it). Mintailleszt&eacute;sn&eacute;l
+a lista egyes komponenseire k&uuml;l&ouml;n-k&uuml;l&ouml;n lehet illeszteni,
+pl. <TT>[a,b,c]</TT> list&aacute;ra <TT>[E|L]</TT> illeszt&eacute;s&eacute;vel
+E=a, L=[b,c] lesz az eredm&eacute;ny. P&eacute;lda lista elemsz&aacute;m&aacute;ra:</P>
+
+<P><TT>DOMAINS<BR>
+&nbsp;&nbsp;&nbsp;l=symbol*<BR>
+PREDICATES<BR>
+&nbsp;&nbsp;&nbsp;elemszam(l,integer)<BR>
+CLAUSES<BR>
+&nbsp;&nbsp;&nbsp;elemszam([],0).<BR>
+&nbsp;&nbsp;&nbsp;elemszam([_|L],N):- elemszam(L,X), N=X+1.</TT></P>
+
+<P>Figyelj&uuml;k meg _ haszn&aacute;lat&aacute;t param&eacute;ter helyett.
+Szabad param&eacute;ter haszn&aacute;lata felesleges lett volna, mert az
+illesztett &eacute;rt&eacute;ket sehol nem haszn&aacute;ln&aacute;nk fel.
+! haszn&aacute;lat&aacute;ra viszont nem volt sz&uuml;ks&eacute;g az ism&eacute;telt
+rekurzi&oacute; elker&uuml;l&eacute;s&eacute;re, mert az &uuml;res lista
+nem illeszthet&otilde; a m&aacute;sodik szab&aacute;lyra.</P>
+
+<P><U>1. feladat</U>: &iacute;rd meg eleme(elem,lista) f&uuml;ggv&eacute;nyt,
+mely eld&ouml;nti, a lista tartalmaz-e egy bizonyos elemet!</P>
+
+<P>Vizsg&aacute;ljuk meg, mi a hiba a k&ouml;vetkez&otilde; szab&aacute;lyban
+(hanyszor(elem,lista,sz&aacute;m), a lista sz&aacute;m-szor tartalmaz egy
+elemet):<BR>
+<TT>&nbsp;&nbsp;&nbsp;hanyszor(_,[],0).<BR>
+&nbsp;&nbsp;&nbsp;hanyszor(S,[E|L],N):- S=E, hanyszor(S,L,X), N=X+1.<BR>
+&nbsp;&nbsp;&nbsp;hanyszor(S,[_|L],N):- hanyszor(S,L,N).</TT></P>
+
+<P>Ha egy param&eacute;ter illeszkedik a 2. szab&aacute;lyra, az illeszkedni
+fog a harmadikra is. A j&oacute; megold&aacute;s ut&aacute;n ez&eacute;rt
+a Prolog rossz megold&aacute;sokat is fog tal&aacute;lni, kisebb sz&aacute;mokkal,
+eg&eacute;szen 0-ig. Ez elker&uuml;lhet&otilde;, ha a 3. szab&aacute;lyra
+csak akkor ker&uuml;l sor, ha a 2. nem teljes&uuml;lt. Teh&aacute;t a 3.
+szab&aacute;ly helyesen:<BR>
+<TT>&nbsp;&nbsp;&nbsp;hanyszor(S,[E|L],N):- not(E=S), hanyszor(S,L,N).<BR>
+</TT>De ehelyett haszn&aacute;lhatjuk a !-et a 2. szab&aacute;ly v&eacute;g&eacute;n
+(&iacute;gy ha a 2. szab&aacute;ly teljes&uuml;l, t&ouml;bb szab&aacute;lyt
+nem keres a Prolog). A szab&aacute;lyok feldolgoz&aacute;sa gyors&iacute;that&oacute;,
+ha a 2. szab&aacute;lyban az <TT>E=S</TT> felt&eacute;telt m&aacute;r a
+mintailleszt&eacute;sn&eacute;l feldolgozzuk. &Iacute;gy a 2. szab&aacute;ly:<BR>
+<TT>&nbsp;&nbsp;&nbsp;hanyszor(S,[S|L],N):- hanyszor(S,L,X), N=X+1.</TT></P>
+
+<P><U>2. feladat</U>: &iacute;rj f&uuml;ggv&eacute;nyt, mellyel megadhat&oacute;
+egy lista valah&aacute;nyadik eleme! Ugyanezzel a f&uuml;ggv&eacute;nnyel
+megadhat&oacute; az is, hogy egy elem h&aacute;nyadikk&eacute;nt szerepel
+a list&aacute;ban. <BR>
+<TT>hanyadik(lista,elem,sorsz&aacute;m</TT>)</P>
+
+<P><U>3. feladat</U>: k&eacute;sz&iacute;ts f&uuml;ggv&eacute;nyt, mellyel
+meghat&aacute;rozhat&oacute; egy sz&aacute;mokat tartalmaz&oacute; lista
+elemeinek &ouml;sszege!</P>
+
+<P>N&eacute;zz&uuml;k meg, hogyan lehet lista valah&aacute;nyadik elem&eacute;t
+kivenni a list&aacute;b&oacute;l:<BR>
+<TT>&nbsp;&nbsp;&nbsp;kivesz([_|L],1,L).<BR>
+&nbsp;&nbsp;&nbsp;kivesz([E|L],N,[E|L2]):- M=N-1, kivesz(L,M,L2).</TT></P>
+
+<P><U>4. feladat</U>: k&eacute;sz&iacute;ts f&uuml;ggv&eacute;nyt, mely
+k&eacute;t list&aacute;t egy harmadikk&aacute; kapcsol &ouml;ssze!</P>
+
+<P>L&aacute;that&oacute;, hogy a lista-m&ucirc;veletek l&eacute;nyege (rekurzi&oacute;,
+visszavezet&eacute;s marad&eacute;klist&aacute;ra) azonos a LOGO-n&aacute;l
+l&aacute;tottakkal, csup&aacute;n logikai f&uuml;ggv&eacute;nyk&eacute;nt
+kell megfogalmazni.</P>
+
+<P>N&eacute;zz&uuml;nk most egy &ouml;sszetettebb p&eacute;ld&aacute;t:
+a <TT>repulo(varos,varos)</TT> t&eacute;nyek megadj&aacute;k, hogy mely
+v&aacute;rosok k&ouml;z&ouml;tt van k&ouml;zvetlen rep&uuml;l&otilde;g&eacute;p-&ouml;sszek&ouml;ttet&eacute;s.
+Ha A &eacute;s B &ouml;ssze van k&ouml;tve, a t&eacute;nyek k&ouml;z&ouml;tt
+nem szerepel <TT>repulo(B,A)</TT>, de az&eacute;rt azt is &eacute;lnek
+kell venni. Ez&eacute;rt defini&aacute;ljuk a k&ouml;zvetlen j&aacute;ratra
+vonatkoz&oacute; szab&aacute;lyt:<BR>
+<TT>&nbsp;&nbsp;&nbsp;jarat(A,B):- repulo(A,B).<BR>
+&nbsp;&nbsp;&nbsp;jarat(A,B):- repulo(B,A).<BR>
+</TT>Ezut&aacute;n megfogalmazzuk, hogy mikor lehet eljutni egyik v&aacute;rosb&oacute;l
+a m&aacute;sikba: ha van k&ouml;zt&uuml;k k&ouml;zvetlen j&aacute;rat,
+vagy az egyikb&otilde;l el lehet jutni egy olyan k&ouml;zbens&otilde; v&aacute;rosba,
+amelyb&otilde;l el lehet jutni a m&aacute;sikba:<BR>
+<TT>&nbsp;&nbsp;&nbsp;eljut(A,B):- jarat(A,B).<BR>
+&nbsp;&nbsp;&nbsp;eljut(A,B):- jarat(A,X), eljut(X,B)</TT>.<BR>
+Vigy&aacute;zat: a lesz&aacute;rmaz&aacute;si f&aacute;n&aacute;l ez a
+m&oacute;dszer m&ucirc;k&ouml;d&ouml;tt. Ez azonban &aacute;ltal&aacute;nos
+gr&aacute;f bej&aacute;r&aacute;sa, &eacute;s mindenk&eacute;ppen el kell
+ker&uuml;ln&uuml;nk a k&ouml;r&ouml;ket, k&uuml;l&ouml;nben v&eacute;gtelen
+rekurzi&oacute; &aacute;llhat el&otilde;. Teh&aacute;t a klasszikus gr&aacute;fbej&aacute;r&oacute;
+algoritmushoz hasonl&oacute;an itt is t&aacute;rolnunk kell, hogy hol j&aacute;rtunk.
+Ez list&aacute;ban t&ouml;rt&eacute;nik. A program m&eacute;lys&eacute;gi
+keres&eacute;st v&eacute;gez.<BR>
+<TT>&nbsp;&nbsp;&nbsp;eljut(A,B,L):- jarat(A,B), not eleme(B,L).<BR>
+&nbsp;&nbsp;&nbsp;eljut(A,B,L):- jarat(A,X), not eleme(X,L), L2=[X|L],
+eljut(A,B,L2).</TT></P>
+
+<P>A f&uuml;ggv&eacute;ny h&iacute;v&aacute;sa <TT>eljut(v&aacute;ros,v&aacute;ros,[])</TT>
+form&aacute;ban t&ouml;rt&eacute;nik.</P>
+
+<P><I><FONT SIZE=+1>Harmadik nekifut&aacute;s: bar&aacute;ts&aacute;gosabb
+programok</FONT></I></P>
+
+<P>A Prolog programban szerepelhet egy <TT>GOAL </TT>szekci&oacute; is,
+mely a ki&eacute;rt&eacute;kelend&otilde; kifejez&eacute;st tartalmazza.
+Ekkor a Prolog nem interakt&iacute;v m&oacute;dban fut, vagyis nem tesz
+fel k&eacute;rd&eacute;st. A Turbo Prolog ebben az &uuml;zemm&oacute;dj&aacute;ban
+csak egy j&oacute; megold&aacute;st keres, &eacute;s azut&aacute;n nem
+l&eacute;p vissza. A felhaszn&aacute;l&oacute;i fel&uuml;lethez a Prolog
+tartalmaz olyan f&uuml;ggv&eacute;nyeket, melyeken a ki&eacute;rt&eacute;kel&eacute;s
+„&aacute;tl&eacute;p&quot;, &eacute;s mell&eacute;khat&aacute;suk miatt
+l&eacute;nyegesek (pl. ki&iacute;rnak valamit). Ilyenek:</P>
+
+<UL>
+<LI><TT>write(kifejez&eacute;s) </TT><FONT SIZE=-1>(ki&iacute;r&aacute;s)</FONT></LI>
+
+<LI><TT>readln(szabad param&eacute;ter) </TT><FONT SIZE=-1>(string t&iacute;pus&uacute;
+&eacute;rt&eacute;ket olvas a param&eacute;terbe)</FONT></LI>
+
+<LI><TT>readint(szabad param&eacute;ter) </TT><FONT SIZE=-1>(integer t&iacute;pus&uacute;
+&eacute;rt&eacute;ket olvas a param&eacute;terbe)</FONT></LI>
+
+<LI><TT>nl </TT><FONT SIZE=-1>(sort emel)</FONT></LI>
+</UL>
+
+<P>Klasszikus p&eacute;lda: a program sz&aacute;mokat k&eacute;r be, ki&iacute;rja
+a reciprokukat, kiv&eacute;ve a 0-t, mert akkor le&aacute;ll. A v&eacute;gtelen
+ciklust v&eacute;gtelen rekurzi&oacute;val oldottuk meg.</P>
+
+<P><TT>PREDICATES<BR>
+&nbsp;&nbsp;&nbsp;megold<BR>
+CLAUSES<BR>
+&nbsp;&nbsp;&nbsp;megold:- readint(X), not(X=0), Z=1/X, write(Z), nl, megold.<BR>
+GOAL<BR>
+&nbsp;&nbsp;&nbsp;megold</TT></P>
+
+<P>V&eacute;g&uuml;l n&eacute;zz&uuml;k meg, hogyan lehet az &ouml;sszes
+megold&aacute;st ki&iacute;ratni GOAL &uuml;zemm&oacute;dban.</P>
+
+<P><TT>GOAL<BR>
+&nbsp;&nbsp;&nbsp;eleme(E,[a,b,c,d,e]), write(E), nl</TT></P>
+
+<P>Ekkor a program csak a lista els&otilde; elem&eacute;t &iacute;rja ki,
+mert az els&otilde; megold&aacute;sn&aacute;l le&aacute;ll. A Prolog <TT>FAIL
+</TT>f&uuml;ggv&eacute;nye mindig No-ra &eacute;rt&eacute;kel&otilde;dik
+ki, ezt haszn&aacute;lhatjuk arra, hogy att&oacute;l a pontt&oacute;l visszal&eacute;pjen,
+mintha nem tal&aacute;lt volna megold&aacute;st. A k&ouml;vetkez&otilde;
+jav&iacute;t&aacute;ssal a program ki&iacute;rja a lista &ouml;sszes elem&eacute;t:<BR>
+<TT>&nbsp;&nbsp;&nbsp;eleme(E,[a,b,c,d,e]), write(E), nl, Fail</TT></P>
+
+<P>A vagy kapcsolatot (<TT>or</TT>, vagy pontosvessz&otilde;) arra haszn&aacute;lhatjuk,
+hogy megtakar&iacute;tsuk vele az azonos f&uuml;ggv&eacute;nyfejre val&oacute;
+ism&eacute;telt mintailleszt&eacute;st. Az el&otilde;z&otilde; r&eacute;sz
+<TT>Jarat</TT> f&uuml;ggv&eacute;nye ennek felhaszn&aacute;l&aacute;s&aacute;val:<BR>
+<TT>&nbsp;&nbsp;&nbsp;jarat(A,B):- repulo(A,B); repulo(B,A).</TT></P>
+
+<P>Ez pontosan &uacute;gy m&ucirc;k&ouml;dik, mint az el&otilde;z&otilde;
+oldali v&aacute;ltozat.</P>
+
+<CENTER><P><A HREF="f8.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

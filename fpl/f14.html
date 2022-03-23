@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - grafikus alkalmazás</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			14. fejezet: Az első grafikus alkalmazás
+		</h1>
+
+	<p>A Lazarus IDE segítsége már szöveges alkalmazásoknál is jól érzékelhető volt. Egy egyszerűbb grafikus alkalmazásnál pedig a kód jelentős részét a Lazarus készíti el. A fejlett (4. generációs) szerkesztőben a grafikus felületet összerakhatjuk egérrel, az egyes objektumokat kezelő kód egy része automatikusan megjelenik. A Lazarus alkotóinak határozott elképzelése volt az alkalmazás elkészítésének folyamatáról. Ha ezt követjük, az IDE segítségünkre lesz. Természetesen lehetséges másképpen, más sorrendben is elkészíteni a programot, akkor viszont a Lazarus inkább akadályoz. Ismerkedjünk meg egy egyszerű programon keresztül a fejlesztés lépéseivel!</p>
+
+  <h2>Eseményvezérelt programozás</h2>
+  <p>Egy grafikus program működése alapjában különbözik az eddig írt programok stílusától. Az eddigi programjaink <strong>imperatív</strong> stílusban íródtak, vagyis előírták, a programnak milyen műveleteket, milyen sorrendben kell elvégezni. (A <strong>strukturált</strong>, <strong>procedurális</strong> programozás ennek a stílusnak a továbbfejlesztése, mely a program logikus szerkezetére és a részfeladatok eljárásokra bontására koncentrál.)<br />
+  A grafikus program azonban idejének nagy részében arra vár, hogy bekövetkezzen valamilyen <strong>esemény</strong> (gombra kattintás, ablak mozgatása...), ekkor lefut a beépített vagy általunk megírt <strong>eseménykezelő</strong>, majd a program tovább vár. Itt tehát a program által végrehajtott tevékenységek sorrendje a külső hatásoktól függ. Ez az <strong>eseményvezérelt programozás</strong>.<br />
+  A programunk fő része az eseménykezelő ciklus:
+  <span class="alg">
+    Ismételd
+        ha van értesítés eseményről, hajtsd végre az eseménykezelőjét
+        ha van változás a felületen, frissítsd
+    amíg nincs vége</span><br />
+  A grafikus felületet a Windows kezeli, ez számunkra nagy könnyebbség, hiszen a megjelenítést (gombok, szövegmezők), a grafikus elemek kezelését (gomb lenyomása, szöveg beírása) nem nekünk kell elkészíteni. Ha a Windows egy eseményt észlel, üzenetet küld a programunknak (pl. "megnyomták az OK gombot"), ekkor az eseménykezelő ciklus lefuttatja az előre beállított eseménykezelőt. Ha az eseménykezelő valamit módosított a grafikus felületen (pl. egy gomb lenyomására megjelenített egy képet), annak kirajzolására az eseménykezelő futtatása után kerül sor.</p>
+
+  <h2>Objektumorientált programozás</h2>
+  <p>Az <strong>objektumok</strong> használata jelentősen megkönnyíti a grafikus felület programozását. Egy objektum nem csak adatokat tartalmazhat (mint pl. egy tömb), hanem az adatokat kezelő eljárásokat is. Így az adataival és az azokat kezelő eljárásokkal együtt egy zárt egységet alkot. A program működése során ezek az objektumok hatnak kölcsön. Pl. van egy <code>Button1</code> nevű gombunk. Ennek van felirata, ez a <code>Button1.Caption</code> tulajdonság (a <strong>tulajdonság</strong> egy objektumban tárolt adat), és van egy <code>Button1.OnClick</code> eljárása (más néven <strong>metódusa</strong>), ami a gomb lenyomásakor végrehajtódó eseménykezelő eljárás. Ez az eseménykezelő tartalmazhat egy <code>Label1.Caption:='start'</code> utasítást, amely egy felirat (szintén objektum) szövegét módosítja. Látható, hogy az objektumot és tulajdonságát pont választja el.<br />
+  Kezdetben előre elkészített objektumokat használunk, majd létrehozzuk saját objektumainkat.</p>
+
+  <h2>Az első projekt</h2>
+  <p>A Projekt->Új projekt menüből most az Alkalmazást válaszd. Mivel ez a projektünk mindenképpen több fájlból áll, rögtön mentsd is el egy külön mappába. Most több fájl mentésére is rákérdez a Lazarus. Azt elsőnél (ez az .lpi fájl) adj nevet a projektnek a korábbi szabályok szerint. A második fájl neve maradhat unit1.pas.<br />
+  A főablakon (itt van a menüsor és jó pár eszköztár), a forráskód-szerkesztőn és az üzeneteken kívül két újabb elemre is szükségünk lesz.  Az egyik az objektumfelügyelő, a másik a formszerkesztő. Ha valamelyik eltűnik, használd a Nézet menüt.<br />
+  A programunk legalább egy ablakot létre fog hozni a képernyőn, ezt az IDE rögtön el is készíti. Ezt hívják <code>Form1</code>-nek (többnyire megtartjuk az objektumok Lazarus által adott nevét). Az objektumfelügyelőben láthatjuk az egyes objektumok tulajdonságait és eseménykezelőit. Keresd meg a felügyelőben a <code>Form1.Height</code> tulajdonságot, majd a formszerkesztőben állítsd át egérrel az ablak magasságát! A formszerkesztővel az ablakunk és a benne lévő elemek helyzetét, méretét gyorsan beállíthatjuk.<br />
+  Más tulajdonságokat a felügyelőben tudunk állítani. Állíts be háttérszínt (<code>Form1.Color</code>). A <code>clRed</code> és hasonló konstansok előre beállított számokat tartalmaznak, de használhatsz egyéni színt is. Módosítsd az ablak feliratát is (<code>Form1.Caption</code>). Ezután futtasd le a programot!</p>
+  <p>Ez a program még nem sokat tudott. Zárd be az ablakot. Az eszköztárról (Standard fül) válaszd ki az OK-val jelölt gombot (a buboréksúgó jelzi a típusát: <code>TButton</code>), és kattints a formszerkesztőben. Létrejött egy <code>Button1</code> nevű gomb. Egészen pontosan <code>Form1.Button1</code>, mert a <code>Form1</code> tartalmazza a <code>Button1</code> objektumot. A <code>Button1.Caption</code> tulajdonságot írd át "Bezár"-ra.<br />
+  Ettől a gomb még nem fogja bezárni a formot. Kattints duplán a gombra. Ekkor az IDE létrehozza a gomb megnyomásra reagáló eseménykezelőjének vázát. Adott neki egy logikus nevet. Ezt egészítsd ki így:</p>
+<pre>
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  Form1.Close;
+end; 
+</pre>
+  <p>Próbáld ki a programot. Ezután figyed meg a következőket:<br />
+  A <code>Form1.Close</code> begépelése közben az IDE megjelenít egy segédablakot, amelyből kiválaszthatod a <code>Form1</code> megfelelő eljárását vagy tulajdonságát (ha mégsem, nyomj CTRL+szóközt). Mivel egy objektumnak rengeteg tulajdonsága van, nem tudjuk mindet megjegyezni, szerencsére az elnevezésük logikus.<br />
+  A <code>Close</code> a <code>Form1</code> objektum egy eljárása, mely bezárja az ablakot, egyúttal a fő eseménykezelő ciklusnak is vége lesz.<br />
+  Elegendő lett volna csak a <code>Close</code> használata, mert most a <code>Form1</code> (egészen pontosan a TForm1 osztály)eljárását adjuk meg, és az alapból a Form1 objektumból indul ki.<br />
+  A felügyelőben a <code>Button1</code> eseményeinél, az <code>OnClick</code> eseménynél megtaláljuk a legutóbbi eljárásunk nevét. Ezen kívül rengeteg más eseményt is látunk itt, az <code>OnMouseEnter</code> pl. akkor következik be, ha rávisszük az egeret a gombra.  Ehhez most nem rendelünk eseménykezelőt. Ennek ellenére ha a program futásakor ráviszed az egeret a gombra, valami változást látsz. Ennek az az oka, hogy a gombnak vannak alapértelmezett eseménykezelői, amelyek akkor is lefutnak, ha te nem adsz meg ilyet (ezek nagy részét a Windows kezeli).</p>
+
+  <h2>Mi a különbség a Form1 és a TForm1 között?</h2>
+  <p>Ezzel a magyarázattal most egy kicsit előreszaladunk; nem kell elolvasnod, később még visszatérünk rá.</p>
+  <p>A <code>TForm</code> egy Lazarusba beépített objektumtípus, más néven osztály. Ennek leszármazottja a <code>TForm1</code> osztály, melyet kibővítettünk egyéb objektumokkal (pl. gomb) és eljárásokkal (pl. a gomb eseménykezelője).</p>
+  <p>A <code>Form1</code> egy olyan objektum, melynek típusa <code>TForm1</code>. A programunk indulásakor létrehozza a <code>Form1</code> objektumot. Ebből következik, hogy a <code>TForm1</code> osztály alapján akár több egyforma ablakot is készíthetnénk. (Ekkor viszont a gomb eseménykezelőjében már nem szerepelhetne <code>Form1.Close</code>, csak <code>Close</code>!)</p>
+
+  <h2>A projekt bővítése</h2>
+  <p>Szükség lesz a formon még egy gombra (<code>Button2</code>), és egy <code>TLabel</code> típusú feliratra (<code>Label1</code>).  Írd át a <code>Labe1.Caption</code>-t "..."-ra, a <code>Button1.Caption</code>-t pedig erre: "Szia program". Állítsd át a <code>Label1.Font.Size</code>-t 20-ra. Készíts eseménykezelőt <code>Button2</code>-höz:</p>
+<pre>
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  Form1.Label1.Caption:='Szia programozó!';
+end; 
+</pre>
+  <p>(Most is elég lett volna csak <code>Label1.Caption</code> megadása.)</p>
+  <img src="k3.png" alt="kép" />
+  <p>
+    <a href="f13.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="f15.html">Következő</a>
+  </p>
+
+  <h2>Feladatok</h2>
+  <p>52. Készíts programot, amely tartalmaz egy "0" feliratú gombot, amely minden megnyomásra eggyel továbbszámol!</p>
+  <p><a href="fm.html#mo52">megoldás</a></p>
+  <p>53. Készíts programot, amely tartalmaz egy olyan gombot, amely minden megnyomásra a form véletlenszerű helyére ugrik! Használd a <code>Top</code> (elem bal felső pontjának  távolsága a tartalmazó elem tetejétől), <code>Left</code> (elem bal felső pontjának  távolsága a tartalmazó elem bal szélétől), <code>Height</code> (magasság) és <code>Width</code> (szélesség) tulajdonságokat!</p>
+  <p><a href="fm.html#mo53">megoldás</a></p>
+ 
+  </div>
+</body>
+</html>

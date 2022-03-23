@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - érettségi feladat</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			13. fejezet: Irány az érettségi!
+		</h1>
+
+	<p>Ebben a fejezetben bemutatom egy érettségi feladat teljes megoldását, és a megoldás célszerű menetét. Ezzel le is zárjuk az alapvető programozási eszközök témáját, és a következő fejezettel belekezdünk a grafikus alkalmazások készítésébe.<br />
+  A mintafeladat a 2012. év nyári érettségije lesz. Először nagyon alaposan olvassuk el a feladat leírását! Egy bemeneti mintafájlt feltöltöttem az oldalra.</p>
+  <p><i>A nagyvárosokon belül, ha csomagot gyorsan kell eljuttatni egyik helyről a másikra, akkor sokszor a legjobb választás egy kerékpáros futárszolgálat igénybevétele. A futárszolgálat a futárjainak a megtett utak alapján ad fizetést. Az egyik futár egy héten át feljegyezte fuvarjai legfontosabb adatait, és azokat eltárolta egy állományban. Az állományban az adatok rögzítése nem mindig követi az időrendi sorrendet. Azokra a napokra, amikor nem dolgozott, nincsenek adatok bejegyezve az állományba.<br />
+  A fájlban legalább 10 sor van, és minden sor egy-egy út adatait tartalmazza egymástól szóközzel elválasztva. Az első adat a nap sorszáma, ami 1 és 7 közötti érték lehet. A második szám a napon belüli fuvarszám, ami 1 és 40 közötti érték lehet. Ez minden nap 1-től kezdődik, és az aznapi utolsó fuvarig egyesével növekszik. A harmadik szám az adott fuvar során megtett utat jelenti kilométerben, egészre kerekítve. Ez az érték nem lehet 30-nál nagyobb.<br />
+  Például:<br />
+  1 1 5<br />
+  1 2 9<br />
+  3 2 12<br />
+  1 4 3<br />
+  3 1 7<br />
+  …<br />
+  A 3. sor például azt mutatja, hogy a hét harmadik napján a második fuvar 12 kilométeres távolságot jelentett.</i></p>
+  <p>Az adatok beolvasását (1. feladat) már meg is tervezhetjük. Minden út három adatot tartalmaz, melyeket három tömbben (nap, fuvar, hossz) tárolunk. Mivel naponta legfeljebb 40 út lehet, ezért a tömbök maximális mérete 7*40=280. Darabolással, konvertálással a fájl kedvező formátuma miatt most lesz gond.</p>
+<pre>
+db:=0;
+while not eof(f) do begin
+  db:=db+1;
+  readln(f,nap[db],fuvar[db],hossz[db]);
+end;
+</pre>
+  <p>Most olvassuk el az összes feladatot, és gondoljuk végig, van-e olyan rész, amely több feladatban is szerepel!</p>
+  <p><i>2. Írja ki a képernyőre, hogy mekkora volt a hét legelső útja kilométerben! Figyeljen arra, hogy olyan állomány esetén is helyes értéket adjon, amiben például a hét első napján a futár nem dolgozott!<br />
+  3. Írja ki a képernyőre, hogy mekkora volt a hét utolsó útja kilométerben!<br />
+  4. Tudjuk, hogy a futár minden héten tart legalább egy szabadnapot. Írja ki a képernyőre, hogy a hét hányadik napjain nem dolgozott a futár!<br />
+  5. Írja ki a képernyőre, hogy a hét melyik napján volt a legtöbb fuvar! Amennyiben több nap is azonos, maximális számú fuvar volt, elegendő ezek egyikét kiírnia.<br />
+  6. Számítsa ki és írja a képernyőre, hogy az egyes napokon hány kilométert kellett tekerni!<br />
+  7. A futár az egyes utakra az út hosszától függően kap fizetést az alábbi táblázatnak megfelelően:<br />
+  &nbsp;&nbsp;&nbsp;1 – 2 km 500 Ft<br />
+  &nbsp;&nbsp;&nbsp;3 – 5 km 700 Ft<br />
+  &nbsp;&nbsp;&nbsp;6 – 10 km 900 Ft<br />
+  &nbsp;&nbsp;&nbsp;11 – 20 km 1400 Ft<br />
+  &nbsp;&nbsp;&nbsp;21 – 30 km 2000 Ft<br />
+  Kérjen be a felhasználótól egy tetszőleges távolságot, és határozza meg, hogy mekkora díjazás jár érte! Ezt írja a képernyőre!<br />
+  8. Határozza meg az összes rögzített út ellenértékét! Ezeket az értékeket írja ki a dijazas.txt állományba nap szerint, azon belül pedig az út sorszáma szerinti növekvő sorrendben az alábbi formátumban:<br />
+  &nbsp;&nbsp;&nbsp;1. nap 1. út: 700 Ft<br />
+  &nbsp;&nbsp;&nbsp;1. nap 2. út: 900 Ft<br />
+  &nbsp;&nbsp;&nbsp;1. nap 3. út: 2000 Ft<br />
+  &nbsp;&nbsp;&nbsp;…<br />
+  9. Határozza meg, és írja ki a képernyőre, hogy a futár mekkora összeget kap a heti munkájáért!</i></p>
+  <p>Látható, hogy a 2., 3., és 8. feladat mindegyike megoldható az utak időrend és fuvarszám szerinti növekvő rendezésével, míg az eredeti sorrendre nincs szükség. Ezért beolvasás után rendezhetjük az utakat (többszempontú rendezés).</p>
+<pre>
+for i:=1 to db-1 do begin
+  min:=i;
+  for j:=i+1 to db do
+    if (nap[j]&lt;nap[min]) or ((nap[j]=nap[min]) and (fuvar[j]&lt;fuvar[min]))
+    then min:=j;
+  x:=nap[min]; nap[min]:=nap[i]; nap[i]:=x;
+  x:=fuvar[min]; fuvar[min]:=fuvar[i]; fuvar[i]:=x;
+  x:=hossz[min]; hossz[min]:=hossz[i]; hossz[i]:=x;
+end;
+</pre>
+  <p>A 4. és 5. feladat megoldásához megszámolhatjuk, melyik nap hány fuvar volt. Erre egy <code>napifuvar[1..7]</code> tömböt használunk, melynek 7 eleme a hét egyes napjaira vonatkozó fuvarok száma. Mivel a ciklusban <code>nap[i]</code> egy 1 és 7 közötti szám, a <code>napifuvar[nap[i]]</code> kijelöli a napifuvar tömb megfelelő elemét.</p>
+<pre>
+for i:=1 to 7 do napifuvar[i]:=0;
+for i:=1 to db do napifuvar[nap[i]]:=napifuvar[nap[i]]+1;
+</pre>
+  <p>A 6. feladat ehhez hasonló, csak nem a fuvarok számát, hanem összhosszát kell kiszámítani (<code>napihossz[1..7]</code> tömb).</p>
+<pre>
+for i:=1 to 7 do napihossz[i]:=0;
+for i:=1 to db do napihossz[nap[i]]:=napihossz[nap[i]]+hossz[i];
+</pre>
+  <p>A 7., 8. és 9. feladat mindegyike felhasználja az útdíjtáblázatot. Ezért célszerű egy függvényt írni, amely adott hosszra megadja az útdíjat, és a feladatokban ezt a függvényt hívni. </p>
+
+<pre>
+function utdij(hossz:integer):integer;
+ begin
+  if hossz<3 then ututdij:=500
+  else if hossz<6 then utdij:=700
+  else if hossz<11 then utdij:=900
+  else if hossz<21 then utdij:=1400
+  else utdij:=2000;
+ end;
+</pre>
+  <p>Ennyi előkészület után nekiláthatunk a feladatoknak.<br />
+  2. Ez hossz[1] lesz.<br />
+  3. Ez pedig hossz[db].<br />
+  4. Kiírjuk 1 és 7 között azokat az i-ket, melyekre napifuvar[i]=0.<br />
+  5. Maximumkiválasztás napifuvar tömbre.<br />
+  6. Az adatok a napihossz tömbben vannak.<br />
+  7. Az utdij függvény hívása.<br />
+  8. Végigmegyünk a három tömbön, és mindegyik lépésben kiírjuk utdij(hossz[i])-t.<br />
+  9. Összegezzük az utdij(hossz[i])-ket.</p>
+  <p>Egyszerű volt, ugye?</p>
+  <p>
+    <a href="f12.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="f14.html">Következő</a>
+  </p>
+
+
+	<h2>Feladatok</h2>
+  <p>51. Írd meg a programot!</p>
+  <p><a href="fm.html#mo51">megoldás</a></p>
+ 
+  </div>
+</body>
+</html>

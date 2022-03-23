@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - érettségi túlélőcsomag 2</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			12. fejezet: Érettségi túlélőcsomag 2 (gyakori algoritmusok)
+		</h1>
+
+	<p>Ebben a fejezetben néhány gyakran előforduló algoritmust ismertetek. Ezekről sokkal bővebben <a href="../pascal2/fa.htm">olvashatsz itt</a>. Érdemes lenne őket alaposan elemezni, de most csak az a célom, hogy az érettségi feladatok megoldásához rendelkezésedre álljon a minimális eszközkészlet. Ez természetesen nem elég: sok gyakorlásra van szükség ahhoz, hogy kialakítsd a feladatok megoldásához szükséges gondolkodásmódot, és az egyszerűbb feladatokat gyorsan, rutinosan oldd meg. Ehhez egy ilyen tananyag kevés: szakkörre, tanórára van hozzá szükség, de jó gyakorlás az érettségi feladatok megoldása, mintamegoldásának elemzése is.</p>
+  <p>A feladatok tömbökről szólnak. Ez többnyire elég, hiszen fájlból is be lehet olvasni az adatokat egy vagy több tömbbe. Ehhez szükséges, hogy ismerjük az adatok maximális mennyiségét, mert akkora tömböket kell deklarálnunk.<br />
+  Ebben a fejezetben minden példa ugyanazokról az adatokról szól. Legyen egy szöveges fájl, amely azt tartalmazza, hogy egyes színeket mennyire tartanak vidámnak, 1..10-es skálán.<br />
+  sárga 10<br />
+  fekete 1<br />
+  világoszöld 9<br />
+  sötétzöld 3<br />
+  ...<br />
+  A fájlban legfeljebb 100 sor lehet. Ekkor az adatokat beolvashatjuk két tömbbe: <code>szin</code> és <code>vidam</code>, a következőképpen:</p>
+<pre>
+db:=0;
+while not eof(f) do begin
+  readln(f,s);
+  db:=db+1;
+  szin[db]:=extractword(1,s,[' ']);
+  vidam[db]:=strtoint(extractword(2,s,[' ']));
+end;
+</pre>
+
+  <h2>Keresés</h2>
+  <p>Keressük meg, mennyire vidám a piros szín! Lehet, hogy nincs piros az adatok között, erre is készüljünk fel! A 9. fejezetben láthattál ehhez hasonló példát.</p>
+<pre>
+i:=1;
+while (i&lt;=db) and (szin[i]&lt;&gt;'piros') do i:=i+1;
+if i&lt;=db then writeln('Ilyen vidám a piros: ',vidam[i])
+else writeln('nincs piros');
+</pre>
+  <p>Emlékezz arra, hogy ha a <code>while</code> első feltétele hamis, vagyis i&gt;db, akkor a másodikat már nem vizsgálja. i tehát vagy az első pirosnál áll meg, vagy db+1 értéket vesz fel.</p>
+
+  <h2>Maximumkiválasztás</h2>
+  <p>Keressük meg a legvidámabb színt! A ciklus a legvidámabb szín sorszámát fogja megadni. Kezdjük az első színnel, majd minden további színnél megnézzük, vidámabb-e az eddigi legvidámabbnál, és ha igen, az lesz a legvidámabb.</p>
+<pre>
+max:=1;
+for i:=2 to db do if vidam[i]>vidam[max] then max:=i;
+writeln('Legvidámabb: ',szin[max]);
+writeln('Ilyen vidám: ',vidam[max]);  
+</pre>
+  <p>Fontos, hogy <code>max</code> nem a vidámságot, hanem annak sorszámát adja meg! Ez jól is jön, mert így a megfelelő színt is meg tudjuk adni. A program most a legelső legvidámabb színt adta meg, ha a &gt; jelet &gt;=-re cseréljük, akkor a legutolsót kapjuk. A program könnyen átalakítható minimumkiválasztásra.</p>
+
+  <h2>Rendezés</h2>
+  <p>A rendezés nagyon hasznos algoritmus. Egyrészt gyorsítja a keresést (a szótárban azért tudunk gyorsan keresni, mert a szavak ábécérendben vannak, ha össze-vissza lennének, egy szó miatt a teljes szótárat végig kellene néznünk), másrészt rendezés után az egyformák egymás mellé kerülnek, így pl. könnyen csoportosíthatjuk a színeket vidámság szerint. Mivel a példáink kevés adatot tartalmaznak, a lassú keresés (<strong>soros keresés</strong>) is gyorsan lefut, ezért inkább a második ok miatt rendezünk.</p>
+  <p>Az itt bemutatott maximum- (minimum-) kiválasztásos rendezés lényege, hogy pl. csökkenő sorrendhez először megkeressük a legnagyobbat, és kicseréljük a legelső elemmel. Mivel most már a legelső elem a helyén van, ugyanezt a lépést a második elemtől kezdve ismételjük meg. A második helyre tehát bekerült a második legnagyobb. Végül az utolsó előtti és az utolsó elemre hajtjuk végre a maximumkiválasztást.<br />
+  ciklus i:=1..db-1<br />
+  &nbsp;&nbsp;&nbsp;max:=a maximális elem sorszáma i és db között<br />
+  &nbsp;&nbsp;&nbsp;az i-edik és max-adik elem kicserélése<br />
+  ciklus vége<br />
+  Ez az algoritmus csökkenő sorrendbe tesz. Minimumkiválasztással növekvő sorrendet kapunk.<br />
+  A példabeli adatoknál ügyelni kell arra, hogy ha két vidámságot felcserélünk, a hozzájuk tartozó két színt is fel kell cserélni! Rendezzük hát a színeket vidámság szerint csökkenő sorrendbe. (Az utolsó ciklus nem tartozik a rendezéshez.)</p>
+<pre>
+for i:=1 to db-1 do begin
+  //maximumkiválasztás:
+  max:=i;
+  for j:=i+1 to db do if vidam[j]&gt;vidam[max] then max:=j;
+  //csere:
+  mv:=vidam[i]; vidam[i]:=vidam[max]; vidam[max]:=mv;
+  ms:=szin[i]; szin[i]:=szin[max]; szin[max]:=ms;
+end;
+for i:=1 to db do writeln(szin[i],' ',vidam[i]);
+</pre>
+  <p>A többszempontú rendezés azt jelenti, hogy ha az első szempont szerint több egyforma van, akkor azokat még egy másik szempont szerint sorba rakja. A példában az egyforma vidám színek szomszédosak lesznek a rendezés után, ezeket rendezhetjük a szín neve szerint ábécébe. A relációs jelek szövegek között is működnek, az a string "nagyobb", amelyik ábécérendben később következik. Ez sajnos csak az angol ábécé karaktereire működik, ráadásul megkülönbözteti a kis- és nagybetűket, de példának jó lesz.<br />
+  A kulcs a maximumkiválasztás relációjának módosítása, mert ez határozza meg, hogy egy adatot mikor kell előbbre hozni a tömbben. Az eredeti feltétel: <code>vidam[j]&gt;vidam[max]</code>, ha ez teljesül akkor kell a j. adatot előbbre hozni. Ezt módosítjuk:<br />
+  <code>(vidam[j]>vidam[max]) or ((vidam[j]=vidam[max]) and (szin[j]&lt;szin[max]))</code><br />
+  Tehát ha vidámabb a szín, előbbre jön, ha két szín egyforma vidám, akkor az ábécében korábbi jön előre.</p>
+  <p>
+    <a href="f11.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="f13.html">Következő</a>
+  </p>
+
+
+	<h2>Feladatok</h2>
+  <p>48. Olvasd be két tömbbe a példákban szereplő fájlt (<a href="feladat6.txt">feladat6.txt</a>), majd írd ki a legkevésbé vidám színeket! (Tipp: minimumkiválasztás, majd a minimálissal egyenlők kiírása.)</p>
+  <p><a href="fm.html#mo48">megoldás</a></p>
+  <p>49. Írj ki egy színt, amelynek a vidámsága 3! (Nem biztos, hogy van. Ahhoz, hogy ennek a működését teszteld, két különböző bemeneti fájllal kell kipróbálnod, az egyikben van 3, a másikban nincs.)</p>
+  <p><a href="fm.html#mo49">megoldás</a></p>
+  <p>50.  Írd ki a színeket ábécérendben! (Az ékezetes karakterekre nem lesz jó, de nem baj.)</p>
+  <p><a href="fm.html#mo50">megoldás</a></p>
+ 
+  </div>
+</body>
+</html>

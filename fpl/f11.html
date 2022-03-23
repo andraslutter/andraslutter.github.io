@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - érettségi túlélőcsomag 1</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			11. fejezet: Érettségi túlélőcsomag 1 (szövegdarabolás, konvertálás)
+		</h1>
+
+	<p>Az előző fejezetekből már majdnem minden eszközt megismertél, ami egy sikeres emelt szintű érettségi programozási feladatának megoldásához kell. Ebben a fejezetben megmutatom, hogy lehet egy szöveges fájlból mindenféle adatot kinyerni, és megismerkedhetsz a moduláris programozás alapegységével, a unittal.</p>
+	
+  <h2>Unitok</h2>
+  <p>Egy komolyabb projekt már túl nagy ahhoz, hogy egyetlen forrásfájl tartalmazza. Ekkor a program egyes részeit (jellemzően: a különböző részfeladatokat) külön fájlokban, <strong>modul</strong>okban készítjük el. A modulok külön fordíthatóak, végül ezeket összeépítjük a főprogrammal. Ennek a fejlesztési módszernek több előnye van. Lehetővé teszi, hogy a projektet többen fejlesszék, mindenki csak a saját részfeladatára összpontosítva. Mivel a modulok külön fordíthatóak, le is lehet őket tesztelni, és az utolsó lépésben a modulok működését nem, csak az együttműködésüket kell ellenőrizni. Ezzel a tesztelés gyakran nagyon hosszú feladatát is szétoszthatjuk.<br />
+  A modul neve Pascalban <strong>unit</strong>. A unitok többek között eljárások, függvények deklarációját tartalmazzák. A Free Pascal rendszer elemeit is unitokra darabolva készítették el, minél több lehetőségét használjuk fel a nyelvnek, annál több unitot építünk hozzá a főprogramunkhoz. A legfontosabb unit neve <code>system</code>, ennek használata a programunkban automatikus. Ez a unit tartalmazza pl. a <code>write</code> eljárás deklarációját is. Ha azonban további unitok eljárásait is használjuk a programban, azokat deklarálnunk kell. Ez a programunk legelső deklarációja (rögtön a <code>program</code> sor után):<br />
+  <code>USES <i>unitok listája</i>;</code><br />
+  A következő példa a konzolképernyő törlését mutatja be.</p>
+<pre>
+USES Crt;
+BEGIN
+  writeln('Ez nem látszik.');
+  clrscr;
+  writeln('Ez igen.');
+  readln;
+END.
+</pre>
+<p>A képernyőt a <code>clrscr</code> utasítás törli, amelyet a <code>crt</code> unitban deklarálnak. A <code>crt</code> unit megadása nélkül a fordító ismeretlen azonosító hibajelzést ad. Az összes unit összes eljárásának leírása megtalálható a <a href="www.freepascal.org/docs-html/rtl">www.freepascal.org/docs-html/rtl</a> címen.</p>
+
+  <h2>Szövegdarabolás</h2>
+  <p>A bemenő adatokat gyakran szöveges fájlban kapjuk meg, egy sorban több adattal, közöttük valamilyen elválasztó karakterrel. Ha az adatok között szöveg is van, fel kell darabolnunk a bemeneti sort az elválasztó karakterek mentén. Ehhez az <code>strutils</code> unit függvényeit használjuk fel, bár írhatnánk rá saját programot is, de az tovább tartana.</p>
+<pre>
+
+USES Strutils;
+VAR s:string;
+BEGIN
+  s:='aaa:bbb::ccc';
+  writeln(wordcount(s,[':'])); //3
+  writeln(extractword(3,s,[':'])); //ccc
+  writeln(extractdelimited(3,s,[':'])); //üres
+  readln;
+END.
+</pre>
+  <p>A programban felbukkan egy új típus: a <strong>halmaz</strong>. A <code>[':']</code> egy <code>set of char</code> típusú adat, amely karakterhalmazt jelent, ebben a programban az elválasztó karakterek halmazát. Lehetett volna <code>[':',' ',';']</code> is. Elválasztó karakter természetesen az adatokon belül nem lehet.<br >
+  Az egymás utáni több elválasztót kétféleképpen is lehet értelmezni. Számíthatnak egynek, ekkor a 'bbb' után 'ccc' következik. De az is lehet, hogy a két ':' között egy üres szöveg szerepel adatként. Az első értelmezésben üres szöveg nem lehet adat.<br />
+  A <code>wordcount(<i>string,elválasztók halmaza</i>)</code> függvény megadja a stringben a darabok számát. Az <code>extractword(<i>sorszám,string,elválasztók halmaza</i>)</code> megadja az adott sorszámú rész-stringet. Ennél a két függvénynél egymás utáni elválasztók egynek számítanak.<br />
+  Az <code>extractdelimited(<i>sorszám,string,elválasztók halmaza</i>)</code> az előző függvényhez hasonló, de itt üres string is lehet adat, ezért a fenti példában a harmadik darab a két ':' közötti üres string.</p>
+
+	<h2>Típuskonverzió</h2>
+  <p>Mi a teendő, ha a beolvasott sor szöveges és számadatokat is tartalmaz?</p>
+<pre>
+USES Strutils;
+VAR s:string;
+     n:integer;
+BEGIN
+  s:='aaa:12';
+  n:=extractdelimited(2,s,[':']);
+END.
+</pre>
+  <p>A kód fordítási hibát eredményez. Ennek oka, hogy a daraboló függvény végeredménye string típusú, és  a Pascal nem értelmezi számként. Ilyen esetben típuskonverziós függvényeket használunk. Ezek a függvények a <code>sysutils</code> unitban vannak. A fenti program javítva:</p>
+<pre>
+USES Strutils,Sysutils;
+VAR s:string;
+     n:integer;
+BEGIN
+  s:='aaa:12';
+  n:=strtoint(extractdelimited(2,s,[':']));
+END.
+</pre>
+  <p>Az strtoint(szöveg) függvény eredménye integer típusú, a szöveg  egésszé konvertálva. Hasonlóképpen működik az strtofloat, amelynek eredménye lebegőpontos (real) típusú. Fontos viszont, hogy a</p>
+<pre>
+writeln(strtofloat('12.33'));
+</pre>
+  <p>hibás, mert a függvény tizedesvesszőnek nem a Pascal '.' karakterét, hanem az operációs rendszerben beállított karaktert használja, ami magyar Windows esetén ','. A fenti sor helyesen:</p>
+<pre>
+writeln(strtofloat('12,33'));
+</pre>
+  <p>Így viszont egy adott programkód helyes működése az operációs rendszer beállításaitól függ, ami nem szerencsés. Továbbá, ha a bemeneti fájlunkban '.' a tizedespont, nem tudjuk feldolgozni. A tizedes karaktert a <code>sysutils</code> által beállított <code>decimalseparator</code> változó tartalmazza, amit a programunkban átállíthatunk. A bombabiztos megoldás tehát:</p>
+<pre>
+decimalseparator:='.';
+writeln(strtofloat('12.33'));
+</pre>
+  <p>Az inttostr és floattostr függvények számot alakítanak át stringgé. A következő sor:</p>
+<pre>
+writeln(floattostr(12.33));
+</pre>
+  <p>a várttal ellentétben 12,33-at ír ki, mert a <code>floattostr</code> is a <code>decimalseparator</code> alapján működik.</p>
+  <p>Mi történik, ha a beolvasott szöveg nem tartalmaz érvényes számot? Ilyen esetben az <code>strtoint</code> hibajelzéssel leállítja a programot. Használhatjuk ilyenkor a <code>trystrtoint(<i>szöveg,változó</i>)</code> függvényt, mely a szöveget egésszé konvertálja és a megadott integer típusú változóba helyezi (ld. cím szerinti paraméterátadás), kimeneti értékként pedig visszaadja, sikeres volt-e a konverzió (vagyis a függvény típusa boolean).  A példaprogram a beadott számokat összegzi, *-ra kilép. Ezért a beolvasás csak string típusú változóba mehet. A <code>trystrtoint</code> szerepe a példában kettős: egyrészt megadja, sikeres-e a konverzió, másrészt (<strong>mellékhatás</strong>ként) el is végzi a konverziót. Mellékhatással rendelkező függvények használata a programkódot nehezebben érthetővé, ugyanakkor tömörebbé teszi.</p>
+<pre>
+USES Sysutils;
+VAR s:string;
+    n,x:integer;
+
+BEGIN
+  x:=0;
+  repeat
+    write('Szám (*=kilépés): ');
+    readln(s);
+    if trystrtoint(s,n) then x:=x+n;
+  until s='*';
+  writeln(x);
+  readln;
+END.
+</pre>
+  <p>A Free Pascal unitjaiban rengeteg hasznos segédeszközt találhatunk. Ezeket egy adott probléma megoldása közben érdemes megkeresni, akár keresővel (pl. "free pascal convert date to string" keresőkifejezés), akár a dokumentációt böngészve.</p>
+  <p>
+    <a href="f10.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="f12.html">Következő</a>
+  </p>
+
+	<h2>Feladatok</h2>
+  <p>46. Egy szöveges fájlban (<a href="feladat4.txt">feladat4.txt</a>) nevek szerepelnek keresztnév szóköz vezetéknév formában soronként. A program írja ki képernyőre a neveket vezetéknév vessző keresztnév formátumban!</p>
+  <p><a href="fm.html#mo46">megoldás</a></p>
+  <p>47. Egy szöveges fájlban (<a href="feladat5.txt">feladat5.txt</a>) állatnevek és az állatok maximális sebessége szerepel állatnév kettőspont szóköz sebesség formában, a sebesség tizedesponttal van megadva m/s-ban. A program írja ki az állatokat és a hozzájuk tartozó sebességet km/h-ban!</p>
+  <p><a href="fm.html#mo47">megoldás</a></p>
+ 
+  </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - objektumok létrehozása</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			18. fejezet: Objektumok létrehozása
+		</h1>
+    <h2>A feladat</h2>
+    <p>Készítsünk egy programot, amely egy beadott egész szám minden számjegyéhez létrehoz egy gombot! Mivel nem tudjuk előre, hány számjegyünk lesz, nem gyárthatjuk le tervezési időben a gombokat. A gombok futási időben jönnek létre, ezért a tervezőt nem használhatjuk a gombok tulajdonságainak beállítására, ezt is futási időben kell megtenni. Legyen egy gomb mérete 32×32 pixel, a gombok közötti távolság 10 pixel.</p>
+
+    <h2>Előkészítés</h2>
+    <p>Kezdetben legyen a formon egy szövegdoboz (<code>Edit1</code>, ide írjuk be a számot), és egy indítógomb (<code>Button1</code>).<br />
+    <img src="k5.png" alt="projekt alap" /><br />
+    A gombra dupla kattintással hozd létre az eseménykezelő üres vázát, a kód többi részét majd ebbe fogjuk írni.</p>
+
+    <h2>A gombok létrehozása</h2>
+    <p>Az eseménykezelőben szükségünk lesz egy <code>i</code> változóra, amely végigmegy <code>Edit1</code> karakterein. Ezenkívül deklarálnunk kell egy <code>TButton</code> típusú objektumot (valójában osztályt!) is, amely az éppen létrehozott gombra hivatkozik. Ezután minden karakterhez (melyek számjegyek) létrehozunk egy gombot:</p>
+    <pre>
+procedure TForm1.Button1Click(Sender: TObject);
+var i:integer;
+    g:TButton;
+begin
+ for i:=1 to length(Edit1.Caption) do begin
+   g:=TButton.Create(Form1);
+   g.Parent:=Form1;
+   g.Height:=32;
+   g.Width:=32;
+   g.Top:=50;
+   g.Left:=i*10+(i-1)*32;
+   g.Caption:=Edit1.Caption[i];
+   g.Font.Size:=18;
+ end;
+end;</pre>
+  <p>Először létrehozzuk az adott gombot, majd beállítjuk a tulajdonságait.</p>
+  <p>Mint látható, a <code>TButton</code> konstruktorának van egy paramétere. Ezt onnan tudhatjuk, hogy a <code>Create</code> begépelésekor megvárjuk (vagy CTRL+szóköz lenyomásával előhívjuk) a szerkesztő súgóját, mely kiegészíti a begépelt azonosítót, és itt a listában láthatjuk a <code>Create</code> paraméterét. Mivel ennyi azonosítót nem tudunk megjegyezni, ez a súgó nagyon hasznos segédeszköz, főként, hogy az azonosítók nevéből azok feladata is sokszor kitalálható.<br />
+  A konstruktor paramétere azt adja meg, hogy melyik másik objektum a tulajdonosa a gombnak. Ez azért fontos, mert a form bezárásakor a Lazarusnak nem csak a formot, hanem az általa birtokolt objektumokat is meg kell semmisíteni, és ezt a tulajdonosi adatok alapján végzi el.</p>
+  <p>A másik új tulajdonság a <code>Parent</code>: ez grafikus objektumoknál azt jelzi, hogy az adott objektum melyik másik objektum belsejében jelenik meg (továbbá a <code>Top</code>, <code>Left</code> értékek is a <code>Parent</code> bal felső sarkához képest értendők).</p>
+  <p>A <code>Left</code> értékét a gomb sorszámából, a gombok szélessége és a térközök alapján állapítottuk meg.</p>
+
+  <h2>Eseménykezelők és típuskényszerítés</h2>
+  <p>Bonyolítsuk a feladatot! Egy újonnan létrehozott gomb megnyomásakor a rajta lévő számjegy értéke nőjön 1-gyel (a 9-ből meg legyen 0). Ehhez a gombok eseménykezelőjét is be kell állítani, most már a szerkesztő segítsége nélkül.<br />
+  Figyeld meg a <code>Button1</code> eseménykezelőjét! Ennek mintájára el kell készítenünk egy saját eseménykezelőt, de az összes új gomb eseménykezelője lehet ugyanaz az eljárás (hiszen mindegyik gomb esetén ugyanazt csinálja).<br />
+  Honnan fogja tudni az eseménykezelő, melyik gomb megnyomása váltotta ki az eseményt? Ezt a célt szolgálja a <code>Sender</code> paraméter, mely tartalmazza az eseményt kiváltó objektum címét.<br />
+  Legegyszerűbb, ha az új eseménykezelő fejlécét a meglévő másolásával hozod létre.<br />
+  Először a form osztályát egészítjük ki az új metódus fejlécével:</p>
+  <pre>
+  TForm1 = class(TForm)
+    Button1: TButton;
+    Edit1: TEdit;
+    procedure Button1Click(Sender: TObject);
+    <strong>procedure SajatClick(Sender:TObject);</strong></pre>
+  <p>Majd megírjuk az eljárást:</p>
+<pre>
+procedure TForm1.SajatClick(Sender:TObject);
+var g:TButton;
+begin
+ g:=TButton(Sender);
+ g.Caption:=IntToStr((StrToInt(g.Caption)+1) mod 10);
+end;</pre>
+  <p>Az egyszerűség kedvéért deklaráltunk egy <code>g</code> változót, mely az adott gombra mutat.</p>
+  <p>Logikusan <code>g:=Sender</code> lenne az utasítás, de ez fordításkor hibaüzenetet ad. Ennek az az oka, hogy a <code>Sender</code> típusa általános <code>TObject</code>, míg <code>g</code> típusa <code>TButton</code>. Ezért a <strong>típuskényszerítés</strong> (<strong>typecast</strong>) műveletével meg kell adnunk, hogy a <code>Sender</code>-ben tárolt értéket tekintse úgy, mint egy <code>TButton</code> típusú mutató. A típuskényszerítés általános formája:</p>
+  <p><i>típus(kifejezés)</i></p>
+  <p>Ekkor a Pascal a kifejezés eredeti típusától függetlenül azt a megadott típusúnak tekinti. Ez többnyire csak akkor működhet, hogyha a kifejezés által lefoglalt memóriaméret megegyezik az új típus által igényelttel. Például a<br />
+  <code>writeln(byte('a'));</code><br />
+  utasítás 97-et ír ki, ugyanis az 'a' karakter tároláskor a memóriában egy bájtot foglal, melynek értéke 97 (az 'a' ASCII-kódja).</p>
+  <p>A számjegy léptetése oda-vissza alakít szám és szöveg között, a 9-ről 0-ra ugrást pedig feltétel helyett a tízes maradék képzésével oldja meg.</p>
+  <p>Ha elindítod a programot, semmi nem fog történni a gombok nyomogatásakor. Ennek az az oka, hogy a létrehozott gombok <code>OnClick</code> tulajdonságára még nem állítottuk be az eseménykezelő eljárásunkat. Egészítsd ki a gomb tulajdonságainak beállítását a következő sorral:</p>
+  <pre>
+g.Font.Size:=18;
+<strong>g.OnClick:=@SajatClick</strong>;</pre>
+  <p>Egy objektum <code>OnClick</code> tulajdonsága valójában egy mutató, mely az eseménykezelő eljárás memóriacímét kell, hogy tartalmazza. A <code>@</code> művelet megadja egy azonosító (esetünkben az eseménykezelő eljárás) memóriacímét.<br />
+  A forráskódot <a href="f18src/unit1.pas">itt letöltheted</a>.</p>
+
+  <h2>Értékelés</h2>
+  <p>Nincs tökéletes program, ez erre a példaprogramra különösen igaz. Érdemes elemezni a fejlesztési lehetőségeket.<br />
+  Hibalehetőség, hogy "gombosításkor" nem vizsgáltuk a beírt szöveg karaktereit. Ha ezek nem számjegyek, az <code>StrToInt</code> függvény hibaüzenetet ad futáskor.<br />
+  Ha még egyszer megnyomjuk a gombot, a korábban létrehozott számjegyes gombok megmaradnak, és továbbiak készülnek. Új gombok létrehozásakor a régieket meg kellene szüntetni. Azonban a már létrehozott gombokhoz nem tudunk hozzáférni, mert a <code>g</code> változó mindig csak az éppen létrehozott objektumot mutatja.  Ezeket a mutatókat el kellett volna tárolnunk.</p>
+  <p>
+    <a href="f17.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="f19.html">Következő</a>
+  </p>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>9. T&iacute;pusok &eacute;s konstansok deklar&aacute;l&aacute;sa
+</FONT></U></P>
+
+<P><U>T&iacute;pusdeklar&aacute;ci&oacute;</U></P>
+
+<P>Az egyes t&iacute;pusoknak nevet lehet adni a </P>
+
+<UL>
+<LI>TYPE t&iacute;pusn&eacute;v=deklar&aacute;ci&oacute;</LI>
+</UL>
+
+<P>deklar&aacute;ci&oacute;s utas&iacute;t&aacute;ssal. A k&ouml;vetkez&otilde;
+p&eacute;ld&aacute;b&oacute;l l&aacute;that&oacute;, hogy ez egyszer&ucirc;s&iacute;theti
+a deklar&aacute;ci&oacute;s r&eacute;szt.</P>
+
+<P><TT>TYPE tomb=array[1..100] of integer;<BR>
+VAR a,b:tomb;</TT></P>
+
+<P>A TYPE m&aacute;sik fontos szerepe az, hogy a Pascal csak akkor ismer
+el azonosnak k&eacute;t t&iacute;pust, ha ugyanaz a nev&uuml;k. A fenti
+deklar&aacute;ci&oacute; ut&aacute;n haszn&aacute;lhatjuk a programban
+az <TT>a:=b</TT> utas&iacute;t&aacute;st; m&iacute;g ha a deklar&aacute;ci&oacute;</P>
+
+<P><TT>VAR a,b:array[1..100] of integer;</TT></P>
+
+<P>lenne, a Pascal nem ismern&eacute; fel az azonos t&iacute;pusokat, &eacute;s
+egy ciklussal kellene az egyik t&ouml;mb minden elem&eacute;t a m&aacute;sikba
+rakni. P&eacute;lda &ouml;sszetettebb deklar&aacute;ci&oacute;ra:</P>
+
+<P><TT>TYPE Ember=record<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nev:string;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;szul:integer;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;suly:real;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tomb=array[1..100] of Ember;<BR>
+VAR e:Ember;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;adatok:Tomb;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;i:integer;<BR>
+BEGIN<BR>
+&nbsp;i:=0;<BR>
+&nbsp;Repeat<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;write(i+1,'. szem&eacute;ly neve (*=kil&eacute;p&eacute;s):
+'); readln(e.nev);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if e.nev&lt;&gt;'*' then begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write('sz&uuml;letett: '); readln(e.szul);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write('s&uacute;lya: '); readln(e.suly);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i:=i+1;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;adatok[i]:=e;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end;<BR>
+&nbsp;Until (e.nev='*') or (i=100)<BR>
+END.</TT></P>
+
+<P>A program felt&ouml;lti az adat nev&ucirc; t&ouml;mb&ouml;t, a ciklusb&oacute;l
+akkor l&eacute;p ki, ha az utols&oacute; szem&eacute;lyt is felvitt&uuml;k,
+vagy n&eacute;vre *-ot &iacute;rtunk be. Rekordok haszn&aacute;lata n&eacute;lk&uuml;l
+a n&eacute;vre, s&uacute;lyra &eacute;s sz&uuml;let&eacute;si &eacute;vre
+h&aacute;rom k&uuml;l&ouml;n t&ouml;mb&ouml;t kellett volna haszn&aacute;lni.
+Az <TT>adatok[i]:=e</TT> &eacute;rt&eacute;kad&aacute;s csak az&eacute;rt
+volt lehets&eacute;ges, mert mind az <TT>e</TT> v&aacute;ltoz&oacute;,
+mind az <TT>adatok</TT> t&ouml;mb elemei <TT>ember</TT> t&iacute;pus&uacute;ak.</P>
+
+<P><U>Konstansdeklar&aacute;ci&oacute;</U></P>
+
+<P>A programban deklar&aacute;lhatunk konstansokat is a </P>
+
+<UL>
+<LI><TT>CONST konstans=&eacute;rt&eacute;k</TT></LI>
+</UL>
+
+<P>deklar&aacute;ci&oacute;s utas&iacute;t&aacute;ssal. Ha a ford&iacute;t&oacute;
+a tov&aacute;bbiakban ezzel a konstanssal tal&aacute;lkozik, m&aacute;r
+a ford&iacute;t&aacute;s alatt az &eacute;rt&eacute;ket &iacute;rja a hely&eacute;re.
+A konstansra a deklar&aacute;ci&oacute;s r&eacute;szben is hivatkozhatunk.
+Ha teh&aacute;t a fenti program deklar&aacute;ci&oacute;s r&eacute;sz&eacute;t
+kieg&eacute;sz&iacute;tj&uuml;k a</P>
+
+<P><TT>CONST max=100;</TT></P>
+
+<P>utas&iacute;t&aacute;ssal, majd k&ouml;vetkezetesen a 100 hely&eacute;be
+mindenhov&aacute; (a <TT>Tomb</TT> t&iacute;pus deklar&aacute;ci&oacute;j&aacute;n&aacute;l
+is) <TT>max</TT>-ot &iacute;runk, a program m&ucirc;k&ouml;d&eacute;s&eacute;ben
+semmif&eacute;le v&aacute;ltoz&aacute;s nem k&ouml;vetkezik be.</P>
+
+<P>Mi az &eacute;rtelme konstansok haszn&aacute;lat&aacute;nak? Ha r&aacute;j&ouml;v&uuml;nk,
+hogy az <TT>adat</TT> t&ouml;mb maxim&aacute;lis m&eacute;ret&eacute;re
+c&eacute;lszer&ucirc;bb lenne 200-at v&aacute;lasztani, a programban meg
+kell keresn&uuml;nk &eacute;s 200-ra jav&iacute;tanunk az &ouml;sszes 100-at.
+Ha viszont konstanst haszn&aacute;lunk, el&eacute;g csak a deklar&aacute;ci&oacute;t
+&aacute;t&iacute;rni <TT>CONST max=200</TT>-ra. Tov&aacute;bb&aacute;,
+minden olyan helyen, ahol a <TT>max</TT> azonos&iacute;t&oacute;t l&aacute;tjuk
+a programban, tudjuk, hogy az az adat t&ouml;mb maxim&aacute;lis m&eacute;ret&eacute;t
+jelenti, ahol pedig tov&aacute;bbra is 100- at l&aacute;tunk, annak nincs
+k&ouml;ze a t&ouml;mbm&eacute;rethez. Teh&aacute;t a konstansdeklar&aacute;ci&oacute;kkal
+&aacute;ttekinthet&otilde;bb&eacute; &eacute;s k&ouml;nnyebben &aacute;t&iacute;rhat&oacute;v&aacute;
+v&aacute;lik a programunk. C&eacute;lszer&ucirc; a programban minden hasonl&oacute;
+&aacute;lland&oacute; &eacute;rt&eacute;ket konstansk&eacute;nt deklar&aacute;lni.</P>
+
+<CENTER><P><A HREF="f10.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f8.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

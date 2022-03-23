@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>5. Programszerkezet &eacute;s alapvet&otilde; utas&iacute;t&aacute;sok</FONT></U></P>
+
+<P>A Pascal program szerkezete:</P>
+
+<P><TT>Deklar&aacute;ci&oacute;s r&eacute;sz</TT></P>
+
+<P><TT>BEGIN<BR>
+&nbsp;&nbsp;&nbsp;utas&iacute;t&aacute;s;<BR>
+&nbsp;&nbsp;&nbsp;utas&iacute;t&aacute;s;<BR>
+&nbsp;&nbsp;&nbsp;...<BR>
+END.</TT></P>
+
+<P>Mint l&aacute;that&oacute;, a program utas&iacute;t&aacute;sait pontosvessz&otilde;vel
+kell elv&aacute;lasztani. Ezen k&iacute;v&uuml;l azonban &uacute;gy &iacute;rjuk
+be az utas&iacute;t&aacute;sokat, ahogy akarjuk - egy sorba, t&ouml;bb
+sorba, helyet kihagyva, stb... C&eacute;lszer&ucirc; az utas&iacute;t&aacute;sokat
+&uacute;gy tagolni, hogy a forr&aacute;sk&oacute;d kin&eacute;zete t&uuml;kr&ouml;zze
+a program szerkezet&eacute;t (vagyis k&ouml;vesse a mondatszer&ucirc; algoritmusle&iacute;r&aacute;s
+ele meit), mert &iacute;gy k&eacute;s&otilde;bb is k&ouml;nnyen meg&eacute;rtj&uuml;k
+a programot.</P>
+
+<P>A kapcsos z&aacute;r&oacute;jel k&ouml;zti r&eacute;szeket a ford&iacute;t&oacute;
+figyelmen k&iacute;v&uuml;l hagyja, itt helyezhetj&uuml;k el a megjegyz&eacute;seinket.</P>
+
+<P>A deklar&aacute;ci&oacute;s r&eacute;szben kell deklar&aacute;lni az
+&ouml;sszes felhaszn&aacute;lt azonos&iacute;t&oacute;t. A deklar&aacute;ci&oacute;s
+utas&iacute;t&aacute;sokat is pontosvessz&otilde; v&aacute;lasztja el:</P>
+
+<UL>
+<LI><TT>PROGRAM programn&eacute;v; </TT><FONT SIZE=-1>{a programnak adhatunk
+nevet &iacute;gy}</FONT></LI>
+
+<LI><TT>VAR v&aacute;ltoz&oacute;lista:t&iacute;pus;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;v&aacute;ltoz&oacute;lista:t&iacute;pus; ... </TT><FONT SIZE=-1>{v&aacute;ltoz&oacute;k
+deklar&aacute;l&aacute;sa}</FONT></LI>
+</UL>
+
+<P>A lista vessz&otilde;vel elv&aacute;lasztott elemeket jelent.</P>
+
+<P>Utas&iacute;t&aacute;sok:</P>
+
+<UL>
+<LI><TT>v&aacute;ltoz&oacute;:=kifejez&eacute;s </TT><FONT SIZE=-1>{olvasd:
+legyen egyenl&otilde;}</FONT></LI>
+</UL>
+
+<P>a kifejez&eacute;s kisz&aacute;m&iacute;tott &eacute;rt&eacute;k&eacute;t
+a v&aacute;ltoz&oacute;ban t&aacute;rolja. Adott t&iacute;pus&uacute; &eacute;rt&eacute;ket
+csak a megfelel&otilde; t&iacute;pus&uacute; v&aacute;ltoz&oacute;ban lehet
+t&aacute;rolni. Kiv&eacute;tel: integer kifejez&eacute;s t&aacute;rolhat&oacute;
+real t&iacute;pus&uacute; v&aacute;ltoz&oacute;ban. Vigy&aacute;zz: ez
+az utas&iacute;t&aacute;s nem azonos az = rel&aacute;ci&oacute;val, amely
+egy logikai m&ucirc;velet.</P>
+
+<UL>
+<LI><TT>WRITE(kifejez&eacute;slista)</TT></LI>
+
+<LI><TT>WRITELN(kifejez&eacute;slista)</TT></LI>
+</UL>
+
+<P>a kifejez&eacute;seket ki&iacute;rja. <TT>WRITELN</TT> ki&iacute;r&aacute;s
+ut&aacute;n &uacute;j sorba &aacute;ll a kurzorral.</P>
+
+<P><TT>Program pelda;<BR>
+Var a,b,c:integer;<BR>
+BEGIN<BR>
+&nbsp;a:=5;<BR>
+&nbsp;b:=3;<BR>
+&nbsp;c:=a+b;<BR>
+&nbsp;Writeln(a,'+',b,'=',c);<BR>
+&nbsp;a:=a+1;<BR>
+&nbsp;Writeln(a);<BR>
+END.</TT></P>
+
+<P>A program a k&ouml;vetkez&otilde;ket &iacute;rja ki:</P>
+
+<P>5+3=8 6</P>
+
+<P>Egy program &aacute;ltal&aacute;ban &uacute;gy m&ucirc;k&ouml;dik, hogy
+adatokat k&eacute;r a felhaszn&aacute;l&oacute;t&oacute;l, majd a bemen&otilde;
+adatokat feldolgozva kijelzi az eredm&eacute;nyt. Ebben az esetben a felhaszn&aacute;l&oacute;
+a program fut&aacute;sa k&ouml;zben avatkozik be a program m&ucirc;k&ouml;d&eacute;s&eacute;be.
+Ennek legegyszer&ucirc;bb m&oacute;dja az, hogy a program egy adott ponton
+addig v&aacute;rakozik, am&iacute;g a felhaszn&aacute;l&oacute; be nem
+g&eacute;pel egy &eacute;rt&eacute;ket (sz&aacute;mot vagy sz&ouml;veget),
+&eacute;s ezt egy v&aacute;ltoz&oacute;ban t&aacute;rolja tov&aacute;bbi
+felhaszn&aacute;l&aacute;sra.</P>
+
+<UL>
+<LI><TT>READ(v&aacute;ltoz&oacute;lista)</TT></LI>
+
+<LI><TT>READLN(v&aacute;ltoz&oacute;lista)</TT></LI>
+</UL>
+
+<P>A be&iacute;rt &eacute;rt&eacute;ket Enter megnyom&aacute;sa ut&aacute;n
+a program a v&aacute;ltoz&oacute;ban t&aacute;rolja, majd tov&aacute;bb
+fut. T&ouml;bb v&aacute;ltoz&oacute; eset&eacute;n az egyes &eacute;rt&eacute;keket
+sz&oacute;k&ouml;zzel elv&aacute;lasztva kell be&iacute;rni. A <TT>READLN</TT>
+utas&iacute;t&aacute;s &uacute;j sorba &aacute;ll, teh&aacute;t ugyanabb&oacute;l
+a sorb&oacute;l m&aacute;r nem tud a k&ouml;vetkez&otilde; <TT>READ</TT>
+&uacute;jabb &eacute;rt&eacute;keket beolvasni.</P>
+
+<P>P&eacute;lda:</P>
+
+<P><TT>VAR a,b:integer;<BR>
+BEGIN<BR>
+&nbsp;Write('Add meg az egyik sz&aacute;mot: '); Readln(a);<BR>
+&nbsp;Write(' Add meg a m&aacute;sik sz&aacute;mot: '); Readln(b);<BR>
+&nbsp;Writeln('A k&eacute;t sz&aacute;m &ouml;sszege: ',a+b);<BR>
+END.</TT></P>
+
+<P>Real kifejez&eacute;sek ki&iacute;r&aacute;sakor a Pascal norm&aacute;lalakot
+haszn&aacute;l: teh&aacute;t a 123-at &uacute;gy &iacute;rja ki, hogy 1.23E+2
+(vagyis 1,23&times;102). Ha ezt nem szeretn&eacute;nk, haszn&aacute;ljuk
+a WRITE utas&iacute;t&aacute;sban a ki&iacute;r&aacute;s sz&eacute;less&eacute;ge
+&eacute;s a tizedesjegyek sz&aacute;ma megad&aacute;s&aacute;nak lehet&otilde;s&eacute;g&eacute;t:<BR>
+<TT>&nbsp;WRITE(kifejez&eacute;s:sz&eacute;less&eacute;g:tizedesek)</TT>
+m&oacute;don. P&eacute;ld&aacute;ul:<BR>
+<TT>&nbsp;Writeln(a+b:5:2);<BR>
+</TT>A sz&eacute;less&eacute;g tetsz&otilde;leges m&aacute;s t&iacute;pus&uacute;
+kifejez&eacute;sn&eacute;l is megadhat&oacute;.</P>
+
+<CENTER><P><A HREF="f6.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f4.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

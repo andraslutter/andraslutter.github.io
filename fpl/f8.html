@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - eljárások és függvények</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			8. fejezet: Eljárások és függvények
+		</h1>
+
+	<p>Egy összetettebb programot nehéz megérteni az elejétől a végéig. Ezért fejlesztés során a feladatot több részfeladatra bontjuk, és ezeket egymástól függetlenül készítjük el. Így elegendő csak egy-egy részletre koncentrálnunk. Továbbá ha egy gyakori feladat megoldását elkészítettük, azt a program több pontján is fel tudjuk használni, így időt is megtakarítunk (ez a kód újrahasznosítása).<br />
+	Az <strong>eljárások</strong> és <strong>függvények</strong> a program részben önálló részei. A függvény annyiban több az eljárásnál, hogy visszaad valamilyen értéket (lásd a <a href="f3.html">3. fejezetet</a>).  Ilyen pl. a <code>sqr(...)</code> függvény, melynek eredménye egy szám (a paraméter négyzete).  A Pascal legtöbb utasítása eljárás: ilyen pl. a <code>writeln(...)</code>, mely kiírja a paramétert. Minden eljárás és függvény egy adott feladatot lát el.<br />
+	Az eljárásokat és függvényeket felhasználásuk előtt deklarálni kell a deklarációs részben, ez a főprogram <code>begin</code>-je elé kerül.</p>
+	<h2>Egyszerű eljárás</h2>
+	<p>Nézzük a következő programot.</p>
+<pre>
+BEGIN
+  writeln('3+2=');
+  write('nyomj entert a megoldáshoz'); readln;
+  writeln('5.');
+  writeln('5*7=');
+  write('nyomj entert a megoldáshoz'); readln;
+  writeln('35.');
+END.
+</pre>
+	<p>Látható, hogy a várakozás enterre több helyen is előfordul. Most csináljunk egy eljárást erre a feladatra.</p>
+<pre>
+Procedure varj;
+  begin
+    write('nyomj entert a megoldáshoz');
+    readln;
+  end;
+
+BEGIN
+  writeln('3+2=');
+  varj;
+  writeln('5.');
+  writeln('5*7=');
+  varj;
+  writeln('35.');
+END.
+</pre>
+	<p>A főprogramunk rövidebb és áttekinthetőbb lett. Figyeld meg, hogy az eljárás törzse a főprograméhoz hasonlóan egy összetett utasítás, de nem pont, hanem pontosvessző van a végén. A főprogram az eljárást a nevével indítja, ezt az eljárás <strong>hívás</strong>ának nevezzük.
+
+	<h2>Paraméteres eljárás</h2>
+	<p>Gondoljunk egy eljárásra (legyen a neve <code>csik</code>), amely - jelekből vízszintes vonalat hoz létre. Az eljárás paramétere, hogy milyen széles legyen a vonal: <code>csik(10)</code> eljáráshívás pl. egy 10 karakter szélességű vonalat húz. Az eljárásban lesz egy for-ciklus. Ennek ciklusváltozóját az eljárás deklarációs részében adjuk meg.</p>
+<pre>
+Procedure csik(sz:integer);
+  var i:integer;
+  begin
+     for i:=1 to sz do write('-');
+    writeln;
+  end;
+
+BEGIN
+  csik(10);
+  csik(20);
+  csik(10);
+END.
+</pre>
+	<p>Az eljárás hívásakor a paraméterként átadott szám bekerül az eljárás sz változójába, az első híváskor így az eljárás törzsében <code>sz</code>=10.<br />
+	Egy eljárásnak több paramétere is lehet, például: <code>Procedure valami(a,b:integer; x:real);</code> Ilyenkor eljáráshíváskor a megfelelő sorrendben kell megadni az értékeket, ebben a példában <code>valami(1,2,0.11)</code>.<br /><br />
+
+Az eljárások általános felépítése tehát:<br /><br />
+
+<code>Procedure <i>eljárásnév</i>(<i>paraméterlista</i>);<br />
+&nbsp;&nbsp;&nbsp;<i>az eljárás saját deklarációs része</i><br />
+ &nbsp;&nbsp;&nbsp;Begin<br />
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>az eljárás utasításai {más néven az eljárás törzse}</i><br />
+ &nbsp;&nbsp;&nbsp;End;<br /></code></p>
+
+	<h2>Lokális és globális változók</h2>
+	<p>A legutóbbi példaprogramban az <code>i</code> változó az eljárás hívásakor keletkezik, és az eljárás lefutása után megszűnik. Ezért ha a főprogramban hivatkozunk rá, hibaüzenet lesz az eredmény (ismeretlen azonosító). Az ilyen változók neve <strong>lokális</strong>, mert csak az eljáráson belül léteznek. Lokális minden, az eljárásban deklarált változó, és az eljárás paraméterei is lokális változóként viselkednek.<br />
+	Mi történik, ha a főprogramban is van ilyen nevű változó? Ebben az esetben az eljárás indulásakor a Pascal elmenti a főprogram változóját, az eljáráson belül csak a lokális változó lesz érvényben, majd az eljárás lefutásakor a főprogram visszakapja a saját változóját.</p>
+<pre>
+VAR a,b:integer;
+
+Procedure Valami;
+   Var a:integer;
+   Begin
+     a:=5; {lokális változó}
+     b:=7; {a fõprogram globális változója}
+   End;
+
+BEGIN
+   a:=1;
+   b:=2;
+   Valami;
+   Writeln(a,b);
+END.
+</pre>
+	<p>Ebben a programban az <code>a</code> és <code>b</code> változókat az eljárás előtt deklaráltuk, ezek tehát az eljáráson belül <code>láthatóak</code>. Viszont az eljárás lokális a változója a főprogram a változója helyébe lép az eljárás futása közben (azt "eltakarja").<br />
+	A <code>b</code> változó a főprogramé, és az eljárásnak nem lép helyébe lokális változója. Az ilyen változók neve <strong>globális</strong>: ezek a főprogram eljárásokban is használható változói.<br />
+	A program által kiírt számok: 1,7. Az eljárás csak a saját lokális a változóját módosítja, a főprogramé változatlan, viszont a <code>b</code> az eljárásban globális.</p>
+	<p>Mire jó mindez? Az eljárások általában egy önálló részfeladatot oldanak meg. Megírásuk után el is feledkezhetünk arról, hogyan működnek, csak az a fontos, mire valók. Ezért nem jegyezzük meg a bennük használt segédváltozók nevét, és nem baj, hogy máshol is szerepelhetnek ilyen nevű változók.</p>
+	<p>Összegzésként: az eljárásban általában minden változó legyen lokális, kivéve, ha a feladat kifejezetten a főprogram egyes változóinak módosítása.</p>
+
+	<h2>Függvények</h2>
+	<p>A függvény majdnem olyan, mint egy eljárás, csak rendelkezik <strong>visszatérési érték</strong>kel. Az eljáráshoz képest meg kell adnunk a visszatérési érték típusát, és a függvény törzsében valahol magát az értéket.</p>
+	<p>A következő példa elkészíti a köbre emelő függvényt, az <code>sqr</code> mintájára. Ennek a függvénynek egy paramétere van (amit köbre emelünk).</p>
+<pre>
+Function kob(a:real):real;
+   Begin
+     kob:=a*a*a;
+   End;
+
+BEGIN
+   writeln(kob(65));
+END;
+</pre>
+	<p>A függvény törzsében látható értékadás nem értékadás valójában, hanem a visszatérési értéket adja meg. Tehát:</p>
+	<p><code>Function <i>függvénynév(paraméterlista):típus</i>;<br />
+	&nbsp;&nbsp;&nbsp;<i>a függvény saját deklarációs része</i><br />
+	&nbsp;&nbsp;&nbsp;Begin<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>függvénynév:=visszatérési érték</i>;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br />
+	&nbsp;&nbsp;&nbsp;End;</code></p>
+	<p>A következő példa az egész számok hatványozását mutatja be egy kétparaméteres függvénnyel (a függvénynek akárhány paramétere lehet, de visszatérési értéke csak egy!). A hatványozást többszöri szorzással végzi el.</p>
+<pre>
+Function hatv(x,n:integer):integer;
+  var i,p:integer;
+  begin
+    p:=1;
+    for i:=1 to n do p:=p*x;
+    hatv:=p;
+  end;
+
+BEGIN
+  if hatv(2,3)=8 then writeln('Működik!');
+END.
+</pre>
+	<p>Felmerülhet a kérdés, hogy mi szükség volt a p változóra, miért nem használtuk <code>hatv</code>-ot. Vigyázat, <code>hatv</code> nem változó! A <code>hatv:=hatv*x</code> jobb oldala függvényhívás, itt a függvény meghívhatja saját magát.</p>
+
+	<h2>Változóparaméterek</h2>
+	<p>Keressük meg a hibát a következő programban, amely két változó értékét felcserélő eljárást használna!</p>
+<pre>
+Procedure Csere(a,b:integer);
+  Var m:integer;
+  Begin
+    m:=a; a:=b; b:=m;
+  End;
+
+VAR p,q:integer;
+
+BEGIN
+  p:=8;
+  q:=4;
+  Csere(p,q);
+  Writeln(p,q);
+END.
+</pre>
+	<p>A program a 8,4 számokat fogja kiírni, hiszen az eljárás a főprogram eredeti <code>p,q</code> változóját nem módosította, csak a lokális <code>a,b</code> értékét cserélte fel. A Pascal ilyen esetben <code>érték szerinti paraméterátadás</code>t használ, vagyis az <code>a,b</code> változók értéke az átadott két paraméter (szám) lesz.</p>
+	<p>Lehet azonban cím szerinti paraméterátadást használni. Cseréljük ki a program első sorát erre, és működni fog:</p>
+<pre>
+Procedure Csere(var a,b:integer);
+</pre>
+	<p>A különbség a paraméterlistát megelőző <code>var</code>. Ebben az esetben eljáráshíváskor nem használhatunk értékeket, csak változókat. Az eljárásban létrejövő paraméterek ugyanazokra a memóriacímekre fognak mutatni, mint a hívásban szereplő változók. Vagyis ami <code>a,b</code> változókkal történik az eljárásban, az történik a főprogram <code>p,q</code> változóival. (Használhatunk vegyesen "sima" és változóparamétereket is.)
+Így működik a Pascal <code>readln(<i>változó</i>)</code> utasítása is, az átadott változó értékét módosítja.
+
+<p>
+  <a href="f7.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="f9.html">Következő</a>
+</p>
+
+	<h2>Feladatok</h2>
+	<p>30. Készíts függvényt, mely a két átadott egész szám közül a nagyobbikat adja vissza! Vagyis a következő programrészlet elé írva az jól fog működni.</p>
+<pre>
+...
+BEGIN
+  writeln(max(2,7)); //7-et ír ki
+END.
+</pre>
+	<p><a href="fm.html#mo30">megoldás</a></p>
+	<p>31. Egészítsd ki a következő programrészletet a megfelelő eljárással, amely az adott karaktert adott számszor írja ki!</p>
+<pre>
+...
+BEGIN
+  write('B');  //Brrrrrrrrrrrr! Nagyon hiiiiideg van!
+  ism('r',12);
+  write('! Nagyon h');
+  ism('i',5);
+  writeln('deg van!');
+END.
+</pre>
+	<p><a href="fm.html#mo31">megoldás</a></p>
+	<p>32. Most készíts függvényt ugyanerre a célra! A feladata előállítani az adott karaktert adott számszor tartalmazó stringet. Segítségként megadom a függvény elejét is.</p>
+<pre>
+Function ism(c:char;n:integer):string;
+...
+BEGIN
+  write('B',ism('r',12),'! Nagyon h',ism('i',5),'deg van!');
+END.
+</pre>
+	<p><a href="fm.html#mo32">megoldás</a></p>
+	<p>33. Készíts eljárást, mely a paraméterként átadott egész típusú változót a következő páros számra kerekíti!</p>
+<pre>
+...
+VAR a:integer;
+BEGIN
+  a:=53;
+  parit(a);
+  writeln(a); //a értéke 54 lesz
+  parit(a);
+  writeln(a); //a értéke marad 54
+END.
+</pre>
+	<p><a href="fm.html#mo33">megoldás</a></p>
+
+  </div>
+</body>
+</html>

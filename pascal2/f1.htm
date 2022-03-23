@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>1. Filekezel&eacute;s</FONT></U></P>
+
+<P>Gyakran sz&uuml;ks&eacute;g lehet arra, hogy a mem&oacute;ri&aacute;ban
+l&eacute;v&otilde; adatokat lemezre &iacute;rjuk, vagy lemezen l&eacute;v&otilde;
+adatokat olvassunk be. A lemezen l&eacute;v&otilde; adatok file-okban helyezkednek
+el. Egy adatszerkezet m&ucirc;k&ouml;d&eacute;s&eacute;t a benne l&eacute;v&otilde;
+adatok t&iacute;pus&aacute;n k&iacute;v&uuml;l az is meghat&aacute;rozza,
+hogy mik&eacute;ppen tudunk bele adatot &iacute;rni, vagy bel&otilde;le
+adatot olvasni. Noha egy file minden esetben byte-ok sorozata, a file-okat
+k&eacute;tf&eacute;le m&oacute;don kezelhetj&uuml;k.</P>
+
+<P>A <B>szekvenci&aacute;lis</B> (soros szerkezet&ucirc;) file m&ucirc;veletei:</P>
+
+<UL>
+<LI>&aacute;llhatunk az elej&eacute;re</LI>
+
+<LI>kiolvashatjuk a k&ouml;vetkez&otilde; elem&eacute;t</LI>
+
+<LI>&iacute;rhatunk egy elemet a legv&eacute;g&eacute;re (az utols&oacute;
+eleme ut&aacute;n)</LI>
+
+<LI>l&eacute;trehozhatunk egy &uuml;res file-t</LI>
+</UL>
+
+<P>&Iacute;gy teh&aacute;t egy ilyen file m&aacute;sodik elem&eacute;t
+csak &uacute;gy olvashatjuk be, hogy el&otilde;tte beolvassuk az els&otilde;
+elem&eacute;t. Egy szekvenci&aacute;lis file-t vagy csak &iacute;r&aacute;sra,
+vagy csak olvas&aacute;sra nyithatunk meg.</P>
+
+<P>A k&ouml;zvetlen el&eacute;r&eacute;s&ucirc;, m&aacute;s n&eacute;ven
+<B>direkt file</B> fix hossz&uacute;s&aacute;g&uacute; elemek, m&aacute;s
+n&eacute;ven <B>rekord</B>ok sorozata. Mivel &iacute;gy pontosan kisz&aacute;m&iacute;that&oacute;,
+hogy a file valah&aacute;nyadik rekordja melyik byte-n&aacute;l kezd&otilde;dik,
+ebben a file-ban ak&aacute;rh&aacute;nyadik rekordra r&aacute;&aacute;llhatunk.
+A direkt file m&ucirc;veletei:</P>
+
+<UL>
+<LI>ak&aacute;rh&aacute;nyadik rekordj&aacute;ra &aacute;llhatunk</LI>
+
+<LI>kiolvashatjuk ezt a rekordot</LI>
+
+<LI>m&aacute;sik rekorddal helyettes&iacute;thetj&uuml;k ezt a rekordot</LI>
+
+<LI>&uacute;j rekordot &iacute;rhatunk a file v&eacute;g&eacute;hez</LI>
+
+<LI>l&eacute;trehozhatunk egy &uuml;res file-t</LI>
+</UL>
+
+<P>Ha a direkt file-t megnyitottuk, abb&oacute;l olvashatunk is, &eacute;s
+&iacute;rhatunk is bele.</P>
+
+<P>A Pascalban a fenti m&ucirc;veleteken k&iacute;v&uuml;l lek&eacute;rdezhet&otilde;
+m&eacute;g, hogy kiolvastuk-e m&aacute;r az utols&oacute; elemet a file-b&oacute;l
+(vagyis v&eacute;ge van-e a file-nak).</P>
+
+<P>A file-okat el&otilde;sz&ouml;r deklar&aacute;lni kell, mint a v&aacute;ltoz&oacute;kat:</P>
+
+<UL>
+<LI><TT>VAR file=FILE OF alapt&iacute;pu</TT>s <FONT SIZE=-1>(direkt file
+eset&eacute;n)</FONT></LI>
+
+<LI><TT>VAR file=TEXT</TT> <FONT SIZE=-1>(szekvenci&aacute;lis file eset&eacute;n)</FONT></LI>
+</UL>
+
+<P>A szekvenci&aacute;lis file a Pascalban TEXT t&iacute;pus&uacute;. A
+file sorokb&oacute;l &aacute;ll, melyeket &uacute;jsor-jel v&aacute;laszt
+el. Vagyis ez nem m&aacute;s, mint egy k&ouml;z&ouml;ns&eacute;ges sz&ouml;veges
+file. Az el&otilde;nye a direkt file-hoz k&eacute;pest, hogy pontosan &uacute;gy
+lehet kezelni, mint amikor a billenty&ucirc;zetr&otilde;l olvasunk be adatokat,
+vagy a k&eacute;perny&otilde;re &iacute;runk. A sz&ouml;veges file szerkezete
+nem f&uuml;gg a programoz&aacute;si nyelvt&otilde;l, teh&aacute;t egy m&aacute;s
+program &aacute;ltal el&otilde;&aacute;ll&iacute;tott sz&ouml;veges file-t
+(ez lehet pl. sz&aacute;mok sorozata) Pascal programmal fel tudunk dolgozni.
+A legt&ouml;bb adatkezel&otilde; program (sz&ouml;vegszerkeszt&otilde;,
+t&aacute;bl&aacute;zatkezel&otilde;) k&eacute;pes sz&ouml;veges file-ba
+is ki&iacute;rni az adatokat.</P>
+
+<P>Mivel a direkt file-n&aacute;l meg kell adnunk egy alapt&iacute;pust,
+&eacute;s a Pascal alapt&iacute;pusai a STRING t&iacute;pust kiv&eacute;ve
+mind fix hossz&uacute;s&aacute;g&uacute;ak (vagyis meghat&aacute;rozott
+sz&aacute;m&uacute; byte-b&oacute;l &aacute;llnak), m&aacute;ris biztos&iacute;tottuk
+a fix rekordhosszt. (Ha a file alapt&iacute;pusa STRING, akkor minden egyes
+rekord a lehet&otilde; leghosszabb lesz, vagyis 255 karakter, mert ez a
+string t&iacute;pus maxim&aacute;lis hossza).</P>
+
+<P>El&otilde;sz&ouml;r is, a file-hoz hozz&aacute; kell rendeln&uuml;nk
+egy DOS filenevet. Ezt v&eacute;gzi el az</P>
+
+<UL>
+<LI><TT>ASSIGN(file,DOS filen&eacute;v)</TT></LI>
+</UL>
+
+<P>utas&iacute;t&aacute;s. Ezut&aacute;n a file-ra mindig a deklar&aacute;ci&oacute;n&aacute;l
+megadott n&eacute;vvel hivatkozunk, a DOS-os n&eacute;vre nincs t&ouml;bb&eacute;
+sz&uuml;ks&eacute;g. &Uacute;j file-t hoz l&eacute;tre a</P>
+
+<UL>
+<LI><TT>REWRITE(file)</TT></LI>
+</UL>
+
+<P>utas&iacute;t&aacute;s. Ez az &uacute;j, &uuml;res file-t &iacute;r&aacute;sra
+nyitja meg. M&aacute;r megl&eacute;v&otilde; file-t a</P>
+
+<UL>
+<LI><TT>RESET(file)</TT></LI>
+</UL>
+
+<P>utas&iacute;t&aacute;ssal nyithatunk meg. Ez szekvenci&aacute;lis file-n&aacute;l
+csak olvas&aacute;sra nyitja meg a file t, direkt file-n&aacute;l &iacute;r&aacute;sra-
+olvas&aacute;sra. Csak szekvenci&aacute;lis file-n&aacute;l haszn&aacute;lhat&oacute;
+az</P>
+
+<UL>
+<LI><TT>APPEND(file)</TT></LI>
+</UL>
+
+<P>utas&iacute;t&aacute;s, mely &iacute;r&aacute;sra nyit meg l&eacute;tez&otilde;
+file-t, &eacute;s a v&eacute;g&eacute;re &aacute;ll (hozz&aacute;f&ucirc;z&eacute;s).</P>
+
+<P>A file-ba val&oacute; &iacute;r&aacute;s &eacute;s a bel&otilde;le olvas&aacute;s
+elt&eacute;r a k&eacute;t filet&iacute;pusn&aacute;l. Szekvenci&aacute;lis
+(TEXT) file ugyan&uacute;gy haszn&aacute;lhat&oacute;, mint a k&eacute;perny&otilde;,
+csak meg kell adni, hogy melyik file-ba &iacute;runk, vagy melyiket olvassuk:</P>
+
+<UL>
+<LI><TT>WRITE(file,kifejez&eacute;s)</TT></LI>
+
+<LI><TT>WRITELN(file,kifejez&eacute;s)</TT></LI>
+
+<LI><TT>READ(file,v&aacute;ltoz&oacute;)</TT></LI>
+
+<LI><TT>READLN(file,v&aacute;ltoz&oacute;)</TT></LI>
+</UL>
+
+<P>Direkt file-n&aacute;l nincs &eacute;rtelme sorokr&oacute;l besz&eacute;lni,
+ott teh&aacute;t nem haszn&aacute;lhat&oacute; a READLN &eacute;s WRITELN
+utas&iacute;t&aacute;s. Tov&aacute;bbi k&uuml;l&ouml;nbs&eacute;g, hogy
+WRITE haszn&aacute;lata eset&eacute;n is a kifejez&eacute;s helyett v&aacute;ltoz&oacute;t
+kell haszn&aacute;lni - term&eacute;szetesen csak olyan v&aacute;ltoz&oacute;t,
+amelynek t&iacute;pusa megegyezik a file alapt&iacute;pus&aacute;val. Teh&aacute;t:</P>
+
+<UL>
+<LI><TT>WRITE(n&eacute;v,v&aacute;ltoz&oacute;)</TT></LI>
+
+<LI><TT>READ(n&eacute;v,v&aacute;ltoz&oacute;)</TT></LI>
+</UL>
+
+<P>A file-b&oacute;l val&oacute; olvas&aacute;s k&ouml;zben folyamatosan
+vizsg&aacute;lnunk kell, hogy nincs-e m&eacute;g v&eacute;ge a file-nak.
+Erre val&oacute; az</P>
+
+<UL>
+<LI><TT>EOF(file)</TT></LI>
+</UL>
+
+<P>f&uuml;ggv&eacute;ny, melynek &eacute;rt&eacute;ke TRUE, ha m&aacute;r
+kiolvastuk a file utols&oacute; elem&eacute;t.</P>
+
+<P>V&eacute;g&uuml;l a file-t le is kell z&aacute;rnunk. Ennek az az oka,
+hogy a file-ba ak&aacute;r byte-onk&eacute;nt is &iacute;rhatjuk az adatokat,
+a DOS azonban a file-nak egyszerre egy szektor&aacute;t kezeli (ez legt&ouml;bbsz&ouml;r
+512 byte). Teh&aacute;t nem &iacute;rja fel azonnal az adatokat a file-ba,
+hanem megv&aacute;rja, m&iacute;g &ouml;sszegy&ucirc;lik az 512 byte, &eacute;s
+ezt egyetlen m&ucirc;velettel &iacute;rja fel. Az adatokat a lemezre &iacute;r&aacute;sig
+&uacute;gynevezett pufferben t&aacute;rolja. Ha a file-t lez&aacute;rjuk,
+a puffert fel&iacute;rja a lemezre, ak&aacute;r &ouml;sszegy&ucirc;lt benne
+a sz&uuml;ks&eacute;ges adat, ak&aacute;r nem. Ha a lez&aacute;r&aacute;s
+elmarad, a file v&eacute;ge is lemaradhat. File lez&aacute;r&aacute;sa:</P>
+
+<UL>
+<LI><TT>CLOSE(file)</TT></LI>
+</UL>
+
+<P>A k&ouml;vetkez&otilde; p&eacute;ldaprogram direkt file adatokkal val&oacute;
+felt&ouml;lt&eacute;s&eacute;re mutat p&eacute;ld&aacute;t.</P>
+
+<P><TT>TYPE Ember=Record<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nev:string[20];<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;szul:integer;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;End;<BR>
+VAR f:file of Ember;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;r:Ember;<BR>
+BEGIN<BR>
+&nbsp;Assign(f,'nyilv.dat');<BR>
+&nbsp;Repeat<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Write('N&eacute;v: ');<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Readln(r.nev);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;If r.nev&lt;&gt;'*' then begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Write('Sz&uuml;letett: '); Readln(r.szul);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Write(f,r);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;End;<BR>
+&nbsp;Until r.nev='*'<BR>
+&nbsp;Close(f);<BR>
+END.</TT></P>
+
+<P>&Eacute;rdemes megfigyelni a programban, hogy k&uuml;l&ouml;n t&iacute;pust
+hoztunk l&eacute;tre a file rekordjainak. Erre az&eacute;rt volt sz&uuml;ks&eacute;g,
+hogy az r v&aacute;ltoz&oacute; t&iacute;pusa (amely seg&iacute;ts&eacute;g&eacute;vel
+a file-ba &iacute;runk) ugyanaz lehessen, mint a file alapt&iacute;pusa.</P>
+
+<P>N&eacute;zz&uuml;k meg, hogy hogyan lehetne a file-ban t&aacute;rolt
+adatokat beolvasni a mem&oacute;ri&aacute;ba.</P>
+
+<P><TT>CONST Max=1000;<BR>
+VAR t:Array[1..Max] of Ember;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;i:integer;<BR>
+BEGIN<BR>
+&nbsp;Assign(f,'nyilv.dat');<BR>
+&nbsp;Reset(f);<BR>
+&nbsp;i=0;<BR>
+&nbsp;While (not Eof(f)) and i&lt;Max do begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;i=i+1;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Read(f,t[i]);<BR>
+&nbsp;End;<BR>
+&nbsp;Close(f);<BR>
+END.</TT></P>
+
+<P>A <TT>Max</TT> konstanst &uacute;gy v&aacute;lasszuk meg, hogy nagyobb
+legyen a file v&aacute;rhat&oacute; hossz&aacute;n&aacute;l. A t&ouml;mb
+m&eacute;ret&eacute;t ugyanis el&otilde;re deklar&aacute;lni kell, a file
+hossz&aacute;t pedig nem ismerj&uuml;k el&otilde;re. Ennek ellen&eacute;re
+a ciklusfelt&eacute;telben vizsg&aacute;ljuk, hogy f&eacute;r-e m&eacute;g
+adat a t&ouml;mbbe, &iacute;gy a program t&uacute;l hossz&uacute; file
+eset&eacute;n sem &aacute;ll le, csak nem olvassa be a file fennmarad&oacute;
+r&eacute;sz&eacute;t. <TT>i</TT> v&aacute;ltoz&oacute; tartja nyilv&aacute;n,
+hogy h&aacute;ny elemet olvastunk be a file-b&oacute;l. Az&eacute;rt haszn&aacute;ltunk
+el&ouml;ltesztel&otilde;s ciklust, hogy ha a file &uuml;res, akkor a program
+ne pr&oacute;b&aacute;ljon meg olvasni bel&otilde;le.</P>
+
+<P>A k&ouml;vetkez&otilde; (nagyon tipikus) program k&eacute;t file-t kezel:
+az els&otilde; file-b&oacute;l a 100-n&aacute;l nagyobb sz&aacute;mokat
+&aacute;tv&aacute;logatja a m&aacute;sik file-ba.</P>
+
+<P><TT>VAR f,g:file of integer;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;a:integer;<BR>
+BEGIN<BR>
+&nbsp;Assign(f,'egyik.dat');<BR>
+&nbsp;Assign(g,'masik.dat');<BR>
+&nbsp;Reset(f);<BR>
+&nbsp;Rewrite(g);<BR>
+&nbsp;While not Eof(f) do begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Read(f,a);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;If a&gt;100 Then Write(g,a);<BR>
+&nbsp;End;<BR>
+&nbsp;Close(g);<BR>
+&nbsp;Close(f);<BR>
+END.</TT></P>
+
+<P>Az eddigi programok, b&aacute;r direkt file-okkal dolgoztak, csak a
+szekvenci&aacute;lis file-ok lehet&otilde;s&eacute;geit haszn&aacute;lt&aacute;k.
+A k&ouml;vetkez&otilde; program m&aacute;r csak direkt file-okkal m&ucirc;k&ouml;dik:
+egy file-ban a negat&iacute;v sz&aacute;mok hely&eacute;re 0-t &iacute;r.
+A file-b&oacute;l egyszerre olvasunk, &eacute;s &iacute;runk is bele. Ehhez
+sz&uuml;ks&eacute;g lesz a k&ouml;vetkez&otilde; elj&aacute;r&aacute;sokra
+&eacute;s f&uuml;ggv&eacute;nyekre (csak halad&oacute;knak!)</P>
+
+<UL>
+<LI><TT>SEEK(file,poz&iacute;ci&oacute;) </TT><FONT SIZE=-1>direkt file-ban
+a megadott sorsz&aacute;m&uacute; rekordra &aacute;ll (file elej&eacute;n
+0)</FONT></LI>
+
+<LI><TT>FILEPOS(file) </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, megadja,
+hogy a direkt file h&aacute;nyadik rekordj&aacute;n&aacute;l tartunk</FONT></LI>
+</UL>
+
+<P><TT>VAR f:file of real;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;a:real;<BR>
+BEGIN<BR>
+&nbsp;Assign(f,'szamok.dat');<BR>
+&nbsp;Reset(f);<BR>
+&nbsp;While not eof(f) do begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Read(f,a);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;If a&lt;0 Then Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seek(f,filepos(f)-1); </TT><FONT SIZE=-1>{visszal&eacute;p&uuml;nk
+egy rekorddal}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Write(f,0); </TT><FONT SIZE=-1>{&eacute;s
+annak hely&eacute;re &iacute;rjuk a 0-t}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;End;<BR>
+&nbsp;End;<BR>
+&nbsp;Close(f);<BR>
+END.</TT></P>
+
+<P>V&eacute;g&uuml;l n&eacute;zz&uuml;nk egy p&eacute;ld&aacute;t sz&ouml;veges
+file kezel&eacute;s&eacute;re: a file sz&aacute;mokat tartalmaz, a program
+ezeket &ouml;sszegzi. A bemeneti sz&ouml;veges file-t ak&aacute;rmilyen
+sz&ouml;veges editorral el&otilde;&aacute;ll&iacute;thatjuk.</P>
+
+<P><TT>VAR f:Text;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;s,a:integer;<BR>
+BEGIN<BR>
+&nbsp;Assign(f,'szoveg.txt');<BR>
+&nbsp;Reset(f);<BR>
+&nbsp;s=0;<BR>
+&nbsp;While not eof(f) do begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Readln(f,a);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;s=s+a;<BR>
+&nbsp;End;<BR>
+&nbsp;Close(f);<BR>
+&nbsp;Writeln('Az &ouml;szeg: ',s);<BR>
+END.</TT></P>
+
+<CENTER><P><A HREF="f2.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

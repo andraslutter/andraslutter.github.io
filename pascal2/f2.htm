@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>2. Modul&aacute;ris programoz&aacute;s (UNIT-ok &iacute;r&aacute;sa)</FONT></U></P>
+
+<P>A <B>modul&aacute;ris programoz&aacute;s</B> azt jelenti, hogy a programot
+r&eacute;szfeladatokra bontjuk, az egyes r&eacute;szeket k&uuml;l&ouml;n
+programban dolgozzuk ki, ezeket a f&uuml;ggetlen modulokat leford&iacute;tjuk,
+&eacute;s a v&eacute;gs&otilde; programban &ouml;ssze&eacute;p&iacute;tj&uuml;k
+&otilde;ket. A Pascal moduljai a unitok: minden unit egy f&uuml;ggetlen
+csomag, melyben elj&aacute;r&aacute;sok, f&uuml;ggv&eacute;nyek, t&iacute;pusok,
+konstansok &eacute;s v&aacute;ltoz&oacute;k (a tov&aacute;bbiakban r&ouml;viden:
+elj&aacute;r&aacute;sok) vannak. Ha egy program deklar&aacute;ci&oacute;s
+r&eacute;sz&eacute;ben szerepel a USES unit deklar&aacute;ci&oacute;, a
+program felhaszn&aacute;lhatja a unit elj&aacute;r&aacute;sait, mintha
+csak &otilde;benne lenn&eacute;nek deklar&aacute;lva.</P>
+
+<P>A Pascal el&otilde;re elk&eacute;sz&iacute;tett unitjai (Graph, Crt...)
+mellett mi is k&eacute;sz&iacute;thet&uuml;nk unitokat.</P>
+
+<P>Saj&aacute;t unitokat k&eacute;t esetben k&eacute;sz&iacute;t&uuml;nk.
+Lehetnek olyan elj&aacute;r&aacute;saink, melyeket t&ouml;bb programban
+is fel szeretn&eacute;nk haszn&aacute;lni (pl. rajzol&oacute; seg&eacute;delj&aacute;r&aacute;sok).
+Ahelyett, hogy az egyik programb&oacute;l a v&aacute;g&oacute;lap seg&iacute;ts&eacute;g&eacute;vel
+&aacute;tm&aacute;solgatn&aacute;nk a t&ouml;bbibe, ezeket az elj&aacute;r&aacute;sokat
+egy k&uuml;l&ouml;n unitba gy&ucirc;jtj&uuml;k &ouml;ssze. M&aacute;sr&eacute;sz,
+a unitok haszn&aacute;lata &aacute;ttekinthet&otilde;bb&eacute; tesz egy
+nagyobb programot. Azzal, hogy a bizonyos feladatokat v&eacute;gz&otilde;
+elj&aacute;r&aacute;sokat egy unitba gy&ucirc;jtj&uuml;k, az elj&aacute;r&aacute;sok
+tesztel&eacute;s&eacute;hez nem kell az eg&eacute;sz programot meg&iacute;rnunk,
+&eacute;s a jav&iacute;t&aacute;shoz el&eacute;g csak a unitot &aacute;t&iacute;rni.
+A feladat modulokra bont&aacute;s&aacute;val az t&ouml;bb programoz&oacute;
+k&ouml;z&ouml;tt is sz&eacute;toszthat&oacute;, &iacute;gy lehet&otilde;v&eacute;
+v&aacute;lik a csoportos programoz&aacute;s.</P>
+
+<P>Egy unit szerkezete:</P>
+
+<P><TT>UNIT unitn&eacute;v;<BR>
+INTERFACE<BR>
+&nbsp;&nbsp;&nbsp;k&ouml;z&ouml;s r&eacute;sz<BR>
+IMPLEMENTATION<BR>
+&nbsp;&nbsp;&nbsp;saj&aacute;t r&eacute;sz<BR>
+BEGIN<BR>
+&nbsp;&nbsp;&nbsp;program<BR>
+END.</TT></P>
+
+<P>A <TT>k&ouml;z&ouml;s r&eacute;sz</TT>ben szerepel mindaz, amit a unitot
+felhaszn&aacute;l&oacute; programok haszn&aacute;lhatnak: v&aacute;ltoz&oacute;k,
+t&iacute;pusok, konstansok; de a k&ouml;z&ouml;s elj&aacute;r&aacute;soknak
+&eacute;s f&uuml;ggv&eacute;nyeknek <U>csak a fejr&eacute;sze</U>. Maguk
+az elj&aacute;r&aacute;sok &eacute;s f&uuml;ggv&eacute;nyek csak az <TT>IMPLEMENTATION</TT>
+sz&oacute; ut&aacute;n k&ouml;vetkeznek.</P>
+
+<P>A <TT>saj&aacute;t r&eacute;sz</TT>ben szerepl&otilde; dolgok csak a
+unitra tartoznak: teh&aacute;t itt szerepelnek pl. azok a v&aacute;ltoz&oacute;k,
+melyekre a unitnak sz&uuml;ks&eacute;ge van, de a unitot haszn&aacute;l&oacute;
+program sz&aacute;m&aacute;ra l&aacute;thatatlanok.</P>
+
+<P>A <TT>program</TT> akkor hajt&oacute;dik v&eacute;gre, amikor a unitot
+haszn&aacute;l&oacute; program elindul. Ezt a r&eacute;szt &uuml;resen
+is lehet hagyni.</P>
+
+<P>A unit leford&iacute;t&aacute;s ut&aacute;n .TPU (teh&aacute;t nem .EXE)
+kiterjeszt&eacute;s&ucirc; file-k&eacute;nt ker&uuml;l a lemezre (ebb&otilde;l
+k&ouml;vetkezik, hogy haszn&aacute;lat el&otilde;tt a unitot lemezre kell
+ford&iacute;tani). N&eacute;zz&uuml;nk egy p&eacute;ld&aacute;t unit haszn&aacute;lat&aacute;ra:</P>
+
+<P><TT>UNIT Vonalak;<BR>
+INTERFACE<BR>
+&nbsp;&nbsp;&nbsp;Procedure Vvonal(s:integer);<BR>
+&nbsp;&nbsp;&nbsp;Procedure Fvonal(o:integer);<BR>
+IMPLEMENTATION<BR>
+&nbsp;&nbsp;&nbsp;Uses Crt;<BR>
+&nbsp;&nbsp;&nbsp;Procedure Vvonal(s:integer);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;var i:integer;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i:=1 to 80 do begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gotoxy(i,s);
+write('-');<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;End;<BR>
+&nbsp;&nbsp;&nbsp;Procedure Fvonal(o:integer);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;var i:integer;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i:=1 to 25 do begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gotoxy(o,i);
+write('|');<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;End;<BR>
+<BR>
+BEGIN<BR>
+&nbsp;&nbsp;&nbsp;clrscr;<BR>
+END.</TT></P>
+
+<P>Ezt a unitot VONALAK.PAS n&eacute;ven kell lemezre menteni, majd lemezre
+ford&iacute;tani. Figyelj&uuml;k meg, hogy a saj&aacute;t r&eacute;szben
+az elj&aacute;r&aacute;sok fej&eacute;t megism&eacute;telt&uuml;k. Ezt
+r&ouml;videbben is lehetett volna: mivel az elj&aacute;r&aacute;sok teljes
+fejr&eacute;sze m&aacute;r szerepel a k&ouml;z&ouml;s r&eacute;szben, a
+saj&aacute;t r&eacute;szbe el&eacute;g lett volna<BR>
+<TT>&nbsp;&nbsp;&nbsp;Procedure Vvonal;<BR>
+&nbsp;&nbsp;&nbsp;Procedure Fvonal;<BR>
+</TT>r&ouml;vid&iacute;tett fejr&eacute;szt &iacute;rni.</P>
+
+<P>A unitot haszn&aacute;l&oacute; program a k&ouml;vetkez&otilde;k&eacute;ppen
+n&eacute;zhet ki:</P>
+
+<P><TT>USES Vonalak;<BR>
+BEGIN<BR>
+&nbsp;Vvonal(12);<BR>
+&nbsp;Fvonal(40);<BR>
+END.</TT></P>
+
+<P>A program ind&iacute;t&aacute;sakor a k&eacute;perny&otilde; let&ouml;rl&otilde;dik.
+Megjegyz&eacute;s: a program nem haszn&aacute;lhatja a Crt unit elj&aacute;r&aacute;sait,
+hiszen az nincs deklar&aacute;lva benne.</P>
+
+<CENTER><P><A HREF="f3.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f1.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

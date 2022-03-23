@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - összetett grafikus alkalmazás</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			16. fejezet: Egy összetett grafikus alkalmazás
+		</h1>
+    <p>Ebben a fejezetben összeállítunk egy egyszerű játékot, amelyben egy képernyőn feltűnő labdát kell elkapni minél többször. Még mindig az IDE eszközeivel dolgozunk, és nem készítünk saját objektumot.</p>
+
+    <h2>A projekt alapjai</h2>
+    <p>Hozz létre egy új projektet, és mentsd el egy saját mappába (jatek), jatek néven (mármint az .lpi fájlt, mert a unit1.pas neve marad).</p>
+    <p>A labdát tetszőleges rajzolóprogrammal elkészítheted, a kép mérete legyen 64x64 pixeles. Mentsd el labda.png néven (és png formátumban!) a jatek mappába.<br />
+    Helyezz el a formon egy <code>TImage</code> típusú objektumot (az Additional fülön találod az eszköztáron), ez lesz az <code>Image1</code>. Keresd meg a <code>Picture</code> tulajdonságát, és ott töltsd be a képet. Az <code>Image1.Height</code> és <code>Width</code> tulajdonságot állítsd 64-re.<br />
+    Mivel a kép mindig téglalap alakú tartomány, a formon a labda körül látszik a téglalap alakú háttér. Az átlátszóság kezelésére az egyszerűbb rajzprogramok nem alkalmasak, szerencsére ilyenkor is kiválaszthatunk a képen egy átlátszó színt. Ez a kép bal alsó pixelének a színe lesz. Állítsd az <code>Image1.Transparent</code> tulajdonságot <code>True</code>-ra!</p>
+    <p>Szükségünk lesz még egy indítógombra (<code>TButton</code> típusú <code>Button1</code>), és egy pontokat számoló feliratra (<code>TLabel</code> típusú <code>Label1</code>). A <code>Label1.Font.Size</code> tulajdonságot állítsd 20-ra, a <code>Button1.Caption</code>-t írd át! Eddig így néz ki:
+    <img src="k4.png" alt="labdás screenshot" /></p>
+
+    <h2>Inicializálás</h2>
+    <p>Vannak olyan műveletek, melyeket a program indításakor egy alkalommal végre kell hajtani (inicializálás, vagyis a kezdőértékek beállítása). Ez konzolalkalmazásnál egyszerűen a BEGIN utáni rész lenne. Egy eseményvezérelt programnál azonban minden eljárást egy esemény indít be.<br />
+    Szerencsére van egy olyan esemény, amely a program indításakor egyszer megtörténik, ez pedig a form létrehozása.  Az objektumfelügyelőben lépj vissza a <code>Form1</code>-re, és keresd meg az <code>OnCreate</code> eseményt. A ...-ra kattintva az IDE létrehozza a <code>TForm1.FormCreate</code> eljárást. Itt most ez szerepeljen:</p>
+    <pre>
+Label1.Caption:='Kapd el a labdát!';</pre>
+    <p>Nem szerencsés, ha a labda máris látszik, folytassuk:</p>
+    <pre>
+ Image1.Visible:=False;</pre>
+    
+    <h2>Időzítő</h2>
+    <p>A labda bukkanjon fel 1 másodpercenként. Ez egy olyan esemény, amelyet nem felhasználói beavatkozás vált ki, hanem egy időzítő. Helyezz el a formon egy <code>TTimer</code> típusú objektumot (<code>Timer1</code>), ez a System fülön van. A program futása közben ez nem fog látszani. Legfontosabb tulajdonságai: <code>Enabled</code> (működik-e), <code>Interval</code> (hány ezredmásodpercenként váltsin ki eseményt) és maga az <code>OnTimer</code> esemény.<br />
+    Az <code>Interval</code> értéke 1000 lesz (1 másodperc), viszont az <code>Enabled</code> legyen <code>False</code>, hogy a program indításakor még ne mozgassa a labdát.</p>
+    <p>Következzen az <code>OnTimer</code> esemény elkészítése. Ide beírhatnánk a labda odébbrakását, de gondoljuk végig, hogyan fog működni a játék. Ha a felhasználó rákattint a labdára, azt akkor is odébb kell tenni, hogy ismételt kattintásokkal ne lehessen egyszerre sok pontot szerezni. Ezért a labda odébbrakását célszerűbb külön eljárásba tenni. Ez az eljárás az <code>implementation</code> szekcióba kerüljön, de a <code>TForm1</code> dolgai elé. Az 53. feladat alapján:</p>
+    <pre>
+procedure hopp;
+begin
+  Form1.Image1.Left:=random(Form1.Width-Form1.Image1.Width);
+  Form1.Image1.Top:=random(Form1.Height-Form1.Image1.Height);
+end;</pre>
+    <p>Mivel ez nem a <code>TForm1</code> eljárása, mindenhová ki kell írnunk a <code>Form1</code>-et. A <code>with</code> utasítás használatával kijelölhető a következő utasításban használt objektum, így rövidebben:</p>
+    <pre>
+  with Form1 do begin
+    Image1.Left:=random(Width-Image1.Width);
+    Image1.Top:=random(Height-Image1.Height);
+  end;</pre>
+    <p>Az <code>Image1.Height</code> helyett írhattunk volna 64-et is, de így jobb, mert más méretű képpel is működik.</p>
+    <p>Most már csak a <code>Timer1</code> <code>OnTimer</code> eseményét kell elkészítenünk, amely a <code>hopp</code> eljárást hívja meg.</p>
+
+    <h2>Első kísérlet</h2>
+    <p>Meg kell írnunk a Start gomb eseménykezelőjét. Ez bekapcsolja az időzítőt, és láthatóvá teszi a labdát. (Az eljárás vázát az IDE készítse el!)</p>
+    <pre>
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  Timer1.Enabled:=True;
+  Image1.Visible:=True;
+end;</pre>
+    <p>A játék természetesen még nem működik, de érdemes ezt a változatát is kipróbálni, mert így egyszerűbb a hibakeresés.</p>
+
+    <h2>Pontozás</h2>
+    <p>Szükségünk lesz egy pont egész típusú változóra, amely a pontszámot tárolja:  ezt az <code>implementation</code> szekcióba tedd, a <code>TForm1</code> dolgai elé!<br />
+    A <code>Button1Click</code>-et egészítsd ki a pont nullázásával!<br />
+    A programnak reagálnia kell a labda elkapására. Az <code>Image1</code>-nek is van <code>OnClick</code> eseménye. Ez növeli és ki is írja a pontszámot, majd odébb teszi a labdát. Ekkor az időzítőt is újra kell indítanunk, hogy megint 1 másodperctől számoljon vissza.</p>
+    <pre>
+procedure TForm1.Image1Click(Sender: TObject);
+begin
+  pont:=pont+1;
+  Form1.Label1.Caption:=IntToStr(pont);
+  hopp;
+  Form1.Timer1.Enabled:=False;
+  Form1.Timer1.Enabled:=True;
+end;</pre>
+    <p>Az <code>IntToStr</code> függvényre azért van szükség, mert a <code>Caption</code> típusa string.</p>
+    <p>És már működik is a játék! Ha valahol elakadtál volna, itt <a href="unit1.pas">letöltheted a unit1.pas</a> forráskódját.</p>
+    <p>
+      <a href="f15.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="f17.html">Következő</a>
+    </p>
+
+  </div>
+</body>
+</html>

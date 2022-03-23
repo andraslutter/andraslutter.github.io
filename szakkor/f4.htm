@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>4. fejezet</TITLE>
+   <META NAME="Author" CONTENT="f4.htm">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>IV. Rendez&eacute;s &eacute;s rendezett t&ouml;mb&ouml;k</FONT></U></P>
+
+<P><I><FONT SIZE=+1>Els&otilde; nekifut&aacute;s: rendez&eacute;si algoritmusok</FONT></I></P>
+
+<P><U>1. feladat</U>: adott egy N elem&ucirc; T t&ouml;mb (T[1..N]). K&eacute;sz&iacute;ts
+algoritmust, mely megadja, hogy h&aacute;ny k&uuml;l&ouml;nb&ouml;z&otilde;
+elem van a t&ouml;mbben!</P>
+
+<P>Az algoritmus rendez&eacute;s n&eacute;lk&uuml;l kev&eacute;ss&eacute;
+eleg&aacute;ns. Kell venni egy elemet, megkeresni &eacute;s valamik&eacute;ppen
+kit&ouml;r&ouml;lni a vele egyez&otilde;eket. Ezt addig kell csin&aacute;lni,
+am&iacute;g van elem a t&ouml;mbben.</P>
+
+<P><U>2. feladat</U>: ugyanaz, mint az 1. feladatn&aacute;l, de most a
+t&ouml;mb rendezett.</P>
+
+<P>Ez a feladat megoldhat&oacute; &uacute;gy, hogy a t&ouml;mb&ouml;n csak
+egyszer kell v&eacute;gigmenni. Most ugyanis az egyforma elemek egym&aacute;s
+mellett, &ouml;sszef&uuml;gg&otilde; blokkban helyezkednek el. A program
+m&ucirc;k&ouml;d&eacute;se gyorsabb lesz. Ebb&otilde;l is l&aacute;that&oacute;,
+milyen hasznos, ha rendezett t&ouml;mb&ouml;kkel dolgozunk.</P>
+
+<P>A rendez&eacute;s maga is neh&eacute;z. Lehet, hogy a 2. feladat rendez&eacute;ssel
+egy&uuml;tt hosszadalmasabb, mint az 1. feladat megold&aacute;sa. &Eacute;ppen
+ez&eacute;rt, ha egy t&ouml;mb&ouml;t egyszer m&aacute;r rendezt&uuml;nk,
+&eacute;rdemes a tov&aacute;bbiakban olyan m&ucirc;veleteket v&eacute;gezni
+vele, melyek megtartj&aacute;k a rendezetts&eacute;g&eacute;t. </P>
+
+<P>A rendez&eacute;s alapfeladata: adott egy T[1..N] t&ouml;mb, a programnak
+el&otilde; kell &aacute;ll&iacute;tani T elemeit rendezett sorrendben (t&ouml;bbnyire
+mag&aacute;ban a T t&ouml;mbben). Ebben az esetben a rendez&eacute;s a
+mem&oacute;ri&aacute;ban t&ouml;rt&eacute;nik. Nehezebb a feladat, ha egy
+olyan file-t kell rendezni, amely nem f&eacute;r be teljes eg&eacute;sz&eacute;ben
+a mem&oacute;ri&aacute;ba, &iacute;gy a fenti algoritmusok nem, vagy csak
+m&oacute;dos&iacute;tva haszn&aacute;lhat&oacute;k. Ha T elemei rekordok,
+a rendez&eacute;si szempont lehet a rekordok egyik mez&otilde;je, illetve
+helyben kisz&aacute;m&iacute;tott &eacute;rt&eacute;keket is haszn&aacute;lhatunk
+szempontk&eacute;nt (pl. ha oszt&aacute;ly, &eacute;s ezen bel&uuml;l n&eacute;v
+szerint akarunk rendezni). Azt az adatot, ami szerint rendez&uuml;nk (&eacute;s
+k&eacute;s&otilde;bb, ami szerint keres&uuml;nk), kulcsnak nevezz&uuml;k.
+Mire j&oacute; a rendez&eacute;s? F&otilde;k&eacute;ppen arra, hogy a rendezett
+sorozatban k&ouml;nnyebben tudjunk keresni. Pl. egy 1024 elem&ucirc; sorozatban
+ak&aacute;r 1024 l&eacute;p&eacute;sbe is telhet, am&iacute;g soros keres&eacute;ssel
+megtal&aacute;lunk egy elemet, felez&eacute;ses keres&eacute;ssel azonban
+legfeljebb 10 l&eacute;p&eacute;sbe.</P>
+
+<P>Az alapvet&otilde; rendez&eacute;si algoritmusok (maximum-kiv&aacute;laszt&aacute;sos,
+bubor&eacute;kos &eacute;s beilleszt&eacute;ses) megtal&aacute;lhat&oacute;k
+a <A HREF="../pascal2/fa.htm">2. Pascal f&uuml;zetke A f&uuml;ggel&eacute;k&eacute;ben</A>,
+ezeket itt nem ism&eacute;tlem meg.</P>
+
+<P>N&eacute;zz&uuml;k meg a bubor&eacute;kos rendez&eacute;st m&eacute;g
+egyszer:</P>
+
+<P>Ci<TT>klus I:=N..2<BR>
+&nbsp;&nbsp;&nbsp;Ciklus J:=1..I-1<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ha T[J]&gt;T[J+1] akkor Csere(J,J+1)<BR>
+&nbsp;&nbsp;&nbsp;Ciklus v&eacute;ge<BR>
+Ciklus v&eacute;</TT>ge</P>
+
+<P>Ez az algoritmus m&eacute;g jav&iacute;that&oacute;. El&otilde;fordulhat,
+hogy egy pontt&oacute;l kezdve (<TT>J</TT>) m&aacute;r nem t&ouml;rt&eacute;nt
+csere. Ez azt jelenti, hogy a t&ouml;mb att&oacute;l kezdve rendezett,
+ekkor a k&ouml;vetkez&otilde; l&eacute;p&eacute;sben a bels&otilde; ciklust
+m&aacute;r csak addig kell futtatni (teh&aacute;t <TT>I</TT> &eacute;rt&eacute;ke
+nem egyes&eacute;vel, hanem gyorsabban is cs&ouml;kkenhet). Ez a verzi&oacute;
+m&aacute;r gyorsabban m&ucirc;k&ouml;dik a maximumkiv&aacute; laszt&aacute;sos
+rendez&eacute;sn&eacute;l.</P>
+
+<P><U>3. feladat</U>: &iacute;rd meg a jav&iacute;tott bubor&eacute;kos
+rendez&eacute;st!</P>
+
+<P>N&eacute;zd &aacute;t m&eacute;g egyszer a beilleszt&eacute;ses rendez&eacute;s
+algoritmus&aacute;t! M&ucirc;k&ouml;d&eacute;si elve, hogy ha a t&ouml;mb
+egy r&eacute;sze m&aacute;r rendezett, akkor hozz&aacute;vesz egy &uacute;j
+elemet, &eacute;s ezt beilleszti a megfelel&otilde; helyre. Ha &uacute;jabb
+elemek &eacute;rkeznek, a beilleszt&eacute;s seg&iacute;ts&eacute;g&eacute;vel
+a t&ouml;mb b&otilde;v&iacute;thet&otilde; &uacute;gy, hogy a rendezetts&eacute;ge
+megmarad (ez gyorsabb, mint &uacute;j elem &eacute;rkez&eacute;sekor az
+eg&eacute;sz t&ouml;mb&ouml;t &uacute;jrarendezni). A beilleszt&eacute;ses
+rendez&eacute;s rekurz&iacute;v felfog&aacute;s&uacute;, &eacute;s &iacute;gy
+is &aacute;t&iacute;rhat&oacute;:</P>
+
+<P><TT>Rendez(N):<BR>
+&nbsp;&nbsp;&nbsp;Ha N&gt;1 akkor Rendez(N-1)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beilleszt(N,N-1)</TT></P>
+
+<P><U>4. feladat</U>: &iacute;rd meg a beilleszt&eacute;ses rendez&eacute;s
+programj&aacute;t rekurz&iacute;v v&aacute;ltozatban! (Tulajdonk&eacute;ppen
+a k&uuml;ls&otilde; ciklust v&aacute;ltottuk ki rekurzi&oacute;val. A beilleszt&eacute;s
+ugyanaz, mint az eredeti algoritmusban.)</P>
+
+<P>A k&ouml;vetkez&otilde;, egyben eddig leggyorsabb m&oacute;dszer a sz&eacute;tv&aacute;logat&aacute;son
+alapul&oacute; rendez&eacute;s, mely a <I>Quicksort</I> nevet viseli. El&otilde;sz&ouml;r
+foglalkozzunk a sz&eacute;tv&aacute;logat&aacute;s probl&eacute;m&aacute;j&aacute;val.
+A m&oacute;dszer l&eacute;nyege: kiv&aacute;lasztunk a t&ouml;mbb&otilde;l
+egy elemet (mondjuk az els&otilde;t). A t&ouml;bbi elemet sz&eacute;tv&aacute;logatjuk
+&uacute;gy, hogy a t&ouml;mb bal fel&eacute;ben az illet&otilde; elemn&eacute;l
+kisebbek, a jobb fel&eacute;ben pedig nagyobbak legyenek. A kiv&aacute;lasztott
+elem v&eacute;g&uuml;l a k&eacute;t f&eacute;l k&ouml;z&eacute; ker&uuml;l.</P>
+
+<P><U>5. feladat</U>: &iacute;rj elj&aacute;r&aacute;st a sz&eacute;tv&aacute;logat&aacute;sra!
+A tov&aacute;bbiak miatt hasznos, ha az elj&aacute;r&aacute;st &aacute;ltal&aacute;nos
+form&aacute;ban &iacute;rjuk meg, a T t&ouml;mb adott r&eacute;sz&eacute;nek
+sz&eacute;tv&aacute;logat&aacute;s&aacute;ra: <TT>e</TT> param&eacute;ter
+a sz&eacute;tv&aacute;logatand&oacute; r&eacute;sz els&otilde;, <TT>u</TT>
+az utols&oacute; elem&eacute;nek sorsz&aacute;ma. <TT>k</TT>-ban adja vissza
+az elj&aacute;r&aacute;s, hogy hov&aacute; ker&uuml;lt az els&otilde; elem.
+Tipp: haszn&aacute;lj egy T-vel egyez&otilde; m&eacute;ret&ucirc; seg&eacute;dt&ouml;mb&ouml;t
+a sz&eacute;tv&aacute;logat&aacute;sra, v&eacute;g&uuml;l m&aacute;sold
+vissza T-be a tartalm&aacute;t!</P>
+
+<P><TT>Procedure Szetv(e,u:integer; var k:integer)</TT></P>
+
+<P>A sz&eacute;tv&aacute;logat&aacute;snak l&eacute;tezik egy olyan, nagyon
+gyors form&aacute;ja is, amikor nem haszn&aacute;lunk fel seg&eacute;dt&ouml;mb&ouml;t.
+Ez a k&ouml;vetkez&otilde;k&eacute;ppen m&ucirc;k&ouml;dik. A sz&eacute;tv&aacute;logatand&oacute;
+r&eacute;sz els&otilde; elem&eacute;t megjegyezz&uuml;k („kivessz&uuml;k
+a t&ouml;mbb&otilde;l&quot;), &iacute;gy marad egy &uuml;res hely. Jobbr&oacute;l
+indulva megkeress&uuml;k az els&otilde;, n&aacute;la kisebb elemet, &eacute;s
+betessz&uuml;k az &uuml;res helyre. Azut&aacute;n ett&otilde;l a pontt&oacute;l
+jobbra indulva megkeress&uuml;k az els&otilde;, kiv&aacute;lasztottn&aacute;l
+nagyobb elemet, &eacute;s betessz&uuml;k az el&otilde;z&otilde; l&eacute;p&eacute;sben
+felszabadult helyre, stb. V&eacute;g&uuml;l az utols&oacute;nak felszabadult
+helyre betessz&uuml;k az eredetileg kivett elemet (ez a poz&iacute;ci&oacute;
+ker&uuml;l a K v&aacute;ltoz&oacute;ba).</P>
+
+<P><TT>Var m:t&iacute;pus; {a t&ouml;mb alapt&iacute;pusa}<BR>
+Begin<BR>
+&nbsp;m:=T[e]; </TT><FONT SIZE=-1>{megjegyezz&uuml;k az els&otilde; elemet,
+e szerint v&aacute;logatunk}<BR>
+</FONT><TT>&nbsp;while e&lt;u do begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;while (T[u]&lt;m) and (e&lt;u) do u:=u-1; </TT><FONT SIZE=-1>{jobbr&oacute;l
+keres&uuml;nk kisebbet}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if e&lt;u then begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T[e]:=T[u];
+</TT><FONT SIZE=-1>{betessz&uuml;k az &uuml;res helyre, most u az &uuml;res
+hely}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e:=e+1;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while (T[e]&gt;=m)
+and (e&lt;u) do e:=e+1; </TT><FONT SIZE=-1>{balr&oacute;l nagyobbat}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if
+e&lt;u then begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T[u]:=T[e];
+</TT><FONT SIZE=-1>{betessz&uuml;k az &uuml;res helyre, most e az &uuml;res
+hely}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u:=u-1;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;T[e]:=m; </TT><FONT SIZE=-1>{visszatessz&uuml;k
+az elej&eacute;n kivett elemet}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;k:=e;<BR>
+&nbsp;End;</TT></P>
+
+<P>Most l&aacute;ssuk a rekurz&iacute;v Quicksort algoritmust:</P>
+
+<P><TT>Rendez(E,U)<BR>
+&nbsp;&nbsp;&nbsp;Sz&eacute;tv&aacute;logat(E,U,K)<BR>
+&nbsp;&nbsp;&nbsp;Ha E&lt;K-1 akkor Rendez(E,K-1)<BR>
+&nbsp;&nbsp;&nbsp;Ha U&gt;K+1 akkor Rendez(K+1,U)</TT></P>
+
+<P>Teh&aacute;t sz&eacute;tv&aacute;logatjuk a t&ouml;mb&ouml;t az els&otilde;
+eleme szerint, majd a f&eacute;lt&ouml;mb&ouml;ket ism&eacute;t, stb. Az
+elj&aacute;r&aacute;s <TT>Rendez(1,N)</TT>-nel ind&iacute;that&oacute;.</P>
+
+<P><U>6. feladat</U>: &iacute;rd meg a Quicksort programot!</P>
+
+<P><I><FONT SIZE=+1>M&aacute;sodik nekifut&aacute;s: m&ucirc;veletek rendezett
+t&ouml;mb&ouml;kkel</FONT></I></P>
+
+<P>N&eacute;zd &aacute;t a programoz&aacute;si t&eacute;telek k&ouml;z&uuml;l
+a felez&eacute;ses (bin&aacute;ris) keres&eacute;s algoritmus&aacute;t!
+Az elv rekurz&iacute;v megfogalmaz&aacute;sa: meg&aacute;llap&iacute;tjuk,
+hogy a t&ouml;mb melyik fel&eacute;ben van a keresett elem, majd a t&ouml;mb
+megfelel&otilde; szelet&eacute;re ism&eacute;t alkalmazzuk a keres&eacute;st.
+Az algoritmus maga nem rekurz&iacute;v (ld. <A HREF="../pascal2/fa.htm">2.
+Pascal f&uuml;zetke, A f&uuml;ggel&eacute;k</A>).</P>
+
+<P><U>1. feladat</U>: &iacute;rd meg a felez&eacute;ses keres&eacute;s
+programj&aacute;t! A program k&eacute;tf&eacute;le &eacute;rt&eacute;ket
+adhat vissza: a keresett elem sorsz&aacute;m&aacute;t, vagy azt, hogy nincs
+megold&aacute;s.</P>
+
+<P>M&oacute;dos&iacute;tott felez&eacute;ses keres&eacute;s: sz&oacute;t&aacute;rprogram
+haszn&aacute;lat&aacute;n&aacute;l nem kell be&iacute;rni a teljes sz&oacute;t,
+m&aacute;r a sz&oacute;kezdet be&iacute;r&aacute;s&aacute;ra is megtal&aacute;lja
+a program a keresett sz&oacute;t (vagy egy ahhoz k&ouml;zeli sz&oacute;t,
+ha nincs olyan kezdet&ucirc; sz&oacute;). A m&oacute;dos&iacute;tott program
+teh&aacute;t vagy a keresett elem, vagy a rendez&eacute;s szerint k&ouml;zvetlen&uuml;l
+r&aacute;k&ouml;vetkez&otilde; elem sorsz&aacute;m&aacute;t adja meg. [alma
+barack k&ouml;rte r&eacute;pa] sorozatban „k&ouml;r&quot;-re keresve 3,
+„citrom&quot;-ra keresve 3 lesz az eredm&eacute;ny. „zeller&quot; eset&eacute;n
+pl. adhat 0-t eredm&eacute;ny&uuml;l a program. Ez nem nagy v&aacute;ltoz&aacute;s
+az eredeti algoritmushoz k&eacute;pest, hiszen az mindenk&eacute;ppen behat&aacute;rolja
+a keresett elemet, ak&aacute;r l&eacute;tezik, ak&aacute;r nem. A probl&eacute;m&aacute;t
+megint a k&uuml;l&ouml;nleges esetek kezel&eacute;se jelenti.</P>
+
+<P><U>2. feladat</U>: &iacute;rd meg a m&oacute;dos&iacute;tott felez&eacute;ses
+keres&eacute;s programj&aacute;t!</P>
+
+<P>A felez&eacute;ses keres&eacute;s ismeret&eacute;ben jav&iacute;that&oacute;
+a beilleszt&eacute;ses rendez&eacute;s algoritmusa. Eredetileg az &uacute;j
+elem hely&eacute;t soros keres&eacute;ssel hat&aacute;roztuk meg egy m&aacute;r
+rendezett t&ouml;mbr&eacute;szletben. Ha erre a felez&eacute;ses keres&eacute;st
+haszn&aacute;ljuk, f&otilde;leg nagy t&ouml;mb&ouml;k eset&eacute;n sokkal
+gyorsabb lesz a program. Egyetlen h&aacute;tr&aacute;nya, hogy neh&eacute;z
+meg&iacute;rni. Ezt az elvet haszn&aacute;lja fel a beilleszt&eacute;ses
+rendez&eacute;s bin&aacute;ris f&aacute;val (ld. k&eacute;s&otilde;bb).</P>
+
+<P>Most k&eacute;t rendezett t&ouml;mb&uuml;nk van (A[1..N] &eacute;s B[1..M]).
+Ezek elemeit kell egy harmadik (C[1..N+M]) rendezett t&ouml;mbbe m&aacute;solnunk.
+Megtehetj&uuml;k, hogy egym&aacute;s ut&aacute;n bem&aacute;soljuk a k&eacute;t
+t&ouml;mb elemeit, majd rendezz&uuml;k C-t, de ezt a kor&aacute;bbiak &eacute;rtelm&eacute;ben
+szeretn&eacute;nk elker&uuml;lni. Az <U>&ouml;sszefuttat&aacute;s </U>algoritmusa
+&iacute;gy n&eacute;zhet ki:</P>
+
+<P><TT>i:=1, j:=1, db:=0<BR>
+Ciklus am&iacute;g i&lt;=N &eacute;s j&lt;=M<BR>
+&nbsp;&nbsp;&nbsp;db:=db+1<BR>
+&nbsp;&nbsp;&nbsp;Ha A[i]&lt;B[j]&nbsp;&nbsp; akkor C[db]:=A[i], i:=i+1<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k&uuml;l&ouml;nben
+C[db]:=B[j], j:=j+1<BR>
+Ciklus v&eacute;ge<BR>
+<BR>
+Ciklus k:=i..N<BR>
+&nbsp;&nbsp;&nbsp;db:=db+1, C[db]:=A[k]<BR>
+Ciklus v&eacute;ge <BR>
+<BR>
+Ciklus k:=j..M<BR>
+&nbsp;&nbsp;&nbsp;db:=db+1, C[db]:=B[k]<BR>
+Ciklus v&eacute;ge</TT></P>
+
+<P>Az elv: mindig abban a t&ouml;mbben l&eacute;p&uuml;nk tov&aacute;bb,
+amelyikben a kisebb elem van. &Iacute;gy C-be rendezve ker&uuml;lnek az
+elemek. Ha A[i]=B[j], akkor B t&ouml;mbben l&eacute;p&uuml;nk tov&aacute;bb:
+mivel B-ben id&otilde;vel nagyobb elemet tal&aacute;lunk, vagy B t&ouml;mb
+v&eacute;g&eacute;re &eacute;r&uuml;nk, biztosan sorra fognak ker&uuml;lni
+A elemei is. Mivel valamelyik t&ouml;mbnek el&otilde;bb &eacute;r&uuml;nk
+a v&eacute;g&eacute;re, az utols&oacute; k&eacute;t ciklus arra szolg&aacute;l,
+hogy a m&aacute;sik t&ouml;mbben marad&oacute; elemeket is &aacute;tm&aacute;solja
+C-be. (A k&eacute;t ciklus k&ouml;z&uuml;l csak az egyik ker&uuml;l v&eacute;grehajt&aacute;sra,
+mivel i vagy j valamelyike m&aacute;r t&uacute;ll&eacute;pett az illet&otilde;
+t&ouml;mb&ouml;n.)</P>
+
+<P>Rendezett t&ouml;mb&ouml;k j&oacute;l haszn&aacute;lhat&oacute;k halmazok
+t&aacute;rol&aacute;s&aacute;ra is, mivel a halmazban az elemek sorrendje
+am&uacute;gy sem sz&aacute;m&iacute;t. Felez&eacute;ses keres&eacute;s
+seg&iacute;ts&eacute;g&eacute;vel gyorsan eld&ouml;nthet&otilde;, hogy
+egy elem szerepel-e a halmazban. A halmazt &aacute;br&aacute;zol&oacute;
+t&ouml;mbben egy elem csak egyszer szerepelhet!</P>
+
+<P>A k&eacute;t halmaz &uacute;ni&oacute;ja megkaphat&oacute; az &ouml;sszefutatt&aacute;s
+seg&iacute;ts&eacute;g&eacute;vel, egy m&oacute;dos&iacute;t&aacute;ssal:
+ha a k&eacute;t halmazban megegyezik egy elem, annak csak egy p&eacute;ld&aacute;nyban
+szabad beker&uuml;lnie C-be. &Iacute;gy C elemsz&aacute;ma legfeljebb N+M,
+de lehet kisebb is.</P>
+
+<P><U>3. feladat</U>: &iacute;rd meg az &uacute;ni&oacute; halmazm&ucirc;velet
+algoritmus&aacute;t az &ouml;sszefutatt&aacute;s m&oacute;dos&iacute;t&aacute;s&aacute;val!
+Tipp: k&uuml;l&ouml;n kell v&aacute;lasztanod a &lt;, &gt; &eacute;s =
+eseteket.</P>
+
+<P>Hasonl&iacute;tsd &ouml;ssze ezt a <A HREF="../pascal2/fa.htm">2. Pascal
+f&uuml;zetke A f&uuml;ggel&eacute;k&eacute;ben</A> l&eacute;v&otilde; &uacute;ni&oacute;
+a) algoritmussal! Ez sokkal gyorsabb, mert az egyez&otilde; elemekhez nem
+keresi v&eacute;gig a m&aacute;sik t&ouml;mb&ouml;t: ha a keresett elemn&eacute;l
+tal&aacute;l egy nagyobbat, a rendezetts&eacute;g miatt azut&aacute;n m&aacute;r
+biztosan nem k&ouml;vetkezik a keresett.</P>
+
+<P><U>4. feladat</U>: &iacute;rd meg halmazokat &aacute;br&aacute;zol&oacute;
+t&ouml;mb&ouml;kre a metszet algoritmus&aacute;t! Ez azt jelenti, hogy
+a k&eacute;t halmazb&oacute;l csak a megegyez&otilde; elemek ker&uuml;lnek
+be C-be. Mekkora legfeljebb C elemsz&aacute;ma? Tipp: az algoritmus az
+&uacute;ni&oacute; algoritmus&aacute;nak egyszer&ucirc; m&oacute;dos&iacute;t&aacute;sa.</P>
+
+<CENTER><P><A HREF="f5.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f3.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

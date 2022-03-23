@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - a projekt felépítése</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			15. fejezet: A projekt felépítése
+		</h1>
+
+  <h2>A projekt fájljai</h2>
+  <p>Vessünk egy pillantást a projektünket tartalmazó mappára! A konzolalkalmazásoknál több fájlt láthatunk. Ha a projektünket pl. elso néven mentettük, akkor az <code>elso.lpi</code> a projekt információs fájl, mely XML formátumban tartalmazza, milyen fájlok tartoznak a projekthez, és azokat milyen szabályok szerint kell lefordítani.</p>
+  <p>A főprogram továbbra is az <code>elso.lpr</code> fájl. Ha ennek megnézzük a tartalmát, láthatjuk, hogy nem ezen a fájlon dolgoztunk a forrásszerkesztőben. Alkalmazás típusú projektben az .lpr fájl szerepe csak annyi, hogy létrehozza az általunk megszerkesztett formot (vagy formokat) , és elindítsa a fő eseménykezelő ciklust.</p>
+  <pre>
+Application.Initialize;
+Application.CreateForm(TForm1, Form1);
+Application.Run;</pre>
+  <p>Az egyes formokhoz tartotó kód .pas fájlokban van, az első projektünknél ez a <code>unit1.pas</code> lesz (mivel a projektünk   csak egy formból áll). Figyeljük meg, hogy a .lpr fájl elején szerepel egy <code>uses..., Unit1</code> deklaráció!</p>
+  <p>A <code>unit1.pas</code> fájl ismerős a forrásszerkesztőből. Figyeljük meg, hogy az elején nem <code>program</code> ..., hanem <code>unit</code> ... deklaráció szerepel, lévén ez egy unit, programmodul.</p>
+  <p>Hol vannak azok a kiindulási adatok, melyeket a formszerkesztőben és az objektumfelügyelőben adtunk meg, és a program indulásakor az objektumaink tulajdonságainak kezdőértékét adják? Ezek az értékek a <code>unit1.lfm</code> fájlba kerültek. Ha megézzük a <code>unit1.pas</code>-t, láthatunk benne egy <code>{$R *.lfm}</code> úgynevezett <strong>fordítási direktívá</strong>t. Ez arra utasítja a fordítót, hogy a unit fordítsa közben a megadott fájlt is vegye figyelembe.</p>
+  <p>A mappában találunk még egy <code>elso.ico</code>-t, ez a projektünk ikonja. Az alapértelmezett ikon helyett készíthetünk másikat. Az <code>elso.res</code> bináris formában erőforrásokat tartalmaz, ilyenek lehetnek (az ikonon kívül) hangok, képek, melyeket hozzáfordíthatunk a programunk kódjához. Ezt az .lpr fájlban "húzza be" egy <code>{$R *.res}</code> fordítási direktíva. A másik lehetőség, hogy a programunk futás közben külső fájlból olvassa be ezeket az adatokat.</p>
+  <p>Fordításkor további fájlok keletkeznek egy <code>lib</code> alkönyvtárban, ezek a különböző komponensek lefordított változatai.</p>
+
+  <h2>A unit felépítése</h2>
+  <p>A programunk kódját többnyire a unit1.pas fájlba írjuk, ismerkedjünk meg ennek szerkezetével! A Lazarus sok mindent automatikusan létrehoz a kódban, de ha később ezen módosítani akarunk, tudnunk kell, mi hová való.</p>
+  <pre>
+unit Unit1;</pre>
+  <p>Ez jelzi a fordítónak, hogy unitról, vagyis programmodulról van szó. A unit neve megegyezik a forrásfájl nevével, tehát ne írd át, bízd a fordítóra a kezelését!</p>
+  <pre>
+interface</pre>
+  <p>Az interface szekció azokat az adatokat tartalmazza, melyeket a unitot használó Pascal program (amely tehát betölti a unitot a Uses segítségével) elérhet. Ezek a kívülről látható eljárások fejlécei, illetve olyan változók, konstansok, objektumok stb., melyeket a unitot betöltő program rendelkezésére kívánunk bocsátani.<br />
+  Az interface részben az eljárások fejléce szerepel, majd az implementation részben megismételjük a fejlécet, de már az eljárás törzsét is megírjuk. Az ilyen típusú "előre" deklarálást forward deklarációnak nevezzük.<br />
+  Az interface részben látható egy uses, ez a unit által betöltött további unitok listája. Ezt a listát az IDE készítette, ezek a unitok szükségesek pl. a form elkészítéséhez is. Ha azonban nem csak a grafikus eszközökkel rakjuk össze a programunkat, a listát esetleg bővítenünk kell.<br />
+  Ezután következik egy type, ahol a TForm1 objektumtípus (osztály, vagyis class) megadása történik. A private és public szekciókkal nem foglalkozunk, mindent az alapértelmezett helyre vagy a public szekcióba írunk.<br/>
+  Végül a var deklarálja a Form1 objektumot.</p>
+  <pre>
+implementation</pre>
+  <p>Itt következik az interface részben megadott forward deklarációk kifejtése, vagyis az eljárások törzsének megadása. Továbbá itt helyezkedik el minden olyan változó és eljárás, amely a unitunk "magánügye", az őt betöltő program elől rejtett.</p>
+  <p>
+    <a href="f14.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="f16.html">Következő</a>
+  </p>
+
+  </div>
+</body>
+</html>

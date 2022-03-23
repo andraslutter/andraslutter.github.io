@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>6. Szerkezeti utas&iacute;t&aacute;sok</FONT></U></P>
+
+<P>Ciklust &eacute;s el&aacute;gaz&aacute;st szerkezeti utas&iacute;t&aacute;sokkal
+hozhatunk l&eacute;tre. Ezen k&iacute;v&uuml;l a Pascal-ban l&eacute;tezik
+az <B>&ouml;sszetett utas&iacute;t&aacute;s</B> fogalma: &ouml;sszetett
+utas&iacute;t&aacute;s a BEGIN &eacute;s END k&ouml;z&eacute; tett t&ouml;bb
+utas&iacute;t&aacute;s. Erre akkor van sz&uuml;ks&eacute;g, ha azt szeretn&eacute;nk,
+hogy egy t&ouml;bb utas&iacute;t&aacute;sb&oacute;l &aacute;ll&oacute;
+blokkot a Pascal egy utas&iacute;t&aacute;sk&eacute;nt kezeljen.</P>
+
+<P><U>El&aacute;gaz&aacute;s:</U></P>
+
+<UL>
+<LI><TT>IF logikai kif. THEN utas&iacute;t&aacute;s [ELSE utas&iacute;t&aacute;s]</TT></LI>
+</UL>
+
+<P>Ha a logikai kifejez&eacute;s igaz, az els&otilde;, ha hamis, a m&aacute;sodik
+utas&iacute;t&aacute;s lesz v&eacute;grehajtva. Az el&aacute;gaz&aacute;s
+egyetlen utas&iacute;t&aacute;snak sz&aacute;m&iacute;t, teh&aacute;t csak
+a legv&eacute;g&eacute;re ker&uuml;l pontosvessz&otilde;! Az ELSE-&aacute;gat
+nem k&ouml;telez&otilde; megadni. Ha az egyes &aacute;gakban t&ouml;bb
+utas&iacute;t&aacute;st is v&eacute;gre szeretn&eacute;nk hajtani, azokat
+Begin &eacute;s End k&ouml;z&eacute; kell tenni, &eacute;s &iacute;gy egyetlen
+&ouml;sszetett utas&iacute;t&aacute;st csin&aacute;lni bel&otilde;l&uuml;k.
+P&eacute;lda:</P>
+
+<P><TT>PROGRAM Atlagsebesseg;<BR>
+VAR s,t:real;<BR>
+BEGIN<BR>
+&nbsp;Write('Add meg az utat (km-ben):'); Readln(s);<BR>
+&nbsp;Write('Add meg az id&otilde;t (h-ban): '); Readln(t);<BR>
+&nbsp;If t=0 Then Writeln('Rossz adatok!')<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Else Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Writeln;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Writeln('Az
+&aacute;tlagsebess&eacute;g: ',s/t:6:2,' km/h');<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;End ; </TT><FONT SIZE=-1>{az
+el&aacute;gaz&aacute;st lez&aacute;r&oacute; pontosvessz&otilde;}<BR>
+</FONT><TT>END.</TT></P>
+
+<P>A m&aacute;sik fajta el&aacute;gaz&aacute;s egy diszkr&eacute;t v&aacute;ltoz&oacute;
+bizonyos &eacute;rt&eacute;keit&otilde;l f&uuml;gg.</P>
+
+<UL>
+<LI><TT>CASE v&aacute;ltoz&oacute; OF</TT></LI>
+
+<LI><TT>&nbsp;&nbsp;&nbsp;&eacute;rt&eacute;k1:utas&iacute;t&aacute;s;</TT></LI>
+
+<LI><TT>&nbsp;&nbsp;&nbsp;&eacute;rt&eacute;k2:utas&iacute;t&aacute;s;</TT></LI>
+
+<LI><TT>&nbsp;&nbsp;&nbsp;...</TT></LI>
+
+<LI><TT>[ELSE utas&iacute;t&aacute;s;]</TT></LI>
+
+<LI><TT>END</TT></LI>
+</UL>
+
+<P><TT>Program Mitviszakishajo;<BR>
+Var c:char;<BR>
+BEGIN<BR>
+&nbsp;Write('&Iacute;rj be egy bet&ucirc;t: '); Readln(c);<BR>
+&nbsp;Case c of<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;'a': Writeln('Alm&aacute;t!');<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;'b': Writeln('Ban&aacute;nt!);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;'c': Begin <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Writeln('C&eacute;rn&aacute;t,');<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Writeln('cic&aacute;t!');<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;End;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Else Writeln('Erre nem tudok mit l&eacute;pni.');<BR>
+&nbsp;End;<BR>
+END.</TT></P>
+
+<P><U>Ciklusok:</U></P>
+
+<P>Ciklusb&oacute;l h&aacute;romfajta van: el&ouml;ltesztel&otilde;s, h&aacute;tultesztel&otilde;s
+&eacute;s sz&aacute;ml&aacute;l&oacute;s.</P>
+
+<UL>
+<LI><TT>FOR v&aacute;ltoz&oacute;:=kifejez&eacute;s1 TO kifejez&eacute;s2
+DO utas&iacute;t&aacute;s </TT><FONT SIZE=-1>{sz&aacute;ml&aacute;l&oacute;s
+ciklus}</FONT></LI>
+</UL>
+
+<P>A diszkr&eacute;t t&iacute;pus&uacute; v&aacute;ltoz&oacute; sorban
+felveszi a k&eacute;t kifejez&eacute;s k&ouml;zti &ouml;sszes &eacute;rt&eacute;ket,
+&eacute;s mindegyik esetben elv&eacute;gzi az <TT>utas&iacute;t&aacute;s</TT>t.
+Ha visszafel&eacute; akarunk sz&aacute;molni, <TT>TO</TT> helyett <TT>DOWNTO</TT>-t
+haszn&aacute;lunk. Ha <TT>kifejez&eacute;s1</TT>&gt;<TT>kifejez&eacute;s2
+</TT>(<TT>TO</TT> eset&eacute;n), a ciklusmag egyszer sem fut le. </P>
+
+<P><TT>Var i:integer;<BR>
+BEGIN<BR>
+&nbsp;For i:=1 to 10 do Writeln(i,' n&eacute;gyzete=',sqr(i));<BR>
+END.</TT></P>
+
+<UL>
+<LI><TT>WHILE logikai kif. DO utas&iacute;t&aacute;s </TT><FONT SIZE=-1>{el&ouml;ltesztel&otilde;s
+ciklus}</FONT></LI>
+</UL>
+
+<P>Megvizsg&aacute;lja a <TT>logikai kifejez&eacute;s</TT>t, ha igaz, v&eacute;grehajtja
+az <TT>utas&iacute;t&aacute;s</TT>t &eacute;s kezdi el&ouml;lr&otilde;l.
+Ha a logikai kifejez&eacute;s hamis, a ciklusmag egyszer sem fut le. A
+For-ciklushoz hasonl&oacute;an itt is csak egy utas&iacute;t&aacute;s lehet
+a ciklusmag, t&ouml;bb utas&iacute;t&aacute;s eset&eacute;n a Begin &eacute;s
+End seg&iacute;ts&eacute;g&eacute;vel &ouml;sszetett utas&iacute;t&aacute;st
+kell csin&aacute;lnunk.</P>
+
+<P><TT>Var i:integer;<BR>
+BEGIN<BR>
+&nbsp;i:=0;<BR>
+&nbsp;While i&lt;10 Do Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;i:=i+2;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Writeln(i);<BR>
+&nbsp;End;<BR>
+END.</TT></P>
+
+<P>A program ki&iacute;rja a 2,4,6,8,10 sz&aacute;mokat.</P>
+
+<UL>
+<LI><TT>REPEAT </TT><FONT SIZE=-1>{h&aacute;tultesztel&otilde;s ciklus}</FONT></LI>
+
+<LI><TT>&nbsp;&nbsp;&nbsp;utas&iacute;t&aacute;s;</TT></LI>
+
+<LI><TT>&nbsp;&nbsp;&nbsp;utas&iacute;t&aacute;s;</TT></LI>
+
+<LI><TT>&nbsp;&nbsp;&nbsp;...</TT></LI>
+
+<LI><TT>UNTIL logikai kif.</TT></LI>
+</UL>
+
+<P>Elv&eacute;gzi az utas&iacute;t&aacute;sokat. Megvizsg&aacute;lja a
+<TT>logikai kifejez&eacute;s</TT>t, ha hamis, visszaugrik a <TT>REPEAT</TT>-hez.
+Teh&aacute;t a logikai kifejez&eacute;s a ciklusb&oacute;l val&oacute;
+kil&eacute;p&eacute;s felt&eacute;tele. (Until=m&iacute;gnem). Ha a kifejez&eacute;s
+kezdetben igaz, a ciklusmag akkor is lefut egyszer.</P>
+
+<P><TT>REPEAT<BR>
+&nbsp;&nbsp;&nbsp;Readln(a);<BR>
+&nbsp;&nbsp;&nbsp;If a&lt;&gt;0 Then Writeln(1/a);<BR>
+UNTIL a=0;</TT></P>
+
+<CENTER><P><A HREF="f7.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f5.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

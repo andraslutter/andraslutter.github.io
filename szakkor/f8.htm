@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>8. fejezet</TITLE>
+   <META NAME="Author" CONTENT="L. A.">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>VIII. Filekezel&eacute;s &eacute;s sz&ouml;vegfeldolgoz&aacute;s</FONT></U></P>
+
+<P><I><FONT SIZE=+1>Els&otilde; nekifut&aacute;s: filekezel&eacute;s, elemenk&eacute;nti
+feldolgoz&aacute;s &eacute;s el&otilde;reolvas&aacute;s</FONT></I></P>
+
+<P>A szekvenci&aacute;lis &eacute;s direkt file-ok kezel&eacute;s&eacute;nek
+r&eacute;szletes le&iacute;r&aacute;s&aacute;t ld. a <A HREF="../pascal2/f1.htm">2.
+Pascal f&uuml;zetke 1. fejezet&eacute;ben</A>. A l&eacute;nyeg, hogy a
+szekvenci&aacute;lis file-ok elemei csak sorban egym&aacute;s ut&aacute;n
+dolgozhat&oacute;k fel, m&iacute;g a direkt file-ok b&aacute;rmelyik rekordj&aacute;t
+egy l&eacute;p&eacute;sben el&eacute;rhetj&uuml;k. A direkt file azonos
+hossz&uacute;s&aacute;g&uacute; rekordok egym&aacute;s ut&aacute;nja, m&iacute;g
+a szekvenci&aacute;lis file v&aacute;ltoz&oacute; hossz&uacute;s&aacute;g&uacute;
+rekordokb&oacute;l &aacute;llhat. Erre p&eacute;lda egy sz&ouml;veges sorokb&oacute;l
+&aacute;ll&oacute; file. Term&eacute;szetesen sz&ouml;veges file (a Pascal
+TEXT t&iacute;pusa) is kezelhet&otilde; byte-okb&oacute;l &aacute;ll&oacute;
+direkt file-k&eacute;nt, de ez &aacute;ltal&aacute;ban nem seg&iacute;ts&eacute;g
+(ha a 100. sorra van sz&uuml;ks&eacute;g&uuml;nk, mindenk&eacute;ppen v&eacute;gig
+kell olvasni byte-onk&eacute;nt a file-t a 100. sorig).</P>
+
+<P>A direkt file felfoghat&oacute; egy lemezen elhelyezked&otilde; t&ouml;mbk&eacute;nt
+is: azonban a t&ouml;mb egyes elemeinek nem sorrendben t&ouml;rt&eacute;n&otilde;
+kiolvas&aacute;sa, a rekord-mutat&oacute; hely&eacute;nek s&ucirc;r&ucirc;
+v&aacute;ltoztat&aacute;sa id&otilde;ig&eacute;nyes. Ha a t&ouml;mb&ouml;kn&eacute;l
+haszn&aacute;lt rendez&eacute;si m&oacute;dszereket direkt file-okn&aacute;l
+alkalmazn&aacute;nk, elfogadhatatlanul lass&uacute; programokat kapn&aacute;nk.
+&Eacute;ppen ez&eacute;rt igyek sz&uuml;nk a file-t min&eacute;l kevesebbszer
+v&eacute;gigolvasni: a szekvenci&aacute;lis file-okn&aacute;l haszn&aacute;lt
+m&oacute;dszereknek direkt file-okn&aacute;l is j&oacute; haszn&aacute;t
+vessz&uuml;k. (Term&eacute;szetesen ha pl. meg kell cser&eacute;ln&uuml;nk
+a file els&otilde; &eacute;s m&aacute;sodik byte-j&aacute;t, direkt file-k&eacute;nt
+kezelve sokkal gyorsabban c&eacute;lt &eacute;r&uuml;nk, mintha a szekvenci&aacute;lis
+file-okn&aacute;l haszn&aacute;lt m&oacute;dszer szerint a byte-okat az
+els&otilde; kett&otilde; megcser&eacute;l&eacute;s&eacute;vel m&aacute;sik
+file-ba m&aacute;soln&aacute;nk.)</P>
+
+<P>Egy file-t egy feladatban <I>elemenk&eacute;nt feldolgozhat&oacute;</I>nak
+nevez&uuml;nk, ha a feladatot a k&ouml;vetkez&otilde; s&eacute;ma szerint
+oldhatjuk meg:</P>
+
+<P><TT>Megnyit&aacute;s<BR>
+Ciklus am&iacute;g nincs v&eacute;ge a file-nak<BR>
+&nbsp;&nbsp;&nbsp;Beolvas(X)<BR>
+&nbsp;&nbsp;&nbsp;Ki&iacute;r(f(X))<BR>
+Ciklus v&eacute;ge<BR>
+Lez&aacute;r&aacute;s</TT></P>
+
+<P>A ki&iacute;r&aacute;s t&ouml;bbnyire egy m&aacute;sik file-ba t&ouml;rt&eacute;nik.
+<TT>f(X)</TT> egy <TT>X</TT>-t&otilde;l f&uuml;gg&otilde; &eacute;rt&eacute;k.
+A k&ouml;vetkez&otilde; egyszer&ucirc; feladat az elemenk&eacute;nti feldolgoz&aacute;sra
+p&eacute;lda.</P>
+
+<P><U>1. feladat</U>: &iacute;rj programot, mely egy sz&ouml;veges file-t
+&eacute;kezettelen&iacute;t (a program kimenete egy m&aacute;sik sz&ouml;veges
+file)!</P>
+
+<P>Nehezebb a helyzet, ha X feldolgoz&aacute;s&aacute;hoz ismerni kell
+az X-et k&ouml;vet&otilde; &eacute;rt&eacute;ket. Ekkor is k&ouml;vethet&otilde;
+az elemenk&eacute;nti feldolgoz&aacute;s s&eacute;m&aacute;ja, de a beolvas&aacute;s,
+lez&aacute;r&aacute;s &eacute;s esetleg a filev&eacute;g-ellen&otilde;rz&eacute;s
+feladat&aacute;t elj&aacute;r&aacute;sok veszik &aacute;t. Az <I>el&otilde;reolvas&aacute;s
+</I>m&oacute;dszer&eacute;n&eacute;l egy elemmel mindig el&otilde;r&eacute;bb
+tartunk a file-ban. Ezt az elemet m&aacute;r megnyit&aacute;skor beolvas
+suk. Speci&aacute;lis m&oacute;don kell kezelni a file v&eacute;g&eacute;t,
+mert az utols&oacute; el&otilde;tti elem beolvas&aacute;s&aacute;n&aacute;l
+m&aacute;r filev&eacute;g-jelet kapunk, hiszen a beolvas&oacute; elj&aacute;r&aacute;s
+az utols&oacute; elemet is kiolvasta. Az egyik m&oacute;dszer, ha az &iacute;gy
+kimarad&oacute; utols&oacute; elemet a Lez&aacute;r elj&aacute;r&aacute;ssal
+dolgoztatjuk fel. A m&aacute;sik lehet&otilde;s&eacute;g, ha a programunk
+nem az eredeti filev&eacute;g-jelet veszi figyelembe, hanem a Beolvas elj&aacute;r&aacute;s
+jelz&eacute;s&eacute;t, mely &iacute;gy m&eacute;g visszaadhatja az utols&oacute;
+elemet is. Erre l&aacute;ssunk egy p&eacute;ld&aacute;t. A k&ouml;vetkez&otilde;
+algoritmusokn&aacute;l a saj&aacute;t elj&aacute;r&aacute;sokt&oacute;l
+val&oacute; megk&uuml;l&ouml;nb&ouml;ztet&eacute;s miatt az eredeti filekezel&otilde;
+elj&aacute;r&aacute;sokat _ jellel jel&ouml;l&ouml;m. 0 hossz&uacute;s&aacute;g&uacute;
+file-ra ez a m&oacute;dszer nem m&ucirc;k&ouml;dik.</P>
+
+<P><TT>Megnyit&aacute;s:<BR>
+&nbsp;_megnyit&aacute;s<BR>
+&nbsp;_beolvas(E)<BR>
+&nbsp;V&eacute;ge:=hamis</TT></P>
+
+<P><TT>Beolvas(X):<BR>
+&nbsp;X:=E<BR>
+&nbsp;Ha nincs _v&eacute;ge &nbsp;&nbsp;akkor _beolvas(E)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k&uuml;l&ouml;nben
+V&eacute;ge:=igaz, E-be megfelel&otilde; &aacute;l-&eacute;rt&eacute;k
+helyez&eacute;se</TT></P>
+
+<P><U>2. feladat</U>: &iacute;rj programot, mely egy rep&uuml;l&otilde;
+&eacute;kezetes (az e'kezetes betu&quot;ket ke't karakter i'rja le) sz&ouml;veges
+file-t k&ouml;z&ouml;ns&eacute;ges &eacute;kezetes file-l&aacute; ford&iacute;t
+le! Mit jelent az &aacute;l-&eacute;rt&eacute;k? Ha a file utols&oacute;
+karaktere pl. „o&quot;, akkor v&eacute;g&uuml;l ez ker&uuml;l X-be, &eacute;s
+E-ben most nem lehet rep&uuml;l&otilde; &eacute;kezet, hiszen akkor a f&otilde;program
+rosszul &eacute;rtelmezn&eacute; a bet&ucirc;t. Ehelyett term&eacute;szetesen
+vizsg&aacute;lhatja a program azt is, hogy a file utols&oacute; karakter&eacute;r&otilde;l
+van-e sz&oacute;.</P>
+
+<P><U>3. feladat</U>: &iacute;rj programot, mely egy file-t &uacute;gy
+t&ouml;m&ouml;r&iacute;t, hogy az egym&aacute;s ut&aacute;ni egyforma karaktereket
+\, karakter, ism&eacute;tl&otilde;d&eacute;s karakterh&aacute;rmassal jelzi.
+Az ism&eacute;tl&otilde;d&eacute;s egy byte-os &eacute;rt&eacute;k, ez&eacute;rt
+255-n&eacute;l nagyobb ism&eacute;tl&otilde;d&eacute;ssz&aacute;mot m&aacute;r
+csak k&eacute;t r&eacute;szletben tud k&oacute;dolni a program. Figyelj
+arra is, hogy mag&aacute;t a „\&quot; karaktert hogyan k&oacute;dolod,
+hogy a dek&oacute; dol&aacute;sn&aacute;l ne okozzon f&eacute;lre&eacute;rt&eacute;st!
+K&eacute;sz&iacute;tsd el a kibont&oacute; programot is (az m&aacute;r
+egyszer&ucirc; elemenk&eacute;nti feldolgoz&aacute;ssal, el&otilde;reolvas&aacute;s
+n&eacute;lk&uuml;l megoldhat&oacute;).</P>
+
+<P>Ha a file olyan r&ouml;vid, hogy bef&eacute;r a mem&oacute;ri&aacute;ba,
+a legt&ouml;bb m&ucirc;velet nagyon egyszer&ucirc;, hiszen &iacute;gy nem
+kell t&ouml;r&otilde;dn&uuml;nk az adatok lass&uacute; el&eacute;r&eacute;s&eacute;vel.
+A legt&ouml;bb file-kezel&eacute;si feladat akkor lesz &eacute;rdekes,
+ha a file hossza el&otilde;re nem ismert, vagy nem f&eacute;r a mem&oacute;ri&aacute;ba.</P>
+
+<P><U>4. feladat</U>: egy sz&ouml;veges file szavakat tartalmaz (soronk&eacute;nt
+egyet). &Iacute;rj programot, amely megford&iacute;tja a szavak sorrendj&eacute;t!
+Tipp: ha az eg&eacute;sz file nem is, egy r&eacute;sze biztosan bef&eacute;r
+egy t&ouml;mbbe (feltehet&otilde;, hogy az egyes sorok hossza 256 karaktern&eacute;l
+kisebb, vagyis stringben t&aacute;rolhat&oacute;).</P>
+
+<P><U>5. feladat</U>: k&eacute;sz&iacute;ts programot, amely k&eacute;t
+rendezett file rekordjait egy harmadik rendezett file-ba futtatja &ouml;ssze
+(ld. <A HREF="f4.htm">&ouml;sszefuttat&aacute;s algoritmusa, IV. fejezet</A>).</P>
+
+<P>File rendez&eacute;s&eacute;n&eacute;l haszn&aacute;lt m&oacute;dszer
+a k&ouml;vetkez&otilde;: a file-t akkora szeletekre v&aacute;gjuk, melyek
+bef&eacute;rnek a mem&oacute;ri&aacute;ba. Ezeket a szeleteket rendezz&uuml;k.
+A rendezett szeleteket felv&aacute;ltva ki&iacute;rjuk k&eacute;t file-ba
+(ezek teh&aacute;t rendezett szeletek egym&aacute;s ut&aacute;njait fogj&aacute;k
+tartalmazni). Ezut&aacute;n a k&eacute;t seg&eacute;dfile-b&oacute;l egy-egy
+szeletet kiolvasva azokat &ouml;sszefuttatjuk, &iacute;gy k&eacute;tszer
+akkora rendezett szeleteket kapunk, melyeket felv&aacute;ltva ki&iacute;runk
+egy harmadik &eacute;s negyedik seg&eacute;dfile-ba. Az els&otilde; k&eacute;t
+seg&eacute;dfile t&ouml;r&ouml;lhet&otilde;. Most a harmadik &eacute;s
+negyedik seg&eacute;dfile-b&oacute;l olvassuk a rendezett szeleteket, &eacute;s
+&ouml;sszefuttatva k&eacute;t seg&eacute;dfile-ba &iacute;rjuk felv&aacute;ltva
+stb... &Iacute;gy v&eacute;g&uuml;l az eg&eacute;sz file-t rendezhetj&uuml;k
+(<I>&ouml;sszefuttat&oacute; rendez&eacute;s 4 seg&eacute;dfile-lal</I>).</P>
+
+<P>Egyszer&ucirc;bbnek t&ucirc;nne az a m&oacute;dszer, amikor egy kis
+szeletet mindig „hozz&aacute;futtatunk&quot; az &iacute;gy egyre nagyobbra
+h&iacute;z&oacute; seg&eacute;dfile-hoz, de ebben az esetben sokkal t&ouml;bb
+file-m&ucirc;veletet v&eacute;gezn&eacute;nk, m&iacute;g az els&otilde;
+m&oacute;dszer minden l&eacute;p&eacute;sben megdupl&aacute;zza a rendezett
+szeletek hossz&aacute;t.</P>
+
+<P><U>6. feladat</U>: &iacute;rj programot hossz&uacute; file rendez&eacute;s&eacute;re!</P>
+
+<P><I><FONT SIZE=+1>M&aacute;sodik nekifut&aacute;s: sz&ouml;vegfeldolgoz&aacute;s</FONT></I></P>
+
+<P>Mivel a sz&ouml;veges file-okat gyakran byte-onk&eacute;nt, vagyis karakterenk&eacute;nt
+dolgozzuk fel, fontos tudni, hogy a DOS a sor v&eacute;g&eacute;t CR, LF
+(13, 10 k&oacute;d&uacute;) karakterekkel jelzi. (UNIX rendszerekn&eacute;l
+ez csak LF.)</P>
+
+<P><U>1. feladat</U>: &iacute;rj programot, mely elt&uuml;nteti sz&ouml;veges
+file-b&oacute;l a felesleges sz&oacute;k&ouml;z&ouml;ket! (Egyn&eacute;l
+t&ouml;bb egym&aacute;s melletti sz&oacute;k&ouml;z felesleges.)</P>
+
+<P>A tov&aacute;bbiakban olyan sz&ouml;vegekkel foglalkozunk, melyek a
+CR, LF karaktereket bekezd&eacute;sv&eacute;g jelz&eacute;s&eacute;re haszn&aacute;lj&aacute;k,
+s a bekezd&eacute;s szavai sz&oacute;k&ouml;zzel elv&aacute;lasztva folyamatosan
+k&ouml;vetkeznek.</P>
+
+<P><U>2. feladat</U>: &iacute;rj programot, mely egym&aacute;s al&aacute;
+ki&iacute;rja egy sz&ouml;veges file szavait! A program a bekezd&eacute;sv&eacute;get
+* sz&oacute;k&eacute;nt jel&ouml;lje.</P>
+
+<P><U>3. feladat</U>: &iacute;rj programot, mely egy sz&ouml;veges file-t
+adott karaktersz&aacute;m&uacute; sorokra t&ouml;rdelve &iacute;r ki! Ha
+egy sz&oacute; nem f&eacute;r ki teljes eg&eacute;sz&eacute;ben egy sorba,
+akkor az eg&eacute;sz sz&oacute;t a k&ouml;vetkez&otilde; sorba kell &iacute;rni.
+Tipp: &eacute;rdemes k&ouml;vetni a k&ouml;vetkez&otilde; szerkezetet (Pascal):</P>
+
+<P><TT>While not eof(f) do begin <BR>
+&nbsp;&nbsp;&nbsp;read(f,c);<BR>
+&nbsp;&nbsp;&nbsp;if c=CR then read(f,c);<BR>
+&nbsp;&nbsp;&nbsp;Sorba&iacute;r(c);<BR>
+End;</TT></P>
+
+<P>A ki&iacute;rt sorok m&eacute;g mindig igaz&iacute;that&oacute;k balra,
+jobbra, k&ouml;z&eacute;pre, illetve az &uuml;res helyek a szavak k&ouml;z&ouml;tt
+is sz&eacute;toszthat&oacute;k (sorkiz&aacute;rt m&oacute;d). Ez &uacute;gy
+val&oacute;s&iacute;that&oacute; meg &aacute;ttekinthet&otilde; m&oacute;don,
+ha az el&otilde;z&otilde; feladat <TT>Sorba&iacute;r </TT>elj&aacute;r&aacute;sa
+nem k&ouml;zvetlen&uuml;l nyomtat, hanem a ki&iacute;rand&oacute; sort
+egy m&aacute;sik elj&aacute;r&aacute;snak adja &aacute;t, amely elv&eacute;gzi
+az igaz&iacute;t&aacute;s utols&oacute; sim&iacute;t&aacute;sait.</P>
+
+<P><U>4. feladat</U>: m&oacute;dos&iacute;tsd a 3. feladat programj&aacute;t
+&uacute;gy, hogy a sorokra t&ouml;rdelt sz&ouml;veget jobbra &eacute;s
+k&ouml;z&eacute;pre z&aacute;rva, illetve sorkiz&aacute;rva is k&eacute;pes
+legyen ki&iacute;rni!</P>
+
+<P><U>5. feladat</U>: tov&aacute;bbi m&oacute;dos&iacute;t&aacute;sok.
+A ki&iacute;rt sz&ouml;veget adott sorsz&aacute;mhoz, lapokra t&ouml;rdelve
+kell ki&iacute;rni (a lap v&eacute;g&eacute;t 12-es k&oacute;d&uacute;
+karakter jelezze). Lap tetej&eacute;n legyen fejl&eacute;c, lap alj&aacute;n
+pedig l&aacute;bl&eacute;c (pl. oldalsz&aacute;moz&aacute;s).</P>
+
+<CENTER><P><A HREF="f9.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f7.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

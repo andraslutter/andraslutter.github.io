@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - egyszerű programok kifejezésekkel</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			3. fejezet: Egyszerű programok kifejezésekkel
+		</h1>
+    <h2>Utasítás, paraméter, kifejezés</h2>
+    <p>Észrevehetted, hogy a program <code>begin</code> és <code>end</code> szavak között helyezkedik el, és a végét pont jelzi. A program <strong>utasítás</strong>ok (parancsok) egymás utánja, melyeket pontosvessző választ el. Írd be a következő programot (vagyis módosítsd az eredeti projektet):</p>
+<pre>
+program project1;
+begin
+  write('ablak')
+  write('zsiráf')
+  readln;
+end.
+</pre>
+    <p>Fordításkor a "; expected" hibajelzést kapod, ami azt jelenti, hogy valahonnan hiányzik a pontosvessző. (Kezdő pascalos leggyakoribb hibája.) Pótold ezeket, és nézd meg, mit ír ki a program!<br />
+    Ezután írd át a <code>write></code> parancsokat <code>writeln</code>-re. Láthatod, hogy az utóbbi parancs annyiban különbözik az előzőtől, hogy kiírás után új sorba áll.<br />
+    A <code>write</code> és <code>writeln</code> utasítások után zárójelben a kiírandó dolog áll. Azt, hogy az utasítás mire vonatkozik, <strong>paraméter</strong>nek nevezzük. A <code>writeln</code> utasításnak több paramétere is lehet, melyeket vesszővel választunk el, pl. <code>writeln('záp','tojás')</code></p>
+    <p>Most nézzük a következő programot:</p>
+<pre>
+program project1;
+begin
+  writeln('3+4');
+  writeln(3+4);
+  readln;
+end. 
+</pre>
+    <p>Látható, hogy az egyszeres idézőjel (aposztróf) szöveget jelöl, míg anélkül a Pascal kiszámítja a művelet eredményét. Mindent, aminek értéke van, <strong>kifejezés</strong>nek nevezünk. A program futás közben kiszámítja a kifejezések értékét. Pl.<br />
+    writeln('5*4','=',5*4)</p>
+    <p>A kifejezésekben szövegeken és számokon kívül lehetnek műveleti jelek és zárójelek (gömbölyű) is.</p>
+    <h2>Típusok</h2>
+    <p>A kifejezések típusa megadja, hogy milyen értékeket vehet fel egy kifejezés, és milyen műveleteket lehet vele végezni. A Pascal sokféle típust használ. Ezek közül a legfontosabbak, Pascal azonosítójukkal:</p>
+    <ul>
+      <li>egész szám (<strong>integer</strong>): pl. 5, 3+4</li>
+      <li>szöveg (<strong>string</strong>): pl. 'zsiráf'</li>
+      <li>karakter (<strong>char</strong>): pl. 'N'</li>
+      <li>törtszám (<strong>real</strong>) pl. 0.75, 3/4</li>
+    </ul>
+    <p>A <code>writeln(3/4)</code> szokatlan módon írja ki a 0,75-öt: 7.500000E-0001. Ez a szám tízes normálalakja (7,5·10-1), és praktikus, ha nagyon nagy vagy kis számot akarunk leírni (pl. 6·1023, Pascalul 6E+23). De nem kötelező használnunk: ekkor kiírásnál megadjuk a szám teljes szélességét, és hogy hány tizedesre akarjuk kerekíteni, pl. <code>writeln(1/3:5:3)</code></p>
+    <p>Mit ír ki ez az utasítás? <code>writeln(3&lt;7,5=6)</code><br />
+    Az ilyen kifejezések csak igaz (TRUE) vagy hamis (FALSE) értéket vehetnek fel, a típus neve:</p>
+    <ul><li>logikai (<strong>boolean</strong>): pl. TRUE, 3&gt;7</li></ul>
+    <h2>Műveletek</h2>
+    <p>A matematikai alapműveleteken kívül (+ - * /) fontosak még a következők:</p>
+    <ul>
+      <li> relációs jelek: &lt; &gt; = &lt;= (kisebb vagy egyenlő) &gt;= (nagyobb vagy egyenlő) &lt;&gt; (nem egyenlő)</li>
+      <li>szövegösszefűzés: pl. 'záp'+'tojás' eredménye 'záptojás'</li>
+      <li>egészek osztási maradéka: pl. 12 <code>mod</code> 5 eredménye 2</li>
+      <li>egészek hányadosa: pl. 25 <code>div</code> 7 eredménye 3</li>
+      <li>logikai és: pl. (3&gt;4) <code>and</code> (5=5) eredménye FALSE</li>
+      <li>logikai vagy: pl. (3&gt;4) <code>or</code> (5=5) eredménye TRUE</li>
+      <li>logikai tagadás: pl. <code>not</code> TRUE eredménye FALSE</li>
+    </ul>
+    <h2>Függvények</h2>
+    <p>A függvényeknek az utasításoktól eltérően visszatérési értékük is van. Pl. a writeln(sqr(3)) utasítás 9-et ír ki, mert az sqr függvény a négyzetre emelés. Próbálj ki néhány fontos függvényt:</p>
+<pre>
+begin
+  writeln(sqr(3));
+  writeln(sqrt(25));
+  writeln(round(3.65));
+  writeln(trunc(3.65));
+  readln;
+end.
+</pre> 
+    <p>Foglaljuk össze az eddig megismert Pascal azonosítókat:</p>
+    <ul>
+      <li>a program szerkezetét adják meg: <code>begin</code>, <code>end</code></li>
+      <li>utasítások: <code>write</code> (kiír), <code>writeln</code> (kiír és új sorba áll), <code>readln</code> (Enterre vár)</li>
+      <li>függvények: <code>sqr</code> (négyzet), <code>sqrt</code> (négyzetgyök), <code>round</code> (kerekítés), <code>trunc</code> (csonkítás)</li>
+      <li>műveletek: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>mod</code>, <code>div</code>, <code>and</code>, <code>or</code>, <code>not</code>, <code>&lt;</code>, <code>
+      &gt;</code>, <code>=</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&lt;&gt;</code></li>
+    </ul>
+    <p>
+      <a href="f2.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="f4.html">Következő</a>
+    </p>
+
+    <h2>Feladatok</h2>
+    <p>1. Írasd ki a következő dolgokat. Ami programmal kiszámítható, azt a program számítsa ki!</p>
+    <ul>
+      <li>22 négyzetgyökének négyzetét</li>
+      <li>azt, hogy: 33*77=2541</li>
+      <li>ezt (vesszőkkel együtt): 2+2=4, 4+4=8, 8+8=16</li>
+      <li>annak a téglatestnek a felszínét, amelynek oldalai 3, 4, 5</li>
+      <li>annak a derékszögű háromszögnek az átfogóját, amelynek befogói 5, 11</li>
+      <li>azt a szöveget, hogy: Writeln('Szia!'); (a kiírásban két aposztrófot tegyél egymás mellé)</li>
+      <li>ezt: 1/50=0.02</li>
+    </ul>
+
+    <p><a href="fm.html#mo1">megoldás</a></p>
+
+  </div>
+</body>
+</html>

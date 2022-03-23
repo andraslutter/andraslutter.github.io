@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - fájlkezelés</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			10. fejezet: Fájlkezelés
+		</h1>
+
+	<p>Bár sok programnak megvan a maga bináris fájlformátuma, mellyel az alább leírtaknál hatékonyabban tud dolgozni, ebben a fejezetben csak azt a fájlformátumot vesszük, amelyet minden program ugyanúgy kezel. Ez a <strong>szöveges fájl</strong>. A szöveges fájl csak karaktereket tartalmaz, és sorokra van tagolva. Az ékezetes karaktereket azonban egy szöveges fájlban is többféleképpen lehet tárolni.<br />
+  A szöveges fájl műveletei: új fájl létrehozása, fájl elejére állás, következő adat beolvasása, adat írása a szöveges fájl végére. Emiatt az adatokat csak sorban tudjuk beolvasni, az utolsó sort csak akkor, ha már beolvastuk az összes előtte lévőt.</p>
+	
+  <h2>A fájlkezelés utasításai</h2>
+	<p>Fájl deklarálása: létre kell hoznunk egy <code>text</code> típusú változót, az összes fájlműveletben ezt fogjuk használni.<br />
+  Ezután hozzá kell rendelni a változóhoz egy adott fájlt annak útvonala segítségével: <code>assignfile(<i>fájl,útvonal</i>)</code><br />
+  Megnyitás olvasásra (a fájlt vagy írásra, vagy olvasásra nyitjuk meg): <code>reset(<i>fájl</i>)</code><br />
+  Megnyitás írásra (ez új fájlt hoz létre, ha van már ilyen, azt törli): <code>rewrite(<i>fájl</i>)</code><br />
+  Megnyitás írásra létező fájlnál úgy, hogy a végéhez fűzünk adatot: <code>append(<i>fájl</i>)</code><br />
+  Fájl törlése: <code>erase(<i>fájl</i>)</code><br />
+  Olvasás: <code>read/readln(<i>fájl,változók</i>)</code><br />
+  Írás: <code>write/writeln(<i>fájl,kifejezések</i>)</code><br />
+  Vége van-e a fájlnak (beolvastuk-e az utolsó adatot, függvény, igaz/hamis): <code>eof(<i>fájl</i>)</code><br />
+  Vége van-e egy sor beolvasásának (függvény): <code>eoln(<i>fájl</i>)</code><br />
+  Fájl lezárása (erre főként írásnál van szükség, hogy az utolsó adatok is bekerüljenek a fájlba): <code>closefile(<i>fájl</i>)</code></p>
+  <p>A <code>read</code> és <code>write</code> utasításokat úgyanúgy kell használni, mint amikor a billentyűzetről olvasunk és a képernyőre írunk, csak most megadjuk a fájlt is.</p>
+
+  <h2>Példák olvasásra és írásra</h2>
+  <p>A következő példákhoz már fájlra is szükség lesz. Szöveges fájlt legegyszerűbben a Windows Jegyzettömb alkalmazásával készíthetünk, de bármilyen szövegszerkesztő megfelel, ha a Mentés másként, szöveges fájl (txt) lehetőséget használod.<br />
+  Most a fájlt is egy programmal hozzuk létre. A fájlok alapértelmezett helye (relatív útvonal megadásával, pl. 'proba1.txt') a projekt mappája, de teljes útvonal megadásával (pl. 'c:\programozas\fajl\proba.txt') más mappát is használhatunk.<br />
+  A fájlnevekben szándékosan nem használok ékezetet. Ennek oka, hogy a Lazarus alapértelmezetten utf-8 kódolást használ a szerkesztőben. Ezt átállítottuk cp852-re a konzolablakban megjelenő karakterek miatt. A fájlrendszer azonban egy harmadik fajta kódolást használ (cp1250/ANSI).  E kódlapok között lehet megfelelő függvényekkel konvertálni, de egyszerűbb, ha most mellőzzük az ékezeteket.</p>
+  <p>A fájl előállítása:</p>
+<pre>
+VAR f:text;
+    i:integer;
+BEGIN
+  assignfile(f,'proba1.txt');
+  rewrite(f);
+  for i:=1 to 10 do
+    writeln(f,i,' ',random(100));
+  closefile(f);
+END. 
+</pre>
+  <p>A most elkészült fájl soronként két számot tartalmaz, szóközzel elválsztva:<br />
+  1 79<br />
+  2 13<br />
+  ...<br />
+  10 7<br />
+  Ha egy sorban több szám van szóközzel elválasztva, ezeket beolvashatjuk így:<br />
+  <code>readln(f,a,b);</code><br />
+  Vagy:<br />
+  <code>read(f,a);  readln(f,b);</code><br />
+  Vagy:<br />
+  <code>read(f,a); read(f,b); readln(f);</code><br />
+  </p>
+
+	<p>Az adatok beolvasásánál ha tudjuk előre, hány sor következik, használhatunk for-ciklust. Ha nem, vizsgálnunk kell, mikor van vége a fájlnak. A következő program kiírja a sorok második számainak összegét:</p>
+<pre>
+VAR f:text;
+    s,a,b:integer;
+BEGIN
+  assignfile(f,'proba1.txt');
+  reset(f);
+  s:=0;
+  while not eof(f) do begin
+    readln(f,a,b);
+    s:=s+b;
+  end;
+  closefile(f);
+  writeln(s);
+  write('enter:'); readln;
+END.
+</pre>
+  <p>Látható, hogy a második számokhoz úgy jutunk el, hogy az elsőket is beolvassuk.</p>
+  <p>Végül nézzük, hogy lehet egy fájlból egy másikat előállítani. Ez a program leszedi minden sorból az első számot, és csak a másodikat írja fájlba:</p>
+<pre>
+VAR f,g:text;
+    a,b:integer;
+BEGIN
+  assignfile(f,'proba1.txt');
+  assignfile(g,'proba2.txt');
+  reset(f);
+  rewrite(g);
+  while not eof(f) do begin
+    readln(f,a,b);
+    writeln(g,b);
+  end;
+  closefile(g);
+  closefile(f);
+END.
+</pre>
+
+  <h2>Szöveg a fájlban</h2>
+  <p>Ha a fájl egy sorából szöveget szeretnénk beolvasni a <code>readln(f,s)</code> utasítással (<code>s</code> string típusú), az egy teljes sort beolvas. Ha a sor szóközöket tartalmaz, akkor azok is bekerülnek a stringbe. Ekkor nem tudjuk a szóközzel elválasztott szavakat külön változóba tenni. A beolvasott string szavakká darabolásával a következő fejezetben foglalkozunk.<br />
+  Kivétel, ha a sor számokat és szöveget tartalmaz, és a számok a szöveg előtt vannak. Ekkor a szóközzel elválasztott számokat még külön be tudjuk olvasni. Ha pl. a sor tartalma:<br />
+  3 2 1 rajt cél<br />
+  akkor a <code>readln(f,a,b,c,s)</code> utasítás beolvassa külön a 3 számot, de az utána következő két szót már egyben, <code>s</code>-be.<br />
+  Ha előbb van a szöveg, és utána a számok, akkor egyetlen stringbe tudjuk csak őket beolvasni. Ilyenkor a <code>pos</code>, <code>copy</code> függvényekkel megkereshetjük a szóközt, és kivághatjuk a szóközök közötti részt. Vagy használhatjuk a Free Pascal fejlett szövegdaraboló eljárásait, a következő fejezetből.</p>
+  <p>
+    <a href="f9.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="f11.html">Következő</a>
+  </p>
+
+	
+	<h2>Feladatok</h2>
+  <p>A következő feladatok bemeneti fájljait előállíthatod a Jegyzettömbbel is, de mellékeltem mintafájlokat, amelyeket a linkeken letölthetsz. Ne felejtsd ezeket a projekt mappájába másolni!</p>
+  <p>41. Írj programot, a mely megszámolja, hány szöveges sor van egy fájlban (<a href="feladat1.txt">feladat1.txt</a>)! Tipp: minden sort be kell olvasni.</p>
+  <p><a href="fm.html#mo41">megoldás</a></p>
+  <p>42. Számold meg a fájlban (feladat1.txt) lévő e-betűket! Tipp: olvasd be a sorokat, majd minden sorban számold meg az e-ket.</p>
+  <p><a href="fm.html#mo42">megoldás</a></p>
+  <p>43. Készíts kimeneti fájlt, mely tartalmazza az eredeti fájlban (feladat1.txt) a sor számát és azt, hogy hány karakter hosszú!</p>
+  <p><a href="fm.html#mo43">megoldás</a></p>
+  <p>44. Írj programot, mely egy egész számokat tartalmazó fájlt (<a href="feladat2.txt">feladat2.txt</a>) fordított sorrendben kiír a képernyőre! A fájlban soronként egy szám van, legfeljebb 100 db. Ehhez a számokat el kell tárolnod egy tömbben./p>
+  <p><a href="fm.html#mo44">megoldás</a></p>
+  <p>45. Egy fájl (<a href=feladat3.txt>feladat3.txt</a>) első sora egy számot tartalmaz, az utána következő sorok számát. A többi sorban két-két szám van szóközzel elválasztva. A program írja ki a számpárok szorzatának összegét!</p>
+  <p><a href="fm.html#mo45">megoldás</a></p>
+
+  </div>
+</body>
+</html>

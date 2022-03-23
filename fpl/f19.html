@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - objektumok létrehozása</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			 19. fejezet: Dinamikus adatszerkezetek 
+		</h1>
+    <p>A programunkban használt változókat a program elején deklarálnunk kell. Ezeknek a memóriát a program futása kezdetén lefoglalja. A tömbök méretét is fordítási időben kell megadnunk, azon később már nem változtathatunk: ezért mindig a lehető legnagyobb tömböt deklaráljuk, legfeljebb nem használjuk ki. Ezek az adatok egy <strong>stack</strong> nevű memóriaterületen helyezkednek el, statikus adatoknak nevezzük őket.<br />
+    Gondoljuk el a következő példát: emberek mozgását követjük két helyszín között, melyeket két tömb ír le. Ha valaki egyik helyszínről átmegy a másikra, az egyik tömbből kivesszük, a másikba betesszük. Így mindkét tömb mérete az emberek maximális száma kell, hogy legyen, vagyis pontosan kétszer annyi memóriát foglalunk le, mint amennyit egy időben felhasználunk.<br />
+    Másik példa: egy program, mely a képernyőre kattintva egy új objektumot hoz létre. Ezek száma tetszőleges, mekkora tömböt deklaráljunk a tárolásukra?</p>
+    <p>Valójában már eddig is használtuk a dinamikus memóriaterületet. Deklarálunk egy osztályt: <code>var g:TButton</code>, majd létrehozunk egy objektumot: <code>g:=TButton.Create(Form1)</code>.  A <code>g</code> mutató a statikus memóriaterületen van, az általa mutatott objektum viszont futási időben jön létre. A memória foglalása csak a <code>Create</code> végrehajtásának pillanatában történik meg. A dinamikusan, futás közben létrehozott objektumokat a program a <strong>heap</strong> nevű memóriaterületen tárolja. Ezt korlátozhatjuk, de lehet akár a teljes rendelkezésre álló szabad memória is.
+
+    <h2>Lista és rekurzív típusdeklaráció</h2>
+    <p>Figyeljük meg a következő típust!</p>
+<pre>
+TYPE lancszem=class
+  adat:integer;
+  mutato:lancszem;
+end;</pre>
+    <p>Egy <code>lancszem</code> típusú objektum tartalmaz egy egész számot és egy osztály típusú mutatót. A mutató egy újabb, <code>lancszem</code> típusú objektumra mutat. A fordító képes értelmezni ezt a rekurziót (önhivatkozást). Ez a mutató fogja megmutatni a memóriában a következő láncszemet. A következő példában látható, hogyan lehet tetszőleges számú egész számot ebben a láncszemekből álló listában tárolni. Ha egy mutató nem mutat sehová  (a lánc utolsó eleme), értékét <code>NIL</code>-re állítjuk. Ez egy speciális mutató-érték, jelzi, hogy a mutató nem mutat sehová.</p>
+<pre>
+VAR fej:lancszem; //mutató a lista első elemére, fejére
+    utolso:lancszem; //mutató a lista utolsó elemére
+    n:integer;
+BEGIN
+  fej:=nil;
+  Repeat
+    readln(n);
+    if n>0 then begin
+      if fej=nil then begin
+        fej:=lancszem.Create;
+        utolso:=fej;
+      end else begin
+        utolso.mutato:=lancszem.Create;
+        utolso:=utolso.mutato;
+      end;
+      utolso.adat:=n;
+      utolso.mutato:=nil;
+    end;
+  Until n=0;
+END.</pre>
+    <p>A fejmutató csak egyszer kap értéket, amikor az első elemet helyezzük el a listában. Új elem berakásakor létrehozunk a heap-en egy új láncszem objektumot, és az eddigi utolsó elem mutatóját ráállítjuk.</p>
+    <p>A lista bejárása mindig a fejétől kezdődik, és elemenként történik, mert minden elemre csak az őrá mutató elem által juthatunk.</p>
+<pre> 
+utolso:=fej;
+  while utolso&lt;&gt;nil do begin
+      writeln(utolso.adat);
+      utolso:=utolso.mutato;
+  end;</pre>
+    <p>Ha a listából elemet törlünk a destruktor segítségével, az őt megelőző elem mutatóját arra az elemre (vagy nil-re) kell állítani, amelyre eredetileg a törölt elem mutatott. Elem beszúrásakor is ügyelni kell a mutatók módosítására.</p>
+
+    <h2>Lista vagy tömb?</h2>
+    <p>A lista bizonyos szempontból jobb, más szempontból rosszabb a tömbnél.<br />
+    A lista mellett szól:
+    <ul>
+      <li>mérete dinamikusan változtatható</li>
+      <li>adott elem törlése, elem beszúrása gyors, mert a listaelemeket nem kell mozgatni a memóriában, elég csak két mutató értékét módosítani</li>
+    </ul>
+    <p>A tömb mellett szól:</p>
+    <ul>
+      <li>a tömb adott sorszámú elemét gyorsan megkaphatjuk (indexelés), míg a lista 100. eleméhez a fejtől kiindulva végig kell lépegetni az előző  elemeken</li>
+      <li>a memóriafelhasználás rugalmatlan, de tervezhető</li>
+    </ul>
+    <p>Ha tehát a tömbünkön jellemzően for-ciklussal lépegetünk végig, használhatunk helyette listát. Ha azonban sokszor ugrálunk a tömbelemek között, a tömb használata gyorsabb programot eredményez.<br />
+    Ha a tömbös programunk elindul, a tömb biztosan befért a memóriába. A lista viszont, mivel mérete folyamatosan nőhet, egyszer csak kinőheti a memóriát.<br />
+    Ha dinamikusan növekvő adatszerkezetre van szükségünk, csak a lista jöhet szóba. Az indexelés okozta sebességcsökkenésre megfelelő algoritmusokkal kell megoldást találnunk.</p>
+
+    <h2>Beépített lista típus</h2>
+    <p>A Free Pascal rendelkezik beépített listatípussal, melyhez a lista kezelését megkönnyítő metódusok is tartoznak.  A <code>TList</code> class által megvalósított lista csak mutatókat képes tárolni, ellentétben az előző példával, ahol a listaelem adatmezője integer. Viszont egy mutató tetszőleges adatot tároló objektumra mutathat.<br />
+    A <code>TList</code> legfontosabb eljárásai és függvényei:</p>
+    <ul>
+      <li><code>Create</code></li>
+      <li><code>Count</code>: megadja a lista elemszámát</li>
+      <li><code>Add(<i>mutató</i>)</code>: a mutatót, mint adatot, a lista végéhez fűzi (tárolja)</li>
+      <li><code>Remove(<i>mutató</i>)</code>: megkeresi a mutató első előfordulását, és törli a listából</li>
+      <li><code>Delete(<i>sorszám</i>)</code>: az adott sorszámú elemet törli a listából; a számozás 0-val kezdődik!</li>
+      <li><code>Items[<i>sorszám</i>]</code>: tömbként viselkedik, megadja az adott sorszámú mutatót</li>
+    </ul>
+    <p>Látható, hogy így a listát tömbhöz hasonlóan tudjuk kezelni.  A fenti példát nézzük meg ezzel a listatípussal is! Mivel a listaelemekben nem tudunk számokat tárolni, külön létre kell hoznunk számot tároló objektumokat, ez lesz a <code>TSzam</code> class.</p>
+<pre>
+USES Classes;
+
+TYPE TSzam=class
+  adat:integer;
+end;
+
+VAR sz:TSzam;
+    lista:TList;
+    n,i:integer;
+
+BEGIN
+  lista:=TList.Create;
+  Repeat
+    readln(n);
+    if n>0 then begin
+      sz:=TSzam.Create;
+      sz.adat:=n;
+      lista.Add(sz);
+    end;
+  Until n=0;
+
+  for i:=0 to lista.Count-1 do
+    writeln(TSzam(lista.Items[i]).adat);
+  readln;
+END.
+</pre>
+    <p>Megjegyzések: a <code>TList</code> a <code>Classes</code> unitban van. Figyeljük meg a kiírásnál szereplő típuskényszerítést: a <code>TList</code> elemei egyszerű mutatók (<code>Pointer</code> típus), meg kell tehát adnunk, hogy <code>TSzam</code>-ként akarjuk őket kezelni.</p>
+    <p>
+      <a href="f18.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="f20.html">Következő</a>
+    </p>
+
+
+  </div>
+</body>
+</html>

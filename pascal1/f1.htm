@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>1. Algoritmusok, algoritmusle&iacute;r&aacute;s</FONT></U></P>
+
+<P>Valamely tev&eacute;kenys&eacute;g egy&eacute;rtelm&ucirc;, sz&uuml;ks&eacute;ges
+m&eacute;rt&eacute;kben l&eacute;p&eacute;sekre lebontott le&iacute;r&aacute;s&aacute;t
+<B>algoritmus</B>nak nevezz&uuml;k. P&eacute;lda:</P>
+
+<P>Gondolj egy sz&aacute;mot<BR>
+Szorozd meg kett&otilde;vel<BR>
+Adj hozz&aacute; nyolcat<BR>
+Oszd el kett&otilde;vel<BR>
+Vond ki bel&otilde;le a gondolt sz&aacute;mot<BR>
+K&ouml;z&ouml;ld a v&eacute;geredm&eacute;nyt</P>
+
+<P>Ebben az algoritmusban nem adtuk meg, hogyan kell k&eacute;t sz&aacute;mot
+&ouml;sszeadni - ezt &eacute;rtj&uuml;k sz&uuml;ks&eacute;ges m&eacute;rt&eacute;ken.
+Term&eacute;szetesen az &ouml;sszead&aacute;st is lebonthatjuk l&eacute;p&eacute;sekre:</P>
+
+<P><TT>&Iacute;rd egym&aacute;s al&aacute; a k&eacute;t sz&aacute;mot<BR>
+Kezdd az utols&oacute; sz&aacute;mjegyn&eacute;l<BR>
+Az &aacute;tvitel legyen 0<BR>
+Ism&eacute;teld, am&iacute;g vannak &ouml;sszeadand&oacute; sz&aacute;mjegyek<BR>
+&nbsp;&nbsp;&nbsp;Add &ouml;ssze a k&eacute;t sz&aacute;mjegyet &eacute;s
+az &aacute;tvitelt<BR>
+&nbsp;&nbsp;&nbsp;Az eredm&eacute;ny utols&oacute; sz&aacute;mjegy&eacute;t
+&iacute;rd le<BR>
+&nbsp;&nbsp;&nbsp;Ha az eredm&eacute;ny &gt; 9, &nbsp;&nbsp;akkor az &aacute;tvitel
+legyen 1<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k&uuml;l&ouml;nben
+az &aacute;tvitel legyen 0<BR>
+&nbsp;&nbsp;&nbsp;L&eacute;pj az el&otilde;z&otilde; sz&aacute;mjegyre<BR>
+Ism&eacute;tl&eacute;s v&eacute;ge<BR>
+Ha &aacute;tvitel=1, akkor &iacute;rd le az &aacute;tvitelt</TT></P>
+
+<P><IMG SRC="abra11.gif" ALT="struktogram" HEIGHT=150 WIDTH=212 ALIGN=LEFT>Ha
+tudunk &eacute;p&iacute;teni olyan g&eacute;pet, amely egyjegy&ucirc; sz&aacute;mokat
+ad &ouml;ssze, akkor a fenti algoritmus alapj&aacute;n ak&aacute;rh&aacute;ny
+jegy&ucirc; sz&aacute;mokat &ouml;sszead&oacute; g&eacute;pet is &eacute;p&iacute;thet&uuml;nk.
+Azon k&iacute;v&uuml;l, hogy az algoritmusban utas&iacute;t&aacute;sokat
+&iacute;rhatunk egym&aacute;s ut&aacute;n, az algoritmus bizonyos r&eacute;szeit
+- valamilyen felt&eacute;telt&otilde;l f&uuml;gg&otilde;en - meg is ism&eacute;telhetj&uuml;k.
+Az utas&iacute;t&aacute;sok egym&aacute;s ut&aacute;nj&aacute;t <B>szekvenci&aacute;</B>nak
+nevezz&uuml;k, az ism&eacute;tl&eacute;st <B>ciklus</B>nak. Amit ism&eacute;telni
+kell, az a <B>ciklusmag</B>. Ezen k&iacute;v&uuml;l bizonyos r&eacute;szeket
+csak egy felt&eacute;tel teljes&uuml;l&eacute;se eset&eacute;n kell v&eacute;grehajtani,
+ha a felt&eacute;tel nem teljes&uuml;l, akkor pedig m&aacute;st kell csin&aacute;lni.
+Ilyen esetekben a v&eacute;grehajt&aacute;s kett&eacute;&aacute;gazik,
+ezt teh&aacute;t <B>el&aacute;gaz&aacute;s</B>nak h&iacute;vjuk.</P>
+
+<P>Az algoritmusok fenti sz&ouml;veges jel&ouml;l&eacute;s&eacute;t <B>mondatszer&ucirc;
+le&iacute;r&aacute;s</B>nak nevezz&uuml;k. Haszn&aacute;lhatjuk m&eacute;g
+a rajzos <B>struktogram</B>ot is. Figyelj&uuml;k meg a palacsintas&uuml;t&eacute;s
+algoritmus&aacute;nak struktogramj&aacute;n, hogy az egyes strukt&uacute;r&aacute;k
+tartalmazhatnak m&aacute;sokat (egym&aacute;sba &aacute;gyaz&aacute;s).</P>
+
+<P>Az algoritmust &aacute;ltal&aacute;ban emberi nyelven adjuk meg. Az
+algoritmus sz&aacute;m&iacute;t&oacute;g&eacute;p &aacute;ltal &eacute;rthet&otilde;
+form&aacute;ja a <B>program</B>. Az, hogy a sz&aacute;m&iacute;t&oacute;g&eacute;p
+mit &eacute;rt meg, att&oacute;l f&uuml;gg, milyen <B>programoz&aacute;si
+nyelv</B>et haszn&aacute;lunk.</P>
+
+<CENTER><P><A HREF="f2.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A><BR>
+</P></CENTER>
+
+</BODY>
+</HTML>

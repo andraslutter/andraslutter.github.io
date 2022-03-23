@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>2. fejezet</TITLE>
+   <META NAME="Author" CONTENT="L. A.">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>II. Adatszerkezetek: a sor</FONT></U></P>
+
+<P>A sor adatszerkezet jellemz&otilde;i:</P>
+
+<UL>
+<LI>be lehet tenni egy elemet</LI>
+
+<LI>ki lehet venni a legel&otilde;sz&ouml;r berakott elemet</LI>
+</UL>
+
+<P>ha teh&aacute;t 3, 2, 4 sz&aacute;mokat tessz&uuml;k a sorba, akkor
+3, 2, 4 sorrendben kapjuk vissza. Sort haszn&aacute;lunk pl. a v&aacute;rakoz&aacute;si
+sorok megval&oacute;s&iacute;t&aacute;s&aacute;n&aacute;l, teh&aacute;t
+amikor az els&otilde;nek &eacute;rkez&otilde; ker&uuml;l sorra el&otilde;sz&ouml;r
+(ilyen a nyomtat&oacute; v&aacute;rakoz&aacute;si sora, vagyis puffere).</P>
+
+<P>A sor megval&oacute;s&iacute;t&aacute;sa kicsit nehezebb a verem&eacute;n&eacute;l.
+Ha t&ouml;mb&ouml;t haszn&aacute;lunk, sz&uuml;ks&eacute;g van egy ELEJE
+v&aacute;ltoz&oacute;ra, mely a legels&otilde; &uuml;res helyre mutat,
+&eacute;s egy VEGE v&aacute;ltoz&oacute;ra, amely a legel&otilde;sz&ouml;r
+berakott elem hely&eacute;t mutatja. &Uacute;j elemet az ELEJE helyre kell
+berakni, kivenni pedig a VEGE &aacute;ltal mutatott elemet kell. Ha betesz&uuml;nk,
+majd kivesz&uuml;nk egy elemet, ELEJE &eacute;s VEGE &eacute;rt&eacute;ke
+is eggyel n&otilde;, &iacute;gy az elemek a t&ouml;mbben felfel&eacute;
+fognak v&aacute;ndorolni, s el&otilde;bb-ut&oacute;bb kifutnak bel&otilde;le.
+Hajtsuk &ouml;ssze a t&ouml;mb elej&eacute;t &eacute;s v&eacute;g&eacute;t:
+ha pl. VEGE t&uacute;lmutat a t&ouml;mb&ouml;n, legyen &eacute;rt&eacute;ke
+ism&eacute;t 1. &Iacute;gy az elemek a t&ouml;mbben k&ouml;rben haladnak.
+C&eacute;lszer&ucirc; egy DB v&aacute;ltoz&oacute;t is bevezetni, melyben
+sz&aacute;moljuk a t&ouml;mb elemeit (ez ELEJE &eacute;s VEGE seg&iacute;ts&eacute;g&eacute;vel
+is kisz&aacute;m&iacute;that&oacute;, de &iacute;gy egyszer&ucirc;bb).
+A sor elj&aacute;r&aacute;sai:</P>
+
+<UL>
+<LI><TT>Procedure INICI</TT><FONT SIZE=-1> {kezd&otilde;&eacute;rt&eacute;k
+be&aacute;ll&iacute;t&aacute;sa}</FONT></LI>
+
+<LI><TT>Procedure BETESZ (a:t&iacute;pus)</TT><FONT SIZE=-1> {a param&eacute;ter
+&eacute;rt&eacute;k&eacute;t beteszi a sor tetej&eacute;re}</FONT></LI>
+
+<LI><TT>Procedure KIVESZ (var a:t&iacute;pus)</TT><FONT SIZE=-1> {a legals&oacute;
+elem a v&aacute;ltoz&oacute;ba ker&uuml;l}</FONT></LI>
+
+<LI><TT>Function &Uuml;RES:boolean</TT><FONT SIZE=-1> {igaz eredm&eacute;nyt
+ad, ha a sor &uuml;res}</FONT></LI>
+</UL>
+
+<P><U>1. feladat</U>: &iacute;rd meg a sor elj&aacute;r&aacute;sait! Teszteld
+programmal.</P>
+
+<P><U>2. feladat</U>: &iacute;rj k&ouml;zleked&eacute;sil&aacute;mpa-szimul&aacute;tort!
+A program f&otilde; r&eacute;sze egy ciklus. Minden l&eacute;p&eacute;sben
+20% es&eacute;llyel &eacute;rkezik egy aut&oacute; (pl. egy v&eacute;letlen
+karakter), amely beker&uuml;l a sorba. A l&aacute;mpa az id&otilde; 20%-&aacute;ban
+z&ouml;ld (pl. 20 l&eacute;p&eacute;sben z&ouml;ld, majd 80 l&eacute;p&eacute;sben
+piros). Ha a l&aacute;mpa z&ouml;ld, &eacute;s a sor nem &uuml;res, egy
+aut&oacute; kiker&uuml;l a sorb&oacute;l. A program &iacute;rja ki l&eacute;p&eacute;senk&eacute;nt
+a v&aacute;rakoz&oacute; aut&oacute;k sz&aacute;m&aacute;t &eacute;s a
+l&aacute;mpa &aacute;llapot&aacute;t! Van olyan aut&oacute;, amelyik csak
+a m&aacute;sodik l&aacute;mp&aacute;n&aacute;l jut &aacute;t?</P>
+
+<CENTER><P><A HREF="f3.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f1.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

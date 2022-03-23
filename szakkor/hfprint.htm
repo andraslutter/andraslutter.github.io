@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<style type="text/css">
+p {
+white-space:pre-wrap;
+font-family:monospace;
+display:none;
+left:20px;
+}
+a {
+display:block;
+border-top:solid thin;
+margin-bottom:1em;
+}
+</style>
+<script type="text/javascript">
+function nyit(x) {
+document.getElementById(x).style.display="block";
+}
+</script><title>Programozás szakköri házik</title>
+
+<meta content="Andras Lutter" name="author">
+</head><body>
+
+<a onclick="nyit('01')">
+1. Írasd ki a következő dolgokat. Ami programmal kiszámítható, azt a
+program számítsa ki!<br><br>
+22 négyzetgyökének négyzetét<br>
+azt, hogy: 33*77=2541<br>
+ezt (vesszőkkel együtt): 2+2=4, 4+4=8, 8+8=16<br>
+annak a téglatestnek a felszínét, amelynek oldalai 3, 4, 5<br>
+annak a derékszögű háromszögnek az átfogóját, amelynek befogói 5, 11<br>
+azt a szöveget, hogy: Writeln('Szia!');<br>
+ezt: 1/50=0.02
+</a>
+<p id="01">BEGIN
+  Writeln(sqr(sqrt(22)));
+  Writeln('33*77=',33*77);
+  Writeln('2+2=',2+2,', 4+4=',4+4,', 8+8=', 8+8);
+  Writeln(2*(3*4+3*5+4*5));
+  Writeln(sqrt(sqr(5)+sqr(11)):0:2);
+  Writeln('Writeln(''Szia!'');');
+  Writeln('1/50=',1/50:4:2);
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+
+<a onclick="nyit('02')">
+2. Írj programot, amely beolvassa egy derékszögű háromszög befogóinak
+hosszát, és kiírja az átfogó hosszát!
+</a>
+<p id="02">VAR a,b:real;
+BEGIN
+  Write('Egyik befogó: '); Readln(a);
+  Write('Másik befogó: '); Readln(b);
+  Writeln('Az átfogó: ',sqrt(sqr(a)+sqr(b)):0:2);
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+
+<a onclick="nyit('03')">
+3. Írj programot, amely beolvassa egy téglatest oldalainak
+hosszát, és kiírja a téglatest felszínét és térfogatát!
+</a>
+<p id="03">VAR a,b,c:real;
+BEGIN
+  Write('   Egyik oldal: '); Readln(a);
+  Write('   Másik oldal: '); Readln(b);
+  Write('Harmadik oldal: '); Readln(c);
+  Writeln('A felszín: ',2*(a*b+a*c+b*c):0:2);
+  Writeln('A térfogat: ',a*b*c:0:2);
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+
+<a onclick="nyit('04')">
+4. Írj programot, amely beolvassa a felhasználó nevét, és névre szólóan üdvözli!
+</a>
+<p id="04">VAR s:string;
+BEGIN
+  Write('Hogy hívnak? '); Readln(s);
+  Writeln('Üdvözöllek, kedves '+s+'!');
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+
+<a onclick="nyit('05')">
+5. Írj programot, amely beolvas 3 számot, majd kiírja, teljesül-e, hogy
+a középső szám nagyobb a két szélsőnél (true/false formában)!
+</a>
+<p id="05">VAR a,b,c:integer;
+BEGIN
+  Write('Adj meg 3 számot!'); Readln(a,b,c);
+  Writeln((b&gt;a) and (b&gt;c));
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+
+<a onclick="nyit('06')">
+6. Írj programot, mely a beolvasott út és idő értékéből kiszámítja az
+átlagsebességet. Az algoritmus:<br>
+Be: út, idő {persze a változóidat nem így nevezed el}<br>
+Ha út&lt;0 VAGY idő&lt;=0 akkor {vigyázz a zárójelezésre!}<br>
+&nbsp;&nbsp;ki: "Értelmetlen adatok!"<br>
+különben<br>
+&nbsp;&nbsp;ki: út / idő
+</a>
+<p id="06">VAR s,t:real;
+BEGIN
+  Write('Add meg az utat (m) és az időt (s): '); Readln(s,t);
+  If (s&lt;0) or (t&lt;=0) then
+    writeln('Értelmetlen adatok!')
+  Else
+    writeln('Az átlagsebesség: ',s/t:0:2,' m/s');
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+
+<a onclick="nyit('07')">
+7. Írj programot, mely a megadott számról eldönti, hogy páros vagy
+páratlan! (Emlékeztető: MOD.)
+</a>
+<p id="07">VAR a:integer;
+BEGIN
+  Write('Adj meg egy egész számot: '); Readln(a);
+  If a mod 2 = 0 then
+    writeln('Páros.')
+  Else
+    writeln('Páratlan.');
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+
+<a onclick="nyit('08')">
+8. Írj programot, mely a beadott számról eldönti, hogy pozitív,
+negatív vagy nulla-e! (Háromszoros elágazás.)
+</a>
+<p id="08">VAR a:integer;
+BEGIN
+  Write('Adj meg egy egész számot: '); Readln(a);
+  If a &gt; 0 then
+    writeln('Pozitív.')
+  Else
+    If a=0 then
+      writeln('Nulla.')
+    Else
+      writeln('Negatív.');
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+
+<a onclick="nyit('09')">
+9. Írj programot, mely kicseréli két integer típusú változó értékét
+segédváltozó használata nélkül! (Matekosok előnyben.)
+</a>
+<p id="09">VAR a,b:integer;
+BEGIN
+  a:=5; b:=3;
+  a:=a+b;
+  b:=a-b;
+  a:=a-b;
+END.
+</p>
+
+<a onclick="nyit('10')">
+10. Írj programot, mely megadja, hogy 3 beolvasott (integer) számból hány
+egyforma volt (mind különböző / 2 egyforma / 3 egyforma)! 
+</a>
+<p id="10">Első megoldás
+
+VAR a,b,c:integer;
+BEGIN
+  Write('Adj meg három egész számot: '); Readln(a,b,c);
+  If a=b Then
+    If b=c Then
+      Writeln('3 egyforma.')
+    Else
+      Writeln('2 egyforma.')
+  Else
+    If a=c Then
+      Writeln('2 egyforma.')
+    Else
+      If b=c Then
+        Writeln('2 egyforma.')
+      Else
+        Writeln('Nincs egyforma.')
+  ;
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+
+Második megoldás
+
+VAR a,b,c:integer;
+BEGIN
+  Write('Adj meg három egész számot: '); Readln(a,b,c);
+  If (a=b) and (b=c) then writeln('3 egyforma.')
+  Else if (a=b) or (a=c) or (b=c) then writeln('2 egyforma.')
+  Else writeln('Nincs egyforma.');
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+
+<a onclick="nyit('11')">
+11. Írj programot, amely kiírja a 0, 5, 10, ..., 100 számokat (ötösével)
+elöltesztelős ciklussal!
+</a>
+<p id="11">VAR a:integer;
+BEGIN
+  a:=0;
+  While a&lt;=100 do begin
+    writeln(a);
+    a:=a+5;
+  End;
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+<a onclick="nyit('12')">
+12. Írj programot, amely kiírja a 0, 5, 10, ..., 100 számokat (ötösével)
+hátultesztelős ciklussal!
+</a>
+<p id="12">VAR a:integer;
+BEGIN
+  a:=0;
+  Repeat
+    writeln(a);
+    a:=a+5;
+  Until a&gt;100;
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+<a onclick="nyit('13')">
+13. Írj programot, amely a következő idétlen játékot játssza a felhasználóval
+mindaddig, amíg az a "nem" szót beírja. A felhasználó által beírt dolgokat 
+vastagítva jelzem.<br><br>
+Írj be egy számot!<br>
+<b>6</b><br>
+7! Nyertem! Még egy játék?<br>
+<b>igen</b><br>
+Írj be egy számot!<br>
+<b>2000</b><br>
+2001! Nyertem! Még egy játék?<br>
+<b>nem</b><br>
+Kösz a játékot!
+</a>
+<p id="13">VAR a:integer;
+    s:string;
+BEGIN
+  Repeat
+    Writeln('Írj be egy számot!');
+    Readln(a);
+    Writeln(a+1,'! Nyertem! Még egy játék?');
+    Readln(s);
+  Until s='nem';
+  Writeln('Kösz a játékot!');
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+<a onclick="nyit('14')">
+14. Írj programot, amely kiszámítja az 1 és 100 közötti egész számok összegét!
+</a>
+<p id="14">VAR a,s:integer;
+BEGIN
+  s:=0;
+  a:=1;
+  While a&lt;=100 do begin
+    s:=s+a;
+    a:=a+1;
+  End;
+  Writeln(s);
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+<a onclick="nyit('15')">
+15. Írj programot, amely megadja az 1 és 1000 közötti, 7-tel osztható
+számok összegét!
+</a>
+<p id="15">VAR a:integer;
+    s:real;
+BEGIN
+  s:=0;
+  a:=7;
+  While a&lt;=1000 do begin
+    s:=s+a;
+    a:=a+7;
+  End;
+  Writeln(s:0:0);
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+<a onclick="nyit('16')">
+16. Írj programot, amely kiszámítja 1,13-nak a 113-adik hatványát (szorzásokkal)!
+</a>
+<p id="16">VAR i:integer;
+    p:real;
+BEGIN
+  p:=1;
+  i:=1;
+  While i&lt;=113 do begin
+    p:=p*1.13;
+    i:=i+1;
+  End;
+  Writeln(p:0:3);
+  Writeln('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+<a onclick="nyit('17')">
+17. Írj programot, amely 10-szer lejátssza a pity-pity-pity-pity-pity jelet!
+</a>
+<p id="17">USES crt,windows;
+VAR x,y:integer;
+BEGIN
+  x:=1;
+  repeat
+    y:=1;
+    repeat
+      beep(1000,100);
+      delay(150);
+      y:=y+1;
+    until y&gt;5;
+    delay(250);
+    x:=x+1;
+  until x&gt;10;
+END.
+</p>
+<a onclick="nyit('18')">
+18. Készíts X-ekből függőleges vonalat a 20. oszlopba!
+</a>
+<p id="18">USES crt;
+VAR y:integer;
+BEGIN
+  For y:=1 to 25 do begin
+    gotoxy(20,y);
+    write('X');
+  End;
+  gotoxy(1,1);
+  Write('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+<a onclick="nyit('19')">
+19. Írasd ki (FOR-ciklussal) 1 és 1000 között a 7-tel osztható,
+páratlan számokat! (Tipp: egyesével számolunk, de csak a feltételnek
+megfelelő számokat írjuk ki.)
+</a>
+<p id="19">VAR a:integer;
+BEGIN
+  for a:=1 to 1000 do
+    if (a mod 7 = 0) and (a mod 2 &gt; 0) then write(a:5);
+  Writeln;
+  Write('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+<a onclick="nyit('20')">
+20. Írasd ki az 5-ös szorzótáblát: 1*5=5, 2*5=10, ..., 10*5=50!
+</a>
+<p id="20">VAR a:integer;
+BEGIN
+  For a:=1 to 10 do
+    writeln(a,'*5=',a*5);
+  Write('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+<a onclick="nyit('21')">
+21. Írasd ki a teljes 10-es szorzótáblát 1*1-től 10*10-ig! (Tipp:
+egymásba ágyazott ciklusok.)
+</a>
+<p id="21">VAR a,b:integer;
+BEGIN
+  For a:=1 to 10 do begin
+    For b:=1 to 10 do 
+      write(a,'*',b,'=',a*b,' ');
+    Writeln;
+  End;
+  Write('Nyomj ENTER-t!'); Readln;
+END.
+</p>
+
+<a onclick="nyit('22')">
+22. Írj rajzolóprogramot, melyet az A, S, D, W billentyűkkel lehet irányítani, 
+és valamilyen karakterrel lehet vele vízszintes és függőleges irányban 
+folytonos vonalat húzni! ESC-re kilép.
+</a>
+<p id="22">USES Crt;
+VAR c:char;
+    x,y:integer;
+BEGIN
+  Clrscr;
+  x:=40; y:=12;
+  Repeat
+    gotoxy(x,y); write('*');
+    c:=readkey;
+    if (c='a') and (x&gt;1) then x:=x-1;
+    if (c='d') and (x&lt;80) then x:=x+1;
+    if (c='w') and (y&gt;1) then y:=y-1;
+    if (c='s') and (y&lt;24) then y:=y+1;
+  Until c=#27;
+END.
+</p>
+<a onclick="nyit('23')">
+23. Írj programot, amely 10x10-es téglalapot rajzol a képernyőre X karakterekből
+(csak az oldalakat)!
+</a>
+<p id="23">USES Crt;
+VAR x:integer;
+BEGIN
+  for x:=1 to 10 do begin
+    gotoxy(1,x); write('X');
+    gotoxy(10,x); write('X');
+    gotoxy(x,1); write('X');
+    gotoxy(x,10); write('X');
+  end;
+  gotoxy(1,12); write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('24')">
+24. Írj programot, amely 10x10-es téglalapot rajzol a képernyőre X karakterekből
+(kitöltve)!
+</a>
+<p id="24">USES Crt;
+VAR x,y:integer;
+BEGIN
+  for x:=1 to 10 do
+    for y:=1 to 10 do begin
+      gotoxy(x,y); write('X');
+    end;
+  gotoxy(1,12); write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('25')">
+25. Írj programot, amely 10x10-es téglalapot rajzol a képernyőre X karakterekből,
+de csak minden második oszlopot rajzol meg (csíkos)!
+</a>
+<p id="25">USES Crt;
+VAR x,y:integer;
+BEGIN
+  for x:=1 to 5 do
+    for y:=1 to 10 do begin
+      gotoxy(2*x,y); write('X');
+    end;
+  gotoxy(1,12); write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('26')">
+26. Írj programot, amely 10x10-es téglalapot rajzol a képernyőre X karakterekből,
+de csak minden második sorba és oszlopba rajzol (ritkás, összesen 25 X)!
+</a>
+<p id="26">USES Crt;
+VAR x,y:integer;
+BEGIN
+  for x:=1 to 5 do
+    for y:=1 to 5 do begin
+      gotoxy(2*x,2*y); write('X');
+    end;
+  gotoxy(1,12); write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('27')">
+27. Írj programot, amely 10x10-es téglalapot rajzol a képernyőre X karakterekből,
+sakktábaszerűen (minden sorban és oszlopban 5 X)!
+</a>
+<p id="27">USES Crt;
+VAR x,y:integer;
+BEGIN
+  for x:=1 to 10 do
+    if x mod 2 = 0 then 
+      for y:=1 to 5 do begin
+        gotoxy(x,y*2); write('X');
+      end
+    else 
+      for y:=1 to 5 do begin
+        gotoxy(x,y*2-1); write('X');
+      end;
+  gotoxy(1,12); write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('28')">
+28. Írj programot, amely 1 és 6 közti véletlenszámokkal feltölt egy tömböt,
+majd kiírja, hány páros szám van benne!
+</a>
+<p id="28">CONST darab=10;
+VAR t:array[1..darab] of integer;
+    i,c:integer;
+BEGIN
+ for i:=1 to darab do t[i]:=random(6)+1;
+ c:=0; 
+ for i:=1 to darab do if t[i] mod 2 = 0 then c:=c+1;
+ writeln(c,' páros szám volt.');
+ write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('29')">
+29. Írj programot, amely 1 és 6 közti véletlenszámokkal feltölt egy tömböt,
+és kiírja a benne lévő páros számok összegét!
+</a>
+<p id="29">CONST darab=10;
+VAR t:array[1..darab] of integer;
+    i,c:integer;
+BEGIN
+ for i:=1 to darab do t[i]:=random(6)+1;
+ c:=0; 
+ for i:=1 to darab do if t[i] mod 2 = 0 then c:=c+t[i];
+ writeln('A páros számok összege: ',c);
+ write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('30')">
+30. Írj programot, amely 1 és 6 közti véletlenszámokkal feltölt egy tömböt,
+majd kiírja a benne lévő páros számokat!
+</a>
+<p id="30">CONST darab=10;
+VAR t:array[1..darab] of integer;
+    i:integer;
+BEGIN
+ for i:=1 to darab do t[i]:=random(6)+1;
+ for i:=1 to darab do if t[i] mod 2 = 0 then writeln(t[i]);
+ write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('31')">
+31. Írj programot, amely 1 és 6 közti véletlenszámokkal feltölt egy tömböt,
+majd kiírja, hány alkalommal követ egy számot vele egyenlő! (Például a
+4 2 4 4 3 2 2 2 6 sorozatnál ez a szám 3.)
+</a>
+<p id="31">CONST darab=10;
+VAR t:array[1..darab] of integer;
+    i,c:integer;
+BEGIN
+ for i:=1 to darab do t[i]:=random(6)+1;
+ c:=0; 
+ for i:=1 to darab-1 do 
+   if t[i]=t[i+1] then c:=c+1;
+ writeln('Ismétlések száma: ',c);
+ write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('32')">
+32. Írj programot, amely bekéri emberek keresztnevét és életkorát,
+majd kiírja a 10 évnél fiatalabbak nevét!
+</a>
+<p id="32">CONST max=10;
+VAR nev:array[1..max] of string;
+    kor:array[1..max] of integer;
+    i,db:integer;
+    s:string;
+BEGIN
+ db:=0;
+ repeat
+   write(db+1,'. ember neve, *=kilépés: '); readln(s);
+   if s&lt;&gt;'*' then begin
+     db:=db+1;
+     nev[db]:=s;
+     write(db,'. ember kora: '); readln(kor[db])
+   end;
+ until (s='*') or (db=max);
+ writeln; writeln('10 évnél fiatalabbak:');
+ for i:=1 to db do
+   if kor[i]&lt;10 then writeln(nev[i]);
+ write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('33')">
+33. Írj programot, amely véletlenszámokkal feltölt egy 5x10-es tömböt, majd
+kiírja, hogy páros vagy páratlan számból volt-e benne több!
+</a>
+<p id="33">VAR t:array [1..5,1..10] of integer;
+    i,j,p:integer;
+BEGIN
+ for i:=1 to 5 do 
+   for j:=1 to 10 do 
+     t[i,j]:=random(9);
+ p:=0;
+ for i:=1 to 5 do
+   for j:=1 to 10 do
+     if t[i,j] mod 2=0 then p:=p+1;
+ if p&gt;25 then writeln('Párosból volt több.')
+ else if p=25 then writeln('Ugyanannyi páros és páratlan volt.')
+ else writeln('Több páratlan volt.');
+ write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('34')">
+34. Írj programot, amely véletlenszámokkal feltölt egy 5x10-es tömböt, majd
+kiírja az egyes sorokban szereplő számok összegét (röviden, a sorösszegeket)!
+</a>
+<p id="34">VAR t:array [1..5,1..10] of integer;
+    i,j,s:integer;
+BEGIN
+ for i:=1 to 5 do 
+   for j:=1 to 10 do 
+     t[i,j]:=random(9);
+ for j:=1 to 10 do begin
+   s:=0;
+   for i:=1 to 5 do s:=s+t[i,j];
+   writeln(j:2,'. sorösszeg=',s);
+ end;
+ write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('35')">
+35. Írj programot, amely egy 5x10-es tömb "szélső" elemeit 1-re, a többit
+0-ra állítja!
+</a>
+<p id="35">VAR t:array[1..5,1..10] of integer;
+    i,j:integer;
+BEGIN
+ for i:=1 to 5 do 
+   for j:=1 to 10 do
+     if (i=1) or (i=5) or (j=1) or (j=10) then t[i,j]:=1
+     else t[i,j]:=0;
+END.
+</p>
+<a onclick="nyit('36')">
+36. Írj programot, amely egy 15-elemű tömb elemeit a következőképpen állítja elő:
+az első két elem értéke 1, a harmadiké 2, a további elemek pedig mindig az
+őket megelőző három elem összegeként állnak elő. Írasd is ki az elemeket!
+</a>
+<p id="36">VAR t:array[1..15] of integer;
+    i:integer;
+BEGIN
+ t[1]:=1; t[2]:=1; t[3]:=2;
+ for i:=4 to 15 do t[i]:=t[i-1]+t[i-2]+t[i-3];
+ for i:=1 to 15 do writeln(t[i]);
+ write('Nyomj ENTER-t!'); readln;
+END.
+</p>
+<a onclick="nyit('37')">
+37. Írj programot, amely egy 10-elemű tömböt feltölt 0 és 9 közötti 
+véletlenszámokkal, majd az 5-nél nagyobbakat átrakja egy másik tömbbe!
+</a>
+<p id="37">VAR f,g:array[1..10] of integer;
+    i,db:integer;
+BEGIN
+ for i:=1 to 10 do f[i]:=random(10);
+ db:=0;
+ for i:=1 to 10 do
+   if f[i]&gt;5 then begin
+     db:=db+1;
+     g[db]:=f[i];
+   end;
+END.
+</p>
+<a onclick="nyit('38')">
+38. Írj programot, amely egy 10-elemű tömböt feltölt 0 és 9 közötti 
+véletlenszámokkal, majd megfordítja a számok sorrendjét!
+</a>
+<p id="38">VAR t:array[1..10] of integer;
+    i,m:integer;
+BEGIN
+ for i:=1 to 10 do t[i]:=random(10);
+ for i:=1 to 5 do begin
+   m:=t[i];
+   t[i]:=t[11-i];
+   t[11-i]:=m;
+ end;
+END.
+</p>
+
+</body></html>

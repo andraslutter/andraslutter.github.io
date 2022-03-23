@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>4. Alapfogalmak: kifejez&eacute;s, t&iacute;pus, deklar&aacute;ci&oacute;,
+utas&iacute;t&aacute;s, param&eacute;ter</FONT></U></P>
+
+<P><B>Kifejez&eacute;s</B>nek nevezz&uuml;k mindazt, aminek a programban
+kisz&aacute;m&iacute;that&oacute; &eacute;rt&eacute;ke van. P&eacute;ld&aacute;k:</P>
+
+<TABLE>
+<TR>
+<TD><U>Kifejez&eacute;s<BR>
+</U><TT>3+4<BR>
+'Trallala'<BR>
+5&gt;9<BR>
+A+2<BR>
+SQR(5)</TT></TD>
+
+<TD>&nbsp;&nbsp;<U>&eacute;rt&eacute;ke<BR>
+</U><TT>&nbsp;7<BR>
+&nbsp;az id&eacute;z&otilde;jelben l&eacute;v&otilde; sz&ouml;veg<BR>
+&nbsp;logikai kifejez&eacute;s, &eacute;rt&eacute;ke hamis<BR>
+&nbsp;&eacute;rt&eacute;ke att&oacute;l f&uuml;gg, mennyi az A<BR>
+&nbsp;25 (az 5 n&eacute;gyzete)</TT></TD>
+</TR>
+</TABLE>
+
+<P>A kifejez&eacute;sben a k&ouml;vetkez&otilde;k szerepelhetnek:</P>
+
+<UL>
+<LI>konstansok <FONT SIZE=-1>(sz&aacute;mok &eacute;s id&eacute;z&otilde;jelbe
+tett sz&ouml;vegek)</FONT></LI>
+
+<LI>m&ucirc;veletek <FONT SIZE=-1>(matematikai (pl. +), logikai (pl. &lt;))</FONT></LI>
+
+<LI>v&aacute;ltoz&oacute;k <FONT SIZE=-1>(mint az el&otilde;bbi p&eacute;ld&aacute;ban
+A, &eacute;rt&eacute;k&uuml;k v&aacute;ltozhat)</FONT></LI>
+
+<LI>f&uuml;ggv&eacute;nyek <FONT SIZE=-1>(mint az el&otilde;z&otilde; p&eacute;ld&aacute;ban
+SQR)</FONT></LI>
+
+<LI>z&aacute;r&oacute;jelek <FONT SIZE=-1>(a m&ucirc;veletek sorrendj&eacute;nek
+m&oacute;dos&iacute;t&aacute;sa v&eacute;gett)</FONT></LI>
+</UL>
+
+<P>Ha a program fut&aacute;sa k&ouml;zben kifejez&eacute;ssel tal&aacute;lkozik,
+kisz&aacute;m&iacute;tja az &eacute;rt&eacute;k&eacute;t, &eacute;s azt
+haszn&aacute;lja (ez a <B>kifejez&eacute;s ki&eacute;rt&eacute;kel&eacute;se</B>).</P>
+
+<P>A kifejez&eacute;seknek is van t&iacute;pusa. A <B>t&iacute;pus</B>
+meghat&aacute;rozza, hogy valami milyen &eacute;rt&eacute;keket vehet fel,
+&eacute;s milyen m&ucirc;veletek v&eacute;gezhet&otilde;k vele. A Pascal
+n&eacute;h&aacute;ny alapt&iacute;pusa (r&eacute;szletesebben k&eacute;s&otilde;bb):</P>
+
+<TABLE>
+<TR>
+<TD VALIGN=TOP><U>t&iacute;pus<BR>
+</U>INTEGER<BR>
+REAL<BR>
+BOOLEAN&nbsp;<BR>
+STRING<BR>
+CHAR</TD>
+
+<TD VALIGN=TOP><U>&eacute;rt&eacute;kek<BR>
+</U>eg&eacute;sz sz&aacute;mok -32768-t&oacute;l 32767-ig<BR>
+t&ouml;rtsz&aacute;mok<BR>
+logikai &eacute;rt&eacute;kek (TRUE vagy FALSE)&nbsp;<BR>
+sz&ouml;vegek<BR>
+egy karakter</TD>
+
+<TD VALIGN=TOP><U>m&ucirc;veletek<BR>
+</U>+,-,*, MOD, DIV<BR>
++,-,*,/<BR>
+AND, OR, NOT, XOR<BR>
++ (k&eacute;t sz&ouml;veg &ouml;sszef&ucirc;z&eacute;se)<BR>
+</TD>
+</TR>
+</TABLE>
+
+<P>Kifejez&eacute;sek &ouml;sszehasonl&iacute;t&aacute;s&aacute;ra haszn&aacute;lhatjuk
+a &lt;, &gt;, =, &lt;=, &gt;=, &lt;&gt; m&ucirc;veleteket, melyek logikai
+&eacute;rt&eacute;ket adnak eredm&eacute;ny&uuml;l.</P>
+
+<P>Egyes t&iacute;pusokn&aacute;l &eacute;rtelmezett a r&aacute;k&ouml;vetkez&otilde;
+(SUCC) &eacute;s megel&otilde;z&otilde; (PRED) f&uuml;ggv&eacute;ny. Ezeket
+<B>diszkr&eacute;t t&iacute;pusok</B>nak h&iacute;vjuk, ilyenek a CHAR,
+INTEGER, BOOLEAN. Nem ilyen a REAL &eacute;s a STRING. P&eacute;ld&aacute;ul
+a SUCC('X') f&uuml;ggv&eacute;ny &eacute;rt&eacute;ke 'Y', PRED(52) &eacute;rt&eacute;ke
+51. Az ORD(kif.) f&uuml;ggv&eacute;ny a diszkr&eacute;t kifejez&eacute;s
+sorsz&aacute;m&aacute;t adja meg (pl. ORD('A')=65, ORD('B')=66...) </P>
+
+<P>A programban haszn&aacute;lhatunk <B>azonos&iacute;t&oacute;</B>kat.
+Ezeknek tetsz&otilde;leges nevet adhatunk (de a n&eacute;vben nem lehet
+sz&oacute;k&ouml;z &eacute;s speci&aacute;lis jel, valamint nem egyezhet
+meg a Pascal alapszavaival). Ha a programban valahol felhaszn&aacute;lunk
+egy azonos&iacute;t&oacute;t, azt m&aacute;r a felhaszn&aacute;l&aacute;s
+el&otilde;tt deklar&aacute;lni kell. A <B>deklar&aacute;ci&oacute;</B>
+azt jelenti, hogy megadjuk a ford&iacute;t&oacute;nak, mit jelent az azonos&iacute;t&oacute;.</P>
+
+<P>A programban deklar&aacute;ci&oacute;kon &eacute;s kifejez&eacute;seken
+k&iacute;v&uuml;l szerepelhet <B>utas&iacute;t&aacute;</B>s. V&eacute;g&uuml;l
+is az utas&iacute;t&aacute;s v&eacute;grehajt&aacute;sakor csin&aacute;l
+valamit a program. Az utas&iacute;t&aacute;s azonos&iacute;t&oacute;ja
+ut&aacute;n z&aacute;r&oacute;jelben kell megadni, hogy az utas&iacute;t&aacute;s
+mire vonatkozz&eacute;k. Ez az utas&iacute;t&aacute;s param&eacute;tere.</P>
+
+<CENTER><P><A HREF="f5.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f3.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

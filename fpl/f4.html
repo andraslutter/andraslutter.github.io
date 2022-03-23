@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - változók</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			4. fejezet: Változók
+		</h1>
+    <p>A program futása közben a memóriában adatokat tud tárolni, <strong>változó</strong>k segítségével. Egy változónak van neve, típusa és értéke. Az értékét lehet változtatni. A programban a változó neve is egy azonosító.</p>
+    <h2>Változók deklarációja és használata</h2>
+    <p>Nézzük meg a következő programot! (A weboldalról a Vágólap segítségével be tudod másolni a kódot a projektedbe, nem kell begépelni!)</p>
+<pre>
+Var a,b:integer;
+    c:real;
+BEGIN
+ a:=5;
+ b:=3;
+ c:=a/b;
+ writeln(a,'/',b,'=',c:5:3);
+ a:=a+1;
+ writeln(a);
+ readln;
+END.
+</pre>
+    <p>Először is, figyeld meg a programban a behúzások használatát. Amikor elkezdünk valamit, az alatta lévő sorokat beljebb kezdjük (szóköz segítségével). Ennek szerepe a forrás áttekinthetőségének javítása. Bár a fordítónak mindegy (a szóközökkel, sorvégekkel nem foglalkozik), nekünk nagyon fontos, hogy kiigazodjunk egy hosszabb kódban.</p>
+    <p>A programot kezdő <code>begin</code> előtt találjuk a <strong>deklarációs rész</strong>t. <strong>Deklaráció</strong> az, amikor egy új azonosítót mutatunk be a fordítónak. Ennek hiányában az <code>a:=5</code> utasításra "ismeretlen azonosító" hibajelzéssel leállna a fordítás.<br />
+    A deklarációs részben a <code>var</code> vezeti be a változók deklarálását. Ebben szerepel a változók neve és típusa. A Pascal ilyenkor <strong>statikus memóriakezelés</strong>t alkalmaz, vagyis a változóknak előre lefoglalja a megfelelő memóriaterületet.</p>
+    <p>A változóknak értéket a <code>:=</code> (legyen egyenlő) utasítással adunk. Baloldalt a változó, jobboldalt egy kifejezés van. Így az a:=a+1 eggyel nagyobb értéket tárol az a változóban, mint ami előtte volt – tehát megnöveli eggyel a változóban tárolt számot.</p>
+    <h2>Változók értékének beolvasása</h2>
+    <p>A fenti program csak egyféle eredményt ír ki. Most próbáld ki a következő programot:</p>
+<pre>
+VAR a,b:integer;
+BEGIN
+  Write('Add meg az egyik számot: '); Readln(a);
+  Write(' Add meg a másik számot: '); Readln(b);
+  Writeln('A két szám összege: ',a+b);
+END.  
+</pre>
+    <p>A <code>readln</code> utasításnak paraméterként most egy változót adtunk át. Ilyenkor a <code>readln</code> addig várakozik, míg begépelünk egy értéket és entert nyomunk, ekkor az értéket eltárolja a változóba. Így tehát a felhasználó a program futása közben tudja megadni a változók értékét.<br />
+    A kiírásra azért van szükség a beolvasás előtt, hogy a felhasználó tudja, mit vár tőle a program: egyébként csak üres képernyőt látna.</p>
+
+    <p>
+      <a href="f3.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="f5.html">Következő</a>
+    </p>
+
+
+    <h2>Feladatok</h2>
+    <p>2. Írj programot, amely beolvassa egy derékszögű háromszög befogóinak hosszát, és kiírja az átfogó hosszát!</p>
+    <p><a href="fm.html#mo2">megoldás</a></p>
+    <p>3. Írj programot, amely beolvassa egy téglatest oldalainak hosszát, és kiírja a téglatest felszínét és térfogatát!</p>
+    <p><a href="fm.html#mo3">megoldás</a></p>
+    <p>4. Írj programot, amely beolvassa a felhasználó nevét, és névre szólóan üdvözli!</p>
+    <p><a href="fm.html#mo4">megoldás</a></p>
+    <p>5. Írj programot, amely beolvas 3 számot, majd kiírja, teljesül-e, hogy a középső szám nagyobb a két szélsőnél (true/false formában)!</p>
+    <p><a href="fm.html#mo5">megoldás</a></p>
+  </div>
+</body>
+</html>

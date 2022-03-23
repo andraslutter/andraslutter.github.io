@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>8. Adatszerkezetek &eacute;s t&iacute;pusok</FONT></U></P>
+
+<P>Sok feladatot k&eacute;nyelmetlen (s&otilde;t, lehetetlen) egyedi v&aacute;ltoz&oacute;kkal
+megoldanunk. Gondoljunk egy n&eacute;vsor t&aacute;rol&aacute;s&aacute;ra:<BR>
+<TT>readln(a); readln(b); readln(c); readln(d); ........</TT></P>
+
+<P>Sz&uuml;ks&eacute;g&uuml;nk van olyan adatt&iacute;pusra, amelyben t&ouml;bb
+egyedi adatot lehet egyszerre t&aacute;rolni. Az eddig megismert t&iacute;pusok
+<B>elemi t&iacute;pusok</B> voltak. Elemi t&iacute;pusokb&oacute;l adatszerkezeteket,
+<B>&ouml;sszetett t&iacute;pusok</B>at &eacute;p&iacute;thet&uuml;nk. Ilyen
+&ouml;sszetett t&iacute;pus a t&ouml;mb &eacute;s a rekord. &Ouml;sszetett
+t&iacute;pusn&aacute;l jellegzetes &uacute;j m&ucirc;velet a benne l&eacute;v&otilde;
+egyedi t&iacute;pusokhoz val&oacute; hozz&aacute;f&eacute;r&eacute;s.</P>
+
+<P>A <B>t&ouml;mb</B> t&iacute;pus&aacute;t a deklar&aacute;ci&oacute;ban
+a k&ouml;vetkez&otilde;k&eacute;ppen kell jel&ouml;lni:</P>
+
+<UL>
+<LI><TT>ARRAY [indexhat&aacute;rok] OF alapt&iacute;pus</TT></LI>
+</UL>
+
+<P>P&eacute;d&aacute;ul elhelyezhet&uuml;nk egy ilyen v&aacute;ltoz&oacute;deklar&aacute;ci&oacute;t:</P>
+
+<P><TT>VAR t:Array [1..10] of string;</TT></P>
+
+<P>Ennek hat&aacute;s&aacute;ra a Pascal l&eacute;trehoz egy 10-elem&ucirc;,
+stringekb&otilde;l &aacute;ll&oacute; t&ouml;mb&ouml;t. Ebben a t&ouml;mbben
+t&aacute;rolhatunk pl. egy 10 n&eacute;vb&otilde;l &aacute;ll&oacute; n&eacute;vsort.
+Ehhez sz&uuml;ks&eacute;g&uuml;nk van a t&ouml;mb egyes elemeinek kiv&aacute;laszt&aacute;s&aacute;ra.
+Ez a t&ouml;mb <B>indexel&eacute;se</B>: a t&ouml;mb neve ut&aacute;n sz&ouml;gletes
+z&aacute;r&oacute;jelben meg kell adni a megfelel&otilde; egyedi elem <B>index</B>&eacute;t
+<TT>t&ouml;mbn&eacute;v[index]</TT> m&oacute;don. A t&ouml;mb &iacute;gy
+a k&ouml;vetkez&otilde; elemekb&otilde;l &aacute;ll: <TT>t[1], t[2], ...,
+t[10]</TT>.</P>
+
+<P><TT>For i:=1 to 10 do begin<BR>
+&nbsp;&nbsp;&nbsp;Write('Add meg a(z) ',i,'. nevet:'); Readln(t[i]);<BR>
+End;</TT></P>
+
+<P>L&aacute;that&oacute;, hogy a t&ouml;mb egyes elemeivel pontosan &uacute;gy
+lehet b&aacute;nni, mintha alapt&iacute;pus (a p&eacute;ld&aacute;ban string)
+t&iacute;pus&uacute; v&aacute;ltoz&oacute;k lenn&eacute;nek. Csak &eacute;ppen
+ahelyett, hogy 10 string t&iacute;pus&uacute; v&aacute;ltoz&oacute;t kellene
+kezeln&uuml;nk, egy ciklussal fel tudjuk dolgozni a t&ouml;mb &ouml;sszes
+elem&eacute;t. A t&ouml;mb&ouml;k feldolgoz&aacute;sa t&ouml;bbnyire ciklussal
+t&ouml;rt&eacute;nik.</P>
+
+<P>A t&ouml;mbindex csak diszkr&eacute;t t&iacute;pus&uacute; kifejez&eacute;s
+lehet, az indexhat&aacute;rok pedig diszkr&eacute;t t&iacute;pus r&eacute;szei:
+ezen bel&uuml;l viszont ak&aacute;rmi. Teh&aacute;t deklar&aacute;lhatunk
+t&ouml;mb&ouml;ket &iacute;gy is:</P>
+
+<P><TT>Var a:array['a'..'z'] of integer;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;b:array[100...110] of real;</TT></P>
+
+<P>Haszn&aacute;lhatunk t&ouml;bbdimenzi&oacute;s t&ouml;mb&ouml;ket is,
+ezek t&ouml;bb indexszel kiv&aacute;laszthat&oacute; elemekb&otilde;l &aacute;llnak.
+T&ouml;bbdimenzi&oacute;s t&ouml;mb&ouml;ket egym&aacute;sba skatuly&aacute;zott
+ciklusokkal dolgozunk fel, mint a k&ouml;vetkez&otilde; p&eacute;lda 10-szer
+10-es (&ouml;sszesen 100 elem&ucirc;) szorz&oacute;t&aacute;bl&aacute;j&aacute;nak
+el&otilde;&aacute;ll&iacute;t&aacute;s&aacute;n&aacute;l:</P>
+
+<P><TT>Var t:Array[1..10,1..10] of integer;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;i,j:integer;<BR>
+Begin<BR>
+&nbsp;For i:=1 to 10 do<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;For j:=1 to 10 do<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t[i,j]:=i*j;<BR>
+End.</TT></P>
+
+<P>A rekord adatt&iacute;pus mez&otilde;kb&otilde;l &aacute;ll, melyek
+egyedi v&aacute;ltoz&oacute;k&eacute;nt kezelhet&otilde;k. Deklar&aacute;ci&oacute;ja:</P>
+
+<UL>
+<LI><TT>RECORD</TT></LI>
+
+<LI><TT>&nbsp;&nbsp;&nbsp;mez&otilde;n&eacute;v:t&iacute;pus;</TT></LI>
+
+<LI><TT>&nbsp;&nbsp;&nbsp;mez&otilde;n&eacute;v:t&iacute;pus;</TT></LI>
+
+<LI><TT>&nbsp;&nbsp;&nbsp;...</TT></LI>
+
+<LI><TT>END</TT></LI>
+</UL>
+
+<P>P&eacute;ld&aacute;ul k&eacute;sz&iacute;thet&uuml;nk egy Ember nev&ucirc;
+v&aacute;ltoz&oacute;t a k&ouml;vetkez&otilde;k&eacute;ppen:</P>
+
+<P><TT>VAR ember:Record<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nev:string;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;szul:integer;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;suly:real;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;End;</TT></P>
+
+<P>A rekord egyes mez&otilde;it rekordn&eacute;v.mez&otilde;n&eacute;v
+form&aacute;ban v&aacute;laszthatjuk ki. P&eacute;ld&aacute;ul a k&ouml;vetkez&otilde;k&eacute;ppen
+adhatunk &eacute;rt&eacute;ket a rekordnak:</P>
+
+<P><TT>ember.nev:='Kov&aacute;cs J&aacute;nos'; ember.szul:=1952; ember.suly:=73.5;</TT></P>
+
+<P>A fenti t&iacute;pus&uacute; m&ucirc;veletek neh&eacute;zkesek. Ha t&ouml;bb
+utas&iacute;t&aacute;s ugyanarra a rekordra vonatkozik, haszn&aacute;lhatjuk
+a k&ouml;vetkez&otilde; szerkezetet:</P>
+
+<UL>
+<LI><TT>WITH rekordn&eacute;v DO utas&iacute;t&aacute;s</TT></LI>
+</UL>
+
+<P>Ekkor az utas&iacute;t&aacute;sban szerepl&otilde; mez&otilde;nevek
+automatikusan a megadott rekordra fognak vonatkozni. T&ouml;bb utas&iacute;t&aacute;shoz
+&ouml;sszetett utas&iacute;t&aacute;st kell haszn&aacute;lnunk. P&eacute;lda:</P>
+
+<P><TT>With ember Do Begin<BR>
+&nbsp;&nbsp;&nbsp;nev:='Kov&aacute;cs J&aacute;nos';<BR>
+&nbsp;&nbsp;&nbsp;szul:=1952;<BR>
+&nbsp;&nbsp;&nbsp;suly:=73.5;<BR>
+End;</TT></P>
+
+<P>A rekordok f&otilde; szerepe az, hogy &aacute;ttekinthet&otilde;bb&eacute;
+teszik a programot. A legt&ouml;bb feladatot meg lehet oldani rekordok
+haszn&aacute;lata n&eacute;lk&uuml;l.</P>
+
+<CENTER><P><A HREF="f9.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f7.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

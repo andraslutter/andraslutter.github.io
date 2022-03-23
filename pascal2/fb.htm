@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>B. f&uuml;ggel&eacute;k: a rekurzi&oacute;</FONT></U></P>
+
+<P><B>Rekurzi&oacute;</B> az, amikor egy elj&aacute;r&aacute;s vagy f&uuml;ggv&eacute;ny
+- k&ouml;zvetve vagy k&ouml;zvetlen&uuml;l - &ouml;nmag&aacute;t h&iacute;vja.
+Az ilyen elj&aacute;r&aacute;sok &eacute;s f&uuml;ggv&eacute;nyek <B>rekurz&iacute;v</B>ak.
+A v&eacute;gtelen rekurzi&oacute; elker&uuml;l&eacute;s&eacute;re sz&uuml;ks&eacute;g&uuml;nk
+van egy felt&eacute;telre, amely valamilyen l&eacute;p&eacute;ssz&aacute;m
+ut&aacute;n le&aacute;ll&iacute;tja a rekurzi&oacute;t. A k&ouml;vetkez&otilde;
+elj&aacute;r&aacute;s ciklus helyett rekurzi&oacute;t alkalmaz adott sz&aacute;m&uacute;
+* kiraj zol&aacute;s&aacute;ra.</P>
+
+<P><TT>Procedure Csillagok(mennyi:integer);<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;If mennyi&gt;0 then begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write('*');<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Csillagok(mennyi-1);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end;<BR>
+&nbsp;End;</TT></P>
+
+<P>Az elv: adott sz&aacute;m&uacute; csillagot &uacute;gy rajzolunk, hogy
+kirajzolunk egy csillagot, majd kirajzoljuk a marad&eacute;kot. <TT>mennyi</TT>
+param&eacute;ter azt jelzi, hogy h&aacute;ny csillagot kell m&eacute;g
+kirajzolni. A feladatot (sok csillag) &iacute;gy visszavezett&uuml;k egy
+egyszer&ucirc;bb feladatra (egy csillag).</P>
+
+<P>A matematik&aacute;ban tal&aacute;lkozhatunk rekurz&iacute;v defin&iacute;ci&oacute;kkal.
+&Iacute;gy pl. 0! (nulla faktori&aacute;lis) &eacute;rt&eacute;ke 1, n!
+pedig n&middot;(n-1)!. Teh&aacute;t egy sz&aacute;m faktori&aacute;lis&aacute;t
+&uacute;gy sz&aacute;m&iacute;tjuk ki, hogy kisz&aacute;m&iacute;tjuk a
+n&aacute;la eggyel kisebb sz&aacute;m faktori&aacute;lis&aacute;t (egyszer&ucirc;bb
+feladat!), &eacute;s megszorozzuk a sz&aacute;mmal. A rekurzi&oacute; v&eacute;get
+&eacute;r, ha eljutunk a 0-hoz.</P>
+
+<P><TT>Function Fakt(n:integer);<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;If n&gt;0 then Fakt:=n*Fakt(n-1)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else
+Fakt:=1;<BR>
+&nbsp;End;</TT></P>
+
+<P>A rekurz&iacute;v elj&aacute;r&aacute;sok ig&eacute;nybe veszik a stack-et.
+A m&aacute;sodik p&eacute;ld&aacute;ban a f&uuml;ggv&eacute;ny param&eacute;tere
+minden egyes f&uuml;ggv&eacute;nyh&iacute;v&aacute;skor elt&aacute;rol&aacute;sra
+ker&uuml;l, s a h&iacute;vott f&uuml;ggv&eacute;ny saj&aacute;t v&aacute;ltoz&oacute;k&eacute;nt
+&uacute;jb&oacute;l l&eacute;trehozza. Mire sorozatos f&uuml;ggv&eacute;nyh&iacute;v&aacute;sokkal
+eljutunk a 0-hoz, a veremben ott sorakoznak az elt&aacute;rolt param&eacute;terek:Fakt(5)-n&eacute;l
+5, 4, 3, 2, 1. Ebb&otilde;l is l&aacute;tszik, hogy mem&oacute;riafoglal&aacute;s,
+s&otilde;t, olykor sebess&eacute;g szempontj&aacute;b&oacute;l a rekurzi&oacute;
+nem hat&eacute;kony, viszont egyes feladatokat rekurz&iacute;v szeml&eacute;lettel
+nagyon k&ouml;nny&ucirc; megoldani (ne a programoz&oacute; dolgozzon, hanem
+a g&eacute;p!).</P>
+
+<P>A k&ouml;zvetett rekurzi&oacute; al&aacute;bbi megval&oacute;s&iacute;t&aacute;sa
+hib&aacute;s:</P>
+
+<P><TT>Procedure Egyik(n:integer);<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Masik(n-1);<BR>
+&nbsp;End;<BR>
+<BR>
+Procedure Masik(n:integer);<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;If n&gt;0 then&nbsp;begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln(n);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Egyik(n-1);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end;<BR>
+&nbsp;End;</TT></P>
+
+<P>Az <TT>Egyik</TT> elj&aacute;r&aacute;s ford&iacute;t&aacute;sakor a
+<TT>Masik</TT> elj&aacute;r&aacute;s m&eacute;g nincs deklar&aacute;lva,
+&eacute;s ez ford&iacute;t&aacute;si hib&aacute;hoz vezet. A megold&aacute;s
+a k&ouml;vetkez&otilde;. Az <TT>Egyik</TT> elj&aacute;r&aacute;s deklar&aacute;l&aacute;sa
+el&eacute; be kell &iacute;rni:</P>
+
+<P><TT>Procedure Masik(n:integer); forward;<BR>
+<BR>
+</TT>A <TT>forward</TT> sz&oacute; jelzi a ford&iacute;t&oacute;nak, hogy
+a megadott elj&aacute;r&aacute;s k&eacute;s&otilde;bb ker&uuml;l deklar&aacute;l&aacute;sra,
+&eacute;s itt csak az elj&aacute;r&aacute;s fej&eacute;t kell megadni.</P>
+
+<P><U>Rekurz&iacute;v adatszerkezetek</U></P>
+
+<P>A dinamikus mem&oacute;riakezel&eacute;sre &eacute;s a Type deklar&aacute;ci&oacute;
+rekurz&iacute;v haszn&aacute;lat&aacute;ra mutat p&eacute;ld&aacute;t a
+k&ouml;vetkez&otilde; program. Az itt megval&oacute;s&iacute;tott adatszerkezet
+neve <B>lista</B>. Minden eleme tartalmaz egy adatot (hiszen a lista feladata
+a t&ouml;mbh&ouml;z hasonl&oacute;an adatt&aacute;rol&aacute;s), &eacute;s
+egy mutat&oacute;t, amely megmutatja, hogy a k&ouml;vetkez&otilde; listaelem
+hol van a mem&oacute;ri&aacute;ban.</P>
+
+<P><TT>TYPE listamutato=^listaelem;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;listaelem=record<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;adat:integer;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mutato:listamutato;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end;</TT></P>
+
+<P>A TYPE, mint l&aacute;that&oacute;, felismeri a k&ouml;zvetett rekurzi&oacute;t.
+A tov&aacute;bbiakban sz&uuml;ks&eacute;g&uuml;nk van egy pointerre, amely
+megmutatja a lista els&otilde; elem&eacute;nek hely&eacute;t a mem&oacute;ri&aacute;ban,
+&eacute;s egy m&aacute;sikra, amely a lista aktu&aacute;lis elem&eacute;re
+mutat.</P>
+
+<P><TT>VAR fej,p:listamutato;</TT></P>
+
+<P>A k&ouml;vetkez&otilde; p&eacute;ldaprogram l&eacute;trehoz egy h&aacute;romelem&ucirc;
+list&aacute;t.</P>
+
+<P><TT>BEGIN<BR>
+&nbsp;New(fej);<BR>
+&nbsp;fej^.adat=567;</TT></P>
+
+<P>A mem&oacute;ri&aacute;ban l&eacute;trej&ouml;tt egy rekord, melyre
+a<TT> fej</TT> pointer mutat. Maga a rekord el&eacute;rhet&otilde; mint
+<TT>fej^</TT>. A rekord <TT>.adat</TT> mez&otilde;je egy integer v&aacute;ltoz&oacute;,
+a <TT>.mutato</TT> mez&otilde;je viszont egy pointer, mely a lista k&ouml;vetkez&otilde;
+elem&eacute;re mutat (most m&eacute;g nem mutat sehov&aacute;).</P>
+
+<P><TT>&nbsp;New(fej^.mutato);</TT></P>
+
+<P>Itt hoztuk l&eacute;tre a lista m&aacute;sodik elem&eacute;t, melyre
+<TT>fej^.mutato</TT> mutat. Hogy &aacute;ttekinthet&otilde;bb legyen, bevezetj&uuml;k
+a <TT>p</TT> mutat&oacute;t ehelyett (b&aacute;r haszn&aacute;lhatn&aacute;nk
+ak&aacute;r a <TT>((fej^.mutato)^.mutato)^.adat</TT> form&aacute;t is).</P>
+
+<P><TT>&nbsp;p:=fej^.mutato;<BR>
+&nbsp;p^.adat:=1288;<BR>
+&nbsp;New(p^.mutato);<BR>
+&nbsp;p:=p^.mutato;<BR>
+&nbsp;p^.adat:=17;<BR>
+&nbsp;p^.mutato:=NIL;<BR>
+END.</TT></P>
+
+<P>Hogyan lehet felszabad&iacute;tani a mem&oacute;ri&aacute;t? V&eacute;gig
+kell l&eacute;pegetni a list&aacute;n a fej&eacute;t&otilde;l kezdve. Vigy&aacute;zat,
+m&eacute;g a p &aacute;ltal mutatott rekord megsemmis&iacute;t&eacute;se
+el&otilde;tt el kell t&aacute;rolni, hov&aacute; mutat a t&ouml;rlend&otilde;
+listaelem!</P>
+
+<P><TT>p:=fej;<BR>
+while p&lt;&gt;NIL do begin<BR>
+&nbsp;&nbsp;&nbsp;q:=p^.mutato;<BR>
+&nbsp;&nbsp;&nbsp;Dispose(p);<BR>
+&nbsp;&nbsp;&nbsp;p:=q;<BR>
+end;</TT></P>
+
+<P>Term&eacute;szetesen a legeleg&aacute;nsabb a rekurz&iacute;v megold&aacute;s,
+h&iacute;v&aacute;sa: <TT>Felszabadit(fej)</TT></P>
+
+<P><TT>Procedure Felszabadit(p:listamutato);<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;If p&lt;&gt;NIL then begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Felszabadit(p^.mutato);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dispose(p);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;End;<BR>
+END;</TT></P>
+
+<P>(Ez az elj&aacute;r&aacute;s h&aacute;tulr&oacute;l visszafel&eacute;
+szabad&iacute;tja fel a list&aacute;t, legutolj&aacute;ra a fejrekordot
+t&ouml;rli.)</P>
+
+<P>Ha a fentieket meg&eacute;rtetted, elmondhatod magadr&oacute;l, hogy
+kony&iacute;tasz valamicsk&eacute;t a programoz&aacute;shoz. Ha nem, ne
+szomorkodj: a B f&uuml;ggel&eacute;k csak a teljess&eacute;g kedv&eacute;&eacute;rt
+ker&uuml;lt a f&uuml;zetbe, &eacute;s en&eacute;lk&uuml;l is ugyanolyan
+j&oacute; programokat &iacute;rhatsz. Mert most m&aacute;r nincs m&aacute;s
+h&aacute;tra: v&aacute;lassz egy feladatot, fogj neki, &eacute;s &iacute;rj
+r&aacute; programot! Sok sikert.</P>
+
+<CENTER><P><A HREF="fa.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

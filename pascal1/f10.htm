@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>10. Elj&aacute;r&aacute;sok &eacute;s f&uuml;ggv&eacute;nyek</FONT></U></P>
+
+<P><U>Elj&aacute;r&aacute;sok &eacute;s param&eacute;terek</U></P>
+
+<P>Nagyobb feladatot c&eacute;lszer&ucirc; (m&aacute;r algoritmus-szinten
+is) l&eacute;p&eacute;sekre bontani. Tov&aacute;bb&aacute;, vannak olyan
+tev&eacute;kenys&eacute;gek, melyeket a programban t&ouml;bb helyen is
+el kell v&eacute;gezni. Ilyen lehet a figyelmeztet&otilde; s&iacute;pol&aacute;s:</P>
+
+<P><TT>sound(880); delay(50); nosound;</TT></P>
+
+<P>Az ilyen r&eacute;sz-tev&eacute;kenys&eacute;geket k&uuml;l&ouml;n egys&eacute;gbe
+foglalhatjuk, ezek neve alprogram (subroutine) avagy elj&aacute;r&aacute;s
+(procedure). Az elj&aacute;r&aacute;soknak azonos&iacute;t&oacute;juk van,
+&eacute;s a deklar&aacute;ci&oacute;s r&eacute;szben adjuk meg &otilde;ket
+a k&ouml;vetkez&otilde;k&eacute;ppen:</P>
+
+<UL>
+<LI><TT>PROCEDURE elj&aacute;r&aacute;sn&eacute;v(param&eacute;terlista);</TT></LI>
+
+<LI><TT>&nbsp;az elj&aacute;r&aacute;s saj&aacute;t deklar&aacute;ci&oacute;s
+r&eacute;sze</TT></LI>
+
+<LI><TT>&nbsp;Begin</TT></LI>
+
+<LI><TT>&nbsp;&nbsp;&nbsp;&nbsp;az elj&aacute;r&aacute;s utas&iacute;t&aacute;sai
+</TT><FONT SIZE=-1>{m&aacute;s n&eacute;ven az elj&aacute;r&aacute;s t&ouml;rzse}</FONT></LI>
+
+<LI><TT>&nbsp;End;</TT></LI>
+</UL>
+
+<P>Mint l&aacute;that&oacute;, a saj&aacute;t deklar&aacute;ci&oacute;s
+r&eacute;sz miatt az elj&aacute;r&aacute;s val&oacute;ban &ouml;n&aacute;ll&oacute;
+programk&eacute;nt viselkedhet. A saj&aacute;t deklar&aacute;ci&oacute;s
+r&eacute;szben nem szerepelhet a Program &eacute;s a Uses utas&iacute;t&aacute;s.
+P&eacute;lda a s&iacute;pol&oacute; elj&aacute;r&aacute;sra:</P>
+
+<P><TT>Procedure Beep; </TT><FONT SIZE=-1>{ennek az elj&aacute;r&aacute;snak
+nincsenek param&eacute;terei}<BR>
+</FONT><TT>&nbsp;Begin </TT><FONT SIZE=-1>{sem deklar&aacute;ci&oacute;s
+r&eacute;sze}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;sound(880); delay(50); nosound;<BR>
+&nbsp;End;</TT></P>
+
+<P>Az elj&aacute;r&aacute;sokat a nev&uuml;kkel ind&iacute;thatjuk el a
+f&otilde;programb&oacute;l vagy m&aacute;s elj&aacute;r&aacute;sokb&oacute;l
+(term&eacute;szetesen csak akkor, ha az elj&aacute;r&aacute;s deklar&aacute;ci&oacute;ja
+megel&otilde;zte az elj&aacute;r&aacute;sra val&oacute; hivatkoz&aacute;st).
+Ez az elj&aacute;r&aacute;sh&iacute;v&aacute;s:</P>
+
+<P><TT>VAR a:integer;<BR>
+BEGIN<BR>
+&nbsp;Repeat<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;readln(a);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if a=0 then beep; </TT><FONT SIZE=-1>{elj&aacute;r&aacute;sh&iacute;v&aacute;s}<BR>
+</FONT><TT>&nbsp;Until a&lt;&gt;0;<BR>
+&nbsp;Writeln(1/a); beep; beep;<BR>
+END.</TT></P>
+
+<P>&Iacute;gy az elj&aacute;r&aacute;sok pontosan &uacute;gy m&ucirc;k&ouml;dnek,
+mint a Pascal saj&aacute;t utas&iacute;t&aacute;sai. Ha &uacute;gy tetszik,
+a Pascal utas&iacute;t&aacute;sk&eacute;szlet&eacute;t b&otilde;v&iacute;tett&uuml;k,
+amikor egy azonos&iacute;t&oacute;hoz hozz&aacute;rendelt&uuml;nk egy tev&eacute;kenys&eacute;get.</P>
+
+<P>Ha azut&aacute;n az egyszer&ucirc; s&iacute;psz&oacute;t bonyolultabb
+dallamra akarjuk &aacute;t&iacute;rni, csak a Beep elj&aacute;r&aacute;sban
+kell elv&eacute;gezni a v&aacute;ltoztat&aacute;sokat. P&eacute;ld&aacute;ul
+f&uuml;ttysz&oacute;hoz:</P>
+
+<P><TT>Procedure Beep;<BR>
+&nbsp;var i:integer;<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;for i:=300 to 500 do begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sound(i); delay(5); nosound;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end;<BR>
+&nbsp;End;</TT></P>
+
+<P>Ez az elj&aacute;r&aacute;s haszn&aacute;l egy saj&aacute;t v&aacute;ltoz&oacute;t
+is. Miut&aacute;n az elj&aacute;r&aacute;st meg&iacute;rtuk, nem foglalkozunk
+t&ouml;bbet vele, hanem a program m&aacute;s r&eacute;szeire &ouml;sszpontos&iacute;tjuk
+figyelm&uuml;nket. &Eacute;ppen &iacute;gy seg&iacute;tenek az elj&aacute;r&aacute;sok
+a programoz&aacute;sban: a feladatot r&eacute;szekre (a programot elj&aacute;r&aacute;sokra)
+bontva mindig csak egy r&eacute;szfeladattal foglalkozunk. De mi t&ouml;rt&eacute;nik,
+ha a f&otilde;programban m&aacute;shol is haszn&aacute;lunk egy i v&aacute;ltoz&oacute;t?</P>
+
+<P>Az elj&aacute;r&aacute;s belsej&eacute;ben deklar&aacute;lt saj&aacute;t,
+avagy <B>lok&aacute;lis v&aacute;ltoz&oacute;k</B> k&iacute;v&uuml;lr&otilde;l,
+vagyis az elj&aacute;r&aacute;st h&iacute;v&oacute; programb&oacute;l l&aacute;thatatlanok:
+az elj&aacute;r&aacute;s h&iacute;v&aacute;sakor keletkeznek, &eacute;s
+az alprogram lefut&aacute;sa ut&aacute;n megsz&ucirc;nnek. Ha a f&otilde;programnak
+van azonos nev&ucirc; v&aacute;ltoz&oacute;ja, azt a Pascal az elj&aacute;r&aacute;s
+m&ucirc;k&ouml;d&eacute;s&eacute;nek idej&eacute;re elrakt&aacute;rozza.</P>
+
+<P>Az elj&aacute;r&aacute;s tudja haszn&aacute;lni mindazokat a saj&aacute;t
+v&aacute;ltoz&oacute;it&oacute;l elt&eacute;r&otilde; nev&ucirc; v&aacute;ltoz&oacute;kat,
+melyeket az elj&aacute;r&aacute;son k&iacute;v&uuml;l, el&otilde;tte deklar&aacute;ltunk.
+Ezek az elj&aacute;r&aacute;s szempontj&aacute;b&oacute;l k&uuml;ls&otilde;,
+azaz <B>glob&aacute;lis v&aacute;ltoz&oacute;k</B>. P&eacute;lda:</P>
+
+<P><TT>VAR a,b:integer;</TT></P>
+
+<P><TT>Procedure Valami;<BR>
+&nbsp;Var a:integer;<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;a:=5; </TT><FONT SIZE=-1>{lok&aacute;lis v&aacute;ltoz&oacute;}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;b:=7; </TT><FONT SIZE=-1>{a f&otilde;program
+glob&aacute;lis v&aacute;ltoz&oacute;ja}<BR>
+</FONT><TT>&nbsp;End;</TT></P>
+
+<P><TT>BEGIN<BR>
+&nbsp;a:=1;<BR>
+&nbsp;b:=2;<BR>
+&nbsp;Valami;<BR>
+&nbsp;Writeln(a,b);<BR>
+END.</TT></P>
+
+<P>A program 1-et &iacute;r ki (mert a f&otilde;program glob&aacute;lis
+a v&aacute;ltoz&oacute;j&aacute;t nem zavarta az elj&aacute;r&aacute;s
+azonos nev&ucirc; lok&aacute;lis a v&aacute;ltoz&oacute;ja), &eacute;s
+7-et (mert a b az elj&aacute;r&aacute;sban is glob&aacute;lis v&aacute;ltoz&oacute;
+volt).</P>
+
+<P>A Pascal legt&ouml;bb utas&iacute;t&aacute;sa param&eacute;tert is kap
+h&iacute;v&aacute;skor. Hasonl&oacute;k&eacute;ppen az elj&aacute;r&aacute;st
+is lehet <B>param&eacute;terezni</B>. A param&eacute;terlista a v&aacute;ltoz&oacute;deklar&aacute;ci&oacute;hoz
+hasonl&oacute;an a param&eacute;terek azonos&iacute;t&oacute;j&aacute;t
+&eacute;s t&iacute;pus&aacute;t tartalmazza. P&eacute;lda egy karaktert
+adott helyre ki&iacute;r&oacute; elj&aacute;r&aacute;sra:</P>
+
+<P><TT>Procedure Kiirxy(x,y:integer;c:char);<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;gotoxy(x,y); write(c);<BR>
+&nbsp;End;</TT></P>
+
+<P>A param&eacute;terek az elj&aacute;r&aacute;sban lok&aacute;lis v&aacute;ltoz&oacute;kk&eacute;nt
+viselkednek, azzal a k&uuml;l&ouml;nbs&eacute;ggel, hogy nem az elj&aacute;r&aacute;son
+bel&uuml;l kapnak &eacute;rt&eacute;ket, hanem az elj&aacute;r&aacute;s
+h&iacute;v&aacute;sakor, k&iacute;v&uuml;lr&otilde;l:</P>
+
+<P><TT>VAR i:integer;<BR>
+BEGIN<BR>
+&nbsp;For i:=1 to 10 do<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Kiirxy(10,i,'*');<BR>
+END.</TT></P>
+
+<P>P&eacute;ld&aacute;ul amikor az i &eacute;rt&eacute;ke 3, az elj&aacute;r&aacute;s
+h&iacute;v&aacute;sakor az egyes param&eacute;terek &eacute;rt&eacute;ke:
+x=10, y=3, c='*' lesz. Vagyis, elj&aacute;r&aacute;sh&iacute;v&aacute;skor
+a h&iacute;v&oacute; utas&iacute;t&aacute;sban l&eacute;v&otilde; &eacute;rt&eacute;keket
+veszik fel az elj&aacute;r&aacute;s param&eacute;terei. Ez az <B>&eacute;rt&eacute;k
+szerinti param&eacute;ter&aacute;tad&aacute;s</B>.</P>
+
+<P>El&otilde;fordul, hogy az elj&aacute;r&aacute;snak v&aacute;ltoz&oacute;kat
+szeretn&eacute;nk &aacute;tadni, &eacute;s ezekkel kell valamilyen m&ucirc;veletet
+v&eacute;gezni, teh&aacute;t a h&iacute;v&oacute; program v&aacute;ltoz&oacute;it
+kell v&aacute;ltoztatni. Ezt megoldhatjuk &uacute;gy is, hogy glob&aacute;lis
+v&aacute;ltoz&oacute;kat haszn&aacute;lunk, melyeket tud kezelni az elj&aacute;r&aacute;s,
+de akkor a program &aacute;ttekinthetetlenebb lesz, mert az elj&aacute;r&aacute;s
+&ouml;n&aacute;ll&oacute;s&aacute;ga megsz&ucirc;nik. Erre a c&eacute;lra
+haszn&aacute;lhat&oacute; a <B>c&iacute;m szerint param&eacute;ter&aacute;tad&aacute;s</B>,
+m&aacute;s n&eacute;ven a <B>v&aacute;ltoz&oacute;param&eacute;terek</B>.
+Ekkor param&eacute;terk&eacute;nt nem &eacute;rt&eacute;ket adunk &aacute;t,
+hanem v&aacute;ltoz&oacute;t, &eacute;s ezt a param&eacute;terlist&aacute;ban
+<TT>Var</TT> sz&oacute;val jel&ouml;lj&uuml;k:</P>
+
+<P><TT>Procedure Csere(Var a,b:integer);<BR>
+&nbsp;Var m:integer;<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;m:=a; a:=b; b:=m;<BR>
+&nbsp;End;</TT></P>
+
+<P><TT>VAR p,q:integer;<BR>
+BEGIN<BR>
+&nbsp;p:=8;<BR>
+&nbsp;q:=4;<BR>
+&nbsp;Csere(p,q);<BR>
+&nbsp;Writeln(p,q);<BR>
+END.</TT></P>
+
+<P>Ez a program a 4,8 sz&aacute;mokat &iacute;rja ki. Ha a var sz&oacute;csk&aacute;t
+nem &iacute;rtuk volna a param&eacute;terlista elej&eacute;re, a f&otilde;program
+v&aacute;ltoz&oacute;ival semmi nem t&ouml;rt&eacute;nt volna, csak az
+elj&aacute;r&aacute;s lok&aacute;lis v&aacute;ltoz&oacute;iban cser&eacute;lt&uuml;k
+volna fel az &eacute;rt&eacute;keket. A var sz&oacute; hat&aacute;s&aacute;ra
+a k&ouml;vetkez&otilde; t&ouml;rt&eacute;nik: elj&aacute;r&aacute;sh&iacute;v&aacute;skor
+l&eacute;trej&ouml;n az elj&aacute;r&aacute;s lok&aacute;lis a &eacute;s
+b v&aacute;ltoz&oacute;ja, de ezek a v&aacute;ltoz&oacute;k ugyanarra a
+mem&oacute;riac&iacute;mre mutatnak, mint a f&otilde;program p &eacute;s
+q v&aacute;ltoz&oacute;i. Teh&aacute;t ak&aacute;rmilyen m&ucirc;veleteket
+v&eacute;gz&uuml;nk az a &eacute;s b v&aacute;ltoz&oacute;kkal, ugyanaz
+fog t&ouml;rt&eacute;ni a f&otilde;program p &eacute;s q v&aacute;ltoz&oacute;ival.
+&Iacute;gy a Csere elj&aacute;r&aacute;st nem is lehet sz&aacute;mokkal
+megh&iacute;vni, csak integer t&iacute;pus&uacute; v&aacute;ltoz&oacute;kkal.</P>
+
+<P>Haszn&aacute;lhatunk v&aacute;ltoz&oacute;- &eacute;s k&ouml;z&ouml;ns&eacute;ges
+param&eacute;tereket egyszerre is: a</P>
+
+<P><TT>procedure valami(s:string;var c:integer)</TT></P>
+
+<P>deklar&aacute;ci&oacute;n&aacute;l s k&ouml;z&ouml;ns&eacute;ges, c
+pedig v&aacute;ltoz&oacute;param&eacute;ter. A Pascal t&ouml;bb utas&iacute;t&aacute;sa
+is haszn&aacute;l v&aacute;ltoz&oacute;param&eacute;tert, pl. az <TT>Initgraph</TT>.</P>
+
+<P><U>F&uuml;ggv&eacute;nyek</U></P>
+
+<P>A <B>f&uuml;ggv&eacute;nyek</B> pontosan &uacute;gy m&ucirc;k&ouml;dnek,
+mint az elj&aacute;r&aacute;sok, azzal a k&uuml;l&ouml;nbs&eacute;ggel,
+hogy <B>visszat&eacute;r&eacute;si &eacute;rt&eacute;k</B>et is szolg&aacute;ltatnak.
+A visszat&eacute;r&eacute;si &eacute;rt&eacute;ket a f&uuml;ggv&eacute;ny
+t&ouml;rzs&eacute;ben a <TT>f&uuml;ggv&eacute;nyn&eacute;v:=&eacute;rt&eacute;k</TT>
+utas&iacute;t&aacute;ssal &aacute;ll&iacute;thatjuk be. A f&uuml;ggv&eacute;ny
+deklar&aacute;l&aacute;sakor jelezni kell a visszat&eacute;r&eacute;si
+&eacute;rt&eacute;k t&iacute;pus&aacute;t, mely csak elemi t&iacute;pus
+lehet.</P>
+
+<UL>
+<LI><TT>FUNCTION f&uuml;ggv&eacute;nyn&eacute;v(param&eacute;terlista):t&iacute;pus;
+stb...</TT></LI>
+</UL>
+
+<P><TT>Function Kob(a:real):real;<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Kob:=a*a*a;<BR>
+&nbsp;End;</TT></P>
+
+<P><TT>BEGIN<BR>
+&nbsp;writeln(Kob(65));<BR>
+END;</TT></P>
+
+<P>A f&uuml;ggv&eacute;ny ezeken k&iacute;v&uuml;l ugyan&uacute;gy m&ucirc;k&ouml;dik,
+mint egy elj&aacute;r&aacute;s. Nem eleg&aacute;ns azonban, ha a f&uuml;ggv&eacute;ny
+a visszat&eacute;r&eacute;si &eacute;rt&eacute;k kisz&aacute;m&iacute;t&aacute;s&aacute;n
+k&iacute;v&uuml;l m&aacute;st is csin&aacute;l (<B>mell&eacute;khat&aacute;sok</B>).
+Ilyen esetekben ink&aacute;bb haszn&aacute;ljunk elj&aacute;r&aacute;st,
+&eacute;s a visszat&eacute;r&eacute;si &eacute;rt&eacute;ket v&aacute;ltoz&oacute;param&eacute;terrel
+adjuk vissza a h&iacute;v&oacute; programnak.</P>
+
+<P>A Pascalban megfelel&otilde; be&aacute;ll&iacute;t&aacute;s eset&eacute;n
+a f&uuml;ggv&eacute;nyeket elj&aacute;r&aacute;sk&eacute;nt is megh&iacute;vhatjuk:
+ekkor csak a f&uuml;ggv&eacute;ny mell&eacute;khat&aacute;sa jelentkezik.
+P&eacute;ld&aacute;ul a Readkey f&uuml;ggv&eacute;nyt utas&iacute;t&aacute;sk&eacute;nt
+haszn&aacute;lva a program egy billenty&ucirc; lenyom&aacute;s&aacute;ig
+v&aacute;rakozik.</P>
+
+<P>M&eacute;g egy p&eacute;lda:</P>
+
+<P><TT>Function maxi(a,b:integer):integer;<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;if a&gt;=b then Maxi:=a else Maxi:=b;<BR>
+&nbsp;End;</TT></P>
+
+<P>A Pascal kieg&eacute;sz&iacute;t&eacute;sk&eacute;nt felsorolt n&eacute;h&aacute;ny
+sz&ouml;vegkezel&otilde; elj&aacute;r&aacute;sa &eacute;s f&uuml;ggv&eacute;nye
+j&oacute; p&eacute;ld&aacute;t ad a v&aacute;ltoz&oacute;param&eacute;terek
+haszn&aacute;lat&aacute;ra. L&aacute;thatjuk: vagy f&uuml;ggv&eacute;nyt,
+vagy v&aacute;ltoz&oacute;param&eacute;teres elj&aacute;r&aacute;st haszn&aacute;lunk
+a visszat&eacute;r&eacute;si &eacute;rt&eacute;k megkap&aacute;s&aacute;hoz.</P>
+
+<UL>
+<LI><TT>LENGTH(s) </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, s string hossza</FONT></LI>
+
+<LI><TT>COPY(s,i,c) </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, s string i.
+karakter&eacute;t&otilde;l sz&aacute;m&iacute;tott c hossz&uacute;s&aacute;g&uacute;
+string</FONT></LI>
+
+<LI><TT>DELETE(var s;i,c) </TT><FONT SIZE=-1>s stringb&otilde;l kit&ouml;r&ouml;l
+az i. karaktert&otilde;l kezdve c karaktert</FONT></LI>
+
+<LI><TT>VAL(s;var v,c) </TT><FONT SIZE=-1>s string sz&aacute;m&eacute;rt&eacute;k&eacute;t
+v v&aacute;ltoz&oacute;ba teszi; c-ben jelzi, h&aacute;nyadik karaktern&eacute;l
+volt hiba</FONT></LI>
+
+<LI><TT>STR(a;var s) </TT><FONT SIZE=-1>a sz&aacute;mot stringg&eacute;
+alak&iacute;tja, &eacute;s s-ben adja vissza</FONT></LI>
+</UL>
+
+<CENTER><P><A HREF="f9.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

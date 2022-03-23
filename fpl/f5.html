@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - elágazás</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			5. fejezet: Elágazás
+		</h1>
+    <p>Az <strong>elágazás</strong> azt jelenti, hogy egy feltételtől függően a programnak az egyik vagy másik része fut le. A következő program a beírt két szám közül a nagyobbikat írja ki.</p>
+<pre>
+Var a,b:integer;
+BEGIN
+  write('Írj be két számot: '); readln(a,b);
+  if a>b then writeln(a) else writeln(b);
+  readln;
+END.  
+</pre>
+    <p>Az elágazás tehát: <code>if</code> <i>feltétel</i> <code>then</code> <i>utasítás</i> <code>else</code> <i>utasítás</i>;<br />
+    A feltétel valójában egy boolean típusú kifejezés. Ha igaz, akkor a <code>then</code>, egyébként az <code>else</code> utáni utasítás hajtódik végre. Fontos megfigyelni, hogy az <code>else</code> előtt nincs pontosvessző, mert az elágazás még nem fejeződött be.  A fenti programban látható, hogyan lehet egy readln-nel több számot is beolvasni. A két számot szóközzel elválasztva kell begépelni.<br />
+    Ha az első utasítás után pontosvessző van:<br />
+    <code>if a=b then writeln('Egyenlők!');</code>
+    akkor az elágazás lezárul, vagyis ha a feltétel nem teljesül, semmit nem hajt végre a program.</p>
+    <h2>Összetett utasítás</h2>
+    <p>Ha a <code>then</code> vagy <code>else</code> ágban több utasítást szeretnénk végrehajtani, azokat nem írhatjuk be közvetlenül, hanem csak egy utasításként. Több utasítást egyetlen összetett utasítássá alakíthatunk, ha azokat <code>begin</code> és <code>end</code> közé tesszük.</p>
+<pre>
+Var s:string;
+BEGIN
+  write('Írd be a neved: '); readln(s);
+  if s&lt;&gt;'' then begin
+    writeln('**********');
+    writeln('Szia ',s);
+    writeln('**********');
+    readln;
+  end;
+END.
+</pre>  
+    <p>Itt a két egymás melletti aposztróf üres szöveget jelöl.</p>
+    <h2>Összetett feltételek</h2>
+    <p>A feltételek között használhatjuk az és, vagy műveleteket. Fontos tudni azonban, hogy milyen sorrendben dolgozza fel a Pascal a műveleteket, hogy  a megfelelő helyeken zárójeleket használjunk.</p>
+<pre>
+Var a,b,c:integer;
+BEGIN
+  write('Írj be három számot: '); readln(a,b,c);
+  write('A legnagyobb=');
+  if (a>b) and (a>c) then writeln(a);
+  if (b>=a) and (b>c) then writeln(b);
+  if (c>=a) and (c>=b) then writeln(c);
+  readln;
+END. 
+</pre>
+    <p>Azért használtunk <code>&gt;=</code> műveletet is, hogy mindenképpen egy számot írjon ki a program, függetlenül attól, hány egyforma van a beírtak között.</p>
+    <h2>Egymásba ágyazott feltételek</h2>
+    <p>Az elágazásban lehet további elágazás is. Ha nem ügyelsz a behúzásokra, áttekinthetetlen lesz a programod!</p>
+<pre>
+var s:string;
+BEGIN
+  write('Fiú vagy? '); readln(s);
+  if s='igen' then begin
+    write('Szeretsz focizni? '); readln(s);
+    if s='igen' then writeln('Barátkozz Józsival, neki van labdája.')
+    else writeln('Barátkozz Sanyival, neki van Xboxa.');
+  end else begin
+    write('Szereted a lovakat? '); readln(s);
+    if s='igen' then writeln('Barátkozz Julival, neki jár a Penny Girl.')
+    else writeln('Barátkozz Sárival, ő szeret ruhákról beszélgetni.');
+  end;
+  readln;
+END.  
+</pre>
+<p>
+  <a href="f4.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="f6.html">Következő</a>
+</p>
+
+    <h2>Feladatok</h2>
+    <p>6. Írj programot, mely a beolvasott út és idő értékéből kiszámítja az átlagsebességet. Az algoritmus:<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Be: út, idő {persze a változóidat nem így nevezed el}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Ha út&lt;0 VAGY idő&lt;=0 akkor {vigyázz a zárójelezésre!}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ki: "Értelmetlen adatok!"<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;különben<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ki: út / idő</p>
+    <p><a href="fm.html#mo6">megoldás</a></p>
+    <p>7. Írj programot, mely a megadott számról eldönti, hogy páros vagy páratlan! (Emlékeztető: MOD.)</p>
+    <p><a href="fm.html#mo7">megoldás</a></p>
+    <p>8. Írj programot, mely a beadott számról eldönti, hogy pozitív, negatív vagy nulla-e! (Háromszoros elágazás.)</p>
+    <p><a href="fm.html#mo8">megoldás</a></p>
+    <p>9. Írj programot, mely megadja, hogy 3 beolvasott (integer) számból hány egyforma volt (mind különböző / 2 egyforma / 3 egyforma)!</p>
+    <p><a href="fm.html#mo9">megoldás</a></p>
+  </div>
+</body>
+</html>

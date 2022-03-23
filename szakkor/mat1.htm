@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>kieg&eacute;sz&iacute;t&eacute;s 1</TITLE>
+   <META NAME="Author" CONTENT="L. A.">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><FONT SIZE=+1>Matematikai kieg&eacute;sz&iacute;t&eacute;s: permut&aacute;ci&oacute;k</FONT></P>
+
+<P>L&aacute;that&oacute;, hogy PUSH, POP, SWAP utas&iacute;t&aacute;sok
+haszn&aacute;lat&aacute;val b&aacute;rmely k&eacute;t, egym&aacute;s melletti
+elem felcser&eacute;lhet&otilde;. Egym&aacute;s melletti elemek cser&eacute;j&eacute;vel
+viszont egy elem b&aacute;rmelyik poz&iacute;ci&oacute;ba eljuttathat&oacute;,
+&eacute;s k&ouml;zben a t&ouml;bbi elem sorrendje nem v&aacute;ltozik (ld.
+pl. a bubor&eacute;kos rendez&eacute;sn&eacute;l). Mutasd meg, hogy ilyen
+m&oacute;don b&aacute;rmely k&eacute;t elem sorrendje felcser&eacute;lhet&otilde;!
+Mutasd meg, hogy az elemek b&aacute;rmilyen sorrendje el&otilde;&aacute;ll&iacute;that&oacute;
+&iacute;gy!</P>
+
+<P>Elemek cser&eacute;lget&eacute;s&eacute;vel teh&aacute;t az elemek b&aacute;rmely
+sorrendje (permut&aacute;ci&oacute;ja) el&otilde;&aacute;ll&iacute;that&oacute;,
+egy permut&aacute;ci&oacute; term&eacute;szetesen t&ouml;bbf&eacute;lek&eacute;ppen
+is. Most bebizony&iacute;tjuk, hogy egy adott sorrendet vagy p&aacute;ros,
+vagy p&aacute;ratlan sz&aacute;m&uacute; cser&eacute;vel &eacute;rhet&uuml;nk
+el, sohasem mindk&eacute;t m&oacute;don. Az a &eacute;s b poz&iacute;ci&oacute;n
+l&eacute;v&otilde; elemek cser&eacute;j&eacute;t (a b)-vel jel&ouml;lj&uuml;k.</P>
+
+<P>El&eacute;g bel&aacute;tni azt, hogy az eredeti &aacute;llapotot csak
+p&aacute;ros sz&aacute;m&uacute; cser&eacute;vel &aacute;ll&iacute;thatjuk
+vissza. Indirekt m&oacute;dszer: vegy&uuml;nk egy cseresorozatot: (n m)(...)(...)(...),
+amely p&aacute;ratlan cser&eacute;b&otilde;l &aacute;ll, &eacute;s vissza&aacute;ll&iacute;tja
+az eredeti &aacute;llapotot. Ha m&aacute;shol nem szerepel benne n, m&aacute;ris
+biztos, hogy nem &aacute;ll&iacute;thatja vissza az eredeti &aacute;llapotot,
+hiszen az n. poz&iacute;ci&oacute;ra ker&uuml;lt elemet m&aacute;sik csere
+m&aacute;r nem t&aacute;vol&iacute;tja el. Teh&aacute;t valahol van m&eacute;g
+benne n.</P>
+
+<P>Keress&uuml;k meg n legutols&oacute; el&otilde;fordul&aacute;s&aacute;t.
+Ez lehet (x y)(n i) (k&uuml;l&ouml;nb&ouml;z&otilde; bet&ucirc;k most k&uuml;l&ouml;nb&ouml;z&otilde;
+sz&aacute;mokat jelentenek). Ekkor a sorrendj&uuml;k felcser&eacute;lhet&otilde;,
+mivel k&uuml;l&ouml;nb&ouml;z&otilde; poz&iacute;ci&oacute;kat &eacute;rintenek:
+(n i)(x y). Lehet m&eacute;g (n x)(n i) is, ez azonos eredm&eacute;nyt
+ad (n i)(i x) cser&eacute;vel. Lehet (i x)(n i) is, ennek eredm&eacute;nye
+azonos (n x)(i x) cser&eacute;vel. Mindegyik esetben az n-et tartalmaz&oacute;
+csere eggyel kor&aacute;bbra ker&uuml;lt &uacute;gy, hogy a v&eacute;geredm&eacute;ny
+nem v&aacute;ltozott. Teh&aacute;t ebben az esetben n v&eacute;g&uuml;l
+a legels&otilde; helyre ker&uuml;l, &eacute;s ut&aacute;na nem fordul el&otilde;
+t&ouml;bbsz&ouml;r: ez a cseresorozat viszont az el&otilde;z&otilde;ek
+&eacute;rtelm&eacute;ben nem adhatja vissza az eredeti &aacute;llapotot.</P>
+
+<P>Egy lehet&otilde;s&eacute;g van m&eacute;g: n balra l&eacute;ptet&eacute;se
+sor&aacute;n el&otilde;bb-ut&oacute;bb el&otilde;&aacute;ll az (n i)(n
+i) lehet&otilde;s&eacute;g. Ekkor ezt a k&eacute;t cser&eacute;t ki lehet
+hagyni (egym&aacute;s ut&aacute;njuk ugyanis nem v&aacute;ltoztat semmit),
+&eacute;s a cser&eacute;k sz&aacute;ma kett&otilde;vel cs&ouml;kkent. Teh&aacute;t:
+ha van egy cseresorozatunk, amely visszaadja az eredeti &aacute;llapotot,
+biztos van n&aacute;la 2-vel r&ouml;videbb is. Igen &aacute;m, de &iacute;gy
+(ha a cseresorozat p&aacute;ratlan) eljutunk a 3, majd az 1 cser&eacute;hez.
+1 csere viszont soha nem adhatja vissza az eredeti &aacute;llapotot. &Iacute;gy
+minden &aacute;gon ellentmond&aacute;sra jutottunk, bebizony&iacute;tottuk,
+hogy p&aacute;ratlan cser&eacute;vel nem kaphatjuk vissza az eredeti &aacute;llapotot.</P>
+
+<P>Most n&eacute;zz&uuml;k meg, mi t&ouml;rt&eacute;nne, ha p&aacute;ros
+&eacute;s p&aacute;ratlan sz&aacute;m&uacute; csere egym&aacute;sut&aacute;nja
+ugyanarra az eredm&eacute;nyre vezetne. El&otilde;sz&ouml;r v&eacute;gezz&uuml;k
+el a p&aacute;ros sz&aacute;m&uacute; cser&eacute;t, majd a p&aacute;ratlan
+sz&aacute;m&uacute;akat ford&iacute;tott sorrendben. &Iacute;gy visszakapjuk
+az eredeti &aacute;llapotot, m&eacute;gpedig p&aacute;ros+p&aacute;ratlan=p&aacute;ratlan
+sz&aacute;m&uacute; cser&eacute;vel, ami az el&otilde;z&otilde;ek szerint
+nem lehets&eacute;ges.</P>
+
+<P>Ennek a t&eacute;telnek ismert alkalmaz&aacute;sa a 15-&ouml;s j&aacute;t&eacute;k
+egyik fejt&ouml;r&otilde;j&eacute;nek megold&aacute;sa. A 15-&ouml;s j&aacute;t&eacute;k
+4X4 n&eacute;gyzetb&otilde;l &aacute;ll&oacute; t&aacute;bl&aacute;zat,
+melyen 15 sz&aacute;m &eacute;s egy &uuml;res n&eacute;gyzet tal&aacute;lhat&oacute;.
+A sz&aacute;mok az &uuml;res helyre betolhat&oacute;k (vagyis helyet cser&eacute;lhetnek
+az &uuml;res hellyel). Ezut&aacute;n felcser&eacute;lik a n&eacute;gyzeteket,
+a c&eacute;l az eredeti &aacute;llapot vissza&aacute;ll&iacute;t&aacute;sa
+tologat&aacute;sokkal.</P>
+
+<TABLE CELLSPACING=0 CELLPADDING=0 WIDTH="120" HEIGHT="120" BGCOLOR="#80FF00" >
+<TR ALIGN=CENTER VALIGN=CENTER>
+<TD ALIGN=CENTER VALIGN=CENTER NOWRAP WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>1</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER NOWRAP WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>2</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER NOWRAP WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>3</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER NOWRAP WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>4</FONT></B></TD>
+</TR>
+
+<TR ALIGN=CENTER VALIGN=CENTER>
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>5</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>6</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>7</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>8</FONT></B></TD>
+</TR>
+
+<TR ALIGN=CENTER VALIGN=CENTER>
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>9</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>10</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>11</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>12</FONT></B></TD>
+</TR>
+
+<TR ALIGN=CENTER VALIGN=CENTER>
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>13</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>14</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>15</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%" BGCOLOR="#FFFFFF"><B><FONT SIZE=-1></FONT></B></TD>
+</TR>
+</TABLE>
+
+<P>Sokan foglalkoztak a k&ouml;vetkez&otilde; feladv&aacute;ny megfejt&eacute;s&eacute;vel
+(az utols&oacute; k&eacute;t n&eacute;gyzet lett felcser&eacute;lve), de
+senkinek sem siker&uuml;lt visszarendeznie az eredeti &aacute;llapotba.
+De vajon lehets&eacute;ges-e? Ha sakkt&aacute;blaszer&ucirc;en kisz&iacute;nezz&uuml;k
+a t&aacute;bl&aacute;t, l&aacute;that&oacute;, hogy az &uuml;res n&eacute;gyzet
+minden cser&eacute;n&eacute;l m&aacute;s sz&iacute;nre ker&uuml;l. Ha a
+v&eacute;g&eacute;n visszaker&uuml;l a hely&eacute;re, teh&aacute;t vil&aacute;gos
+mez&otilde;re, biztos, hogy p&aacute;ros csere t&ouml;rt&eacute;nt. Viszont
+az eredeti &aacute;llapot egyetlen (p&aacute;ratlan sz&aacute;m&uacute;)
+cser&eacute;vel vissza&aacute;ll&iacute;that&oacute;, ez&eacute;rt nem
+&aacute;ll&iacute;that&oacute; vissza p&aacute;ros cser&eacute;vel. A feladv&aacute;ny
+teh&aacute;t megoldhatatlan.</P>
+
+<TABLE CELLSPACING=0 CELLPADDING=0 WIDTH="120" HEIGHT="120" BGCOLOR="#80FF00" >
+<TR ALIGN=CENTER VALIGN=CENTER>
+<TD ALIGN=CENTER VALIGN=CENTER NOWRAP WIDTH="25%" HEIGHT="25%" BGCOLOR="#FFFFE8"><B><FONT SIZE=-1>1</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER NOWRAP WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>2</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER NOWRAP WIDTH="25%" HEIGHT="25%" BGCOLOR="#FFFFE8"><B><FONT SIZE=-1>3</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER NOWRAP WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>4</FONT></B></TD>
+</TR>
+
+<TR ALIGN=CENTER VALIGN=CENTER>
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>5</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%" BGCOLOR="#FFFFE8"><B><FONT SIZE=-1>6</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>7</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%" BGCOLOR="#FFFFE8"><B><FONT SIZE=-1>8</FONT></B></TD>
+</TR>
+
+<TR ALIGN=CENTER VALIGN=CENTER>
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%" BGCOLOR="#FFFFE8"><B><FONT SIZE=-1>9</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>10</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%" BGCOLOR="#FFFFE8"><B><FONT SIZE=-1>11</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>12</FONT></B></TD>
+</TR>
+
+<TR ALIGN=CENTER VALIGN=CENTER>
+<TD ALIGN=CENTER VALIGN=CENTER NOWRAP WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>13</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER NOWRAP WIDTH="25%" HEIGHT="25%" BGCOLOR="#FFFFE8"><B><FONT SIZE=-1>15</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER NOWRAP WIDTH="25%" HEIGHT="25%"><B><FONT SIZE=-1>14</FONT></B></TD>
+
+<TD ALIGN=CENTER VALIGN=CENTER NOWRAP WIDTH="25%" HEIGHT="25%" BGCOLOR="#FFFFE8"><B><FONT SIZE=-1>&nbsp;</FONT></B></TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

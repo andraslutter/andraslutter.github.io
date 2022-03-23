@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>1. fejezet</TITLE>
+   <META NAME="Author" CONTENT="L. A.">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>I. Adatszerkezetek: a verem</FONT></U></P>
+
+<P><I><FONT SIZE=+1>Els&otilde; nekifut&aacute;s</FONT></I></P>
+
+<P>Az egyes adatszerkezet-t&iacute;pusokat jellemzi, hogy mik&eacute;ppen
+t&aacute;rolhatunk benn&uuml;k adatot, &eacute;s azt hogyan kaphatjuk vissza
+(ezek a m&ucirc;veletek az adatszerkezettel).</P>
+
+<P>P&eacute;ld&aacute;k: a t&ouml;mb&ouml;t jellemzi, hogy minden elem&eacute;t
+meg lehet c&iacute;mezni, ezt ki lehet olvasni, &eacute;s m&oacute;dos&iacute;tani
+lehet. A szekvenci&aacute;lis (soros) file-t jellemzi, hogy:</P>
+
+<UL>
+<LI>az elej&eacute;re lehet &aacute;llni</LI>
+
+<LI>ki lehet olvasni a soron k&ouml;vetkez&otilde; elem&eacute;t</LI>
+
+<LI>a v&eacute;g&eacute;re lehet &iacute;rni egy &uacute;j elemet </LI>
+</UL>
+
+<P>teh&aacute;t pl. az utols&oacute; elem&eacute;t csak &uacute;gy lehet
+kiolvasni, hogy az elej&eacute;t&otilde;l kezdve sorban v&eacute;gigolvassuk.
+Az utols&oacute; elemet &uacute;gy lehet kit&ouml;r&ouml;lni, hogy az els&otilde;
+elemt&otilde;l kezdve az utols&oacute; el&otilde;ttiig v&eacute;gigolvassuk,
+&eacute;s az elemeket egy kezdetben &uuml;res m&aacute;sik szekvenci&aacute;lis
+file v&eacute;g&eacute;re &iacute;rjuk. (Ilyen a Pascal TEXT t&iacute;pusa.)</P>
+
+<P>A <U>verem </U>jellemz&otilde;i:</P>
+
+<UL>
+<LI>be lehet tenni egy elemet a tetej&eacute;re</LI>
+
+<LI>ki lehet venni a legut&oacute;bb berakott (legfels&otilde;) elemet</LI>
+</UL>
+
+<P>&iacute;gy teh&aacute;t ha egy &uuml;res verembe berakjuk az 1, 6, 3
+sz&aacute;mokat ilyen sorrendben, akkor el&otilde;sz&ouml;r a 3, azut&aacute;n
+a 6, v&eacute;g&uuml;l az 1 vehet&otilde; ki bel&otilde;le. Ha m&eacute;g
+egy elemet ki akarunk venni bel&otilde;le, a verem-elj&aacute;r&aacute;s
+hib&aacute;t jelez.</P>
+
+<P>A verem jellegzetes <U>elj&aacute;r&aacute;sai</U>:</P>
+
+<UL>
+<LI><TT>Procedure INICI<FONT SIZE=-1> </FONT></TT><FONT SIZE=-1>{be&aacute;ll&iacute;tja
+a verem kezd&otilde;&eacute;rt&eacute;k&eacute;t}</FONT></LI>
+
+<LI><TT>Procedure BETESZ (a:t&iacute;pus)<FONT SIZE=-1> </FONT></TT><FONT SIZE=-1>{a
+param&eacute;ter &eacute;rt&eacute;k&eacute;t beteszi a verem tetej&eacute;re}</FONT></LI>
+
+<LI><TT>Procedure KIVESZ (var a:t&iacute;pus)<FONT SIZE=-1> </FONT></TT><FONT SIZE=-1>{a
+legfels&otilde; elem a param&eacute;terk&eacute;nt &aacute;tadott v&aacute;ltoz&oacute;ba
+ker&uuml;l}</FONT></LI>
+
+<LI><TT>Function &Uuml;RES:boolean<FONT SIZE=-1> </FONT></TT><FONT SIZE=-1>{igaz
+eredm&eacute;nyt ad, ha a verem &uuml;res}</FONT></LI>
+</UL>
+
+<P>Programr&eacute;szlet:</P>
+
+<P><TT>Var r:integer;</TT><FONT SIZE=-1> {amennyiben a verem elemeinek
+t&iacute;pusa integer}<BR>
+</FONT><TT>BEGIN<BR>
+&nbsp;&nbsp;&nbsp;Inici;<BR>
+&nbsp;&nbsp;&nbsp;Betesz(5);<BR>
+&nbsp;&nbsp;&nbsp;Betesz(7);<BR>
+&nbsp;&nbsp;&nbsp;While not Ures do begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kivesz(r);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Writeln(r);<BR>
+&nbsp;&nbsp;&nbsp;end;<BR>
+END.</TT></P>
+
+<P><U>1. feladat</U>: &iacute;rd meg a verem elj&aacute;r&aacute;sait!
+(mondjuk, real t&iacute;pus&uacute; veremre. C&eacute;lszer&ucirc; a verem
+alapt&iacute;pus&aacute;t TYPE utas&iacute;t&aacute;ssal k&uuml;l&ouml;n
+elnevezni, hogy k&ouml;nnyen lehessen v&aacute;ltoztatni rajta). Seg&iacute;ts&eacute;g:
+a vermet egy t&ouml;mbben tudod t&aacute;rolni. Sz&uuml;ks&eacute;ged van
+egy MUT v&aacute;ltoz&oacute;ra, amely a legut&oacute;bb berakott elem
+hely&eacute;t mutatja a t&ouml;mbben. El&otilde;sz&ouml;r k&eacute;sz&iacute;ts
+algoritmust, csak azut&aacute;n fogj hozz&aacute; az &iacute;r&aacute;shoz!</P>
+
+<P>Mire j&oacute; a verem? Elj&aacute;r&aacute;sh&iacute;v&aacute;sokn&aacute;l
+a visszat&eacute;r&eacute;si c&iacute;met veremben kell t&aacute;rolni,
+hogy ha egy elj&aacute;r&aacute;s lefut, a vez&eacute;rl&eacute;s a legut&oacute;bb
+beker&uuml;lt c&iacute;mre, vagyis az illet&otilde; elj&aacute;r&aacute;st
+ind&iacute;t&oacute; elj&aacute;r&aacute;shoz t&eacute;rjen vissza. A verem
+m&aacute;sik haszn&aacute;t a k&ouml;vetkez&otilde; feladat vil&aacute;g&iacute;tja
+meg.</P>
+
+<P><U>2. feladat</U>: adott egy z&aacute;r&oacute;jeles kifejez&eacute;s,
+melyben h&aacute;romf&eacute;le z&aacute;r&oacute;jel-p&aacute;rt haszn&aacute;lhatunk:
+( ), [ ], { }. Helyes kifejez&eacute;snek sz&aacute;m&iacute;tanak:<BR>
+<TT>&nbsp;&nbsp;&nbsp;(xyz(ppp[5]xxx))</TT><FONT SIZE=-1> &eacute;s </FONT><TT>(({i}{}[[(i)]]))</TT><FONT SIZE=-1>
+&eacute;s </FONT><TT>[a[a(a(a(x)b)b)b]b]<BR>
+</TT>Helytelen viszont:<BR>
+<TT>&nbsp;&nbsp;&nbsp;[3+(2+2])</TT><FONT SIZE=-1> &eacute;s </FONT><TT>[[x]
+&eacute;s [y]]<BR>
+</TT>teh&aacute;t, ha (mondjuk balr&oacute;l jobbra haladva) egy z&aacute;r&oacute;
+z&aacute;r&oacute;jelet tal&aacute;lunk, akkor a legut&oacute;bbi le nem
+z&aacute;rt z&aacute;r&oacute;jel annak nyit&oacute; p&aacute;rja kell,
+hogy legyen. Tov&aacute;bb&aacute;, a nyit&oacute; &eacute;s z&aacute;r&oacute;
+z&aacute;r&oacute;jelek sz&aacute;ma meg kell, hogy egyezz&eacute;k.<BR>
+K&eacute;sz&iacute;ts v&aacute;zlatos algoritmust, mely elemez egy beadott
+z&aacute;r&oacute;jeles kifejez&eacute;st, teh&aacute;t megadja, hogy helyes-e
+vagy sem! Seg&iacute;ts&eacute;g: k&eacute;tf&eacute;le hiba fordulhat
+el&otilde;. a) z&aacute;r&oacute; z&aacute;r&oacute;jelet tal&aacute;ltunk,
+melynek nincs nyit&oacute; p&aacute;rja, b) a kifejez&eacute;s v&eacute;g&eacute;re
+&eacute;rt&uuml;nk, &eacute;s m&eacute;g maradt le nem z&aacute;rt nyit&oacute;
+z&aacute;r&oacute;jel.</P>
+
+<P><I><FONT SIZE=+1>M&aacute;sodik nekifut&aacute;s</FONT></I></P>
+
+<P>A verem-g&eacute;p: olyan sz&aacute;mol&oacute;g&eacute;p, amelyben
+van egy verem. A m&ucirc;veletek:</P>
+
+<UL>
+<LI>sz&aacute;m be&iacute;r&aacute;sa: a sz&aacute;mot a verembe teszi</LI>
+
+<LI>+: a veremb&otilde;l kivesz k&eacute;t sz&aacute;mot, &ouml;sszeadja
+&otilde;ket, &eacute;s az eredm&eacute;nyt beteszi a verembe</LI>
+
+<LI>*: ugyanez szorz&aacute;sra</LI>
+</UL>
+
+<P>A <U>verem-m&ucirc;veleteket</U> &uacute;gy szok&aacute;s jel&ouml;lni,
+hogy megadjuk a verem tetej&eacute;nek (hogy alul mi van, nem l&eacute;nyeges)
+kezd&otilde;- &eacute;s v&eacute;g&aacute;llapot&aacute;t. Pl.: + (a b
+___ a+b), vagyis kezdetben volt a verem tetej&eacute;n k&eacute;t sz&aacute;m
+(&eacute;s b volt f&ouml;l&uuml;l, teh&aacute;t a, b sorrendben raktuk
+be a sz&aacute;mokat), a v&eacute;g&eacute;n pedig az &ouml;sszeg&uuml;k
+ker&uuml;lt oda. Tov&aacute;bbi m&ucirc;veletek (figyelj a sorrendre, nem
+mindegy, hogy a-b vagy b-a!):</P>
+
+<UL>
+<LI>- (a b ___ a-b)</LI>
+
+<LI>/ (a b ___ a/b)</LI>
+</UL>
+
+<P>&Eacute;s term&eacute;szetesen sz&uuml;ks&eacute;g van egy olyan m&ucirc;veletre,
+amely kiveszi a verem tetej&eacute;n l&eacute;v&otilde; sz&aacute;mot,
+&eacute;s ki&iacute;rja. Ez a . (pont).</P>
+
+<UL>
+<LI>. (a ___ )</LI>
+</UL>
+
+<P><U>1. feladat</U>: mit &iacute;r ki a verem-g&eacute;p?<BR>
+<TT>&nbsp;&nbsp;&nbsp;1 2 3 + + .<BR>
+&nbsp;&nbsp;&nbsp;2 4 6 + / .<BR>
+&nbsp;&nbsp;&nbsp;1 3 + 5 3 + / .</TT></P>
+
+<P>Az utols&oacute; p&eacute;ld&aacute;b&oacute;l l&aacute;tszik, hogy
+mi a verem-g&eacute;p f&otilde; el&otilde;nye: z&aacute;r&oacute;jel n&eacute;lk&uuml;l
+lehet vele sz&aacute;molni. Sok programnyelv kifejez&eacute;s-ki&eacute;rt&eacute;kel&otilde;je
+m&ucirc;k&ouml;dik &uacute;gy, hogy a z&aacute;r&oacute;jeles kifejez&eacute;st
+a fentihez hasonl&oacute; m&oacute;don &aacute;talak&iacute;tja. A k&ouml;vetkez&otilde;
+m&ucirc;veletet: ((a+b)-c)/2+1 verem-g&eacute;ppel &iacute;gy kellene elv&eacute;geztetni:<BR>
+<TT>&nbsp;&nbsp;&nbsp;a b + c - 2 / 1 + .<BR>
+</TT>Persze &iacute;gy is lehetett volna: <TT>1 a b + c - 2 / + .</TT></P>
+
+<P>A m&ucirc;veletek sorrendj&eacute;nek ilyen fel&iacute;r&aacute;s&aacute;t
+(&eacute;rt&eacute;k &eacute;rt&eacute;k m&ucirc;velet) postfix vagy <I>lengyel
+form&aacute;</I>nak (Polish notation, <I>PN</I>) nevezz&uuml;k. Ez nem
+tartalmaz z&aacute;r&oacute;jelet.</P>
+
+<P><U>2. feladat</U>: v&eacute;gezd el verem-g&eacute;ppel a k&ouml;vetkez&otilde;
+m&ucirc;veleteket!<BR>
+<TT>&nbsp;&nbsp;&nbsp;((1+2)-7)/10<BR>
+&nbsp;&nbsp;&nbsp;10/(1+2)<BR>
+&nbsp;&nbsp;&nbsp;(3+2)/(7-1)<BR>
+&nbsp;&nbsp;&nbsp;(1-2/3)/(2-3/4)</TT></P>
+
+<P>Hogyan lehetne m&aacute;s m&ucirc;veleteket defini&aacute;lni? P&eacute;ld&aacute;ul
+a reciprokot: (a ___ 1/a)? Megoldani egyszer&ucirc;, mert 1 a / - rel pontosan
+ez t&ouml;rt&eacute;nik. De mi van, ha az a m&aacute;r ott van a verem
+tetej&eacute;n? Ez&eacute;rt hasznos a k&ouml;vetkez&otilde; verem-m&ucirc;velet:</P>
+
+<UL>
+<LI>SWAP (a b ___ b a)</LI>
+</UL>
+
+<P>Ekkor a reciprok m&ucirc;velete a verem tetej&eacute;n l&eacute;v&otilde;
+sz&aacute;mmal &iacute;gy fog kin&eacute;zni:<BR>
+<TT>&nbsp;&nbsp;&nbsp;1 SWAP /</TT></P>
+
+<P><U>3. feladat</U>: a reciprokhoz hasonl&oacute;an k&eacute;sz&iacute;tsd
+el az ellentett m&ucirc;velet&eacute;t<BR>
+<TT>&nbsp;&nbsp;&nbsp;(a ___ -a)!</TT></P>
+
+<P>A SWAP seg&iacute;ts&eacute;g&eacute;vel az ((a+b)-c)/2+1 m&aacute;sk&eacute;pen
+is fel&iacute;rhat&oacute;:<BR>
+<TT>&nbsp;&nbsp;&nbsp;1 2 c b a + SWAP - SWAP / + .<BR>
+</TT>Ellen&otilde;rz&eacute;sk&eacute;pp &iacute;rd fel minden egyes m&ucirc;velet
+ut&aacute;n a verem &aacute;llapot&aacute;t! Ebben a m&oacute;dszerben
+az az &eacute;rdekes, hogy el&otilde;sz&ouml;r bepakoljuk az &ouml;sszes
+sz&aacute;mot a verembe, &eacute;s ut&aacute;na m&aacute;r csak m&ucirc;veleteket
+v&eacute;gz&uuml;nk.</P>
+
+<P><U>4. feladat</U>: v&eacute;gezd el ilyen m&oacute;don is a 2. feladat
+m&ucirc;veleteit! (teh&aacute;t el&otilde;sz&ouml;r bepakolsz mindent a
+verembe, &eacute;s ut&aacute;na m&aacute;r csak m&ucirc;veleteket v&eacute;gzel).
+Persze nem mindegy, hogy a sz&aacute;mokat milyen sorrendben teszed a verembe.
+Az utols&oacute; feladat val&oacute;sz&iacute;n&ucirc;leg gondot fog okozni.</P>
+
+<P>A SWAP m&ucirc;velet tov&aacute;bbfejleszt&eacute;se a</P>
+
+<UL>
+<LI>ROT (a b c ___ b c a)</LI>
+</UL>
+
+<P>amely a 3 legfels&otilde; elem sorrendj&eacute;t v&aacute;ltoztatja
+meg ciklikus permut&aacute;ci&oacute;val. Pr&oacute;b&aacute;ld meg ennek
+seg&iacute;ts&eacute;g&eacute;vel megoldani az utols&oacute; feladatot!</P>
+
+<P>M&eacute;g egy fontos m&ucirc;velet:</P>
+
+<UL>
+<LI>DUP (a ___ a a)</LI>
+</UL>
+
+<P>Ezzel megoldhat&oacute; a verem tetej&eacute;n l&eacute;v&otilde; sz&aacute;m
+n&eacute;gyzetre emel&eacute;se: DUP *. Hasonl&oacute;k&eacute;ppen a k&ouml;bre
+emel&eacute;s: DUP DUP * *.</P>
+
+<P><U>5. feladat</U>: k&eacute;sz&iacute;ts veremg&eacute;p-szimul&aacute;tort!
+Vagyis a programnak a k&ouml;vetkez&otilde; dolgokat adhatod be: sz&aacute;m,
++ - * / SWAP DUP ROT . , egy sorba csak egy dolgot &iacute;rva. A verem
+legyen Real t&iacute;pus&uacute; (lehessen t&ouml;rtsz&aacute;mot is beadni).
+Mivel a programod mindenk&eacute;ppen sztringet fog beolvasni (hiszen nem
+lehet el&otilde;re tudni, hogy 154-et vagy DUP-ot &iacute;r be a felhaszn&aacute;l&oacute;),
+ismerned kell a Pascal VAL elj&aacute;r&aacute;s&aacute;t, mellyel sz&ouml;vegb&otilde;l
+sz&aacute;mot tudsz k&eacute;sz&iacute;teni (miut&aacute;n eld&ouml;nt&ouml;tted
+a beadott sztringr&otilde;l, hogy se nem SWAP, se nem DUP, se nem ROT,
+se nem pont). A hibaellen&otilde;rz&eacute;ssel ne foglalkozz, teh&aacute;t
+ha a felhaszn&aacute;l&oacute; p9p9-et g&eacute;pel be, nem baj, ha a VAL
+null&aacute;nak veszi.</P>
+
+<P>Gyakori probl&eacute;ma, hogy a verem tetej&eacute;n rossz sorrendben
+vannak a sz&aacute;mok, &eacute;s valamely alul l&eacute;v&otilde; sz&aacute;mra
+van sz&uuml;ks&eacute;g&uuml;nk (ld. a 4. feladatot). Emiatt a veremg&eacute;pek
+gyakran rendelkeznek egy m&aacute;sik veremmel is, amelybe az eredeti veremb&otilde;l
+be &aacute;t lehet pakolni sz&aacute;mokat, &eacute;s viszont. &Iacute;gy
+m&ucirc;k&ouml;dhet a PUSH &eacute;s POP utas&iacute;t&aacute;s:</P>
+
+<UL>
+<LI>PUSH (a ___ ) (a legfels&otilde; &eacute;rt&eacute;ket &aacute;trakta
+a kieg&eacute;sz&iacute;t&otilde; verembe)</LI>
+
+<LI>POP ( ___ a) (a kieg&eacute;sz&iacute;t&otilde; verem legfels&otilde;
+elem&eacute;t &aacute;trakta a f&otilde; verembe)</LI>
+</UL>
+
+<P>&Iacute;gy pl. a fel&uuml;lr&otilde;l negyedik elem ki&iacute;r&aacute;sa:
+PUSH PUSH PUSH . POP POP POP</P>
+
+<P><U>6. feladat</U>: oldd meg a 2. feladatot a PUSH &eacute;s POP utas&iacute;t&aacute;sok
+seg&iacute;ts&eacute;g&eacute;vel, m&eacute;gpedig &uacute;gy, hogy a sz&aacute;mokat
+el&otilde;sz&ouml;r a feladatban szerepl&otilde; sorrendben bepakolod a
+verembe, &eacute;s ut&aacute;na m&aacute;r csak m&ucirc;veleteket v&eacute;gezhetsz!</P>
+
+<P><U>7. feladat</U>: val&oacute;s&iacute;tsd meg a ROT utas&iacute;t&aacute;st
+PUSH, POP, SWAP utas&iacute;t&aacute;sokkal!</P>
+
+<P><A HREF="mat1.htm">*** Matematikai kieg&eacute;sz&iacute;t&eacute;s
+(permut&aacute;ci&oacute;k)</A></P>
+
+<CENTER><P><A HREF="f2.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f0.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

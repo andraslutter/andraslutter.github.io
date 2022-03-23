@@ -1,0 +1,330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>6. fejezet</TITLE>
+   <META NAME="Author" CONTENT="L. A.">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>VI. Adatszerkezetek: gr&aacute;fok</FONT></U></P>
+
+<P><I><FONT SIZE=+1>Els&otilde; nekifut&aacute;s: gr&aacute;fok fajt&aacute;i,
+t&aacute;rol&aacute;suk</FONT></I></P>
+
+<P>Az alkalmazott matematik&aacute;ban a gr&aacute;fok kiemelten hasznos
+adatszerkezetek. A c&eacute;lnak megfelel&otilde;en t&ouml;bbfajta gr&aacute;fot
+haszn&aacute;lunk, &eacute;spedig:</P>
+
+<P>Az <I>egyszer&ucirc; gr&aacute;f</I> v&eacute;ges ponthalmaz, melyben
+k&eacute;t k&uuml;l&ouml;nb&ouml;z&otilde; pont (m&aacute;s n&eacute;ven
+cs&uacute;cs) vagy &ouml;ssze van k&ouml;tve (tartozik hozz&aacute;juk
+&eacute;l), vagy nincs. Egy pont nem lehet &ouml;sszek&ouml;tve saj&aacute;t
+mag&aacute;val, &eacute;s k&eacute;tszeresen &ouml;sszek&ouml;t&ouml;tt
+pontok sincsenek. Alakalmaz&aacute;s&aacute;ra p&eacute;lda egy elektromos
+h&aacute;l&oacute;zat, melyben v&aacute;rosok vannak villanyvezet&eacute;kkel
+&ouml;sszek&ouml;tve, vagy egy &uacute;th&aacute;l&oacute;zat, ahol az
+a k&eacute;rd&eacute;s, hogy honnan lehet eljutni hov&aacute;. Hacsak a
+sz&ouml;vegb&otilde;l m&aacute;sk&eacute;ppen nem k&ouml;vetkezik, mindig
+egyszer&ucirc; gr&aacute;fokr&oacute;l besz&eacute;l&uuml;nk.</P>
+
+<P>Az <I>&aacute;ltal&aacute;nos gr&aacute;f</I>ban k&eacute;t pont t&ouml;bbsz&ouml;r&ouml;sen
+is &ouml;ssze lehet k&ouml;tve, illetve a hurok&eacute;l (egy pontb&oacute;l
+saj&aacute;t mag&aacute;ba vezet&otilde; &eacute;l) is megengedett.</P>
+
+<P>Az <I>ir&aacute;ny&iacute;tott gr&aacute;f</I>ban az &eacute;leknek
+ir&aacute;nya is van (teh&aacute;t k&uuml;l&ouml;n &eacute;lnek sz&aacute;m&iacute;t
+az A-b&oacute;l B-be &eacute;s a B-b&otilde;l A-ba mutat&oacute; &eacute;l).
+P&eacute;lda r&aacute; egy keresztez&otilde;d&eacute;s-rendszer egyir&aacute;ny&uacute;
+utc&aacute;kkal (a k&eacute;tir&aacute;ny&uacute; utc&aacute;t egy oda-
+&eacute;s egy visszafel&eacute; mutat&oacute; &eacute;l jelentheti), vagy
+szem&eacute;lyek k&ouml;zti szimp&aacute;ti&aacute;t &aacute;br&aacute;zol&oacute;
+gr&aacute;f (a szimp&aacute;tia nem felt&eacute;tlen&uuml;l k&ouml;lcs&ouml;n&ouml;s).
+Az ir&aacute;ny&iacute;tott gr&aacute;fban &aacute;ltal&aacute;ban megengedettek
+a t&ouml;bbsz&ouml;r&ouml;s, &eacute;s olykor a hurok&eacute;lek.</P>
+
+<CENTER><P><IMG SRC="abra61.gif" ALT="gráftípusok szemléltetése" HEIGHT=159 WIDTH=472></P></CENTER>
+
+<P>Ezen k&iacute;v&uuml;l az &eacute;lekhez lehet sz&aacute;mot is rendelni
+(s&uacute;lyozott gr&aacute;f), ilyen pl. egy csatornarendszer, ahol megadjuk
+az egyes csatorn&aacute;k &aacute;tereszt&otilde; k&eacute;pess&eacute;g&eacute;t.</P>
+
+<P>Egyszer&ucirc; gr&aacute;fok t&aacute;rol&aacute;s&aacute;ra k&eacute;tf&eacute;le
+m&oacute;dszer is l&eacute;tezik. A <I>cs&uacute;csm&aacute;trix</I> NxN-es
+t&ouml;mb (G[1..N,1..N], ahol N a pontok sz&aacute;ma). G[i,j]=1, ha az
+i. &eacute;s j. pont &ouml;ssze van k&ouml;tve, k&uuml;l&ouml;nben 0. Ezenk&iacute;v&uuml;l
+G[i,i]=0 (nincs hurok&eacute;l) &eacute;s G[i,j]=G[j,i] (a m&aacute;trix
+szimmetrikus). Ha a gr&aacute;fot &iacute;gy &aacute;br&aacute;zoljuk,
+k&ouml;nnyen v&aacute;laszt kaphatunk az egyszer&ucirc; gr&aacute;fokn&aacute;l
+feltehet&otilde; egyetlen k&eacute;rd&eacute;sre: &ouml;ssze van-e k&ouml;tve
+k&eacute;t adott pont? Ha azonban az &eacute;lek sz&aacute;ma kicsi a cs&uacute;csok&eacute;hoz
+k&eacute;pest, vagyis a m&aacute;trixban nagyon sok a 0 (h&eacute;zagos
+m&aacute;trix), ez az &aacute;br&aacute;zol&aacute;si forma helypazarl&oacute;.</P>
+
+<P>Az <I>&eacute;lm&aacute;trix </I>a gr&aacute;fok &eacute;leit t&aacute;rolja,
+p&eacute;ld&aacute;ul egy G[1..E] t&ouml;mbben, ahol E az &eacute;lek sz&aacute;ma.
+G elemei sz&aacute;mp&aacute;rok, pl. G[a]=(i,j), vagyis az a. &eacute;l
+az i. &eacute;s j. cs&uacute;csot k&ouml;ti &ouml;ssze. Itt nehezebb meg&aacute;llap&iacute;tani
+k&eacute;t pont &ouml;sszek&ouml;t&ouml;tts&eacute;g&eacute;t, viszont
+k&ouml;nnyebb pl. az &ouml;sszes &eacute;lt felsorolni.</P>
+
+<P><U>1. feladat</U>: &iacute;rj programot, mely beolvassa N-t, majd beolvas
+egy NxN-es, 0-kb&oacute;l &eacute;s 1-ekb&otilde;l &aacute;ll&oacute; m&aacute;trixot,
+&eacute;s eld&ouml;nti, hogy ez lehet-e egyszer&ucirc; gr&aacute;f cs&uacute;csm&aacute;trixa!</P>
+
+<P><U>2. feladat</U>: &iacute;rj programot, mely beolvassa N-t, E-t, majd
+E darab sz&aacute;mp&aacute;rt (egyszer&ucirc; gr&aacute;f &eacute;lm&aacute;trixa).
+A program az ezut&aacute;n be&iacute;rt sz&aacute;mp&aacute;rokra eld&ouml;nti,
+hogy &ouml;ssze van-e k&ouml;tve az adott k&eacute;t pont!</P>
+
+<P><U>3. feladat</U>: &iacute;rj programot, mely megadott N &eacute;s cs&uacute;csm&aacute;trix
+eset&eacute;n ki&iacute;rja az egyszer&ucirc; gr&aacute;f &eacute;leit
+(minden &eacute;lt csak egyszer)!</P>
+
+<P><U>4. feladat</U>: m&oacute;dos&iacute;tsd a 2. feladat programj&aacute;t
+&uacute;gy, hogy az &eacute;lm&aacute;trix bead&aacute;sa ut&aacute;n a
+program &aacute;ll&iacute;tsa el&otilde; a gr&aacute;f cs&uacute;csm&aacute;trix&aacute;t!</P>
+
+<P>Ak&aacute;rhogyan is &aacute;br&aacute;zoljuk az egyszer&ucirc; gr&aacute;fokat,
+ha a programban meg tudjuk val&oacute;s&iacute;tani a <TT>Van&eacute;l(i,j)</TT>
+f&uuml;ggv&eacute;nyt (i. &eacute;s j. cs&uacute;cs &ouml;ssze van-e k&ouml;tve),
+minden inform&aacute;ci&oacute; rendelkez&eacute;s&uuml;nkre &aacute;ll
+a gr&aacute;fr&oacute;l.</P>
+
+<P>Az egyszer&ucirc; gr&aacute;fok mint&aacute;j&aacute;ra &aacute;br&aacute;zoljunk
+egy&eacute;b gr&aacute;fokat. &Aacute;ltal&aacute;nos gr&aacute;f &eacute;lm&aacute;trixos
+&aacute;br&aacute;zol&aacute;sa egyszer&ucirc;: a t&ouml;bbsz&ouml;r&ouml;s
+&eacute;leket t&ouml;bbsz&ouml;r fel kell sorolni, &eacute;s megengedett
+az (i,i) t&iacute;pus&uacute; &eacute;l is. Cs&uacute;csm&aacute;trixban
+ha G[i,j]&gt;1, az annyiszoros &eacute;lt jelenthet.</P>
+
+<P>Ir&aacute;ny&iacute;tott gr&aacute;f &eacute;lm&aacute;trix&aacute;ban
+k&uuml;l&ouml;nbs&eacute;get tesz&uuml;nk (i,j) &eacute;s (j,i) &eacute;l
+k&ouml;z&ouml;tt (el&otilde;bbi jelentse az i. pontb&oacute;l a j. pontba
+mutat&oacute; &eacute;lt). Hasonl&oacute;k&eacute;ppen a cs&uacute;csm&aacute;trixnak
+nem kell szimmetrikusnak lenni, &eacute;spedig G[i,j]=1 jelentse azt, hogy
+az i. pontb&oacute;l mutat &eacute;l a j. pontba.</P>
+
+<P>S&uacute;lyozott egyszer&ucirc; gr&aacute;f cs&uacute;csm&aacute;trix&aacute;ban
+G[i,j] lehet az (i,j) &eacute;l s&uacute;lya (0, ha nincs &eacute;l). &Aacute;ltal&aacute;nos
+s&uacute;lyozott gr&aacute;fokat nem lehet egyszer&ucirc; cs&uacute;csm&aacute;trixszal
+&aacute;br&aacute;zolni. S&uacute;lyozott gr&aacute;f &eacute;lm&aacute;trix&aacute;ban
+az &eacute;leket (i,j,s) sz&aacute;mh&aacute;rmasok &aacute;br&aacute;zolj&aacute;k:
+i. pontb&oacute;l j. pontba mutat&oacute; &eacute;l, s s&uacute;llyal.</P>
+
+<P><I><FONT SIZE=+1>M&aacute;sodik nekifut&aacute;s: gr&aacute;fok jellemz&eacute;se,
+alapvet&otilde; gr&aacute;f-algoritmusok</FONT></I></P>
+
+<P><I>S&eacute;t&aacute;</I>nak nevezz&uuml;k gr&aacute;fban az (a b)(b
+c)(c d)... egym&aacute;shoz csatlakoz&oacute; &eacute;lek sorozat&aacute;t.
+<I>Vonal</I>, ha minden &eacute;l csak egyszer szerepel benne. &Uacute;t
+az a vonal, mely minden ponton csak egyszer megy &aacute;t. <I>K&ouml;r</I>
+az a vonal, melyben az els&otilde; &eacute;l kezd&otilde;pontja &eacute;s
+az utols&oacute; &eacute;l v&eacute;gpontja megegyezik, &eacute;s minden
+m&aacute;s ponton csak egyszer megy &aacute;t. Ezeknek az elnevez&eacute;seknek
+nincsen t&uacute;l nagy jelent&otilde;s&eacute;ge, m&aacute;s k&ouml;nyvekben
+m&aacute;st jelentenek. A feladatb&oacute;l &aacute;ltal&aacute;ban kider&uuml;l,
+hogy mir&otilde;l van sz&oacute;.</P>
+
+<P>Ha p&eacute;ld&aacute;ul k&eacute;t pont k&ouml;z&ouml;tt van s&eacute;ta,
+akkor biztos, hogy &uacute;t is van. &Aacute;ltal&aacute;ban utakat keres&uuml;nk,
+mert azok sz&aacute;ma v&eacute;ges, &eacute;s &aacute;ltal&aacute;ban
+r&ouml;vid &uacute;ton szeretn&eacute;nk egyik pontb&oacute;l a m&aacute;sikba
+jutni. Ha egyik pontb&oacute;l a m&aacute;sikba k&eacute;t &uacute;t is
+vezet, akkor a gr&aacute;fban biztosan van k&ouml;r (az ir&aacute;ny&iacute;tott
+gr&aacute;fokat kiv&eacute;ve). Vonalr&oacute;l van sz&oacute;, ha egy
+gr&aacute;fot a ceruza felemel&eacute;se n&eacute;lk&uuml;l, minden &eacute;lt
+csak egyszer &eacute;rintve akarunk megrajzolni.</P>
+
+<P>Gr&aacute;fban egy <I>pont foka</I> a pontban &ouml;sszefut&oacute;
+&eacute;lek sz&aacute;ma. Hurok&eacute;l kett&otilde;nek sz&aacute;m&iacute;t!
+Ir&aacute;ny&iacute;tott gr&aacute;fn&aacute;l besz&eacute;lhet&uuml;nk
+k&uuml;l&ouml;n kimen&otilde; &eacute;s befut&oacute; foksz&aacute;mr&oacute;l.</P>
+
+<P>Gr&aacute;f <I>&ouml;sszef&uuml;gg&otilde;</I>, ha b&aacute;rmely k&eacute;t
+pontja k&ouml;z&ouml;tt van &uacute;t (el&eacute;g azt meg&aacute;llap&iacute;tani,
+hogy egy kiv&aacute;lasztott pontb&oacute;l az &ouml;sszes t&ouml;bbihez
+van-e &uacute;t). Egy gr&aacute;f diszjunkt r&eacute;szgr&aacute;fjainak
+pontjai k&ouml;z&ouml;tt nincsen &uacute;t.</P>
+
+<P><U>1. feladat</U>: a k&ouml;vetkez&otilde; egyszer&ucirc; gr&aacute;f
+&eacute;lm&aacute;trixa alapj&aacute;n &aacute;llap&iacute;tsd meg, hogy
+&ouml;sszef&uuml;gg&otilde;-e! (Pr&oacute;b&aacute;ld meg lerajzolni.)
+Ha nem &ouml;sszef&uuml;gg&otilde;, h&aacute;ny diszjunkt r&eacute;sze
+van? H&aacute;ny k&ouml;r van benne?<BR>
+(1 2) (1 8) (2 9) (2 10) (3 4) (3 11) (4 11) (5 6) (5 11) (7 8) (7 9) (7
+10)</P>
+
+<P>A legfontosabb gr&aacute;fos algoritmus &uacute;t keres&eacute;se k&eacute;t
+pont k&ouml;z&ouml;tt. Erre k&eacute;t algoritmus is k&iacute;n&aacute;lkozik.
+Mindk&eacute;t esetben A &eacute;s B pont k&ouml;z&ouml;tt keres&uuml;nk
+utat egyszer&ucirc; gr&aacute;fban (ebb&otilde;l a szempontb&oacute;l az
+&aacute;ltal&aacute;nos gr&aacute;fok t&ouml;bbsz&ouml;r&ouml;s &eacute;lei
+&eacute;s hurok&eacute;lei l&eacute;nyegtelenek, ir&aacute;ny&iacute;tott
+gr&aacute;fokra pedig l&eacute;nyegi v&aacute;ltoztat&aacute;s n&eacute;lk&uuml;l
+m&ucirc;k&ouml;dnek a m&oacute;dszerek). Az algoritmusok felsorolj&aacute;k
+a gr&aacute;f A-b&oacute;l el&eacute;rhet&otilde; &ouml;sszes pontj&aacute;t
+(<I>gr&aacute;fbej&aacute;r&aacute;s</I>), teh&aacute;t megtal&aacute;lj&aacute;k
+az A-t tartalmaz&oacute; maxim&aacute;lis &ouml;sszef&uuml;gg&otilde; r&eacute;szgr&aacute;fot.
+Ha B k&ouml;z&ouml;tt&uuml;k van, van &uacute;t.</P>
+
+<P>A <I>sz&eacute;less&eacute;gi keres&eacute;s</I>n&eacute;l vessz&uuml;k
+A pont &ouml;sszes szomsz&eacute;dj&aacute;t, majd ezeknek a pontoknak
+az &ouml;sszes szomsz&eacute;dj&aacute;t, &eacute;s &iacute;gy tov&aacute;bb.
+Ha egy pont egyszer m&aacute;r sorra ker&uuml;lt, azt t&ouml;bbsz&ouml;r
+nem soroljuk fel. &Iacute;gy v&eacute;g&uuml;l felsoroljuk az &ouml;sszes
+olyan pontot, mely A-b&oacute;l el&eacute;rhet&otilde;. Ha B k&ouml;zt&uuml;k
+van, van &uacute;t a k&eacute;t pont k&ouml;z&ouml;tt. Mag&aacute;t az
+utat is megkaphatjuk, ha pl. minden sorra ker&uuml;l&otilde; cs&uacute;cshoz
+feljegyezz&uuml;k, hogy melyik cs&uacute;csb&oacute;l jutottunk oda. &Iacute;gy
+B-b&otilde;l visszafel&eacute; l&eacute;pegetve eljutunk A-ig.</P>
+
+<P>Ennek rajzos megold&aacute;sa: &iacute;rjunk A ponthoz 0-t. &Iacute;rjunk
+A &ouml;sszes szomsz&eacute;dj&aacute;hoz 1-et. &Iacute;rjunk ezek m&eacute;g
+nem besz&aacute;mozott szomsz&eacute;daihoz 2-t stb... &Iacute;gy v&eacute;g&uuml;l
+besz&aacute;mozzuk mindazokat a pontokat, melyek A-val k&ouml;z&ouml;s
+&ouml;sszef&uuml;gg&otilde; r&eacute;szgr&aacute;fban vannak. R&aacute;ad&aacute;sul
+minden pontn&aacute;l az a sz&aacute;m szerepel, hogy A-b&oacute;l legr&ouml;videbben
+h&aacute;ny l&eacute;p&eacute;sben &eacute;rhet&otilde; el. B pontb&oacute;l
+a sz&aacute;mok cs&ouml;kken&otilde; sorrendj&eacute;ben visszafel&eacute;
+l&eacute;pegetve eljuthatunk A-ig, &iacute;gy megkaptuk a legr&ouml;videbb
+A-B utat.</P>
+
+<P>A k&ouml;vetkez&otilde; algoritmus sort haszn&aacute;l a felsorol&aacute;s
+alatt l&eacute;v&otilde; pontok t&aacute;rol&aacute;s&aacute;ra (kivesz&uuml;nk
+egy pontot a sor v&eacute;g&eacute;r&otilde;l, a sor elej&eacute;re pedig
+berakjuk a fel nem sorolt szomsz&eacute;dait - vigy&aacute;zz, itt a sor
+v&eacute;ge ker&uuml;l sorra, &eacute;s az eleje v&aacute;r a legt&ouml;bbet!).
+V t&ouml;mb a m&aacute;r felsorolt pontokr&oacute;l t&aacute;rolja, hogy
+honnan jutottunk el od&aacute;ig.</P>
+
+<P><TT>V[1..N]:=0, Sorba(A)<BR>
+V[A]:= -1 </TT><FONT SIZE=-1>{mindegy, csak ne 0 legyen}<BR>
+</FONT><TT>Ciklus am&iacute;g a sor nem &uuml;res<BR>
+&nbsp;&nbsp;&nbsp;Sorb&oacute;l(X)<BR>
+&nbsp;&nbsp;&nbsp;Ciklus I:=1..N<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ha van &eacute;l X &eacute;s I k&ouml;z&ouml;tt
+&eacute;s V[I]=0 akkor Sorba(I), V[I]:=X<BR>
+&nbsp;&nbsp;&nbsp;Ciklus v&eacute;ge<BR>
+Ciklus v&eacute;ge</TT></P>
+
+<P>V t&ouml;mbben teh&aacute;t 0 lesz azokn&aacute;l az elemekn&eacute;l,
+melyek A-b&oacute;l nem &eacute;rhet&otilde;k el, egy&eacute;bk&eacute;nt
+pedig annak a cs&uacute;csnak a sz&aacute;ma, melyb&otilde;l az illet&otilde;
+pontba az A-b&oacute;l indul&oacute; legr&ouml;videbb &uacute;ton eljuthatunk.</P>
+
+<P><U>2. feladat</U>: m&oacute;dos&iacute;tsd a sz&eacute;less&eacute;gi
+keres&eacute;s algoritmus&aacute;t arra az esetre, amikor csak A-b&oacute;l
+B-be vezet&otilde; utat keres&uuml;nk (a ciklus akkor is le&aacute;ll,
+ha B m&aacute;r sorra ker&uuml;lt).</P>
+
+<P><U>3. feladat</U>: &iacute;rj programot, mely &eacute;lm&aacute;trixszal
+megadott gr&aacute;fr&oacute;l eld&ouml;nti, hogy &ouml;sszef&uuml;gg&otilde;-e!
+(Nem kell m&aacute;st tenni, mint tetsz&otilde;leges pontb&oacute;l alkalmazni
+a sz&eacute;less&eacute;gi bej&aacute;r&aacute;st, &eacute;s megn&eacute;zni,
+hogy V elemei k&ouml;z&ouml;tt van-e 0.)</P>
+
+<P><U>4. feladat</U>: &iacute;rj programot, mely ki&iacute;rja &eacute;lm&aacute;trixszal
+megadott gr&aacute;f k&eacute;t adott pontja k&ouml;z&ouml;tti legr&ouml;videbb
+utat (ha van).</P>
+
+<P>A <A HREF="f5.htm">Backtrack </A>bemutat&aacute;s&aacute;n&aacute;l
+tal&aacute;lhat&oacute; l&oacute;ugr&aacute;s-probl&eacute;ma is megfogalmazhat&oacute;
+gr&aacute;fbej&aacute;r&aacute;ssal: a pontok a sakkt&aacute;bla mez&otilde;i,
+k&eacute;t pont k&ouml;z&ouml;tt van &eacute;l, ha az egyik mez&otilde;
+a m&aacute;sikb&oacute;l l&oacute;ugr&aacute;ssal el&eacute;rhet&otilde;.
+&Iacute;gy k&ouml;nnyen elk&eacute;sz&iacute;thet&otilde; a gr&aacute;f
+cs&uacute;csm&aacute;trixa. Ennek alapj&aacute;n viszont sz&eacute;less&eacute;gi
+keres&eacute;ssel nagyon k&ouml;nny&ucirc; megadni a legr&ouml;videbb utat
+k&eacute;t pont k&ouml;z&ouml;tt.</P>
+
+<P><U>5. feladat</U>: &iacute;rd meg a l&oacute;ugr&aacute;s-programot
+egyszer&ucirc;bben, sz&eacute;less&eacute;gi keres&eacute;ssel! A cs&uacute;csm&aacute;trixot
+nem is sz&uuml;ks&eacute;ges elk&eacute;sz&iacute;tened, hiszen a <TT>Szam2koord</TT>
+&eacute;s <TT>Lo</TT> f&uuml;ggv&eacute;nyekkel meg tudod adni, van-e &eacute;l
+k&eacute;t mez&otilde; k&ouml;z&ouml;tt.</P>
+
+<P>A m&aacute;sik gr&aacute;fbej&aacute;r&oacute; algoritmus a <I>m&eacute;lys&eacute;gi
+keres&eacute;s</I>. Elve: elindulunk A pontb&oacute;l, vessz&uuml;k egy
+m&eacute;g fel nem sorolt szomsz&eacute;dj&aacute;t, annak a szomsz&eacute;dj&aacute;t,
+stb. Ha m&aacute;r nem tudunk tov&aacute;bb l&eacute;pni (a vizsg&aacute;lt
+cs&uacute;csb&oacute;l nincs &eacute;l m&eacute;g fel nem sorolt cs&uacute;cshoz),
+visszal&eacute;p&uuml;nk az el&otilde;z&otilde; cs&uacute;csra. Ez Backtrack-jelleg&ucirc;
+probl&eacute;ma, s&otilde;t, verem seg&iacute;ts&eacute;g&eacute;vel is
+meg oldhat&oacute;: a verem mindig t&aacute;rolja, hogy a vizsg&aacute;lt
+X pontba honnan &eacute;rkezt&uuml;nk. V t&ouml;mbben most 1-gyel jel&ouml;lj&uuml;k
+a m&aacute;r felsorolt pontokat.</P>
+
+<P><TT>V[1..N]:=0, X:=A, V[X]:=1, Verembe(0)<BR>
+Ciklus am&iacute;g a verem nem &uuml;res<BR>
+&nbsp;&nbsp;&nbsp;I:=1<BR>
+&nbsp;&nbsp;&nbsp;Ciklus am&iacute;g I&lt;=N &eacute;s (nincs (X,I) &eacute;l
+vagy V[I]=1) </TT><FONT SIZE=-1>{X-nek &uacute;j szomsz&eacute;dot keres&uuml;nk}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I:=I+1<BR>
+&nbsp;&nbsp;&nbsp;Ciklus v&eacute;ge<BR>
+&nbsp;&nbsp;&nbsp;Ha I&lt;=N &nbsp;&nbsp;akkor Verembe(X), V[I]:=1, X:=I
+</TT><FONT SIZE=-1>{ha van &uacute;j szomsz&eacute;d}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k&uuml;l&ouml;nben
+Veremb&otilde;l(X) </TT><FONT SIZE=-1>{visszal&eacute;p&eacute;s az el&otilde;z&otilde;re}<BR>
+</FONT><TT>Ciklus v&eacute;ge</TT></P>
+
+<P>Az algoritmus &uacute;gy &eacute;r v&eacute;get, hogy felsoroltuk az
+&ouml;sszes el&eacute;rhet&otilde; pontot, &eacute;s t&ouml;bb &eacute;l
+nem l&eacute;v&eacute;n, visszal&eacute;pt&uuml;nk A ponthoz. A verembe
+az&eacute;rt tett&uuml;nk be 0-t az elej&eacute;n, mert v&eacute;g&uuml;l,
+mivel A-hoz m&aacute;r nem tal&aacute;lunk &uacute;j szomsz&eacute;dot,
+az algoritmus megpr&oacute;b&aacute;l A megel&otilde;z&otilde;j&eacute;re
+visszal&eacute;pni, &eacute;s ez hib&aacute;t okozna.</P>
+
+<P>A veremben minden l&eacute;p&eacute;sben az A-t&oacute;l a vizsg&aacute;lt
+pont megel&otilde;z&otilde;j&eacute;ig tart&oacute; &uacute;t &aacute;llom&aacute;sai
+vannak. Ha B pontba &eacute;rkez&eacute;skor le&aacute;ll&iacute;tjuk a
+ciklust, a veremben &eacute;ppen az A-B &uacute;t lesz.</P>
+
+<P><U>6. feladat</U>: &iacute;rj programot, mely &eacute;lm&aacute;trixszal
+megadott gr&aacute;fban k&eacute;t pont k&ouml;z&ouml;tt utat keres m&eacute;lys&eacute;gi
+keres&eacute;ssel!</P>
+
+<P>M&eacute;lys&eacute;gi keres&eacute;ssel nem a legr&ouml;videbb utat
+tal&aacute;ljuk meg. De mi a helyzet akkor, ha a gr&aacute;f &eacute;lei
+nem egyenl&otilde; hossz&uacute;ak (s&uacute;lyozott gr&aacute;f)? A sz&eacute;less&eacute;gi
+keres&eacute;s &aacute;ltal tal&aacute;lt &uacute;t a legkevesebb &eacute;lb&otilde;l
+&aacute;ll, de nem biztos, hogy a legr&ouml;videbb (illetve, ha s&uacute;lyr&oacute;l
+besz&eacute;l&uuml;nk, a legk&ouml;nnyebb). Hasonl&oacute;k&eacute;ppen
+a legr&ouml;videbb l&oacute;ugr&aacute;s-sorozat keres&eacute;s&eacute;hez
+(V. fejezet), ism&eacute;t a backtrack egy v&aacute;ltozat&aacute;t haszn&aacute;ljuk.
+A l&eacute;nyeg az, hogy a gr&aacute;f egy pontj&aacute;t ism&eacute;t
+kiv&aacute;laszthatjuk, ha r&ouml;videbb &uacute;ton jutunk oda A-b&oacute;l,
+mint kor&aacute;bban.</P>
+
+<P>Most V t&ouml;mbben nem azt t&aacute;roljuk, hogy voltunk-e m&aacute;r
+az adott pontban, hanem, hogy A-b&oacute;l milyen hossz&uacute; &uacute;ton
+juthatunk oda (a hosszt a program menet k&ouml;zben sz&aacute;molja, el&otilde;rel&eacute;p&eacute;sn&eacute;l
+a megfelel&otilde; &eacute;l s&uacute;ly&aacute;val n&ouml;veli, visszal&eacute;p&eacute;sn&eacute;l
+cs&ouml;kkenti). V elemeinek kezd&otilde;&eacute;rt&eacute;ke: kell&otilde;k&eacute;ppen
+nagy sz&aacute;m (az algoritmus szempontj&aacute;b&oacute;l +<I>v&eacute;gtelen</I>,
+gyakorlatban az el&otilde;fordul&oacute; &uacute;thosszakn&aacute;l nagyobb
+sz&aacute;m). Amikor &uacute;j szomsz&eacute;dot keres&uuml;nk, olyan szomsz&eacute;dok
+j&ouml;hetnek sz&oacute;ba, amelyekbe az eddigin&eacute;l r&ouml;videbb
+&uacute;ton jutunk.</P>
+
+<P><U>7. feladat</U>: &iacute;rj programot, mely beolvassa s&uacute;lyozott
+egyszer&ucirc; gr&aacute;f &eacute;lm&aacute;trix&aacute;t (most az &eacute;lekn&eacute;l
+a k&eacute;t cs&uacute;cson k&iacute;v&uuml;l a s&uacute;lyt is meg kell
+adnunk), majd adott A &eacute;s B cs&uacute;csok k&ouml;z&ouml;tt megkeresi
+a legk&ouml;nnyebb utat!</P>
+
+<P><U>8. feladat</U>: &iacute;rj programot, mely &eacute;lm&aacute;trixszal
+megadott egyszer&ucirc; gr&aacute;fban megsz&aacute;molja a diszjunkt r&eacute;szgr&aacute;fokat!
+Tipp: tetsz&otilde;leges pontb&oacute;l kiindulva valamelyik keres&eacute;ssel
+bej&aacute;rjuk a gr&aacute;fot, &iacute;gy kapunk egy &ouml;sszef&uuml;gg&otilde;,
+t&ouml;bbit&otilde;l diszjunkt r&eacute;szt. A marad&eacute;k pontokra
+ezt ism&eacute;telj&uuml;k, am&iacute;g csak el nem fogynak a pontok.</P>
+
+<CENTER><P><A HREF="f7.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f5.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

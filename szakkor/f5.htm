@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>5. fejezet</TITLE>
+   <META NAME="Author" CONTENT="L. A.">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>V. A visszal&eacute;p&eacute;ses keres&eacute;s (Backtrack)</FONT></U></P>
+
+<P>Hagyom&aacute;ny, hogy a visszal&eacute;p&eacute;ses keres&eacute;s
+algoritmus&aacute;t a nyolc kir&aacute;lyn&otilde; feladv&aacute;nyon kereszt&uuml;l
+mutatj&aacute;k be. &Eacute;n is ezt teszem, majd &aacute;ltal&aacute;nos&iacute;tom
+a probl&eacute;m&aacute;t. Helyezz&uuml;nk el 8 kir&aacute;lyn&otilde;t
+a sakkt&aacute;bl&aacute;n &uacute;gy, hogy ne &uuml;ss&eacute;k egym&aacute;st
+(8-n&aacute;l t&ouml;bbet nyilv&aacute;n nem lehet). Keress&uuml;nk megfelel&otilde;
+adatszerkezetet a feladathoz: mivel a kir&aacute;lyn&otilde;k biztosan
+k&uuml;l&ouml;nb&ouml;z&otilde; oszlopokban lesznek, el&eacute;g megadni,
+hogy az egyes oszlopokban h&aacute;nyadik sorban van a b&aacute;bu. Erre
+szolg&aacute;l a T[1..8] t&ouml;mb, ahol T[i] az i. oszlopban l&eacute;v&otilde;
+kir&aacute;lyn&otilde; sora (1 &eacute;s 8 k&ouml;z&ouml;tti eg&eacute;sz
+sz&aacute;m).</P>
+
+<P>Ha nyers er&otilde;vel fogunk a feladat megold&aacute;s&aacute;hoz,
+oszloponk&eacute;nt 8 lehet&otilde;s&eacute;g, T t&ouml;mb &aacute;llapot&aacute;ra
+pedig 8<SUP>8</SUP> lehet&otilde;s&eacute;g ad&oacute;dik. Mindegyik lehet&otilde;s&eacute;get
+meg kell vizsg&aacute;lni abb&oacute;l a szempontb&oacute;l, hogy &uuml;tik-e
+egym&aacute;st a b&aacute;buk. Az i. &eacute;s j. oszlopban l&eacute;v&otilde;
+kir&aacute;lyn&otilde;k akkor &uuml;tik egym&aacute;st, ha azonos sorban
+vannak, vagy azonos &aacute;tl&oacute;ban (vagyis egy n&eacute;gyzet &aacute;tellenes
+sarkaiban, sorsz&aacute;muk &eacute;s oszlopsz&aacute;muk k&uuml;l&ouml;nbs&eacute;ge
+megegyezik).</P>
+
+<P><TT>Function Uti(i,j:integer):boolean;<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;Uti:=(T[i]=T[j]) or (abs(i-j)=abs(T[i]-T[j]));<BR>
+&nbsp;End;</TT></P>
+
+<P>El&otilde; kell teh&aacute;t &aacute;ll&iacute;tani az &ouml;sszes lehet&otilde;s&eacute;get,
+majd megvizsg&aacute;lni, hogy az egyes kir&aacute;lyn&otilde;k &uuml;tik-e
+az ut&aacute;nuk k&ouml;vetkez&otilde;ket (mivel Uti(i,j)=Uti(j,i), az&eacute;rt
+ha pl. megvizsg&aacute;ljuk Uti(3,6)-ot, f&ouml;l&ouml;sleges megvizsg&aacute;lni
+Uti(6,3)-at). Az &ouml;sszes lehet&otilde;s&eacute;g kb. 16 milli&oacute;,
+az &uuml;t&eacute;sek vizsg&aacute;lata lehet&otilde;s&eacute;genk&eacute;nt
+28 vizsg&aacute;lat, Uti f&uuml;ggv&eacute;ny teh&aacute;t kb. 470 milli&oacute;szor
+ker&uuml;l megh&iacute;v&aacute;sra. R&aacute;ad&aacute;sul minden &uacute;jabb
+kir&aacute;lyn&otilde; hozz&aacute;v&eacute;tele nagys&aacute;grenddel
+n&ouml;veli a sz&aacute;m&iacute;t&aacute;sig&eacute;nyt. M&aacute;s m&oacute;dszer
+ut&aacute;n kell n&eacute;zn&uuml;nk.</P>
+
+<P>Rakjuk f&ouml;l a k&ouml;vetkez&otilde; b&aacute;but (kezdetben az els&otilde;t)
+az els&otilde; sorba. Ha &uuml;ti valamelyik el&otilde;z&otilde;, akkor
+toljuk egy sorral feljebb, eg&eacute;szen addig, am&iacute;g egy sem &uuml;ti.
+Ha nem tal&aacute;lunk neki j&oacute; sort, vegy&uuml;k le, &eacute;s az
+el&otilde;z&otilde; b&aacute;but toljuk feljebb (<I>visszal&eacute;p&eacute;s</I>,
+azaz <I>backtrack</I>). Ha tal&aacute;ltunk j&oacute; sort, folytassuk
+a k&ouml;vetkez&otilde; b&aacute;buval. L&aacute;that&oacute;, hogy ez
+a folyamat k&eacute;tf&eacute;lek&eacute;ppen &eacute;rhet v&eacute;get:
+a nyolcadik b&aacute;bunak is tal&aacute;ltunk j&oacute; sort (van megold&aacute;s),
+vagy a legels&otilde; b&aacute;buhoz l&eacute;pt&uuml;nk vissza &uacute;gy,
+hogy az m&aacute;r a nyolcadik sorban &aacute;ll (nincs megold&aacute;s).
+A m&oacute;dszer azt is garant&aacute;lja, hogy nem hagyunk ki egy j&oacute;
+lehet&otilde;s&eacute;get sem.</P>
+
+<P>Mi&eacute;rt gyorsabb ez az el&otilde;z&otilde; m&oacute;dszern&eacute;l?
+Ha pl. a T[1]=1, T[2]=2 esetr&otilde;l kider&uuml;l, hogy nem j&oacute;,
+&eacute;s T[2]-t tov&aacute;bbl&eacute;ptetj&uuml;k, soha t&ouml;bb&eacute;
+nem &aacute;ll el&otilde; olyan sorozat, amely 1,2-vel kezd&otilde;dik.
+&Iacute;gy teh&aacute;t egy vizsg&aacute;lattal kiz&aacute;rtuk az &ouml;sszes,
+&iacute;gy kezd&otilde;d&otilde; sorozatot. </P>
+
+<P>N&eacute;zz&uuml;k most a konkr&eacute;t programot:</P>
+
+<P><TT>Function Jo(i:integer):boolean; </TT><FONT SIZE=-1>{T[i] &uuml;ti-e
+az el&otilde;z&otilde;eket}<BR>
+</FONT><TT>&nbsp;var j:integer;<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;j:=1;<BR>
+&nbsp;&nbsp;while (not uti(i,j)) and (j&lt;i) do j:=j+1;<BR>
+&nbsp;&nbsp;Jo:=(j=i); </TT><FONT SIZE=-1>{v&eacute;gigment&uuml;nk &uuml;t&eacute;s
+n&eacute;lk&uuml;l az el&otilde;z&otilde;eken}<BR>
+</FONT><TT>&nbsp;End;</TT></P>
+
+<P><TT>var i:integer;<BR>
+BEGIN<BR>
+&nbsp;for i:=1 to 8 do T[i]:=0;<BR>
+&nbsp;i:=1; </TT><FONT SIZE=-1>{az i. b&aacute;but vizsg&aacute;ljuk}<BR>
+</FONT><TT>&nbsp;while (i&gt;0) and (i&lt;9) do begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;T[i]:=T[i]+1; </TT><FONT SIZE=-1>{eggyel el&otilde;retoljuk
+az i. b&aacute;but}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;if T[i]&gt;8 then begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T[i]:=0; </TT><FONT SIZE=-1>{ha
+nincs t&ouml;bb lehet&otilde;s&eacute;g, visszal&eacute;p&eacute;s}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i:=i-1;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;end else<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if Jo(i) then i:=i+1; </TT><FONT SIZE=-1>{tov&aacute;bbl&eacute;p&eacute;s
+a k&ouml;vetkez&otilde;re}<BR>
+</FONT><TT>&nbsp;end;<BR>
+&nbsp;if i&gt;8 then for i:=1 to 8 do writeln(T[i])<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else writeln('Nincs megold&aacute;s.');<BR>
+END.</TT></P>
+
+<P>A program k&eacute;tf&eacute;lek&eacute;ppen &eacute;rhet v&eacute;get:
+ha i=9, az azt jelenti, hogy az utols&oacute; oszlopra is tal&aacute;ltunk
+az el&otilde;z&otilde;eket nem &uuml;t&otilde; megold&aacute;st, ez&eacute;rt
+tov&aacute;bbl&eacute;pt&uuml;nk, &eacute;s a ciklusnak v&eacute;ge, a
+megold&aacute;st ki lehet &iacute;rni. Ha i=0, az azt jelenti, hogy m&aacute;r
+az els&otilde; oszlopra sincs t&ouml;bb lehet&otilde;s&eacute;g, teh&aacute;t
+nincs megold&aacute;s.</P>
+
+<P><U>1. feladat</U>: m&oacute;dos&iacute;tsd a fenti programot &uacute;gy,
+hogy az &ouml;sszes megold&aacute;st &iacute;rja ki! Tipp: j&oacute; megold&aacute;s
+ki&iacute;r&aacute;sa ut&aacute;n eggyel vissza kell l&eacute;pni, az olyan,
+mintha nem fogadtuk volna el a megold&aacute;st, &eacute;s a program elkezdi
+keresni a k&ouml;vetkez&otilde;t.</P>
+
+<P>A backtrack algoritmus &aacute;ltal&aacute;nos megfogalmaz&aacute;sa:
+keres&uuml;nk egy v&eacute;ges sorozatot (legfeljebb N elem&ucirc;t). A
+sorozat minden eleme v&eacute;ges &eacute;rt&eacute;ket vehet csak fel.
+C&eacute;lszer&ucirc; bevezetni egy alap&eacute;rt&eacute;ket, amelynek
+a r&aacute;k&ouml;vetkez&otilde;je az els&otilde; lehets&eacute;ges &eacute;rt&eacute;k
+(a p&eacute;ld&aacute;ban ez a 0 volt). &Iacute;gy az &aacute;ltal&aacute;nos
+algoritmus:</P>
+
+<P><TT>Kezd&otilde;&eacute;rt&eacute;k </TT><FONT SIZE=-1>(T minden eleme
+felveszi az alap&eacute;rt&eacute;ket)<BR>
+</FONT><TT>i:=1<BR>
+Ciklus am&iacute;g i&gt;0 &eacute;s i&lt;N+1<BR>
+&nbsp;&nbsp;&nbsp;T[i]:=k&ouml;vetkez&otilde; &eacute;rt&eacute;k<BR>
+&nbsp;&nbsp;&nbsp;Ha nincs t&ouml;bb lehets&eacute;ges &eacute;rt&eacute;k,
+akkor<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T[i]:=alap&eacute;rt&eacute;k, i:=i-1<BR>
+&nbsp;&nbsp;&nbsp;k&uuml;l&ouml;nben<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ha a sorozat T[1..i] r&eacute;sze j&oacute;,
+akkor i:=i+1<BR>
+Ciklus v&eacute;ge<BR>
+Ha i&gt;N akkor a megold&aacute;s ki&iacute;r&aacute;sa</TT></P>
+
+<P>Az 1. feladat &eacute;rtelm&eacute;ben az algoritmus m&oacute;dos&iacute;that&oacute;,
+hogy az &ouml;sszes j&oacute; megold&aacute;st ki&iacute;rja. C&eacute;lszer&ucirc;
+az ilyen feladatokat &uacute;gy &aacute;talak&iacute;tani, hogy a sorozat
+elemei 1 &eacute;s x k&ouml;z&ouml;tti eg&eacute;sz sz&aacute;mok lehessenek,
+ekkor az alap&eacute;rt&eacute;k 0, a k&ouml;vetkez&otilde; &eacute;rt&eacute;k
+pedig eggyel megn&ouml;vel&eacute;s (mint a p&eacute;ld&aacute;ban). A
+backtrack-kel megoldhat&oacute; feladatokn&aacute;l teh&aacute;t az egyik
+probl&eacute;ma, hogy a feladatot v&eacute;ges sorozatra fogalmazzuk &aacute;t.
+A m&aacute;sik megoldand&oacute; probl&eacute;ma a r&eacute;szsorozat j&oacute;s&aacute;g&aacute;nak
+eld&ouml;nt&eacute;se.</P>
+
+<P><U>2. feladat</U>: &iacute;rj programot, mely megsz&aacute;molja az
+&ouml;sszes 10-elem&ucirc; szigor&uacute;an n&ouml;vekv&otilde; sorozatot,
+melynek minden eleme 1 &eacute;s 15 k&ouml;z&ouml;tti eg&eacute;sz sz&aacute;m!</P>
+
+<P><U>3. feladat</U>: &iacute;rj programot, mely megadja az &ouml;sszes
+6-elem&ucirc; sorozatot, melynek tagjai 1 &eacute;s 4 k&ouml;z&ouml;tti
+eg&eacute;sz sz&aacute;mok, &eacute;s minden sz&aacute;m legfeljebb 2-szer
+fordulhat el&otilde; benne! Hogyan lehetne gyors&iacute;tani az el&otilde;z&otilde;
+tagokkal val&oacute; &ouml;sszehasonl&iacute;t&aacute;son?</P>
+
+<P>Megjegyezz&uuml;k, hogy a backtrack algoritmusn&aacute;l a v&eacute;geredm&eacute;nyt
+tartalmaz&oacute; t&ouml;mb&ouml;t veremk&eacute;nt haszn&aacute;ltuk,
+mindig csak a legfels&otilde; elem&eacute;vel v&eacute;gezt&uuml;nk m&ucirc;veletet.
+(A sorozat j&oacute;s&aacute;ga meg&aacute;llap&iacute;t&aacute;s&aacute;n&aacute;l
+ez nem mindig igaz, a 8 kir&aacute;lyn&otilde;n&eacute;l &eacute;s a 3.
+feladatn&aacute;l az &ouml;sszes elemet v&eacute;gig kellett vizsg&aacute;lni,
+a 2. feladatn&aacute;l csak az el&otilde;z&otilde; elemet, teh&aacute;t
+t&ouml;mb helyett veremmel csak a 2. feladatot tudn&aacute;nk megoldani.)</P>
+
+<P>N&eacute;zz&uuml;nk egy nehezebb feladatot, melyet m&aacute;r nem egyszer&ucirc;
+backtrack-form&aacute;ra &aacute;talak&iacute;tani. A sakkt&aacute;bl&aacute;n
+kijel&ouml;l&uuml;nk k&eacute;t n&eacute;gyzetet, a c&eacute;l pedig l&oacute;ugr&aacute;ssal
+eljutni az egyikt&otilde;l a m&aacute;sikig. A sorozat elemei lehetnek
+a sakkt&aacute;bla egyes mez&otilde;i. De egy mez&otilde;t sor-oszlop koordin&aacute;t&aacute;kkal
+azonos&iacute;tunk, a sorozat elemei pedig eg&eacute;sz sz&aacute;mok!
+Besz&aacute; mozzuk teh&aacute;t a mez&otilde;ket 1-t&otilde;l 64-ig, &eacute;s
+meg&iacute;rjuk azokat az elj&aacute;r&aacute;sokat, melyek ebb&otilde;l
+az &eacute;rt&eacute;kb&otilde;l el&otilde;&aacute;ll&iacute;tj&aacute;k
+a sor- oszlop koordin&aacute;t&aacute;kat, &eacute;s viszont. &Iacute;gy
+pl. az 1. sor 1. oszlop az 1, a 8. sor 8. oszlop a 64 &eacute;rt&eacute;ket
+kapja (a (sor- 1)&middot;8+oszlop m&ucirc;velet p&eacute;ld&aacute;ul j&oacute;).</P>
+
+<P><U>4. feladat</U>: &iacute;rd meg azt az elj&aacute;r&aacute;st, mely
+a mez&otilde; sorsz&aacute;m&aacute;b&oacute;l el&otilde;&aacute;ll&iacute;tja
+a sor- &eacute;s oszlop-&eacute;rt&eacute;ket! <TT>Procedure Szam2koord(c:integer;
+var s,o:integer)</TT></P>
+
+<P><U>5. feladat</U>: &iacute;rd meg a <TT>Function Lo(s1,o1,s2,o2):boolean</TT>
+f&uuml;ggv&eacute;nyt, amely megadja, hogy (<TT>s1,o1</TT>) mez&otilde;r&otilde;l
+(<TT>s2,o2</TT>) l&oacute;ugr&aacute;snyira van-e.</P>
+
+<P>Teh&aacute;t olyan sorozatot keres&uuml;nk, melynek hossza legfeljebb
+64 (ennyi l&eacute;p&eacute;sben ugyanis bej&aacute;rhattuk az eg&eacute;sz
+t&aacute;bl&aacute;t ism&eacute;tl&otilde;d&eacute;s n&eacute;lk&uuml;l),
+&eacute;s elemei 1 &eacute;s 64 k&ouml;z&ouml;tt vannak. Az egym&aacute;st
+k&ouml;vet&otilde; &eacute;rt&eacute;kek jelentik a l&oacute;ugr&aacute;s-sorozat
+egym&aacute;st k&ouml;vet&otilde; &aacute;llom&aacute;sait. A sorozat j&oacute;,
+ha minden eleme az el&otilde;z&otilde;b&otilde;l l&oacute;ugr&aacute;ssal
+el&eacute;rhet&otilde;, &eacute;s nincs benne ism&eacute;tl&otilde;d&eacute;s
+(ezt az&eacute;rt kell kik&ouml;tn&uuml;nk, mert k&uuml;l&ouml;nben v&eacute;gtelen
+k&ouml;rbe ker&uuml;lhetn&eacute;nk, illetve el&otilde;&aacute;llhatn&aacute;nak
+64 l&eacute;p&eacute;sn&eacute;l hosszabb megold&aacute;sok is). </P>
+
+<P><U>6. feladat</U>: &iacute;rj programot, mely bek&eacute;ri a kiindul&oacute;
+&eacute;s c&eacute;l-mez&otilde;t, majd megad a kett&otilde; k&ouml;z&ouml;tt
+egy l&oacute;ugr&aacute;s-sorozatot! Figyelj arra, hogy a sorozat els&otilde;
+eleme m&aacute;r adott, a backtrack a 2. elemt&otilde;l indul! Valamint
+a le&aacute;ll&aacute;s felt&eacute;tele nem csak az, ha m&aacute;r a 65.
+elemn&eacute;l tartunk, hanem az is, ha az i. elem megegyezik a c&eacute;l-mez&otilde;vel.
+Ugyanis a megold&aacute;s egy&aacute;ltal&aacute;n nem biztos, hogy 64
+l&eacute;p&eacute;sb&otilde;l &aacute;ll (ink&aacute;bb r&ouml;videbb).</P>
+
+<P>L&aacute;that&oacute;, hogy a backtrack algoritmusa a c&eacute;lnak
+megfelel&otilde;en az alap&ouml;tlet megtart&aacute;s&aacute;val &aacute;tszabhat&oacute;
+(p&eacute;ld&aacute;ul akkor, ha a sorozat lehet N-n&eacute;l r&ouml;videbb
+is). Az 5. feladat k&ouml;nnyen m&oacute;dos&iacute;that&oacute; &uacute;gy,
+hogy megadja az &ouml;sszes j&oacute; sorozatot. Ekkor viszont meghat&aacute;rozhat&oacute;
+a legr&ouml;videbb &uacute;t is (pl. az &uacute;j sorozatot csak akkor
+&iacute;rjuk ki, ha az el&otilde;z&otilde;n&eacute;l r&ouml;videbb).</P>
+
+<P><U>7. feladat</U>: m&oacute;dos&iacute;tsd az el&otilde;z&otilde; programot:
+hat&aacute;rozd meg a kiindul&oacute; &eacute;s c&eacute;l-mez&otilde;
+k&ouml;zti legr&ouml;videbb utat!</P>
+
+<P>A program nagyon sok&aacute;ig fut, &eacute;s m&ucirc;k&ouml;d&eacute;se
+sor&aacute;n az is l&aacute;tszik, hogy mi&eacute;rt: ha egyszer m&aacute;r
+tal&aacute;lt egy 10- hossz&uacute;s&aacute;g&uacute; utat, teljesen feleslegesen
+megvizsg&aacute;lja az ann&aacute;l hosszabbakat is. A ciklusmagot &aacute;t
+kell &iacute;rni, m&eacute;gpedig &uacute;gy, hogy akkor is l&eacute;pjen
+vissza, ha el&eacute;rt&uuml;k az eddig tal&aacute;lt legr&ouml;videbb
+&uacute;t hossz&aacute;t. &Iacute;gy a keres&eacute;st lesz&ucirc;k&iacute;tj&uuml;k
+az eddig tal&aacute;lt legr&ouml;videbb &uacute;tn&aacute;l r&ouml;videbb
+sorozatokra, &eacute;s a program sokkal gyorsabb lesz.</P>
+
+<P><U>8. feladat</U>: m&oacute;dos&iacute;tsd a programot ennek megfelel&otilde;en!</P>
+
+<P>A backtrack egyszer&ucirc;, hasznos m&oacute;dszer, melyre nagyon sokszor
+van sz&uuml;ks&eacute;g. P&eacute;ld&aacute;k: adott s&iacute;kidomokkal
+fedj&uuml;nk le egy m&aacute;sik s&iacute;kidomot. Gr&aacute;fban k&eacute;t
+pont k&ouml;z&ouml;tt keress&uuml;nk utat.</P>
+
+<CENTER><P><A HREF="f6.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f4.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

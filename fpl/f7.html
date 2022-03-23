@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - tömbök</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			7. fejezet: Tömbök
+		</h1>
+
+
+    <p>A <strong>tömb</strong> a programozás során használt egyik leggyakoribb <strong>adatszerkezet</strong>. Egy adatszerkezet adatokat tárol, és lehetővé teszi az adatokhoz való hozzáférést. A tömb elemei változók, melyekhez a tömbön belül sorszámukkal, más néven <strong>index</strong>ükkel férhetünk hozzá. Ha t egy tömb, akkor az elemei lehetnek t[1], t[2] stb. Megjegyezzük, hogy míg sok programozási nyelvben a tömbök indexe 0-val kezdődik, a Pascalban ez nem feltétel.</p>
+
+
+    <h2>Tömbök deklarálása és indexelése</h2>
+    <p>Tömbök deklarálásánál meg kell adnunk az indexhatárokat, és hogy a tömb elemei milyen típusúak. Egy tömb minden eleme azonos típusú. A következő példa egy 10-elemű t tömböt deklarál, melynek elemei egészek. A tömb típusa <code>array</code>.</p>
+<pre>
+Var t:array[1..10] of integer;
+BEGIN
+  t[1]:=3;
+  t[2]:=t[1]+1;
+END.
+</pre>
+
+    <p>A tömb típus tehát: <code>array [<i>mettől</i>..<i>meddig</i>] of <i>alaptípus</i></code>
+	A tömb egy elemére <code><i>tömbnév</i>[<i>index</i>]</code> formátumban hivatkozunk. A fenti példában <code>t[2]</code> egy <code>integer</code> típusú változó, a tömb második eleme, az indexe 2.
+    </p>
+
+    <h2>Hibák és kezelésük</h2>
+    <p>Futtasd most le az első mintaprogramot úgy, hogy az egyik indexet 1-ről 11-re módosítod! A fordító "range check error" üzenetet ad (<strong>fordítási hiba</strong>). Ez azt jelenti, hogy a tömbnek annyiadik elemére hivatkoztunk, ahányadik nincs. Ez a program futtatásakor súlyos hibát okozna. A fordító lefoglal valamekkora memóriaterületet a tömbnek, a hibás indexű elem ebből kilóg, máshoz tartozó adatokat módosíthat. Ebben a példában a fordító észlelte a hibát, de ez gyakran csak a program futtatásakor derülhet ki. A következő példaprogram hiba nélkül lefordul:</p>
+<pre>
+Var t:array[1..10] of integer;
+    i:integer;
+BEGIN
+  for i:=1 to 11 do t[i]:=0;
+END.
+</pre>
+    <p>...ami nagy baj, mert futtatáskor a memória szabálytalan használata változatos hibajelenségeket okozhat! Ezért a fordítót be kell állítanunk, hogy a program futás közben figyelje ezt a hibatípust. A <i>Projekt->Projekt beállítások...</i> menüből válaszd ki a <i>Fordító beállításai->Hibakeresés</i> pontot, és ott jelöld be a <i>Tartomány</i> négyzetet.</p>
+    <div class="kep"><img src="k2.png" alt="hibakeresés" /></div>
+    <p>Az első 4 opció mind kipipálandó. A <i>Hibakeresési információk létrehozása</i> szerepe az, hogy a tárgykódba a fordító beírja, az egyes parancsok a forráskód hányadik sorában vannak. Ez futás közben fellépő hibáknál (futási hiba) nagyon hasznos segítség, az IDE megmutatja a hiba helyét a forráskódban. (A tárgykód, vagyis az .exe fájl mérete ugyanakkor a tízszeresére nő. Ezért a program végső, terjeszthető változatát e nélkül a kapcsoló nélkül fordítsuk.)<br />
+	Most futtasd le a fenti hibás programot! A futás leáll, 201-es hibakóddal (ez a range check error futási hiba kódja). Válaszd  a Megszakítást, majd nyomd meg a piros négyzetet.<br />
+	Az I/O hibáknak fájlkezelésnél van szerepe, a Túlcsordulásnak pedig akkor, ha egy változóban túl nagy értéket akarunk tárolni. E nélkül túlcsordulás esetén nem hibaüzenetet kapunk, hanem a program hibás értékkel fut tovább.<p>
+	<h2>Tömb feldolgozása ciklussal</h2>
+	<p>Sok tömbös feladatnál for-ciklust használunk arra, hogy a tömb elemein végigmenjünk. Ez a ciklus 0 kezdőértékkel tölt fel egy tömböt:</p>
+<pre>
+for i:=1 to 10 do t[i]:=0;
+</pre>
+	<p>A következő összetett program beolvassa 10 ember nemét és magasságát, majd kiírja külön a lányok és külön a fiúk átlagos magasságát. A <code>NEM</code> tömb tárolja a nemet (f/l), a <code>MAG</code> tömb a magasságot.</p>
+<pre>
+Var NEM:array[1..10] of char;
+    MAG:array[1..10] of integer;
+    i:integer;
+    dbfiu,dblany,mfiu,mlany:integer;
+BEGIN
+  for i:=1 to 10 do begin
+    write(i,'. ember neme (f/l): '); readln(NEM[i]);
+    write(i,'. ember magassága (egész cm): '); readln(MAG[i]);
+  end;
+
+  dbfiu:=0; dblany:=0;
+  mfiu:=0; mlany:=0;
+  for i:=1 to 10 do
+    if NEM[i]='f' then begin
+      dbfiu:=dbfiu+1;
+      mfiu:=mfiu+MAG[i];
+    end else begin
+      dblany:=dblany+1;
+      mlany:=mlany+MAG[i];
+    end;
+  if dbfiu>0 then writeln('Fiúk   átlagmagassága=',mfiu/dbfiu:5:1,' cm');
+  if dblany>0 then writeln('Lányok átlagmagassága=',mlany/dblany:5:1,' cm');
+  write('Nyomj entert!'); readln;
+END.    
+</pre>
+	<p>Az első ciklus a beolvasás, a második a feldolgozás. (A kettőt össze is lehetett volna vonni, sőt, a feladatot tömbök nélkül is meg lehetett volna oldani.)</p>
+	<h2>A tömbök mérete</h2>
+	<p>Hogyan kell a tömböket deklarálni akkor, ha nem tudjuk előre, mennyi adatot kell tárolni? A statikus memóriakezelés miatt a tömb méretét már a deklarációs részben meg kell adni, futás közben nem lehet megnövelni. Ezért akkora tömböt kell létrehozni, amelyben biztosan elfér minden szükséges adat. Érdemes lehet a programban azt is kezelni, hogy mi van, ha mégsem.</p>
+	<p>A következő két példa kétféleképpen oldja meg legfeljebb 10 pozitív szám beolvasását. A tömb deklarációja (innentől kezdve egyre gyakrabban csak programrészleteket adok meg):</p>
+<pre>
+var t:array [1..10] of integer;
+</pre>
+	<p>Ez a megoldás először megkérdezi a számok számát.</p>
+<pre>
+write('Hány szám legyen (legfeljebb 10): '); readln(db);
+if db>10 then writeln('Érvénytelen érték!')
+else
+  for i:=1 to db do begin
+    write('Add meg a(z) ',i,'. számot: '); readln(t[i]);
+  end;
+</pre>
+	<p>Kényelmesebb, ha a felhasználónak nem kell előre tudnia, hány számot fog beírni. Ekkor valahogy jeleznie kell a beírás végét. Mivel most pozitív számokat kér a program, a 0 beírása alkalmas erre.</p>
+<pre>
+db:=0;
+repeat
+  write('Add meg a(z) ',db+1,'. számot, 0=vége: '); readln(a);
+  if a>0 then begin
+    db:=db+1;
+    t[db]:=a;
+  end;
+until (a=0) or (db=10);
+</pre>
+
+	<h2>Többdimenziós tömbök</h2>
+	<p>Egy tömbelem lehet tömb is, ekkor a tömb valahányadik elemének is lehet valahányadik eleme. Míg az egydimenziós tömböt értékek sorozataként szemlélhetjük, a kétdimenziós tömb már táblázat sorokkal, oszlopokkal, és egy tömbelem indexelésekor a sort és oszlopot is megadjuk, pl. <code>t[4,2]</code>. Egy kétdimenziós, 5x2-es tömb így deklarálható:<br />
+	<code>var t:array[1..5,1..3] of integer;</code><br />
+	A három- vagy többdimenziós tömböket már nehezebb szemléletesen elképzelni.</p>
+	<p>Ez a példa előállítja, majd kiírja a következő táblázatot, ahol az a szabály, hogy minden szám a táblázatban fölötte és tőle balra elhelyezkedő számok összege. A bal szélen és a tetején elhelyezkedő minden szám 1.<br >
+ 	<code>1  1  1  1  1<br />
+ 	1  2  3  4  5<br />
+ 	1  3  6 10 15<br /></code>
+	Először is tisztázni kell, melyik index melyik. Legyen a j. sor i. oszlopában lévő szám <code>t[i,j]</code>. A többdimenziós tömböt jellemzően egymásba ágyazott ciklusokkal dolgozzuk fel.</p>
+<pre>
+Var t:array [1..5,1..3] of integer;
+    i,j:integer;
+BEGIN
+ //első sor és első oszlop kezdőértékei
+ for i:=1 to 5 do t[i,1]:=1;
+ for j:=1 to 3 do t[1,j]:=1;
+
+ //a többi érték kiszámítása
+ for i:=2 to 5 do
+   for j:=2 to 3 do t[i,j]:=t[i-1,j]+t[i,j-1];
+
+ //a táblázat kiírása
+ for j:=1 to 3 do begin
+   for i:=1 to 5 do write(t[i,j]:3);
+   writeln;
+ end;
+
+ write('Nyomj entert!'); readln;
+END.   
+</pre>
+	<p>Az első két ciklus nem egymásba ágyazott, mert azok csak egy soron vagy egy oszlopon mennek végig. Amikor egy elem értéket kap a harmadik ciklusban, akkor ezt olyan elemek alapján kapja, amelyek már korábban értéket kaptak. A kiíró ciklusban a <code>:3</code> miatt mindegyik számot 3 karakter szélességben írja ki, így a táblázat szabályos lesz az egy- és kétjegyű számok esetén is.</p>
+
+  <p>
+    <a href="f6.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="f8.html">Következő</a>
+  </p>
+
+    <h2>Feladatok</h2>
+	<p>19. Írj programot, amely 1 és 6 közti véletlenszámokkal feltölt egy tömböt, majd kiírja, hány páros szám van benne!</p>
+    <p><a href="fm.html#mo19">megoldás</a></p>
+    <p>20. Írj programot, amely 1 és 6 közti véletlenszámokkal feltölt egy tömböt, és kiírja a benne lévő páros számok összegét!</p>
+    <p><a href="fm.html#mo20">megoldás</a></p>
+	<p>21. Írj programot, amely 1 és 6 közti véletlenszámokkal feltölt egy tömböt, majd kiírja a benne lévő páros számokat!</p>
+	<p><a href="fm.html#mo21">megoldás</a></p>
+	<p>22. Írj programot, amely 1 és 6 közti véletlenszámokkal feltölt egy tömböt, majd kiírja, hány alkalommal követ egy számot vele egyenlő! (Például a 4 2 4 4 3 2 2 2 6 sorozatnál ez a szám 3.)</p>
+	<p><a href="fm.html#mo22">megoldás</a></p>
+	<p>23. Írj programot, amely bekéri emberek keresztnevét és életkorát, majd kiírja a 10 évnél fiatalabbak nevét!</p>
+	<p><a href="fm.html#mo23">megoldás</a></p>
+	<p>24. Írj programot, amely véletlenszámokkal feltölt egy 5x10-es tömböt, majd kiírja, hogy páros vagy páratlan számból volt-e benne több!</p>
+	<p><a href="fm.html#mo24">megoldás</a></p>
+	<p>25. Írj programot, amely véletlenszámokkal feltölt egy 5x10-es tömböt, majd kiírja az egyes sorokban szereplő számok összegét (röviden, a sorösszegeket)!</p>
+	<p><a href="fm.html#mo25">megoldás</a></p>
+	<p>26. Írj programot, amely egy 5x10-es tömb "szélső" elemeit 1-re, a többit 0-ra állítja!</p>
+	<p><a href="fm.html#mo26">megoldás</a></p>
+	<p>27. Írj programot, amely egy 15-elemű tömb elemeit a következőképpen állítja elő: az első két elem értéke 1, a harmadiké 2, a további elemek pedig mindig az őket megelőző három elem összegeként állnak elő. Írasd is ki az elemeket!</p>
+	<p><a href="fm.html#mo27">megoldás</a></p>
+	<p>28. Írj programot, amely egy 10-elemű tömböt feltölt 0 és 9 közötti véletlenszámokkal, majd az 5-nél nagyobbakat átrakja egy másik tömbbe!</p>
+	<p><a href="fm.html#mo28">megoldás</a></p>
+	<p>29. Írj programot, amely egy 10-elemű tömböt feltölt 0 és 9 közötti véletlenszámokkal, majd megfordítja a számok sorrendjét!</p>
+	<p><a href="fm.html#mo29">megoldás</a></p>
+
+  </div>
+</body>
+</html>

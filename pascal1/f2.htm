@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>2. A programoz&aacute;s alapfogalmai</FONT></U></P>
+
+<P>A mem&oacute;ri&aacute;ban l&eacute;v&otilde; programot a <B>processzor</B>
+(CPU) &eacute;rtelmezi &eacute;s <B>v&eacute;grehajtja</B> (a program <B>lefut</B>).
+Ez a program g&eacute;pi k&oacute;d&uacute;, a processzor sz&aacute;m&aacute;ra
+k&ouml;zvetlen&uuml;l feldolgozhat&oacute;. A <B>g&eacute;pi k&oacute;d</B>
+byte-ok sorozata, &eacute;s ez&eacute;rt az ember sz&aacute;m&aacute;ra
+nehezen &eacute;rthet&otilde;. A g&eacute;pi k&oacute;d <B>alacsony szint&ucirc;</B>
+programnyelv.</P>
+
+<P>Az <B>assembly</B> programnyelv &uacute;gy keletkezik, hogy a g&eacute;pi
+k&oacute;d&uacute; utas&iacute;t&aacute;sokat n&eacute;h&aacute;ny (t&ouml;bbnyire
+3) bet&ucirc;s r&ouml;vid&iacute;t&eacute;ssel, &uacute;gynevezett mnemonikkal
+helyettes&iacute;tj&uuml;k. P&eacute;lda:</P>
+
+<P><TT><U>g&eacute;pi k&oacute;d</U> &nbsp;<U>assembly</U> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<U>jelent&eacute;se<BR>
+</U>187,7,0 &nbsp;&nbsp;MOV AX,7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT><FONT SIZE=-1>az
+A regiszterbe 7-et t&ouml;lt<BR>
+</FONT><TT>144,9,144 MOV [9009],AX&nbsp; </TT><FONT SIZE=-1>A tartalm&aacute;t
+a 9*4096+9-edik mem&oacute;riac&iacute;mre m&aacute;solja<BR>
+</FONT><TT>187,8,0 &nbsp;&nbsp;MOV AX,8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT><FONT SIZE=-1>A-ba
+8-at t&ouml;lt<BR>
+</FONT><TT>5,9,144 &nbsp;&nbsp;ADD AX,9009 &nbsp;&nbsp;&nbsp;</TT><FONT SIZE=-1>A-hoz
+hozz&aacute;adja a 9*4096+9-ik mem&oacute;riac&iacute;m tartalm&aacute;t<BR>
+</FONT><TT>stb... </TT></P>
+
+<P>Ez az nyelv egy kicsit megk&ouml;nny&iacute;ti a g&eacute;pi k&oacute;d&uacute;
+programoz&aacute;st, de a CPU &aacute;ltal elv&eacute;gzend&otilde; feladatot
+ugyan&uacute;gy vissza kell vezetn&uuml;nk a legalapvet&otilde;bb tev&eacute;kenys&eacute;gekre
+(&ouml;sszead&aacute;s, adatok mozgat&aacute;sa a regiszterek &eacute;s
+a mem&oacute;riac&iacute;mek k&ouml;z&ouml;tt, a program folytat&aacute;sa
+m&aacute;sik mem&oacute;riac&iacute;men stb.), mint a g&eacute;pi k&oacute;dn&aacute;l.</P>
+
+<P>A <B>magas szint&ucirc; programoz&aacute;si nyelvek</B> megengedik az
+emberk&ouml;zelibb utas&iacute;t&aacute;sok haszn&aacute;lat&aacute;t,
+&iacute;gy sokkal &eacute;rthet&otilde;bbek &eacute;s k&ouml;nnyebben kezelhet&otilde;ek
+a g&eacute;pi k&oacute;dn&aacute;l. Ezek haszn&aacute;lat&aacute;hoz m&aacute;r
+nem kell ismern&uuml;nk a processzor m&ucirc;k&ouml;d&eacute;s&eacute;t,
+&eacute;s mag&aacute;ra az elv&eacute;gzend&otilde; feladatra &ouml;sszpontos&iacute;thatunk.
+P&eacute;ld&aacute;ul</P>
+
+<P><TT>PRINT 7+8</TT></P>
+
+<P>ki&iacute;rja a k&eacute;perny&otilde;re a sz&aacute;m&iacute;t&aacute;s
+eredm&eacute;ny&eacute;t. A magas szint&ucirc; nyelven &iacute;rt programsz&ouml;veget
+<B>forr&aacute;sk&oacute;d</B>nak nevezz&uuml;k. A processzor viszont nem
+&eacute;rti ezeket a nyelveket, valahogyan gondoskodni kell a forr&aacute;sk&oacute;d
+ford&iacute;t&aacute;s&aacute;r&oacute;l.</P>
+
+<P>Az <B>interpreter</B> (&eacute;rtelmez&otilde;) t&iacute;pus&uacute;
+nyelvek eset&eacute;n a g&eacute;pen fut egy g&eacute;pi k&oacute;d&uacute;
+program, mely &eacute;rtelmezi &eacute;s v&eacute;grehajtja a forr&aacute;sk&oacute;d
+utas&iacute;t&aacute;sait.</P>
+
+<P>A <B>compiler</B> (ford&iacute;t&oacute;) t&iacute;pus&uacute; nyelvekn&eacute;l
+egy ford&iacute;t&oacute;program g&eacute;pi k&oacute;dra ford&iacute;tja
+a forr&aacute;sk&oacute;dot, &iacute;gy keletkezik a <B>t&aacute;rgyk&oacute;d</B>.
+A t&aacute;rgyk&oacute;dot a CPU ezut&aacute;n m&aacute;r k&ouml;zvetlen&uuml;l
+v&eacute;grehajthatja.</P>
+
+<P>A compiler el&otilde;nye az interpreterhez k&eacute;pest, hogy m&iacute;g
+a forr&aacute;sk&oacute;d utas&iacute;t&aacute;sonk&eacute;nti &eacute;rtelmez&eacute;se
+id&otilde;ig&eacute;nyes, &eacute;s sz&uuml;ks&eacute;ges hozz&aacute;
+az interpreter program jelenl&eacute;te a mem&oacute;ri&aacute;ban, a leford&iacute;tott
+t&aacute;rgyk&oacute;d minden seg&iacute;ts&eacute;g n&eacute;lk&uuml;l
+futtathat&oacute;, teh&aacute;t gyors &eacute;s mem&oacute;riatakar&eacute;kos.</P>
+
+<P>Az interpreter el&otilde;nye viszont, hogy fut&aacute;s k&ouml;zben
+nyomon k&ouml;vethetj&uuml;k, hogy a forr&aacute;sprogram melyik utas&iacute;t&aacute;s&aacute;t
+dolgozza fel az &eacute;rtelmez&otilde;, a programot meg&aacute;ll&iacute;thatjuk,
+folytathatjuk, m&ucirc;k&ouml;d&eacute;s k&ouml;zben beavatkozhatunk, &iacute;gy
+a hibakeres&eacute;s is k&ouml;nnyebb.</P>
+
+<P>L&eacute;teznek <B>&aacute;ltal&aacute;nos</B> &eacute;s <B>speci&aacute;lis</B>
+programnyelvek. El&otilde;bbiekkel tetsz&otilde;leges programoz&aacute;si
+feladat megoldhat&oacute;, ut&oacute;bbiakat egy bizonyos feladat hat&eacute;kony
+elv&eacute;gz&eacute;s&eacute;re k&eacute;sz&iacute;tett&eacute;k. Term&eacute;szetesen
+el&eacute;g lenne egyetlen &aacute;ltal&aacute;nos programoz&aacute;si
+nyelvet haszn&aacute;lni, de azok a k&uuml;l&ouml;nleges feladatokat nem
+v&eacute;gzik el olyan gyorsan &eacute;s egyszer&ucirc;en, mint a megfelel&otilde;
+speci&aacute;lis programnyelv. Az <B>amat&otilde;r</B> nyelveken egyszer&ucirc;
+a programoz&aacute;s, a <B>professzion&aacute;lis</B> nyelveken nehezebb,
+viszont a k&eacute;sz program min&otilde;s&eacute;ge jobb lehet.</P>
+
+<P>V&eacute;g&uuml;l n&eacute;h&aacute;ny nyelv jellemz&eacute;se:</P>
+
+<P><TT>Basic &nbsp;&nbsp;&nbsp;&nbsp;amat&otilde;r &aacute;ltal&aacute;nos
+interpreter<BR>
+Pascal &nbsp;&nbsp;&nbsp;amat&otilde;r &aacute;ltal&aacute;nos compiler<BR>
+C &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;profi &nbsp;&aacute;ltal&aacute;nos
+compiler<BR>
+LOGO &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amat&otilde;r speci&aacute;lis interpreter<BR>
+DOS batch &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;speci&aacute;lis interpreter<BR>
+Prolog &nbsp;&nbsp;&nbsp;profi &nbsp;speci&aacute;lis interpreter</TT></P>
+
+<CENTER><P><A HREF="f3.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f1.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>3. Dinamikus mem&oacute;riakezel&eacute;s</FONT></U></P>
+
+<P>A Pascal hi&aacute;nyoss&aacute;g&aacute;nak t&ucirc;nik az a megk&ouml;t&eacute;s,
+hogy a v&aacute;ltoz&oacute;kat el&otilde;re deklar&aacute;lni kell. &Iacute;gy
+a program elej&eacute;n deklar&aacute;lhatunk egy t&ouml;mb&ouml;t, &eacute;s
+a program fut&aacute;sa k&ouml;zben der&uuml;l ki, hogy a sz&uuml;ks&eacute;ges
+adat (pl. egy file-b&oacute;l beolvasott hossz&uacute; sz&aacute;msorozat)
+nem f&eacute;r bele. Ez mindig olyankor fordul el&otilde;, amikor nem ismerj&uuml;k
+el&otilde;re a feldolgozand&oacute; adat mennyis&eacute;g&eacute;t. Ezen
+seg&iacute;t a Pascal azon lehet&otilde;s&eacute;ge, hogy a program fut&aacute;sa
+k&ouml;zben is foglalhatunk le mem&oacute;ri&aacute;t v&aacute;ltoz&oacute;knak
+- ezek lesznek a <B>dinamikus v&aacute;ltoz&oacute;k</B>, szemben a program
+deklar&aacute;ci&oacute;s r&eacute;sz&eacute;ben el&otilde;re megadott
+<B>statikus v&aacute;ltoz&oacute;k</B>kal.</P>
+
+<P><U>A Pascal mem&oacute;riaklezel&eacute;se</U></P>
+
+<P>Mint tudjuk, minden v&aacute;ltoz&oacute;nak van neve (azonos&iacute;t&oacute;ja),
+t&iacute;pusa, &eacute;s tartozik hozz&aacute; a mem&oacute;ri&aacute;ban
+egy lefoglalt r&eacute;sz, ahol a v&aacute;ltoz&oacute;ban l&eacute;v&otilde;
+adat helyezkedik el. Mivel a v&aacute;ltoz&oacute;k &aacute;ltal ig&eacute;nyelt
+ter&uuml;let a v&aacute;ltoz&oacute;k t&iacute;pus&aacute;b&oacute;l egy&eacute;rtelm&ucirc;en
+meghat&aacute;rozhat&oacute;, a program statikus v&aacute;ltoz&oacute;i
+&aacute;ltal felhaszn&aacute;ltand&oacute; mem&oacute;ria mennyis&eacute;ge
+m&aacute;r ford&iacute;t&aacute;skor kider&uuml;l. Az &iacute;gy lefoglalt
+ter&uuml;let nem lehet nagyobb <U>64 Kbyte-n&aacute;l</U> (teh&aacute;t
+egy 300 elem&ucirc;, stringekb&otilde;l &aacute;ll&oacute; t&ouml;mb m&aacute;r
+nem hozhat&oacute; l&eacute;tre!). Eddig <B>statikus mem&oacute;riakezel&eacute;s</B>r&otilde;l
+besz&eacute;lhet&uuml;nk.</P>
+
+<P>Elj&aacute;r&aacute;sok h&iacute;v&aacute;sakor &uacute;j v&aacute;ltoz&oacute;k
+j&ouml;nnek l&eacute;tre: az elj&aacute;r&aacute;s param&eacute;terei &eacute;s
+saj&aacute;t v&aacute;ltoz&oacute;i. (Ezen k&iacute;v&uuml;l a Pascalnak
+azt is fel kell jegyeznie, hogy hol folytassa az elj&aacute;r&aacute;sh&iacute;v&aacute;skor
+f&eacute;lbeszakadt programot). Mivel ezek a v&aacute;ltoz&oacute;k fut&aacute;s
+k&ouml;zben j&ouml;nnek l&eacute;tre, itt <B>dinamikus mem&oacute;riakezel&eacute;s</B>re
+van sz&uuml;ks&eacute;g. Ezeket az adatokat a Pascal egy <B>STACK</B> (verem)
+nev&ucirc; mem&oacute;riater&uuml;leten t&aacute;rolja. Ha a stack m&eacute;rete
+t&uacute;l kicsi, az csak a program fut&aacute;sa k&ouml;zben der&uuml;l
+ki („verem t&uacute;lcsordul&aacute;s&quot; hiba). N&eacute;zz&uuml;nk
+p&eacute;ld&aacute;t ilyen programra (az elj&aacute;r&aacute;s saj&aacute;t
+mag&aacute;t h&iacute;vja, &eacute;s a stack-en minden h&iacute;v&aacute;skor
+lefoglal&aacute;sra ker&uuml;l az a v&aacute;ltoz&oacute;):</P>
+
+<P><TT>Procedure Tele;<BR>
+&nbsp;Var a:integer;<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Tele;<BR>
+&nbsp;End;<BR>
+<BR>
+BEGIN<BR>
+&nbsp;Tele;<BR>
+END.</TT></P>
+
+<P>V&eacute;g&uuml;l, a programban saj&aacute;t magunk is foglalhatunk
+le dinamikusan mem&oacute;ri&aacute;t. Az &iacute;gy felhaszn&aacute;lhat&oacute;
+mem&oacute;riater&uuml;let neve <B>HEAP</B> (halom). A heap m&eacute;rete
+tetsz&otilde;legesen nagy lehet (pontosabban: akkora, mint a program rendelkez&eacute;s&eacute;re
+&aacute;ll&oacute; mem&oacute;riam&eacute;ret, ami k&uuml;l&ouml;nb&ouml;z&otilde;
+t&eacute;nyez&otilde;kt&otilde;l f&uuml;gg). Az egyetlen korl&aacute;toz&aacute;s,
+hogy a benne egyszerre lefoglalt mem&oacute;riam&eacute;ret nem lehet nagyobb
+64 Kbyte-n&aacute;l. &Iacute;gy pl. itt sem hozhatunk l&eacute;tre egy
+300 elem&ucirc;, stringekb&otilde;l &aacute;ll&oacute; t&ouml;mb&ouml;t,
+de k&eacute;t 150 elem&ucirc;t m&aacute;r igen.</P>
+
+<P>A stack &eacute;s a heap m&eacute;ret&eacute;t ford&iacute;t&aacute;skor
+megadhatjuk a<BR>
+<TT>&nbsp;&nbsp;&nbsp;{$M stack,heapmin,heapmax}<BR>
+</TT>&uacute;gynevezett <B>ford&iacute;t&aacute;si direkt&iacute;v&aacute;</B>val
+(compiler directive). A ford&iacute;t&aacute;si direkt&iacute;v&aacute;kat
+a Pascal ford&iacute;t&aacute;s k&ouml;zben &eacute;rt&eacute;keli ki &eacute;s
+hajtja v&eacute;gre, a leford&iacute;tott program fut&aacute;sa k&ouml;zben
+m&aacute;r nem j&aacute;tszanak szerepet. <TT>stack</TT> param&eacute;ter
+a stack m&eacute;ret&eacute;t, <TT>heapmin</TT> &eacute;s <TT>heapmax</TT>
+a heap m&eacute;ret&eacute;t (legal&aacute;bb &eacute;s legfeljebb) adja
+meg. Ha a rendelkez&eacute;sre &aacute;ll&oacute; mem&oacute;ria heapmin-n&eacute;l
+kisebb, a program nem indul el, &eacute;s semmik&eacute;ppen nem foglal
+le heapmax-n&eacute;l t&ouml;bb mem&oacute;ri&aacute;t. Alap&eacute;rtelmez&eacute;s
+szerint a fut&oacute; program az &ouml;sszes szabad mem&oacute;ri&aacute;t
+lefoglalja.</P>
+
+<P><U>A heap kezel&eacute;se &eacute;s a pointerek</U></P>
+
+<P>Dinamikus v&aacute;ltoz&oacute;k haszn&aacute;lat&aacute;n&aacute;l
+a programoz&oacute;nak az eddigin&eacute;l t&ouml;bbet kell foglalkozni
+a mem&oacute;riakezel&eacute;ssel, melyet egy&eacute;bk&eacute;nt a Pascal
+automatikusan v&eacute;gez. A v&aacute;ltoz&oacute; l&eacute;trehoz&aacute;sakor
+le kell foglalni egy megfelel&otilde; m&eacute;ret&ucirc; mem&oacute;riater&uuml;letet,
+&eacute;s gondoskodni kell annak felszabad&iacute;t&aacute;s&aacute;r&oacute;l,
+ha a v&aacute;ltoz&oacute;ra m&aacute;r nincs sz&uuml;ks&eacute;g. Ehhez
+tudni kell, hogy a dinamikus v&aacute;ltoz&oacute; hol helyezkedik el a
+mem&oacute;ri&aacute;ban, &eacute;s mennyi helyet foglal le.</P>
+
+<P>A <B>pointer</B> olyan v&aacute;ltoz&oacute;, mely a mem&oacute;ria
+adott hely&eacute;re mutat. Ehhez egy &uacute;j t&iacute;pust kell bevezetn&uuml;nk.</P>
+
+<P><U>T&iacute;pus n&eacute;lk&uuml;li pointerek</U></P>
+
+<P><TT>t&iacute;pus &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&eacute;rt&eacute;kek
+<BR>
+POINTER &nbsp;&nbsp;&nbsp;mem&oacute;riac&iacute;m vagy NIL</TT></P>
+
+<P>Ha egy pointer t&iacute;pus&uacute; v&aacute;ltoz&oacute; (tov&aacute;bbiakban
+pointer) &eacute;rt&eacute;ke NIL, az azt jelenti, hogy a pointer m&eacute;g
+nem mutat sehov&aacute;. (C&eacute;lszer&ucirc;en ez a pointer kezd&otilde;&eacute;rt&eacute;ke.)
+A mem&oacute;riafoglal&aacute;s &eacute;s -felszabad&iacute;t&aacute;s
+a k&ouml;vetkez&otilde; utas&iacute;t&aacute;sokkal t&ouml;rt&eacute;nik:</P>
+
+<UL>
+<LI><TT>GETMEM(pointer,m&eacute;ret byte-okban) </TT><FONT SIZE=-1>mem&oacute;riafoglal&aacute;s
+a pointernek</FONT></LI>
+
+<LI><TT>FREEMEM(pointer,m&eacute;ret byte-okban) </TT><FONT SIZE=-1>a lefoglalt
+mem&oacute;ria felszabad&iacute;t&aacute;sa</FONT></LI>
+</UL>
+
+<P>A <TT>Getmem</TT> utas&iacute;t&aacute;s hat&aacute;s&aacute;ra a Pascal
+lefoglal egy megadott m&eacute;ret&ucirc; mem&oacute;riar&eacute;szt a
+heap ter&uuml;leten, a pointer &eacute;rt&eacute;ke pedig erre a mem&oacute;riac&iacute;mre
+fog mutatni. Ezen k&iacute;v&uuml;l azonban nem sokat kezdhet&uuml;nk a
+lefoglalt mem&oacute;ri&aacute;val: azon k&iacute;v&uuml;l, hogy a Pascal
+egyes elj&aacute;r&aacute;sai ig&eacute;nylik, hogy adatt&aacute;rol&aacute;s
+c&eacute;lj&aacute;b&oacute;l mem&oacute;ri&aacute;t foglaljunk sz&aacute;mukra
+(ld. Getimage utas&iacute;t&aacute;s), az ilyen mem&oacute;riakezel&eacute;s
+m&aacute;r assembly szint&ucirc; programoz&aacute;st ig&eacute;nyel. Ezzel
+a pointer-fajt&aacute;val a tov&aacute;bbiakban nem foglalkozunk.</P>
+
+<P><U>T&iacute;pusos pointerek</U></P>
+
+<P>A t&iacute;pusos pointer eset&eacute;n a Pascal azt is nyilv&aacute;ntartja,
+hogy az a mem&oacute;riac&iacute;m, ahov&aacute; a pointer mutat, milyen
+t&iacute;pus&uacute; adatot rejt. Ekkor egyr&eacute;szt automatikuss&aacute;
+v&aacute;lik a lefoglalt mem&oacute;ria m&eacute;ret&eacute;nek meghat&aacute;roz&aacute;sa
+(a programoz&oacute;nak nem kell vele foglalkozni), m&aacute;sr&eacute;szt
+ezt a mem&oacute;riar&eacute;szt az adott t&iacute;pus&uacute; v&aacute;ltoz&oacute;k&eacute;nt
+haszn&aacute;lni is tudjuk. T&iacute;pusos pointer t&iacute;pusa:</P>
+
+<UL>
+<LI><TT>^alapt&iacute;pus</TT></LI>
+</UL>
+
+<P>ahol az alapt&iacute;pus a pointer &aacute;ltal mutatott mem&oacute;riar&eacute;szen
+elhelyezked&otilde; adat t&iacute;pusa. &Iacute;gy pl. az <TT>^integer</TT>
+olyan pointer t&iacute;pusa, mely a mem&oacute;ri&aacute;ban egy integer
+t&iacute;pus&uacute; adatra mutat. Ezt a mem&oacute;riar&eacute;szt dinamikus
+v&aacute;ltoz&oacute;k&eacute;nt a</P>
+
+<UL>
+<LI><TT>pointer^</TT></LI>
+</UL>
+
+<P>hivatkoz&aacute;ssal haszn&aacute;lhatjuk, &iacute;gy k&ouml;z&ouml;ns&eacute;ges
+v&aacute;ltoz&oacute;k&eacute;nt fog viselkedni (ez az a dinamikus v&aacute;ltoz&oacute;,
+amelyre a pointer mutat). A mem&oacute;riafoglal&aacute;s &eacute;s -felszabad&iacute;t&aacute;s
+utas&iacute;t&aacute;sai:</P>
+
+<UL>
+<LI><TT>NEW(pointer) </TT>helyfoglal&aacute;s</LI>
+
+<LI><TT>DISPOSE(pointer) </TT>a lefoglalt hely felszabad&iacute;t&aacute;sa</LI>
+</UL>
+
+<P>N&eacute;zz&uuml;nk egy p&eacute;ld&aacute;t dinamikus v&aacute;ltoz&oacute;
+l&eacute;trehoz&aacute;s&aacute;ra:</P>
+
+<P><TT>VAR p:^integer<BR>
+BEGIN<BR>
+&nbsp;New(p);<BR>
+&nbsp;Readln(p^);<BR>
+&nbsp;Writeln(p^);<BR>
+&nbsp;Dispose(p);<BR>
+END.</TT></P>
+
+<P>A p&eacute;ld&aacute;ban <TT>p^</TT> egyszer&ucirc; v&aacute;ltoz&oacute;k&eacute;nt
+viselkedett, melyet a program fut&aacute;sa k&ouml;zben hoztunk l&eacute;tre.
+A k&ouml;vetkez&otilde; p&eacute;lda l&eacute;trehoz 2, 150 elem&ucirc;
+stringb&otilde;l &aacute;ll&oacute; t&ouml;mb&ouml;t, &iacute;gy a pointerek
+haszn&aacute;lat&aacute;val m&aacute;ris t&uacute;ll&eacute;pt&uuml;k a
+statikus mem&oacute;riakezel&eacute;s 64 Kbyte-os korl&aacute;tj&aacute;t:</P>
+
+<P><TT>TYPE Tomb=array[1..150] of string;<BR>
+VAR p,q:^Tomb;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;i:integer;<BR>
+BEGIN<BR>
+&nbsp;New(p);<BR>
+&nbsp;New(q);<BR>
+&nbsp;For i:=1 to 150 do begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;p^[i]:='Egyik sz&ouml;veg';<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;q^[i]:='M&aacute;sik sz&ouml;veg';<BR>
+&nbsp;end;<BR>
+&nbsp;Dispose(p);<BR>
+&nbsp;Dispose(q);<BR>
+END.</TT></P>
+
+<P>Itt <TT>p^</TT> &eacute;s <TT>q^</TT> olyan, mint k&eacute;t 150 elem&ucirc;
+t&ouml;mb. p &eacute;s q pointereket k&ouml;zvetlen&uuml;l nem haszn&aacute;ljuk.
+A statikus mem&oacute;ri&aacute;ban csak a pointerek helyezkednek el, egy
+pointer pedig (mivel tartalma csak egy mem&oacute;riac&iacute;m) alig foglal
+mem&oacute;ri&aacute;t. Figyelj&uuml;k meg, hogy a t&iacute;pusokkal &eacute;s
+pointerekkel val&oacute; munka sor&aacute;n a TYPE deklar&aacute;ci&oacute;
+egyre fontosabb&aacute; v&aacute;lik, &eacute;s m&aacute;r nem csak a program
+&aacute;ttekinthet&otilde;bb&eacute; t&eacute;tele miatt (ld. m&eacute;g
+<A HREF="../pascal1/f9.htm">els&otilde; r&eacute;sz, 9. fejezet</A>).</P>
+
+<P>A dinamikus adatszerkezetekkel val&oacute; tov&aacute;bbi foglalkoz&aacute;s
+a rekurzi&oacute; fogalm&aacute;nak ismeret&eacute;t k&ouml;veteli meg
+(ld. a <A HREF="fb.htm">B. f&uuml;ggel&eacute;kben</A>).</P>
+
+<CENTER><P><A HREF="fa.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f2.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

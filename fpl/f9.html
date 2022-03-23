@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Lazarus - szövegkezelés és példák</title>
+  <meta name="Author" content="Lutter András">
+  <link rel="stylesheet" href="../main.css" />
+</head>
+
+<body>
+	<div class="main">
+		<h1>
+			9. fejezet: Szövegkezelés és példák
+		</h1>
+
+	<p>Ebben a fejezetben megmutatom, hogyan lehet a szöveget karakterenként kezelni. Ezen kívül, a korábban tanultak felhasználásával, már összetettebb feladatokkal is találkozhatsz, melyek általános programozási technikákat mutatnak be. A továbbiakban az ilyen példák egyre gyakoribbak lesznek, tehát akkor is érdemes egy fejezetet elolvasnod, ha éppen az a téma (most a szövegkezelés) nem érdekel.</p>
+	<h2>A szöveg karakterei</h2>
+	<p>Egy string típusú változó úgy viselkedik, mint egy karakterekből álló tömb. Így <code>s[2]</code> a string második karakterét jelenti. Ha minden karaktert fel szeretnénk dolgozni, szükségünk lesz a string hosszára: ezt a <code>length</code> függvény adja meg.<br />
+  A következő példa kiírja a szöveget függőlegesen (soronként egy karaktert):</p>
+<pre>
+Var s:string;
+    i:integer;
+
+BEGIN
+  write('Írj be valamit: '); readln(s);
+  for i:=1 to length(s) do writeln(s[i]);
+  write('nyomj entert'); readln;
+END.
+</pre>
+	<p>Figyelem! Ezek a példák ékezetes karakterekkel csak úgy fognak működni, ha a fájl kódolását CP852-re állítottad! (<a href="f2.html">2. fejezet</a>). Ennek okáról és az utf-8 kódolásról később, a grafikus felület kezelésénél lesz szó.</p>
+
+	<h2>Kidolgozott példa: magánhangzóvizsgálat</h2>
+	<p>Számoljuk meg egy string magánhangzóit! A ciklusunk ilyesféle feltételt tartalmazna:<br />
+  <code>if (s[i]='a') or (s[i]='A') or (s[i]='á') or (s[i]='Á')...</code><br />
+  ez így, a kis- és nagybetűket figyelembe véve, nagyon hosszadalmas lenne. Ha azonban a magánhangzók listája szerepelne egy változóban, csak azt kellene megvizsgálni, hogy az adott karakter szerepel-e ebben.<br /><br />
+
+  <code>m:='öüóeuioőúaéáűíÖÜÓEUIOŐÚAÉÁŰÍ'</code><br /><br />
+
+  Hogyan állapítsuk meg, hogy a szövegünk <code>s[i]</code> karaktere szerepel-e <code>m</code>-ben? Egy ciklussal végiglépkedünk <code>m</code> összes karakterén, amíg nem találunk egyezést <code>s[i]</code>-vel, vagy <code>m</code> végére nem érünk. Ez most nem for-ciklus lesz, mert nem tudjuk előre, meddig kell számolnia. Az elöltesztelős ciklusnak viszont a végrehajtás feltételét kell megadni, ami az, hogy nem találtunk egyezést és nem értünk a végére.<br /><br />
+
+  <code>j:=1;</code>
+  <code>while (j&lt;=length(m)) and (s[i]&lt;&gt;m[j]) do j:=j+1;</code><br /><br />
+
+  A ciklus kétféleképpen állhat le. Ha a második feltétel nem teljesül, akkor <code>s[i]</code> szerepel <code>m</code>-ben a <code>j</code>. helyen, vagyis magánhangzó. Ha az első feltétel nem teljesül, akkor <code>j&gt;length(m)</code>, vagyis végigmentünk <code>m</code>-en, de nem találtunk egyezést
+
+  Ha végig nincs egyezés, akkor az utolsó lépésben <code>j=length(m)</code>, és <code>s[i]&lt;&gt;m[j]</code>, tehát <code>j</code> nő eggyel. A következő vizsgálatnál az első részfeltétel hamis lesz, hiszen <code>j&gt;length(m)</code>. Mi a helyzet a második feltétellel? Az értelmetlen, mert <code>m</code>-nek nincs annyiadik karaktere. Nem fog ez hibát okozni a programban?<br /><br />
+
+  Nem. A Pascal (az alapbeállítások használata esetén) az AND-del összekapcsolt feltételeket úgy vizsgálja, hogy ha az első feltétel hamis, a másodikat már nem ellenőrzi (mert az eredmény úgyis hamis). Hasonlóképpen, az OR-ral összekapcsolt két feltétel közül ha az első igaz, a másodikat már nem vizsgálja. Ezért nem mindegy, hogy a feltételeket milyen sorrendben írjuk be.<br /><br />
+
+  Végül a magánhangzóvizsgálatot betesszük egy <code>mgh</code> nevű függvénybe. A függvényérték típusa most <code>boolean</code> lesz (igaz, ha a karakter magánhangzó).</p>
+<pre>
+Var s:string;
+    i,c:integer;
+
+Function mgh(c:char):boolean;
+  var m:string;
+      j:integer;
+  begin
+    m:='öüóeuioőúaéáűíÖÜÓEUIOŐÚAÉÁŰÍ';
+    j:=1;
+    while (j&lt;=length(m)) and (c&lt;&gt;m[j]) do j:=j+1;
+    mgh:=(j@lt;=length(m));
+  end;
+
+BEGIN
+  write('Írj be valamit: '); readln(s);
+  c:=0;
+  for i:=1 to length(s) do
+    if mgh(s[i]) then c:=c+1;
+  writeln(c,' magánhangzó volt benne.');
+  write('nyomj entert'); readln;
+END.
+</pre>
+  <p>Magyarázat: az eljárásnak a vizsgálandó karaktert paraméterként adjuk át, ez c lesz, nem keverendő a főprogram számláló c-jével. mgh igazságértéke abból derül ki, hogy j nem lépte túl m hosszát.</p>
+
+  <h2>További hasznos szövegkezelő lehetőségek</h2>
+  <p>A Pascal sok szövegkezelő függvényt és eljárást ismer, amelyekkel az egyes karakterek vizsgálatánál gyorsabban megoldhatjuk a feladatokat.<br /><br />
+
+  <code>Pos(<i>string1</i>,<i>string2</i>)</code> kereső függvény megadja, hogy <i>string1</i> hányadik karakternél kezdődik <i>string2</i>-ben. 0 lesz a végeredmény, ha nem szerepel benne. Az első előfordulás számít, tehát <code>pos('ép','szép kép')</code> eredménye 3 lesz.<br />
+  Így az előző program függvénye egyszerűbben is megoldható, ciklus nélkül:<br />
+  <code>mgh:=(pos(c,m)>0)</code><br /><br />
+
+  <code>Copy(<i>string</i>,<i>szám</i>,<i>darab</i>)</code> függvény eredménye olyan részszöveg, mely <i>string</i> <i>szám</i>-adik karakterétől kezdődik, és <i>darab</i> hosszú. Vagyis <code>copy('malac',3,2)</code> eredménye a 'la' string.<br />
+  <code>Delete(<i>string</i>,<i>szám</i>,<i>darab</i>)</code> eljárás, mely módosítja string változót (<a href="f8.html">változóparaméter!</a>) úgy, hogy töröl belőle a <i>szám</i>-adiktól kezdve <i>darab</i> karaktert.<br />
+  <code>Insert(<i>mit</i>,<i>mibe</i>,<i>szám</i>)</code> eljárás, mely <i>mibe</i> string típusú változóba <i>szám</i>-adik karakterétől beszúrja <i>mit</i> szöveget.<br /><br />
+
+  Ne feledkezzünk meg a stringek közötti <code>+</code> műveletről, mely az összefűzésüket jelenti.<br /><br />
+
+  Ez a példa kitörli <code>S</code> stringből az összes kettőspontot:</p>
+<pre>
+while pos(':',S)>0 do delete(S,pos(':',S),1);
+</pre>
+
+  <p>Ez pedig, ha <code>NEV</code> egy "vezetéknév szóköz keresztnév" formátumú string, <code>K</code>-ba beteszi a keresztnevet.</p>
+<pre>
+K:=copy(NEV,pos(' ',NEV)+1,length(NEV)-pos(' ',NEV));
+</pre>
+<p>
+  <a href="f8.html">Előző</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="index.html">Tartalom</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="f10.html">Következő</a>
+</p>
+
+	<h2>Feladatok</h2>
+  <p>34. Írj programot, amely a beírt szövegben megszámolja az "e" betűket!</p>
+  <p><a href="fm.html#mo34">megoldás</a></p>
+  <p>35. írj programot, amely a B változóba beteszi az A változóban tárolt szöveg megfordítását!</p>
+  <p><a href="fm.html#mo35">megoldás</a></p>
+  <p>36. Írj programot, amely a beírt szöveget szavanként írja ki!</p>
+  <p><a href="fm.html#mo36">megoldás</a></p>
+  <p>37. Írj programot, amely a megadott stringből törli a fölösleges szóközöket (ahol egymás mellett több van)!</p>
+  <p><a href="fm.html#mo37">megoldás</a></p>
+  <p>38. Írj programot, amely a beírt szövegből csak a mássalhangzókat írja ki! Használd benne a fenti mgh függvényt.</p>
+  <p><a href="fm.html#mo38">megoldás</a></p>
+  <p>39. Írj programot, amely a beírt szöveget "madárnyelven" írja ki! (pl. tulipán->tuvulivipáván)</p>
+  <p><a href="fm.html#mo39">megoldás</a></p>
+  <p>40. Készíts függvényt, amelynek eredménye a megadott szöveg, az összes "j"-t "ly"-ra cserélve!</p>
+  <p><a href="fm.html#mo40">megoldás</a></p>
+
+  </div>
+</body>
+</html>

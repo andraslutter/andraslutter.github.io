@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>7. Tov&aacute;bbi fontos utas&iacute;t&aacute;sok &eacute;s
+f&uuml;ggv&eacute;nyek. Unitok</FONT></U></P>
+
+<P><U>M&ucirc;veletek, f&uuml;ggv&eacute;nyek &eacute;s utas&iacute;t&aacute;sok:</U></P>
+
+<UL>
+<LI><TT>a MOD b </TT><FONT SIZE=-1>a-nak b-vel vett oszt&aacute;si marad&eacute;ka
+(a &eacute;s b eg&eacute;sz t&iacute;pus&uacute;)</FONT></LI>
+
+<LI><TT>a DIV b </TT><FONT SIZE=-1>a-ban h&aacute;nyszor van meg a b (marad&eacute;kos
+oszt&aacute;ssal)</FONT></LI>
+
+<LI><TT>RANDOMIZE </TT><FONT SIZE=-1>megkeveri a v&eacute;letlensz&aacute;m-gener&aacute;tort</FONT></LI>
+
+<LI><TT>RANDOM(n) </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, v&eacute;letlen
+eg&eacute;sz sz&aacute;m 0 &eacute;s n-1 k&ouml;z&ouml;tt (n eg&eacute;sz
+t&iacute;pus&uacute;)</FONT></LI>
+
+<LI><TT>RANDOM </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, v&eacute;letlen
+t&ouml;rtsz&aacute;m 0 &eacute;s 1 k&ouml;z&ouml;tt</FONT></LI>
+
+<LI><TT>SQR(r) </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, r n&eacute;gyzete</FONT></LI>
+
+<LI><TT>SQRT(r) </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, r n&eacute;gyzetgy&ouml;ke</FONT></LI>
+
+<LI><TT>ABS(r) </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, r abszol&uacute;t&eacute;rt&eacute;ke</FONT></LI>
+
+<LI><TT>SIN(r), COS(r) ARCTAN(r) </TT><FONT SIZE=-1>trigonometriai f&uuml;ggv&eacute;nyek.
+Radi&aacute;nban sz&aacute;molnak</FONT></LI>
+
+<LI><TT>CHR(n) </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, n ASCII-k&oacute;d&uacute;
+karakter</FONT></LI>
+</UL>
+
+<P>Az eredeti Pascal nyelvet nagyon sok utas&iacute;t&aacute;ssal eg&eacute;sz&iacute;tett&eacute;k
+ki. Ezek az utas&iacute;t&aacute;sok (pontosabban elj&aacute;r&aacute;sok,
+f&uuml;ggv&eacute;nyek, konstansok &eacute;s t&iacute;pusok, ld. k&eacute;s&otilde;bb)
+&uacute;gynevezett <B>unitok</B>ban (m&aacute;s sz&oacute;val, modulokban)
+foglalnak helyet. Ha haszn&aacute;lni akarjuk &otilde;ket, el kell helyezn&uuml;nk
+a deklar&aacute;ci&oacute;s r&eacute;szben a</P>
+
+<UL>
+<LI><TT>USES unitlista;</TT></LI>
+</UL>
+
+<P>deklar&aacute;ci&oacute;s utas&iacute;t&aacute;st (ez a PROGRAM deklar&aacute;ci&oacute;
+kiv&eacute;tel&eacute;vel meg kell, hogy el&otilde;zze az &ouml;sszes t&ouml;bbi
+deklar&aacute;ci&oacute;t!). Ekkor a ford&iacute;t&oacute; felismeri a
+megadott unit utas&iacute;t&aacute;sait. A legfontosabb unitok a CRT (sz&ouml;veges
+k&eacute;perny&otilde;kezel&eacute;s, billenty&ucirc;zetkezel&eacute;s,
+hangok), GRAPH (grafika), DOS (Dos-feladatok elv&eacute;gz&eacute;se: lemez-,
+file-, id&otilde;- &eacute;s megsza k&iacute;t&aacute;skezel&eacute;s).
+A Pascal leggyakoribb utas&iacute;t&aacute;sai a SYSTEM unitban vannak,
+de ezt a unitot nem kell deklar&aacute;lni. M&aacute;s unitok vagy a TURBO.TPL
+file-ban, vagy a megfelel&otilde; nev&ucirc; .TPU kiterjeszt&eacute;s&ucirc;
+file-ban vannak.</P>
+
+<P><U>A CRT unit f&otilde;bb lehet&otilde;s&eacute;gei:</U></P>
+
+<UL>
+<LI><TT>READKEY </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, le&uuml;t&ouml;tt
+billenty&ucirc; (CHAR t&iacute;pus&uacute;). Ha nincs le&uuml;t&ouml;tt
+billenty&ucirc;, v&aacute;rakozik</FONT></LI>
+
+<LI><TT>KEYPRESSED </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, van-e le&uuml;t&ouml;tt
+billenty&ucirc; (logikai)</FONT></LI>
+
+<LI><TT>SOUND(n) </TT><FONT SIZE=-1>n Hz-es hangot kapcsol be</FONT></LI>
+
+<LI><TT>NOSOUND </TT><FONT SIZE=-1>kikapcsolja a sz&oacute;l&oacute; hangot</FONT></LI>
+
+<LI><TT>DELAY(n) </TT><FONT SIZE=-1>n ezredm&aacute;sodpercig v&aacute;rakozik</FONT></LI>
+
+<LI><TT>TEXTCOLOR(sz&iacute;n) </TT><FONT SIZE=-1>a sz&ouml;veg sz&iacute;ne</FONT></LI>
+
+<LI><TT>TEXTBACKGROUND(sz&iacute;n) </TT><FONT SIZE=-1>a sz&ouml;veg h&aacute;tt&eacute;rsz&iacute;ne</FONT></LI>
+
+<LI><TT>GOTOXY(x,y) </TT><FONT SIZE=-1>a megadott koordin&aacute;t&aacute;j&uacute;
+helyre &aacute;ll&iacute;tja a kurzort</FONT></LI>
+
+<LI><TT>WHEREX </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, a kurzor x-koordin&aacute;t&aacute;ja</FONT></LI>
+
+<LI><TT>WHEREY </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, a kurzor y-koordin&aacute;t&aacute;ja</FONT></LI>
+
+<LI><TT>CLRSCR k&eacute;perny&otilde;t&ouml;rl&eacute;s</TT></LI>
+</UL>
+
+<P>A k&eacute;perny&otilde;kezel&eacute;shez tudnunk kell, hogy a sz&ouml;veges
+k&eacute;perny&otilde; bal fels&otilde; sark&aacute;nak x- &eacute;s y-koordin&aacute;t&aacute;ja
+(1,1), a jobb als&oacute; sarok&eacute; pedig (80,25). Ha a jobb als&oacute;
+sarokba &iacute;runk egy karaktert, a program az eg&eacute;sz k&eacute;perny&otilde;t
+egy sorral feljebb l&eacute;pteti.</P>
+
+<P>K&ouml;vetkezz&eacute;k a klasszikus pattogtat&oacute; program, mely
+egy karaktert pattogtat a k&eacute;perny&otilde;n egy t&eacute;glalap alak&uacute;
+tartom&aacute;nyban.</P>
+
+<P><TT>USES Crt;<BR>
+VAR x,y:integer; </TT><FONT SIZE=-1>{a pont helye}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;vx,vy:integer; </TT><FONT SIZE=-1>{a
+pont f&uuml;gg&otilde;leges &eacute;s v&iacute;zszintes sebess&eacute;ge}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;i:integer;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;c:char;<BR>
+BEGIN<BR>
+&nbsp;Randomize;<BR>
+&nbsp;vx:=1;<BR>
+&nbsp;vy:=1; </TT><FONT SIZE=-1>{a pont jobbra lefel&eacute; indul}<BR>
+</FONT><TT>&nbsp;x:=random(8)+3; </TT><FONT SIZE=-1>{egy 2 &eacute;s 10
+k&ouml;z&ouml;tti v&eacute;letlensz&aacute;m lesz}<BR>
+</FONT><TT>&nbsp;y:=random(8)+3; </TT><FONT SIZE=-1>{a pont kiindul&oacute;
+helye}<BR>
+</FONT><TT>&nbsp;Clrscr;<BR>
+&nbsp;For i:=1 to 12 do Begin </TT><FONT SIZE=-1>{keret rajzol&aacute;sa}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;Gotoxy(i,1); Write('-');<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Gotoxy(i,12); Write('-');<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Gotoxy(1,i); Write('|');<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Gotoxy(12,i); Write('|');<BR>
+&nbsp;End;<BR>
+&nbsp;c:='*'; </TT><FONT SIZE=-1>{az&eacute;rt, hogy kezdetben biztosan
+ne legyen sz&oacute;k&ouml;z}<BR>
+</FONT><TT>&nbsp;Repeat<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Gotoxy(x,y); Write('O'); </TT><FONT SIZE=-1>{kirajzoljuk
+a pontot}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;Delay(50);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Gotoxy(x,y); Write(' '); </TT><FONT SIZE=-1>{elt&uuml;ntetj&uuml;k}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;If (x=11) or (x=2) Then Begin </TT><FONT SIZE=-1>{ha
+a falhoz &eacute;rt}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vx:=-vx; </TT><FONT SIZE=-1>{visszafordul}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sound(500); delay(10);
+nosound; </TT><FONT SIZE=-1>{hangkiad&aacute;s}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;End;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;If (y=11) or (y=2) Then Begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vy:=-vy;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sound(500); delay(10); nosound;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;End;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;x:=x+vx; y:=y+vy; </TT><FONT SIZE=-1>{a pont &uacute;j
+helye}<BR>
+</FONT><TT>&nbsp;&nbsp;&nbsp;&nbsp;If Keypressed Then c:=readkey; </TT><FONT SIZE=-1>{lenyomott
+billenty&ucirc; beolvas&aacute;sa}<BR>
+</FONT><TT>&nbsp;Until c=(' '); </TT><FONT SIZE=-1>{sz&oacute;k&ouml;zre
+le&aacute;ll a program}<BR>
+</FONT><TT>END.</TT></P>
+
+<P><U>Nagyfelbont&aacute;s&uacute; grafika: a GRAPH unit</U></P>
+
+<P>Ig&eacute;nyesebb grafika eset&eacute;n a <B>nagyfelbont&aacute;s&uacute;</B>
+lehet&otilde;s&eacute;geket kell felhaszn&aacute;lnunk a GRAPH unitb&oacute;l.
+A Pascal a video- k&aacute;rtya t&ouml;bb &uuml;zemm&oacute;dj&aacute;t
+is k&eacute;pes kezelni. A video-k&aacute;rty&aacute;t&oacute;l f&uuml;gg&otilde;en
+a program m&aacute;s-m&aacute;s <B>grafikus driver</B>t haszn&aacute;l
+(ezek olyan g&eacute;pi k&oacute;d&uacute; programgy&ucirc;jtem&eacute;nyek,
+melyeket a ford&iacute;t&oacute; nem ford&iacute;t bele a t&aacute;rgyk&oacute;dba,
+hanem csak a grafika bekapcsol&aacute;sakor ker&uuml;lnek a mem&oacute;ri&aacute;ba).
+A driverek .BGI kiterjeszt&eacute;s&ucirc; file-okban helyezkednek el a
+lemezen. Egy adott driver eset&eacute;n is t&ouml;bb &uuml;zemm&oacute;d
+k&ouml;z&uuml;l v&aacute;laszthatunk. Az &uuml;zemm&oacute;dot jellemzi,
+hogy h&aacute;ny k&eacute;ppontot tud megjelen&iacute;teni v&iacute;zszintesen
+&eacute;s f&uuml;gg&otilde;legesen, &eacute;s h&aacute;ny sz&iacute;nben.
+A k&eacute;perny&otilde; bal fels&otilde; sark&aacute;nak grafikus koordin&aacute;t&aacute;i
+(0,0), &iacute;gy pl. a 640&acute;480-as felbont&aacute;sn&aacute;l a jobb
+als&oacute; sarok koordin&aacute;t&aacute;i (639,479). A .BGI file-okhoz
+hasonl&oacute;an m&ucirc;k&ouml;dnek a .CHR file-ok, melyek bet&ucirc;t&iacute;pusokat
+tartalmaznak, &eacute;s csak a megfelel&otilde; bet&ucirc;t&iacute;pus
+be&aacute;ll&iacute;t&aacute;sakor ker&uuml;lnek be a mem&oacute;ri&aacute;ba.</P>
+
+<P>A GRAPH unit f&otilde;bb utas&iacute;t&aacute;sai:</P>
+
+<UL>
+<LI><TT>INITGRAPH(a,b,&uacute;tvonal) </TT><FONT SIZE=-1>a driver &eacute;s
+az &uuml;zemm&oacute;d sz&aacute;ma alapj&aacute;n a grafika bekapcsol&aacute;sa.
+Ez az utas&iacute;t&aacute;s t&ouml;lti be a megfelel&otilde; drivert is.
+a &eacute;s b a megfelel&otilde; sz&aacute;mokat tartalmaz&oacute; v&aacute;ltoz&oacute;k
+kell, hogy legyenek, mert benn&uuml;k a program hiba eset&eacute;n „vissza&uuml;zen&quot;.
+Az &uacute;tvonal a .BGI &eacute;s .CHR file-okat tartalmaz&oacute; k&ouml;nyvt&aacute;r
+el&eacute;r&eacute;si &uacute;tvonala. Az utas&iacute;t&aacute;s let&ouml;rli
+a grafikus k&eacute;perny&otilde;t</FONT></LI>
+
+<LI><TT>PUTPIXEL(x,y,sz&iacute;n) </TT><FONT SIZE=-1>pont kirajzol&aacute;sa</FONT></LI>
+
+<LI><TT>GETPIXEL(x,y) </TT><FONT SIZE=-1>f&uuml;ggv&eacute;ny, az (x,y)
+koordin&aacute;t&aacute;j&uacute; pont sz&iacute;ne</FONT></LI>
+
+<LI><TT>SETCOLOR(sz&iacute;n) </TT><FONT SIZE=-1>rajzoland&oacute; vonalak
+&eacute;s k&ouml;rvonalak sz&iacute;n&eacute;nek be&aacute;ll&iacute;t&aacute;sa</FONT></LI>
+
+<LI><TT>SETFILLSTYLE(minta,sz&iacute;n) </TT><FONT SIZE=-1>kit&ouml;lt&eacute;s
+mint&aacute;j&aacute;nak &eacute;s sz&iacute;n&eacute;nek be&aacute;ll&iacute;t&aacute;sa.</FONT></LI>
+
+<LI><TT>CIRCLE(x,y,sug&aacute;r) </TT><FONT SIZE=-1>megadott k&ouml;z&eacute;pponttal
+&eacute;s sug&aacute;rral k&ouml;rt rajzol</FONT></LI>
+
+<LI><TT>LINE(x1,y1,x2,y2) </TT><FONT SIZE=-1>(x1,y1) kezd&otilde;ponttal
+&eacute;s (x2,y2) v&eacute;gponttal szakaszt rajzol</FONT></LI>
+
+<LI><TT>RECTANGLE(x1,y1,x2,y2) </TT><FONT SIZE=-1>t&eacute;glalapot rajzol,
+szemben l&eacute;v&otilde; sarkainak koordin&aacute;t&aacute;i (x1,y1)
+&eacute;s (x2,y2)</FONT></LI>
+
+<LI><TT>BAR(x1,y1,x2,y2) </TT><FONT SIZE=-1>kit&ouml;lt&ouml;tt t&eacute;glalapot
+rajzol</FONT></LI>
+
+<LI><TT>CLEARDEVICE </TT><FONT SIZE=-1>let&ouml;rli a k&eacute;perny&otilde;t</FONT></LI>
+
+<LI><TT>CLOSEGRAPH </TT><FONT SIZE=-1>visszakapcsol sz&ouml;veges &uuml;zemm&oacute;dba
+(a grafika elv&eacute;sz)</FONT></LI>
+
+<LI><TT>OUTTEXTXY(x,y,s) </TT><FONT SIZE=-1>s stringet ki&iacute;rja (x,y)
+koordin&aacute;t&aacute;j&uacute; pontt&oacute;l</FONT></LI>
+
+<LI><TT>SETTEXTSTYLE(font,ir&aacute;ny,m&eacute;ret) </TT><FONT SIZE=-1>bekapcsolja
+a megadott sorsz&aacute;m&uacute; bet&ucirc;t&iacute;pust, a megadott bet&ucirc;m&eacute;retet,
+&eacute;s a v&iacute;zszintes vagy f&uuml;gg&otilde;leges sz&ouml;vegir&aacute;nyt</FONT></LI>
+</UL>
+
+<P>A tov&aacute;bbi lehet&otilde;s&eacute;geket l&aacute;sd a help-ben.</P>
+
+<CENTER><P><A HREF="f8.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f6.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>

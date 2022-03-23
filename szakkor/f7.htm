@@ -1,0 +1,519 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>7. fejezet</TITLE>
+   <META NAME="Author" CONTENT="L. A.">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.0Gold (Win16; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<P><U><FONT SIZE=+1>VII. Adatszerkezetek: f&aacute;k</FONT></U></P>
+
+<P><I><FONT SIZE=+1>Els&otilde; nekifut&aacute;s: a f&aacute;k tulajdons&aacute;gai</FONT></I></P>
+
+<P><I>F&aacute;</I>nak nevezz&uuml;k az &ouml;sszef&uuml;gg&otilde;, k&ouml;rmentes
+egyszer&ucirc; gr&aacute;fokat. &Eacute;rdemes felsorolnunk a f&aacute;k
+n&eacute;h&aacute;ny jellegzetes tulajdons&aacute;g&aacute;t.</P>
+
+<P>F&aacute;ban k&eacute;t pont k&ouml;z&ouml;tt pontosan egy &uacute;t
+l&eacute;tezik. L&eacute;tezik, mert a gr&aacute;f &ouml;sszef&uuml;gg&otilde;,
+&eacute;s pontosan egy, mert ha kett&otilde; lenne, k&ouml;r is lenne.</P>
+
+<P>Ha f&aacute;hoz hozz&aacute;tesz&uuml;nk egy &eacute;lt, m&aacute;r
+nem lehet fa. (i j) &eacute;l hozz&aacute;v&eacute;tel&eacute;vel ugyanis
+k&ouml;rt kapn&aacute;nk, hiszen eddig is volt a k&eacute;t cs&uacute;cs
+k&ouml;z&ouml;tt &uacute;t, &eacute;s most lett m&eacute;g egy, teh&aacute;t
+k&ouml;r keletkezett.</P>
+
+<P>F&aacute;b&oacute;l egy &eacute;lt elhagyva m&aacute;r nem lehet fa.
+Ha ugyanis fa lenne, akkor abba az im&eacute;nti &eacute;lt visszat&eacute;ve
+megint csak f&aacute;t kapn&aacute;nk (az eredetit), ami az el&otilde;z&otilde;
+bekezd&eacute;s szerint nem lehet.</P>
+
+<P>&Uacute;gy is fogalmazhatn&aacute;nk, hogy a fa a lehet&otilde; legkevesebb
+&eacute;lt tartalmazza, ami sz&uuml;ks&eacute;ges az &ouml;sszef&uuml;gg&otilde;s&eacute;ghez.</P>
+
+<P>Ha egy f&aacute;ban E &eacute;l &eacute;s P cs&uacute;cs van, akkor
+P=E+1. Bizony&iacute;t&aacute;s: vegy&uuml;nk egy f&aacute;t. Ebben biztosan
+van olyan pont, melynek foka 1. Ha ugyanis minden pont foka legal&aacute;bb
+2 lenne, akkor el tudn&aacute;nk indulni egy pontb&oacute;l, &eacute;s
+ha a pont m&eacute;g nem ker&uuml;lt sorra, tov&aacute;bb tudn&aacute;nk
+l&eacute;pni egy m&aacute;sik, m&eacute;g fel nem haszn&aacute;lt &eacute;len.
+Mivel v&eacute;ges sz&aacute;m&uacute; pont van, el&otilde;bb-ut&oacute;bb
+olyan pontot &eacute;rint&uuml;nk, ami m&aacute;r volt. Ekkor viszont tal&aacute;ltunk
+egy k&ouml;rt, ami ellentmond&aacute;s. Miut&aacute;n van 1-fok&uacute;
+pont, v&aacute;gjuk le a f&aacute;r&oacute;l az &eacute;l&eacute;vel egy&uuml;tt.
+Ezzel nem keletkezett k&ouml;r, &eacute;s az &ouml;sszef&uuml;gg&otilde;s&eacute;g
+sem s&eacute;r&uuml;lt. A marad&eacute;k-f&aacute;t ism&eacute;t megnyess&uuml;k,
+eg&eacute;szen addig, m&iacute;g egy pont (&eacute;s nulla &eacute;l) marad.
+Mivel a nyeseget&eacute;s sor&aacute;n ugyanannyi pontot vett&uuml;nk el,
+mint &eacute;lt, az eredeti f&aacute;ban is eggyel t&ouml;bb pont volt,
+mint &eacute;l.</P>
+
+<P>Ha egy &ouml;sszef&uuml;gg&otilde; gr&aacute;fban P=E+1, akkor az fa.
+Ha ugyanis nem lenne fa, elhagyhatn&aacute;nk bel&otilde;le &eacute;leket,
+hogy az legyen (nyilv&aacute;n k&ouml;r&ouml;k voltak benne, az&eacute;rt
+nem volt fa). Az &iacute;gy kapott f&aacute;ban viszont P=E+1, pedig most
+kevesebb &eacute;l van benne, mint eredetileg. Ez ellentmond&aacute;s.</P>
+
+<P>Mire j&oacute; ez? A k&ouml;rmentess&eacute;g k&ouml;zvetlen&uuml;l
+el&eacute;g nehezen mutathat&oacute; ki egy gr&aacute;fr&oacute;l. Az &ouml;sszef&uuml;gg&otilde;s&eacute;g
+egyszer&ucirc; (ld. <A HREF="f6.htm">VI. fejezet</A>). Ha viszont van egy
+&ouml;sszef&uuml;gg&otilde; gr&aacute;funk, csak meg kell sz&aacute;molni
+a pontjait &eacute;s &eacute;leit, hogy eld&ouml;nthess&uuml;k, k&ouml;rmentes-e
+(vagyis fa).</P>
+
+<P>Egy &ouml;sszef&uuml;gg&otilde; gr&aacute;f <I>fesz&iacute;t&otilde;f&aacute;</I>ja
+az a fa, amely a gr&aacute;f minden pontj&aacute;t, &eacute;s &eacute;leinek
+egy r&eacute;sz&eacute;t tartalmazza. Fesz&iacute;t&otilde;f&aacute;t t&ouml;bbf&eacute;lek&eacute;ppen
+kaphatunk (a k&ouml;vetkez&otilde; algoritmusokat bizony&iacute;t&aacute;s
+n&eacute;lk&uuml;l k&ouml;z&ouml;lj&uuml;k. A bizony&iacute;t&aacute;ssal
+meg lehet pr&oacute;b&aacute;lkozni. A meg&eacute;rt&eacute;shez c&eacute;lszer&ucirc;
+rajzolni!):</P>
+
+<UL>
+<P>1. Vegy&uuml;k ki a gr&aacute;f &ouml;sszes &eacute;l&eacute;t. Tegy&uuml;k
+vissza sorban azokat az &eacute;leket, melyek m&eacute;g nem alkotnak k&ouml;rt
+a m&aacute;r bent l&eacute;v&otilde;kkel. Ezt P-1-szer kell megcsin&aacute;lni.
+(Hogyan &aacute;llap&iacute;that&oacute; meg, hogy (i,j) &eacute;l visszatev&eacute;se
+nem alkot k&ouml;rt? Ha m&aacute;r l&eacute;tezik &uacute;t az i. &eacute;s
+j. cs&uacute;cs k&ouml;z&ouml;tt, akkor az &eacute;l hozz&aacute;v&eacute;tele
+k&ouml;rt ad, k&uuml;l&ouml;nben nem.) (Kruskal algoritmusa)</P>
+
+<P>2. Induljunk ki egy pontb&oacute;l. Keress&uuml;nk egy olyan &eacute;lt
+&eacute;s pontot, mely az eredeti gr&aacute;fban ehhez kapcsol&oacute;dott.
+Azt&aacute;n az &iacute;gy kapott f&aacute;hoz kapcsoljunk hozz&aacute;
+&uacute;jabb pontot (a hozz&aacute;kapcsolt pontok kezdetben 1-fok&uacute;ak
+lesznek). Ezt P-1-szer kell ism&eacute;telni. (Prim algoritmusa)</P>
+
+<P>3. Keress&uuml;nk a gr&aacute;fban egy k&ouml;rt, &eacute;s hagyjuk
+el egy &eacute;l&eacute;t. Ezt ism&eacute;telj&uuml;k mindaddig, m&iacute;g
+P-1 &eacute;l&uuml;nk nem marad.</P>
+</UL>
+
+<P>A 3. algoritmus nehezen megval&oacute;s&iacute;that&oacute;, mert a
+gr&aacute;fban nem egyszer&ucirc; k&ouml;rt keresni. A Kruskal-f&eacute;le
+algoritmus legegyszer&ucirc;bb megval&oacute;s&iacute;t&aacute;sa, ha a
+cs&uacute;csokat megsz&aacute;mozzuk. Az algoritmus voltak&eacute;ppen
+diszjunkt f&aacute;kat k&ouml;t&ouml;get &ouml;ssze. Ha egy &eacute;llel
+k&eacute;t f&aacute;t &ouml;sszek&ouml;t&uuml;nk, kapja a k&eacute;t fa
+&ouml;sszes pontja ugyanazt a k&oacute;dsz&aacute;mot (valamelyik pontjuk
+k&oacute;dsz&aacute;m&aacute;t). &Iacute;gy k&ouml;nny&ucirc; eld&ouml;nteni,
+hogy a k&eacute;rd&eacute;ses &eacute;l eddig m&eacute;g diszjunkt f&aacute;kat
+k&ouml;t-e &ouml;ssze (ez esetben betehet&otilde;). Prim algoritmusa eset&eacute;n
+a helyzet m&eacute;g egyszer&ucirc;bb: vannak pontok, melyek m&aacute;r
+beker&uuml;ltek a f&aacute;ba, &eacute;s vannak, amelyek m&eacute;g nem.</P>
+
+<P><U>1. feladat</U>: &iacute;rj programot, amely &eacute;lm&aacute;trixszal
+megadott &ouml;sszef&uuml;gg&otilde; gr&aacute;fhoz fesz&iacute;t&otilde;f&aacute;t
+keres Prim algoritmusa seg&iacute;ts&eacute;g&eacute;vel!</P>
+
+<P>Bonyol&iacute;tja a helyzetet, ha a gr&aacute;f &eacute;lei s&uacute;lyozottak.
+Ekkor a feladat a legolcs&oacute;bb/legk&ouml;nnyebb fesz&iacute;t&otilde;fa
+megkeres&eacute;se (&eacute;lei s&uacute;ly&aacute;nak &ouml;sszege minim&aacute;lis).
+Ez gyakorlati alkalmaz&aacute;s szempontj&aacute;b&oacute;l is fontos:
+ha v&aacute;rosok k&ouml;z&ouml;tti elektromos h&aacute;l&oacute;zatot
+akarnak ki&eacute;p&iacute;teni (ez fa lesz, &uacute;jabb vezet&eacute;kek
+m&aacute;r f&ouml;l&ouml;slegesek), nem mindegy, mennyi vezet&eacute;ket
+haszn&aacute;lnak.</P>
+
+<P>Az el&otilde;z&otilde; algoritmusok m&oacute;dos&iacute;t&aacute;sa:
+az 1. &eacute;s 2. algoritmusban az &uacute;j &eacute;l kiv&aacute;laszt&aacute;sakor
+az &ouml;sszes sz&oacute;ba j&ouml;v&otilde; &eacute;l k&ouml;z&uuml;l
+(teh&aacute;t amelyeket m&eacute;g nem tett&uuml;nk be, &eacute;s diszjunkt
+f&aacute;kat, illetve f&aacute;t &eacute;s pontot k&ouml;tnek &ouml;ssze)
+a legkisebb s&uacute;ly&uacute;t kell kiv&aacute;lasztani. A 3. algoritmusn&aacute;l
+pedig a sz&oacute;ba j&ouml;v&otilde; &eacute;lek k&ouml;z&uuml;l mindig
+a legnehezebbet kell elhagyni.</P>
+
+<P><U>2. feladat</U>: &iacute;rj programot, amely &eacute;lm&aacute;trixszal
+megadott s&uacute;lyozott gr&aacute;fban legk&ouml;nnyebb fesz&iacute;t&otilde;f&aacute;t
+keres!</P>
+
+<P>Megjegyezz&uuml;k, hogy a m&eacute;lys&eacute;gi keres&eacute;s algoritmusa
+(VI.fejezet) &eacute;ppen egy fesz&iacute;t&otilde;fa ment&eacute;n haladva
+sorolja fel a pontokat.</P>
+
+<P>Mi&eacute;rt is nevezik a f&aacute;t f&aacute;nak? V&aacute;lasszunk
+ki egy tetsz&otilde;leges pontot, &eacute;s nevezz&uuml;k el a fa gy&ouml;ker&eacute;nek.
+A gy&ouml;k&eacute;rb&otilde;l minden pont egyetlen &uacute;ton &eacute;rhet&otilde;
+el. Az egy l&eacute;p&eacute;sben el&eacute;rhet&otilde;ket rajzoljuk a
+gy&ouml;k&eacute;r al&aacute;. A k&ouml;vetkez&otilde; szintre az ezekb&otilde;l
+egy, a gy&ouml;k&eacute;rb&otilde;l k&eacute;t l&eacute;p&eacute;sben el&eacute;rhet&otilde;k
+ker&uuml;lnek, &eacute;s &iacute;gy tov&aacute;bb. Ir&aacute;ny&iacute;tsuk
+az &eacute;leket: egy pontb&oacute;l az alatta l&eacute;v&otilde; szomsz&eacute;dok
+fel&eacute; mutasson a ny&iacute;l. A gy&ouml;k&eacute;r kiv&aacute;laszt&aacute;s&aacute;val
+&iacute;gy a f&aacute;hoz tartozik egy ir&aacute;ny&iacute;t&aacute;s is.
+(Az &eacute;leket ezut&aacute;n nem is sz&uuml;ks&eacute;ges ir&aacute;ny&iacute;tani,
+el&eacute;g megadni a gy&ouml;keret.) Egy pontb&oacute;l t&ouml;bb fel&eacute;
+is mutathat ny&iacute;l lefel&eacute; (ezeket a szomsz&eacute;dokat k&ouml;zvetlen
+lesz&aacute;rmazottaknak nevezz&uuml;k), egy pontba viszont csak egyetlen
+pontb&oacute;l mutathat ny&iacute;l (ez a pont az el&otilde;z&otilde; &otilde;se).
+Egyed&uuml;l a gy&ouml;k&eacute;rbe nem mutat ny&iacute;l. Azok a cs&uacute;csok,
+melyeknek nincsenek lesz&aacute;rmazottaik, a fa leveleinek nevezz&uuml;k.
+A tov&aacute;bbiakban ilyen m&oacute;don ir&aacute;ny&iacute;tott f&aacute;kr&oacute;l
+lesz sz&oacute;.</P>
+
+<P>Ez a szerkezet alkalmas hierarchi&aacute;k (al&aacute;-f&ouml;l&eacute;rendelts&eacute;gi
+viszonyok) &aacute;br&aacute;zol&aacute;s&aacute;ra, pl. egy v&aacute;llalat
+strukt&uacute;r&aacute;j&aacute;ban a k&ouml;zvetlen beosztottak rendszere,
+a DOS k&ouml;nyvt&aacute;r-szerkezete stb.</P>
+
+<P>Megjegyz&eacute;s: a fa ir&aacute;ny&iacute;t&aacute;s&aacute;val egyszer&ucirc;bb
+a P=E+1 t&eacute;tel bizony&iacute;t&aacute;sa. Minden pontba egy &eacute;l
+mutat, r&aacute;ad&aacute;sul minden pontba m&aacute;sik, kiv&eacute;ve
+a gy&ouml;keret, amibe nem mutat &eacute;l. &Iacute;gy a gy&ouml;k&eacute;r
+kiv&eacute;tel&eacute;vel a pontok &ouml;sszep&aacute;ros&iacute;that&oacute;k
+az &eacute;lekkel.</P>
+
+<P><I><FONT SIZE=+1>M&aacute;sodik nekifut&aacute;s: bin&aacute;ris f&aacute;k</FONT></I></P>
+
+<P>A bin&aacute;ris f&aacute;k olyan f&aacute;k, melyekn&eacute;l egy pontnak
+legfeljebb k&eacute;t k&ouml;zvetlen lesz&aacute;rmazottja lehet. Ha a
+k&eacute;t lesz&aacute;rmazott sorrendje nem tetsz&otilde;leges, besz&eacute;lhet&uuml;nk
+bal- &eacute;s jobboldali lesz&aacute;rmazottr&oacute;l. Gyakorlati megval&oacute;s&iacute;t&aacute;sn&aacute;l
+a fa cs&uacute;csai valamilyen adatot tartalmaznak, ezen k&iacute;v&uuml;l
+t&aacute;rolnunk kell, hogy mely pontoknak melyek a k&ouml;zvetlen lesz&aacute;rmazottai.
+Ez c&eacute;lszer&ucirc;en N-elem&ucirc; t&ouml;mbben t&ouml;rt&eacute;nik
+(N a fa pontjainak sz&aacute;ma), ahol egy t&ouml;mbelem tartalmazza az
+adatot, valamint a baloldali &eacute;s a jobboldali lesz&aacute;rmazott
+index&eacute;t. Pascal-p&eacute;lda:</P>
+
+<P><TT>CONST N=cs&uacute;csok sz&aacute;ma;<BR>
+TYPE Faelem:record<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elem:t&iacute;pus;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bal,jobb:integer;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end;<BR>
+VAR FA:array[1..N] of Faelem;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;GY:integer; </TT><FONT SIZE=-1>{a gy&ouml;k&eacute;relem
+indexe}</FONT></P>
+
+<P><U>1. feladat</U>: rajzold le a k&ouml;vetkez&otilde; t&ouml;mbbel megadott
+fa strukt&uacute;r&aacute;j&aacute;t! (GY=1)</P>
+
+<CENTER><TABLE BORDER=1 CELLSPACING=0 CELLPADDING=0 >
+<TR>
+<TD>
+<CENTER><P><I>index</I></P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P><I>elem</I></P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P><I>&nbsp;bal&nbsp;</I></P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P><I>jobb</I></P></CENTER>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<CENTER><P>1</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>gerinces</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>2</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>5</P></CENTER>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<CENTER><P>2</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>hal</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>3</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>6</P></CENTER>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<CENTER><P>3</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>harcsa</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>0</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>0</P></CENTER>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<CENTER><P>4</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>galamb</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>0</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>0</P></CENTER>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<CENTER><P>5</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>mad&aacute;r</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>4</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>0</P></CENTER>
+</TD>
+</TR>
+
+<TR>
+<TD>
+<CENTER><P>6</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>csuka</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>0</P></CENTER>
+</TD>
+
+<TD>
+<CENTER><P>0</P></CENTER>
+</TD>
+</TR>
+</TABLE></CENTER>
+
+<P>A bal &eacute;s jobb mez&otilde;ket <I>mutat&oacute;</I>nak is h&iacute;vj&aacute;k,
+mivel megmutatj&aacute;k, hol van a bal- &eacute;s jobboldali lesz&aacute;rmazott
+a t&ouml;mbben. Ha egy mutat&oacute; &eacute;rt&eacute;ke 0, akkor abba
+az ir&aacute;nyba nincs t&ouml;bb lesz&aacute;rmazott (lev&eacute;l bal-
+&eacute;s jobbmutat&oacute;ja egyar&aacute;nt 0).</P>
+
+<P>A bin&aacute;ris f&aacute;k bej&aacute;r&aacute;sakor figyelembe vessz&uuml;k
+a fa &aacute;ltal k&eacute;pviselt strukt&uacute;r&aacute;t. H&aacute;romf&eacute;le
+fabej&aacute;r&aacute;si sorrend l&eacute;tezik:</P>
+
+<P>A <I>bal-k&ouml;z&eacute;p-jobb</I> (BKJ) bej&aacute;r&aacute;sn&aacute;l
+egy cs&uacute;cs eset&eacute;n el&otilde;sz&ouml;r a baloldali r&eacute;szf&aacute;j&aacute;t,
+ut&aacute;na az illet&otilde; cs&uacute;csot, ut&aacute;na a jobboldali
+r&eacute;szf&aacute;j&aacute;t dolgozzuk fel. A r&eacute;szf&aacute;k feldolgoz&aacute;sa
+rekurz&iacute;van ugyan&iacute;gy t&ouml;rt&eacute;nik. P&eacute;ldak&eacute;nt
+n&eacute;zz&uuml;k a k&ouml;vetkez&otilde; f&aacute;t:<IMG SRC="abra71.gif" ALT="egy bináris fa" HEIGHT=64 WIDTH=139 ALIGN=RIGHT></P>
+
+<P>Az elemek felsorol&aacute;sa BKJ bej&aacute;r&aacute;ssal: 1, 2, 3,
+4, 5, 6, 7.<BR>
+<I>K&ouml;z&eacute;p-bal-jobb</I> (KBJ) bej&aacute;r&aacute;ssal: 4, 2,
+1, 3, 6, 5, 7.<BR>
+V&eacute;g&uuml;l <I>bal-jobb-k&ouml;z&eacute;p</I> (BJK) bej&aacute;r&aacute;ssal:
+1, 3, 2, 5, 7, 6, 4.</P>
+
+<P>Rekurz&iacute;v Pascal-p&eacute;ldaprogram a BJK bej&aacute;r&aacute;sra
+(egy elem feldolgoz&aacute;sa legyen most a ki&iacute;r&aacute;sa). Az
+elj&aacute;r&aacute;s ind&iacute;t&aacute;sa: <TT>BJK(GY)</TT>.</P>
+
+<P><TT>Procedure BJK(cs:integer);<BR>
+&nbsp;Begin<BR>
+&nbsp;&nbsp;if cs&gt;0 then begin<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BJK(FA[cs].bal);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BJK(Fa[cs].jobb);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Write(Fa[cs].elem); <BR>
+&nbsp;&nbsp;end;<BR>
+&nbsp;End;</TT></P>
+
+<P><U>2. feladat</U>: &iacute;rd meg a BKJ &eacute;s KBJ bej&aacute;r&aacute;s
+programj&aacute;t is, majd teszteld egy beolvasott f&aacute;n!</P>
+
+<P><IMG SRC="abra72.gif" ALT="rendezõfa" HEIGHT=64 WIDTH=139 ALIGN=RIGHT>A
+bin&aacute;ris f&aacute;k jellegzetes felhaszn&aacute;l&aacute;sa a rendez&otilde;fa.
+A rendez&otilde;fa olyan fa, melyben egy elem baloldali r&eacute;szf&aacute;ja
+(a baloldali lesz&aacute;rmazott, &eacute;s az abb&oacute;l le&aacute;gaz&oacute;
+elemek) mind n&aacute;la kisebb, jobboldali r&eacute;szf&aacute;ja pedig
+n&aacute;la nagyobb elemeket tartalmaz. A rendez&otilde;fa BKJ bej&aacute;r&aacute;s&aacute;val
+az elemek sorba rendezve ker&uuml;lnek feldolgoz&aacute;sra.</P>
+
+<P>Ha egy elemet keres&uuml;nk a rendez&otilde;f&aacute;ban, a felez&eacute;ses
+keres&eacute;shez hasonl&oacute;an minden l&eacute;p&eacute;sben v&aacute;lasztunk
+az &eacute;ppen vizsg&aacute;lt elem bal- &eacute;s jobboldali r&eacute;szf&aacute;ja
+k&ouml;z&ouml;tt. Ez a keres&eacute;s akkor fejez&otilde;dik be a legkevesebb
+l&eacute;p&eacute;sben, ha a rendez&otilde;fa kiegyens&uacute;lyozott,
+vagyis az egyes elemek bal- &eacute;s jobboldali r&eacute;szf&aacute;i
+nagyj&aacute;b&oacute;l ugyanannyi elemet tartal maznak. (Ellenp&eacute;lda:
+a gy&ouml;k&eacute;r alma, &eacute;s minden elemnek csak jobboldali lesz&aacute;rmazottja
+van. A keres&eacute;s ekkor a soros keres&eacute;sre hasonl&iacute;t.Az
+ilyen f&aacute;kat degener&aacute;ltnak nevezz&uuml;k.)</P>
+
+<P>K&ouml;vetkezz&eacute;k egy algoritmus E elem keres&eacute;s&eacute;re
+a bin&aacute;ris f&aacute;ban. MUT adja vissza a keresett elem index&eacute;t,
+vagy 0-t, ha nem l&eacute;tezik.</P>
+
+<P><TT>MUT:=GY<BR>
+Ciklus am&iacute;g FA[MUT].elem&lt;&gt;E &eacute;s MUT&lt;&gt;0<BR>
+&nbsp;&nbsp;&nbsp;Ha E&lt;FA[MUT]&nbsp;&nbsp; akkor mut:=FA[MUT].bal<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k&uuml;l&ouml;nben
+mut:=FA[MUT].jobb<BR>
+Ciklus v&eacute;ge</TT></P>
+
+<P><U>3. feladat</U>: &iacute;rd meg a keres&eacute;s algoritmus&aacute;t
+rekurz&iacute;v form&aacute;ban, ciklus n&eacute;lk&uuml;l!</P>
+
+<P>A rendez&otilde;fa fel&eacute;p&iacute;t&eacute;se, vagyis a <I>rendez&eacute;s
+f&aacute;val</I> a beilleszt&eacute;ses rendez&eacute;shez (<A HREF="../pascal2/fa.htm">2.
+Pascal f&uuml;zetke, A f&uuml;ggel&eacute;k</A>) hasonl&oacute;: az elemek
+sorban &eacute;rkeznek, mindegyiknek megkeress&uuml;k a hely&eacute;t a
+f&aacute;ban, &eacute;s beillesztj&uuml;k. A f&aacute;ba val&oacute; beilleszt&eacute;s
+r&eacute;szletesebb le&iacute;r&aacute;sa:</P>
+
+<UL>
+<P>- a keres&eacute;s algoritmussal r&aacute;keres&uuml;nk a beillesztend&otilde;
+elemre. Ha van ilyen, nem illesztj&uuml;k be (a f&aacute;ban minden elem
+csak egyszer szerepel). Ha nincs ilyen: a m&oacute;dos&iacute;tott keres&otilde;-algoritmusnak
+most vissza kell adnia annak az elemnek a sz&aacute;m&aacute;t, amelyb&otilde;l
+0-ra futott (ez nem m&aacute;s, mint MUT v&aacute;ltoz&oacute; el&otilde;z&otilde;
+&eacute;rt&eacute;ke).<BR>
+- ezut&aacute;n a FA t&ouml;mbben keres&uuml;nk egy &uuml;res sort, betessz&uuml;k
+az elemet, bal- &eacute;s jobbmutat&oacute;j&aacute;t 0-ra &aacute;ll&iacute;tjuk
+(minden &uacute;j elem lev&eacute;lk&eacute;nt ker&uuml;l a f&aacute;ba).
+A r&aacute; mutat&oacute; elem megfelel&otilde; mutat&oacute;j&aacute;t
+(ami eddig 0 volt) erre az elemre &aacute;ll&iacute;tjuk.<BR>
+- Teljesen k&uuml;l&ouml;n kell kezelni azt a speci&aacute;lis esetet,
+amikor a fa &uuml;res.</P>
+</UL>
+
+<P><U>4. feladat</U>: &iacute;rd meg a f&aacute;val val&oacute; rendez&eacute;s
+programj&aacute;t! (Az adatokat folyamatosan &iacute;rjuk be, vagy egy
+file-b&oacute;l ker&uuml;lnek be. A program a be&eacute;rkez&otilde; adatokn&aacute;l
+ki&iacute;rja, hogy van m&aacute;r olyan a f&aacute;ban, vagy beilleszti
+a f&aacute;ba.)</P>
+
+<P><U>5. feladat</U>: hogyan keletkezhet m&eacute;g degener&aacute;lt fa?
+Adj &aacute;ltal&aacute;nos szab&aacute;lyt az elemek &eacute;rkez&eacute;si
+sorrendj&eacute;re! (V&eacute;letlenszer&ucirc;en &eacute;rkez&otilde;
+elemekn&eacute;l a fa &aacute;ltal&aacute;ban kiegyens&uacute;lyozott lesz.)</P>
+
+<P><U>6. feladat</U>: milyen m&oacute;dszer szerint lehet elemet t&ouml;r&ouml;lni
+a rendez&otilde;f&aacute;b&oacute;l? (Olyan elem t&ouml;rl&eacute;se, melynek
+valamelyik mutat&oacute;ja 0, k&ouml;nny&ucirc;.)</P>
+
+<P>Most megmutatjuk a bin&aacute;ris f&aacute;k &eacute;s bin&aacute;ris
+(k&eacute;tv&aacute;ltoz&oacute;s) m&ucirc;veletek kapcsolat&aacute;t.
+Egy k&eacute;tv&aacute;ltoz&oacute;s m&ucirc;veletet fel&iacute;r hatunk
+infix (a m&ucirc;veleti jel, vagyis oper&aacute;tor a k&eacute;t &eacute;rt&eacute;k
+k&ouml;z&ouml;tt van, pl. 3 + 4), prefix (+ 3 4) &eacute;s postfix (3 4
++) m&oacute;don is. A postfix forma el&otilde;nyeir&otilde;l ld. az <A HREF="f1.htm">I.
+fejezetet</A>.</P>
+
+<P><IMG SRC="abra73.gif" ALT="bináris mûveletek fán" HEIGHT=64 WIDTH=139 ALIGN=RIGHT>A
+k&ouml;vetkez&otilde; f&aacute;val a (2+3)*(7-5) kisz&aacute;m&iacute;t&aacute;s&aacute;hoz
+sz&uuml;ks&eacute;ges m&ucirc;veletv&eacute;gz&eacute;si sorrendet &aacute;br&aacute;zoltuk.
+A z&aacute;r&oacute;jeles kisz&aacute;m&iacute;t&aacute;si m&oacute;d a
+BKJ bej&aacute;r&aacute;shoz kapcsol&oacute;dik. Ugyanezt a f&aacute;t
+BJK m&oacute;don bej&aacute;rva (2 3 + 7 5 - *) a m&ucirc;velet postfix,
+azaz lengyel forma (PN) szerinti jel&ouml;l&eacute;s&eacute;t kapjuk, amely
+verem-g&eacute;ppel z&aacute;r&oacute;jelez&eacute;s n&eacute;lk&uuml;l
+is elv&eacute;gezhet&otilde;. Minden, bin&aacute;ris m&ucirc;veleteket
+tartalmaz&oacute; kifejez&eacute;s &aacute;t&iacute;rhat&oacute; bin&aacute;ris
+fa form&aacute;ra, &eacute;s fel&iacute;rhat&oacute; PN-ben is.</P>
+
+<P><U>7. feladat</U>: rajzold le bin&aacute;ris f&aacute;val az 1/(3*((4+7)-(2+1)))
+m&ucirc;veletet, &eacute;s &iacute;rd fel PN-ben is!</P>
+
+<P><U>8. feladat</U>: &iacute;rj programot, mely egy m&ucirc;veleteket
+&aacute;br&aacute;zol&oacute; bin&aacute;ris f&aacute;b&oacute;l el&otilde;&aacute;ll&iacute;tja
+a z&aacute;r&oacute;jeles (hagyom&aacute;nyos, infix oper&aacute;toros)
+kifejez&eacute;st! Ha t&uacute;l sok z&aacute;r&oacute;jelet tartalmaz,
+nem baj.</P>
+
+<P><U>9. feladat</U>: &iacute;rj programot, mely ki&eacute;rt&eacute;kel
+egy m&ucirc;veleteket tartalmaz&oacute; bin&aacute;ris f&aacute;t! Haszn&aacute;lj
+rekurzi&oacute;t (BJK sorrend&ucirc; ki&eacute;rt&eacute;kel&eacute;s).</P>
+
+<P><U>10. feladat</U>: &iacute;rj programot, amely szab&aacute;lyos PN-form&aacute;b&oacute;l
+el&otilde;&aacute;ll&iacute;tja a bin&aacute;ris f&aacute;t! Ehhez c&eacute;lszer&ucirc;
+a PN form&aacute;t h&aacute;tulr&oacute;l visszafel&eacute; feldolgozni.</P>
+
+<P><I><FONT SIZE=+1>Harmadik nekifut&aacute;s: &aacute;ltal&aacute;nos
+f&aacute;k &aacute;br&aacute;zol&aacute;sa</FONT></I></P>
+
+<P>Mivel ebben az esetben egy elemnek b&aacute;rh&aacute;ny lesz&aacute;rmazottja
+lehet, a bin&aacute;ris f&aacute;kn&aacute;l haszn&aacute;lt m&oacute;dszer
+k&ouml;zvetlen&uuml;l nem alkalmazhat&oacute;. Ismerkedj&uuml;nk meg el&otilde;sz&ouml;r
+a lista fogalm&aacute;val.</P>
+
+<P>A <I>lista </I>olyan adatszerkezet, ahol egy elemnek legfeljebb egy
+r&aacute;k&ouml;vetkez&otilde;je (lesz&aacute;rmazottja) lehet. A lista
+&aacute;br&aacute;zol&aacute;sa a bin&aacute;ris f&aacute;hoz hasonl&oacute;,
+de egy elemhez csak egy mutat&oacute; tartozik. A list&aacute;ban l&eacute;v&otilde;
+elemek logikai sorrendj&eacute;t nem a t&aacute;bl&aacute;zatban elfoglalt
+fizikai hely&uuml;k, hanem a mutat&oacute;k hat&aacute;rozz&aacute;k meg.</P>
+
+<P>Az &aacute;ltal&aacute;nos f&aacute;k &aacute;br&aacute;zolhat&oacute;k
+elemenk&eacute;nt k&eacute;t mutat&oacute;val. Az els&otilde; mutat&oacute;
+(le) az elem els&otilde; k&ouml;zvetlen lesz&aacute;rmazottj&aacute;ra
+mutat, m&iacute;g a m&aacute;sodik (mell&eacute;) az elem sz&uuml;l&otilde;j&eacute;nek
+k&ouml;vetkez&otilde; k&ouml;zvetlen lesz&aacute;rmazottj&aacute;ra (vagyis
+az elem k&ouml;vetkez&otilde; testv&eacute;r&eacute;re). A mell&eacute;
+mutat&oacute;k voltak&eacute;ppen az els&otilde; lesz&aacute;rmazottb&oacute;l
+kiindulva listaszerkezetben sorolj&aacute;k fel egy elem &ouml;sszes lesz&aacute;rmazottj&aacute;t.
+Az &aacute;br&aacute;ban szaggatott vonalak jelzik a fa eredeti &eacute;leit,
+nyilak pedig a mutat&oacute;kat.<IMG SRC="abra74.gif" ALT="általános fa mutatói" HEIGHT=120 WIDTH=224 ALIGN=RIGHT></P>
+
+<P><U>1. feladat</U>: k&eacute;sz&iacute;ts algoritmusokat ilyen m&oacute;don
+t&aacute;rolt fa kezel&eacute;s&eacute;re. A legfontosabb m&ucirc;veletek:
+elem &ouml;sszes k&ouml;zvetlen lesz&aacute;rmazottj&aacute;nak kilist&aacute;z&aacute;sa,
+&uacute;j lesz&aacute;rmazott felv&eacute;tele (legels&otilde;, legutols&oacute;,
+illetve tetsz&otilde;leges helyre a lesz&aacute;rmazottak list&aacute;j&aacute;ban).</P>
+
+<P><U>2. feladat</U>: k&eacute;sz&iacute;ts algoritmust ilyen f&aacute;k
+rekurz&iacute;v bej&aacute;r&aacute;s&aacute;ra!</P>
+
+<P><U>3. feladat</U>: k&eacute;sz&iacute;ts algoritmust elem t&ouml;rl&eacute;s&eacute;re
+&ouml;sszes lesz&aacute;rmazotttj&aacute;val egy&uuml;tt!</P>
+
+<P><U>4. feladat</U>: k&eacute;sz&iacute;ts interakt&iacute;v fakezel&otilde;
+programot! Ez a DOS k&ouml;nyvt&aacute;rkezel&otilde; parancsainak mint&aacute;j&aacute;ra
+k&eacute;sz&iacute;thet&otilde; el. A program ismerje fel a CD, MD, RD,
+DIR &eacute;s TREE parancsokat.</P>
+
+<CENTER><P><A HREF="f8.htm">K&ouml;vetkez&otilde; fejezet<BR>
+</A><A HREF="f6.htm">El&otilde;z&otilde; fejezet<BR>
+</A><A HREF="index.htm">Tartalomjegyz&eacute;k<BR>
+</A><A HREF="../index.htm">Honlap</A></P></CENTER>
+
+</BODY>
+</HTML>
